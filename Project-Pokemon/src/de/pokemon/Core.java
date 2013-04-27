@@ -51,12 +51,29 @@ public class Core extends Applet implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn Fenster geschlossen wird, wird dadurch auch das Programm geschlossen
 		frame.setVisible(true);
 		core.start();
-
+	}
+	
+	public void start() {
+		requestFocus(); //Hauptfenster wird beim starten fokusiert
+		
+		
+		
+		run = true;
+	
+		new Thread(this).start();
+	}
+	
+	public void stop() {
+		run = false;
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(5);
+		} catch (Exception e){
+			System.err.println("Error while trying to sleep Thread");
+		}
 		
 	}
 
