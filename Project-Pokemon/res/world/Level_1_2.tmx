@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tileset-shinygold" tilewidth="16" tileheight="16">
+  <image source="../Dropbox/Programmieren Projekt/Tiled/Maps/tileset-shinygold.png" width="128" height="4300"/>
+ </tileset>
+ <layer name="background" width="50" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3V109TYQCG8cMB0uid/jPGHSdxh2UstICg4lb2tKwyWsqQLdstU2Qp020CjkTv9E7jjcYbvTF6o8+JJZ5EmtQm7fnSfBe/0/TrSfo+CYeGKIoS4gVzqKLEIR4WWJGARCSF/r0vLUxR0pGBTGQhGznIxQIWw7z7Tn84zNZkpOAIjuIYUnFc15HHxnwUoBAHOLTxWoRivMYbAztOsPUkTuE0zuAszuG8rqOEjaUogx3lqEAlqvAW7wzsSGNrOjKQiSxkIwe5ug4HG52ohgs1qEUd6vEeHwLQ0celHwMYxBCGkcfWfBSgEBdgQxGKdR0X2diARjShGS1oRRs+4XMAOu5wGcUYxjGBSZSwtRRlsKMcFahEla7jEhvb0YFOdKEbPejFV3wLQMcUl2nMYBZzmMcaONlbDRdqUIs61Ls7tHsus/EKruIaruMGbuIWfuBnADoecnmEx3iCp3iGzWhgbyOa0IwWtKLN3aHd08fGfgxgEEMYxm2MaPvDFUUN93/HApdFPMcLvMQrRKCdvR3oRBe60YNed0eEQB2RiEIM4hDrfq/n6bNo7fli6yjGMI4JTOIu7mEFDSv93OGA2b3RF1rXFFunMYNZzGEe9/EAq2hYHeAOK5K9ZPmP3ng/NizXsfR9a1VFWYf12ICN2KQuf+5Nc4oBHU5sYd9WbMN27MBO1fO5v59hXzt2sW039mAv9mG/6vncLmhHJNuiEI0YxOKg6vncIWjHIRPv2RcPC6xIgFn99/y7SbwO7f9oIpJMf1698UvADk2qD0Tr0H4/bD5wCdax9HwYuUl2yA5RyA6xyA6xBGPHR1NwdHwJko5g+buSHcaTHWKRHWKRHWKRHWKRHWKRHWKRHWKRHcb7Dd20G6YQJwAA
+  </data>
+ </layer>
+</map>

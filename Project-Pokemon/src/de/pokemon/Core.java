@@ -2,6 +2,7 @@ package de.pokemon;
 
 import java.applet.Applet;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JFrame;
@@ -21,7 +22,9 @@ public class Core extends Applet implements Runnable {
 	
 	private Image screen;
 	
-	public static Dimension screenSize = new Dimension (600, 500); //Auflösung des Hauptfensters (muss noch besprochen werden)
+	public Level level;
+	
+	public static Dimension screenSize = new Dimension (800, 800); //Auflösung des Hauptfensters (muss noch besprochen werden)
 	public static Dimension pixel = new Dimension (screenSize.width, screenSize.height);
 	public static Dimension size;
 	
@@ -35,7 +38,6 @@ public class Core extends Applet implements Runnable {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Core core = new Core();
 		
@@ -56,7 +58,9 @@ public class Core extends Applet implements Runnable {
 	public void start() {
 		requestFocus(); //Hauptfenster wird beim starten fokusiert
 		
-		
+		//define classes
+		level = new Level(1);
+		new Tile();
 		
 		run = true;
 	
@@ -66,15 +70,36 @@ public class Core extends Applet implements Runnable {
 	public void stop() {
 		run = false;
 	}
+	
+	public void tick(){
+		level.tick();
+	}
+	
+	public void render() {
+		Graphics g = screen.getGraphics();
+		
+		level.render(g, (int) oX, (int)oY, (pixel.width / Tile.size) + 2, (pixel.height / Tile.size) + 2);
+		
+		g = this.getGraphics();
+		g.drawImage(screen, 0, 0, screenSize.width, screenSize.height, 0 , 0, pixel.width, pixel.height, null);
+		g.dispose();
+		
+	}
 
 	@Override
 	public void run() {
-		try {
-			Thread.sleep(5);
-		} catch (Exception e){
-			System.err.println("Error while trying to sleep Thread");
-		}
+		screen = createVolatileImage(pixel.width, pixel.height);
 		
+		while(run) {
+			tick();
+			render();
+			
+			try {
+				Thread.sleep(5);
+			} catch (Exception e){
+				System.err.println("Error while trying to sleep Thread");
+			}
+		}
 	}
 
 }
