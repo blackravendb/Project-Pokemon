@@ -44,9 +44,9 @@ public class Tile {
 		
 		try {
 			Tile.background = ImageIO.read(new File("res/bg.png"));
-		//	Tile.terrain = ImageIO.read(new File("res/terrain.png"));
-		//	Tile.items = ImageIO.read(new File("res/items.png"));
-		//	Tile.characters = ImageIO.read(new File("res/chars.png"));
+		//	Tile.terrain = ImageIO.read(new File("res/bg.png"));
+		//	Tile.items = ImageIO.read(new File("res/bg.png"));
+			Tile.characters = ImageIO.read(new File("res/characters.png"));
 		}catch(Exception e){
 			System.err.println("Error while import images");
 		}

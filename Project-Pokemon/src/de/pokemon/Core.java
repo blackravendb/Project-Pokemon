@@ -1,6 +1,7 @@
 package de.pokemon;
 
 import java.applet.Applet;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -21,10 +22,11 @@ public class Core extends Applet implements Runnable {
 	public static boolean run = false; //Ob der Charakter im moment Rennt (fraglich ob diese funktion überhaupt implementiert wird xD)
 	
 	private Image screen;
+	public static Player player;
 	
 	public Level level;
 	
-	public static Dimension screenSize = new Dimension (800, 800); //Auflösung des Hauptfensters (muss noch besprochen werden)
+	public static Dimension screenSize = new Dimension (800, 600); //Auflösung des Hauptfensters (muss noch besprochen werden)
 	public static Dimension pixel = new Dimension (screenSize.width, screenSize.height);
 	public static Dimension size;
 	
@@ -32,6 +34,7 @@ public class Core extends Applet implements Runnable {
 	
 	public Core () {
 		setPreferredSize(screenSize);
+		addKeyListener(new InputManager());
 	}
 	
 	/**
@@ -48,7 +51,7 @@ public class Core extends Applet implements Runnable {
 		size = new Dimension(frame.getWidth(), frame.getHeight());
 		
 		frame.setTitle(name);
-		frame.setResizable(false); //Verhindern, dass der Benutzer die Größe des Bildschirms ändern kann
+		frame.setResizable(true); //Verhindern, dass der Benutzer die Größe des Bildschirms ändern kann
 		frame.setLocationRelativeTo(null); //Zentrieren des Fensters in der Mitte des Bildschirms
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn Fenster geschlossen wird, wird dadurch auch das Programm geschlossen
 		frame.setVisible(true);
@@ -60,6 +63,7 @@ public class Core extends Applet implements Runnable {
 		
 		//define classes
 		level = new Level(1);
+		player = new Player("Player");
 		new Tile();
 		
 		run = true;
@@ -72,13 +76,19 @@ public class Core extends Applet implements Runnable {
 	}
 	
 	public void tick(){
+		frame.pack();
+		player.tick();
 		level.tick();
 	}
 	
 	public void render() {
 		Graphics g = screen.getGraphics();
+		g.setColor(Color.black);
+		g.drawRect(0, 0, screenSize.width, screenSize.height);
 		
+		//absolute Renderreihenfolge im Spielfenster
 		level.render(g, (int) oX, (int)oY, (pixel.width / Tile.size) + 2, (pixel.height / Tile.size) + 2);
+		player.render(g);
 		
 		g = this.getGraphics();
 		g.drawImage(screen, 0, 0, screenSize.width, screenSize.height, 0 , 0, pixel.width, pixel.height, null);

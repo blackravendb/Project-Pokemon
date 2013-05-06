@@ -11,6 +11,8 @@ public class Level {
 	public int width = 50, height = 50;
 	
 	public Background[][] bg = new Background [width][height];
+	public Solid[][] solid = new Solid [width][height];
+	public Item [][] items = new Item [width][height];
 	
 	public final String DPath = "res/world/Level_";
 	public String path = DPath;
@@ -30,6 +32,8 @@ public class Level {
 		for(int x = 0; x < bg.length; x++) {
 			for (int y = 0; y < bg[0].length; y++) {
 				bg[x][y] = new Background(new Rectangle(x * Tile.size, y * Tile.size, Tile.size, Tile.size), Tile.blank);
+				solid[x][y] = new Solid(new Rectangle(x * Tile.size, y * Tile.size, Tile.size, Tile.size), Tile.blank);
+				items[x][y] = new Item(new Rectangle(x * Tile.size, y * Tile.size, Tile.size, Tile.size), Tile.blank);
 				
 				
 				//Mehr Layers hier
@@ -50,6 +54,12 @@ public class Level {
 			for (int y = 0; y < bg[0].length; y++) {
 				//background
 				bg[x][y].id = Tile.TileImageId(map.getTileId(x, y, background));
+				
+				//solid
+				solid[x][y].id = Tile.TileImageId(map.getTileId(x, y, solids));
+				
+				//items
+				items[x][y].id = Tile.TileImageId(map.getTileId(x, y, item));
 				
 			/*	if(map.getTileId(x, y, background) == 1){
 					bg[x][y].id = Tile.grass;					
