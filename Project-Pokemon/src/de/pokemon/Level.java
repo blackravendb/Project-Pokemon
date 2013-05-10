@@ -81,7 +81,7 @@ public class Level {
 		}
 	}
 	
-	public void tick() {
+	public void tick(double delta) {
 		
 	}
 	
@@ -90,6 +90,7 @@ public class Level {
 			for (int y = (camY / Tile.size); y < (camY / Tile.size) + renY; y++){
 				if(x >= 0 && y >= 0 && x < width && y < height) {
 					bg[x][y].render(g);
+					solid[x][y].render(g);
 				}
 			}
 		}

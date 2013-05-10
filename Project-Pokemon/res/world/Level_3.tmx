@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tileset-shinygold" tilewidth="16" tileheight="16">
+  <image source="tileset-shinygold.png" width="128" height="4300"/>
+ </tileset>
+ <layer name="hintergrund" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztzyESgCAUANHP5TShNO9/E34kmCTAOC+8vlsiogAAAAAAAAAAAK+OdA5W93x1pXuwumf2o6Zng57Zj7ZBy590UhYOOg==
+  </data>
+ </layer>
+ <layer name="wege" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt0zEOgCAQRFEaPYCl59FoJXZ6/2NYCYXRUKyEZlnyXzIhoZpJwDkAAAAAAAAAll3dG8ta3DH0djfl9LewLW6IkTwb0lPTmHTO2WEBO+oj7ajhLwAAANRq+ckU4kPmz92q0lTmC7KrNJUdBTlVmrZpc3W9jRt4OCL+
+  </data>
+ </layer>
+ <layer name="zaun" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztyKEBAAAIA6Dd79W+MIsJIgkAAAAAAAAAAAB05vifFsJQARU=
+  </data>
+ </layer>
+ <layer name="sonstiges" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt0jEKhDAQBdC5wNqt3Vp6/yNKYMJqQBQN2rwHvwuZ+SQRAAAAAAAAAACwb8i8vcNdY2aI9zqV+Z/MVVNmjG2nJ5X538ydO+b496mdnlTm/zJXTU1qpx7q+x6d6TGv7t5m/c8izu3Tpn3fvTNzhx4LgFoGWw==
+  </data>
+ </layer>
+ <layer name="wasser" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </data>
+ </layer>
+</map>

@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 
 public class InputManager implements KeyListener{
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		
@@ -29,7 +28,6 @@ public class InputManager implements KeyListener{
 		}
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		
@@ -53,9 +51,6 @@ public class InputManager implements KeyListener{
 		}
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 
 }

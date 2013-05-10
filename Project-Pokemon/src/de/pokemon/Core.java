@@ -12,6 +12,12 @@ public class Core extends Applet implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
+	public final int TARGET_FPS = 60;
+	public final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+	public static long lastFpsTime = 0;
+	public static int fps = 0;
+	public static int renderFps = 0;
+	
 	private static JFrame frame; //Hauptfenster des Spiels
 	
 	public static final int res = 1; //resolution: multiplikator für Bildpunkt * res = Pixelgröße auf Bildschirm
@@ -26,7 +32,7 @@ public class Core extends Applet implements Runnable {
 	
 	public Level level;
 	
-	public static Dimension screenSize = new Dimension (800, 600); //Auflösung des Hauptfensters (muss noch besprochen werden)
+	public static Dimension screenSize = new Dimension (800, 800); //Auflösung des Hauptfensters (muss noch besprochen werden)
 	public static Dimension pixel = new Dimension (screenSize.width, screenSize.height);
 	public static Dimension size;
 	
@@ -36,10 +42,8 @@ public class Core extends Applet implements Runnable {
 		setPreferredSize(screenSize);
 		addKeyListener(new InputManager());
 	}
+
 	
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		Core core = new Core();
@@ -75,10 +79,12 @@ public class Core extends Applet implements Runnable {
 		run = false;
 	}
 	
-	public void tick(){
-		frame.pack();
-		player.tick();
-		level.tick();
+	public void tick(double delta){
+		
+			frame.pack();
+			
+			player.tick(delta);
+			level.tick(delta);		
 	}
 	
 	public void render() {
@@ -88,7 +94,12 @@ public class Core extends Applet implements Runnable {
 		
 		//absolute Renderreihenfolge im Spielfenster
 		level.render(g, (int) oX, (int)oY, (pixel.width / Tile.size) + 2, (pixel.height / Tile.size) + 2);
+		
 		player.render(g);
+		
+		g.setColor(Color.red);
+		g.drawString("oX:" + (int)oX + " oY:" + (int)oY, 405, 20);
+		g.drawString("FPS: " + renderFps, 405, 35);
 		
 		g = this.getGraphics();
 		g.drawImage(screen, 0, 0, screenSize.width, screenSize.height, 0 , 0, pixel.width, pixel.height, null);
@@ -96,18 +107,39 @@ public class Core extends Applet implements Runnable {
 		
 	}
 
-	@Override
 	public void run() {
 		screen = createVolatileImage(pixel.width, pixel.height);
 		
+		long lastLoopTime = System.nanoTime();
+		
 		while(run) {
-			tick();
+			
+			long now = System.nanoTime();
+			long updateLength = now - lastLoopTime;
+			lastLoopTime = now;
+			
+			double delta = updateLength / (double)OPTIMAL_TIME;
+			lastFpsTime += updateLength;
+			fps++;
+			
+			long sleepTime = 0;
+			
+			if(lastFpsTime >= 1000000000) { // 1.000.000.000 ns = 1 Sekunde
+				renderFps = fps;
+				fps = 0;
+				lastFpsTime = 0;
+			}
+			
+			tick(delta);
+			
 			render();
 			
 			try {
-				Thread.sleep(5);
+				sleepTime = (lastLoopTime - System.nanoTime() + OPTIMAL_TIME) / 1000000;
+				Thread.sleep(sleepTime);
 			} catch (Exception e){
-				System.err.println("Error while trying to sleep Thread");
+				if(sleepTime >= 0)
+					System.err.println("Error while trying to sleep Thread");
 			}
 		}
 	}

@@ -6,13 +6,13 @@ import java.awt.Rectangle;
 
 public class Player extends Rectangle {
 	
-	public double moveSpeed = 0.8;
+	public double moveSpeed =1.5;
 	
 	//Spieler Grafik
-	public static int[][] pImgUp= {{0, 1}, {2, 1}};
-	public static int[][] pImgDown= {{0, 3}, {2, 3}};
-	public static int[][] pImgLeft= {{3, 3}, {5, 3}};
-	public static int[][] pImgRight= {{3, 1}, {5, 1}};
+	public static int[][] pImgUp= {{2, 1},{1, 1}, {0, 1},{1, 1}};
+	public static int[][] pImgDown= {{2, 3}, {1, 3}, {0, 3}, {1, 3}};
+	public static int[][] pImgLeft= {{3, 3}, {4, 3}, {5, 3}, {4, 3}};
+	public static int[][] pImgRight= {{5, 1}, {4, 1}, {3, 1}, {4, 1}};
 	public static int[][] pImgStand = {{1, 3}, {1, 1}, {4, 3}, {4, 1}};
 	
 	public static boolean isMoving = false;
@@ -22,10 +22,10 @@ public class Player extends Rectangle {
 	public static boolean right =false;
 	
 	public int aniFrame = 0;
-	public int aniTime = 20;
+	public int aniTime = 8;
 	public int aniDelta = 0;
 	
-	private int lastDir = 0; //letzte Bewegungsrichtung
+	public static int lastDir = 0; //letzte Bewegungsrichtung
 	
 	public Player(String name){
 		width = 16;
@@ -33,32 +33,32 @@ public class Player extends Rectangle {
 		setBounds((Core.pixel.width / 2) - (width / 2), (Core.pixel.height / 2) - (height / 2), width, height);
 	}
 	
-	public void tick() {
+	public void tick(double delta) {
 		
 		aniDelta ++;
 		
 		if(aniDelta >= aniTime){
 			aniFrame ++;
 			aniDelta = 0;
-			if(aniFrame > 1){
+			if(aniFrame > 3){
 				aniFrame = 0;
 			}
 		}
 		
 		if(up){
-			Core.oY -= moveSpeed;
+			Core.oY -= moveSpeed * delta;
 			lastDir = 1;
 		}
 		else if (down){
-			Core.oY += moveSpeed;
+			Core.oY += moveSpeed * delta;
 			lastDir = 0;
 		}
 		else if (left){
-			Core.oX -= moveSpeed;
+			Core.oX -= moveSpeed * delta;
 			lastDir = 2;
 		}
 		else if (right){
-			Core.oX += moveSpeed;
+			Core.oX += moveSpeed * delta;
 			lastDir = 3;
 		}
 	}
@@ -95,7 +95,6 @@ public class Player extends Rectangle {
 				case 3:
 					g.drawImage(Tile.characters, this.x, this.y, x + width, y + height, pImgStand[3][0] * Tile.size, pImgStand[3][1] * Tile.size - Tile.size, pImgStand[3][0] * Tile.size + width, pImgStand[3][1] *Tile.size - Tile.size + height, null);
 					break;
-					
 			}
 		}
 	}

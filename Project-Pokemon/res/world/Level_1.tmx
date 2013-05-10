@@ -15,7 +15,7 @@
  </layer>
  <layer name="collision" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
+   H4sIAAAAAAAAC+3DQQ0AAAgAoUtudlPoCzYKAACAK/MUAAAAAACAWpWgnpQQJwAA
   </data>
  </layer>
 </map>
