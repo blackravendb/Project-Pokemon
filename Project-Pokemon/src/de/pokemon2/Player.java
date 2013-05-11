@@ -1,4 +1,4 @@
-package de.pokemon;
+package de.pokemon2;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
