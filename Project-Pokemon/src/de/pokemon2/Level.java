@@ -54,13 +54,13 @@ public class Level {
 			for (int y = 0; y < bg[0].length; y++) {
 				//background
 				bg[x][y].id = Tile.TileImageId(map.getTileId(x, y, background));
-				
+			//	System.out.println(bg[x][y].id);
 				//solid
 				solid[x][y].id = Tile.TileImageId(map.getTileId(x, y, solids));
+			//	System.out.println(solid[x][y].id);
 				
 				//items
 				items[x][y].id = Tile.TileImageId(map.getTileId(x, y, item));
-				
 			/*	if(map.getTileId(x, y, background) == 1){
 					bg[x][y].id = Tile.grass;					
 				}

@@ -18,6 +18,8 @@ public class Tile {
 	
 	public static int[] TileImageId (int id) {
 		int[] ret = {-1, -1};
+		if(id == 0)
+			return ret;
 		//define x position
 		ret[0] = id % tileSetWidth - 1;
 		

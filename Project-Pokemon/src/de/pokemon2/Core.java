@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -28,11 +30,20 @@ public class Core extends Applet implements Runnable {
 	public static boolean run = false; //Ob der Charakter im moment Rennt (fraglich ob diese funktion überhaupt implementiert wird xD)
 	
 	private Image screen;
-	public static Player player;
+	
+	private ArrayList<Entity> entities = new ArrayList<Entity>();
+	private ArrayList<Entity> removeList = new ArrayList<Entity>();
+	
+	public static EntityPlayer player;
+	
+	public static boolean bW, bS, bA, bD; //Definierte Tasten (ButtonW,...)
+	public static boolean inGame = true; // Game state variable (ingame)
 	
 	public Level level;
 	
-	public static Dimension screenSize = new Dimension (800, 800); //Auflösung des Hauptfensters (muss noch besprochen werden)
+	public static Core core;
+	
+	public static Dimension screenSize = new Dimension (400, 400); //Auflösung des Hauptfensters (muss noch besprochen werden)
 	public static Dimension pixel = new Dimension (screenSize.width, screenSize.height);
 	public static Dimension size;
 	
@@ -41,25 +52,8 @@ public class Core extends Applet implements Runnable {
 	public Core () {
 		setPreferredSize(screenSize);
 		addKeyListener(new InputManager());
-	}
-
-	
-	public static void main(String[] args) {
 		
-		Core core = new Core();
-		
-		frame = new JFrame();
-		frame.add(core);
-		frame.pack();
-		
-		size = new Dimension(frame.getWidth(), frame.getHeight());
-		
-		frame.setTitle(name);
-		frame.setResizable(true); //Verhindern, dass der Benutzer die Größe des Bildschirms ändern kann
-		frame.setLocationRelativeTo(null); //Zentrieren des Fensters in der Mitte des Bildschirms
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn Fenster geschlossen wird, wird dadurch auch das Programm geschlossen
-		frame.setVisible(true);
-		core.start();
+		initEntities();
 	}
 	
 	public void start() {
@@ -67,7 +61,6 @@ public class Core extends Applet implements Runnable {
 		
 		//define classes
 		level = new Level(1);
-		player = new Player("Player");
 		new Tile();
 		
 		run = true;
@@ -83,8 +76,28 @@ public class Core extends Applet implements Runnable {
 		
 			frame.pack();
 			
-			player.tick(delta);
-			level.tick(delta);		
+			if(inGame) {
+				
+				for(int i = 0; i < entities.size(); i++) {
+					Entity entity = (Entity) entities.get(i);
+					entity.move(delta);
+				}
+				
+				for(int i = 0; i < entities.size(); i++) {
+					for(int j = i + 1; j < entities.size(); j++){
+						Entity me = (Entity)entities.get(i);
+						Entity him = (Entity)entities.get(j);
+						if(me.collidesWith(him)){
+							me.collidedWith(him);
+							him.collidedWith(me);
+						}
+					}
+				}
+				
+				entities.remove(removeList);
+				removeList.clear();
+				
+			}
 	}
 	
 	public void render() {
@@ -95,7 +108,10 @@ public class Core extends Applet implements Runnable {
 		//absolute Renderreihenfolge im Spielfenster
 		level.render(g, (int) oX, (int)oY, (pixel.width / Tile.size) + 2, (pixel.height / Tile.size) + 2);
 		
-		player.render(g);
+		for(int i = 0; i < entities.size(); i++) {
+			Entity entity = (Entity) entities.get(i);
+			entity.render(g);
+		}
 		
 		g.setColor(Color.red);
 		g.drawString("oX:" + (int)oX + " oY:" + (int)oY, 405, 20);
@@ -105,6 +121,15 @@ public class Core extends Applet implements Runnable {
 		g.drawImage(screen, 0, 0, screenSize.width, screenSize.height, 0 , 0, pixel.width, pixel.height, null);
 		g.dispose();
 		
+	}
+	
+	public void removeEntity(Entity entity){
+		removeList.add(entity);
+	}
+	
+	public void initEntities(){
+		player = new EntityPlayer(core, screenSize.width / 2 - Tile.size / 2 + oX, screenSize.height / 2 - Tile.size / 2 + oY, Tile.size, Tile.size*2);
+		entities.add(player);
 	}
 
 	public void run() {
@@ -144,4 +169,22 @@ public class Core extends Applet implements Runnable {
 		}
 	}
 
+public static void main(String[] args) {
+		
+		core = new Core();
+		
+		frame = new JFrame();
+		frame.add(core);
+		frame.pack();
+		
+		size = new Dimension(frame.getWidth(), frame.getHeight());
+		
+		frame.setTitle(name);
+		frame.setResizable(true); //Verhindern, dass der Benutzer die Größe des Bildschirms ändern kann
+		frame.setLocationRelativeTo(null); //Zentrieren des Fensters in der Mitte des Bildschirms
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Wenn Fenster geschlossen wird, wird dadurch auch das Programm geschlossen
+		frame.setVisible(true);
+		core.start();
+	}
+	
 }

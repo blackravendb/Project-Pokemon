@@ -10,46 +10,54 @@ public class InputManager implements KeyListener{
 		
 		switch(key){
 		case KeyEvent.VK_W:
-			Core.player.isMoving = true;
-			Core.player.up = true;
+		//	Core.player.isMoving = true;
+			if(!Core.player.isMoving){
+				Core.bW = true;
+			}
 			break;
 		case KeyEvent.VK_S:
-			Core.player.isMoving = true;
-			Core.player.down = true;
+		//	Core.player.isMoving = true;
+			if(!Core.player.isMoving){
+				Core.bS = true;
+			}
 			break;
 		case KeyEvent.VK_A:
-			Core.player.isMoving = true;
-			Core.player.left = true;
+		//	Core.player.isMoving = true;
+			if(!Core.player.isMoving){
+				Core.bA = true;
+			}
 			break;
 		case KeyEvent.VK_D:
-			Core.player.isMoving = true;
-			Core.player.right = true;
+		//	Core.player.isMoving = true;
+			if(!Core.player.isMoving){
+				Core.bD = true;
+			}
 			break;
 		}
 	}
 
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e) { /*
 		int key = e.getKeyCode();
 		
 		switch(key){
 		case KeyEvent.VK_W:
 			Core.player.isMoving = false;
-			Core.player.up = false;
+			Core.bW = false;
 			break;
 		case KeyEvent.VK_S:
 			Core.player.isMoving = false;
-			Core.player.down = false;
+			Core.bS = false;
 			break;
 		case KeyEvent.VK_A:
 			Core.player.isMoving = false;
-			Core.player.left = false;
+			Core.bA = false;
 			break;
 		case KeyEvent.VK_D:
 			Core.player.isMoving = false;
-			Core.player.right = false;
+			Core.bD = false;
 			break;
 		}
-	}
+	*/}
 
 	public void keyTyped(KeyEvent e) {}
 
