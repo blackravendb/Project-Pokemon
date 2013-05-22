@@ -14,7 +14,7 @@ public class freeWorldState extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-		map = new Map("res/world/Level_1.tmx");
+		map = new Map("res/world/testmap.tmx");
 		
 	}
 

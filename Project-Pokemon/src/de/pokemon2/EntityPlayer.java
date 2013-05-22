@@ -46,7 +46,7 @@ public class EntityPlayer extends Entity {
 		aniDelta ++;
 		
 		if(aniDelta >= aniTime){
-			aniFrame ++;
+			aniFrame++;
 			aniDelta = 0;
 			if(aniFrame > 3){
 				aniFrame = 0;
