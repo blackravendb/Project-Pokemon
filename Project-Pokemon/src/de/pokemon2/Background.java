@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 public class Background extends Rectangle{
 	
 	public int[] id = {-1, -1};
+	private int blub; //kann gelöscht werden
 	
 	public Background (Rectangle rect, int id[]){
 		setBounds(rect);
