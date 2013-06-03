@@ -10,7 +10,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jars/slick.jar" sourcepath="C:/Users/Lukas/Dropbox/Prog. Projekt Vorbereitung/Tutorials/libs/Slick/trunk/Slick/src">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/C:/Users/Lukas/Dropbox/Prog. Projekt Vorbereitung/Tutorials/libs/Slick/trunk/Slick/javadoc/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Project-Pokemon/lib/jars/Slick/javadoc.zip!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
