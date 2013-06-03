@@ -1,13 +1,27 @@
 package de.pokemon;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.tiled.GroupObject;
+import org.newdawn.slick.tiled.TiledMapPlus;
 
-public class Map extends TiledMap{
-
-	private TiledMap currentMap;
+public class Map extends TiledMapPlus{
+	/** The current TiledMap*/
+	private TiledMapPlus currentMap;
+	/** 2D boolean array, true if Tile is blocked*/
 	private boolean[][] blocked;
+	/** size of a quadratic tile*/
 	private int tileSize;
+	/** name of the map*/
+	private String name;
+	/** Array of Animation holding the */
+	private Animation[] water = null;
+
 
 	/**
 	 * Creates new tile map and builds up a collision map based on a given tmx file.
@@ -17,10 +31,12 @@ public class Map extends TiledMap{
 	public Map(String ref) throws SlickException{
 		super(ref);
 		setCurrentMap(this);
-		blocked = new boolean[this.getWidth()][this.getHeight()];
-		blocked = this.buildCollisionMap();
-		tileSize = this.getTileWidth();
-
+		name = getMapProperty("name", "unknown name");
+		blocked = new boolean[getWidth()][getHeight()];
+		blocked = buildCollisionMap();
+		tileSize = getTileWidth();
+		createWater();
+		System.out.println(Arrays.deepToString(blocked));
 	}
 
 	/**
@@ -32,40 +48,171 @@ public class Map extends TiledMap{
 	 */
 	private boolean[][] buildCollisionMap() {
 
-		int layerIndex = this.getLayerIndex("collision");
+		int layerIndex = getLayerIndex("collision");
 
-		for (int x = 0; x < this.getWidth(); x++) {
-			for (int y = 0; y < this.getHeight(); y++) {
-				int tileID = this.getTileId(x, y, layerIndex);
-				blocked[x][y] = this.getTileProperty(tileID, "blocked", "false") == "blocked" ? true : false;
+		for (int x = 0; x < getWidth(); x++) {
+			for (int y = 0; y < getHeight(); y++) {
+				int tileID = getTileId(x, y, layerIndex);
+				blocked[x][y] = getTileProperty(tileID, "blocked", "false").equals("true") ? true : false;
 			}
 		}
 
 		return blocked;
 	}
 
-	/**Checks if the tile specified by the x and y coordinate has the property "blocked" on the current map.
+	/**Checks if the tile specified by the x and y coordinate is blocked on the current map.
 	 *
 	 * @param x coordinate
 	 * @param y coordinate
-	 * @return True, if the tile specified by the coordinates is blocked
+	 * @return True, if the tile specified by the coordinates is blocked or out of bounds
 	 */
-	public boolean isBlocked(float x, float y){
-		int xBlock = (int)x / tileSize;	
-		int yBlock = (int)y / tileSize;
-		return blocked[xBlock][yBlock];
+	public boolean isBlocked(int x, int y){
+		if( (x < 0) || (x >= getWidth()) || (y < 0) || (y >= getHeight()) ){
+			return true;
+		}
+
+		return blocked[x][y];
 	}
 
-	public TiledMap getCurrentMap() {
+	/**
+	 * Draws a black Grid on the current map
+	 * @param g Graphics
+	 */
+	public  void showGrid(Graphics g){
+		g.setColor(Color.black);
+		g.setLineWidth(1);
+		for(int i = tileSize; i < getHeight()*tileSize; i = i + tileSize){
+			g.drawLine(0, i, getWidth()*tileSize, i);
+		}
+
+		for(int j = tileSize; j < getHeight()*tileSize; j = j + tileSize){
+			g.drawLine(j-1, 0, j-1, getHeight()*tileSize);
+		}
+	}
+
+	/**
+	 * Displays the blocked array as rectangles. Green Color if true, else red.
+	 * @param g Graphics
+	 */
+	public void showBlocked(Graphics g){
+		for(int i = 0; i < getWidth(); i++)
+			for(int j = 0; j < getHeight(); j++){
+				if(blocked[i][j]){
+					g.setColor(Color.red);	
+				}else{
+					g.setColor(Color.green);
+				}
+				g.setDrawMode(Graphics.MODE_ADD_ALPHA);
+				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
+			}
+		g.setDrawMode(Graphics.MODE_NORMAL);
+	}
+
+	/**
+	 * Tries to get an entrance by its name
+	 * @param name of the object to retrieve
+	 * @return the object or null
+	 */ 
+	public GroupObject getEntrance(String name){
+		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("entrance").iterator();
+		while(itr.hasNext()){
+			GroupObject element = itr.next();
+			if(element.name.equals(name))
+				return element;
+		}
+		return null;	
+	}
+
+	/**
+	 * Tries to get an exit by its name
+	 * @param name of the object to retrieve
+	 * @return the object or null
+	 */ 
+	public GroupObject getExit(String name){
+		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("exit").iterator();
+		while(itr.hasNext()){
+			GroupObject element = itr.next();
+			if(element.name.equals(name))
+				return element;
+		}
+		return null;	
+	}
+
+	/**
+	 * Tries to get a spawn by its name
+	 * @param name of the object to retrieve
+	 * @return the object or null
+	 */ 
+	public GroupObject getSpawn(String name){
+		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("spawn").iterator();
+		while(itr.hasNext()){
+			GroupObject element = itr.next();
+			if(element.name.equals(name))
+				return element;
+		}
+		return null;	
+	}
+
+	/**
+	 * creates the Water Animations by reading from the map. Objects are from the type "water" stored within the "object layer".
+	 */
+	private void createWater() throws SlickException{
+		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("water").iterator();
+
+		water = new Animation[getObjectGroup("object layer").getObjectsOfType("water").size()];
+		int counter = 0;
+		while(itr.hasNext()){
+			GroupObject element = itr.next();
+//			water[counter] = new Animation(true);
+//			for(int i = 0; i < 2; i++){
+//				int x = ((element.gid - 1 + i) % (getTileSetByGID(1).tiles.getWidth()/32)) * 32;
+//				int y = ((element.gid - 1 + i) / (getTileSetByGID(1).tiles.getHeight()/32))* 32;
+//				water[counter].addFrame(getTileSet(0).tiles.getSubImage(x, y, 32,32), 1000);
+//			}
+			water[counter] = new Animation(getTileSet(0).tiles,
+					((element.gid - 1 ) % (getTileSetByGID(1).tiles.getWidth()/32)), //start row
+					((element.gid - 1 ) / (getTileSetByGID(1).tiles.getHeight()/32)), //start coloumn
+					((element.gid) % (getTileSetByGID(1).tiles.getWidth()/32)), //end row 
+					((element.gid) / (getTileSetByGID(1).tiles.getHeight()/32)), //end coloumn
+					true, //horizontal
+					1000, //updatetime
+					true); //autoupdate
+			counter++;
+		}	
+	}
+
+	/**
+	 * renders the water animations for the map
+	 */
+	public void renderWater(){
+		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("water").iterator();
+		while(itr.hasNext()){
+			GroupObject element = itr.next();
+			for(int i = 0; i < water.length; i++){
+				water[i].draw(element.x, element.y);
+			}
+		}
+	}
+
+	public TiledMapPlus getCurrentMap() {
 		return currentMap;
 	}
 
-	public void setCurrentMap(TiledMap currentMap) {
+	public String getCoordinates(double x, double y){		
+		return new String((int)x + "," + (int)y + "\n" + (int)x/getTileSize() + "," + (int)y/getTileSize() + "\n" + name);
+	}
+
+	public void setCurrentMap(TiledMapPlus currentMap) {
 		this.currentMap = currentMap;
 	}
 
-	public Map loadMap(String ref) throws SlickException{
-		return new Map(ref);
+
+	public int getTileSize() {
+		return tileSize;
+	}
+
+	public String getName(){
+		return name;
 	}
 
 }

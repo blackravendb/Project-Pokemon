@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="name" value="Alabasta"/>
+ </properties>
  <tileset firstgid="1" name="tileset32x32.png" tilewidth="32" tileheight="32">
   <image source="tileset32x32.png" width="2048" height="2048"/>
   <tile id="2012">
@@ -9,18 +12,32 @@
   </tile>
  </tileset>
  <layer name="collision" width="25" height="25">
-  <data encoding="base64" compression="zlib">
-   eJy7y87AcHcUk4RpAWhtBzH+oDQMkMXx2YGPT0gcm3vxieNyOzX9gS988NlBTHwMBjsIhRWp6QqXPkrsoBSM2jF87SClvMNnBi4+qWUqOXbgA6N2DH478GFK9IIwAGN+7Ok=
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC7vLzsBwdxSThGkBaG0HMf6gNAyQxfHZgY9PSBybe4kVJ1YNOf7AZw8++wnFBzHqaW0HobAiNV3h0keJHZSCUTuGrx2klHf4zMDFJ7VMJccOfGDUjsFvBz5MiV4QBgBfyNW4xAkAAA==
   </data>
  </layer>
  <layer name="background" width="25" height="25">
-  <data encoding="base64" compression="zlib">
-   eJztlrENgDAQA53fLBQkm8FmMBZGkSdAjgR8cXK60+mbNACdNONuZDevfAc5TStfKUCYUEflezGhDocjYuDskOPtHTPuIf7Usd53Iz18HU8d2ZEd2fH9Dv0fnI4Llpa3hA==
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WsQ2AMBADnd8sFCSbwWYwFkaRJ0COBHxxcrrT6Zs0AJ00425kN698BzlNK18pQJhQR+V7MaEOhyNi4OyQ4+0dM+4h/tSx3ncjPXwdTx3ZkR3Z8f0O/R+cjgsDIsD3xAkAAA==
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
-  <data encoding="base64" compression="zlib">
-   eJztkusKgkAQRsd1c+32UAXd66EKMrq9Vt7fqU9cKcR1jUXyhwOHddH5DoND1FcXSlg5bdXFJvIkqrI40cvWw3h1v493DuWoalbqVc08VziImjmK9hD5EYhBAlLp4zWOX+cYMqIRGIMJmDL9HILr/8e3Y4PMLdiBPTg0cHhcv1eFY4HziswbuIMHeEpH1q9yOA0cR7lXZ5whMiMQgwSk7LNXJwOHafWO/zh8QRSIdh3CJXJdM4fH1fcBnlfIXxs6HF5/r+vrHd12LLMdqSAoZfqK76r6Cscb7cMr3g==
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2SWw6CMBBFL1Ap29LEty5KEzG+tiX42pMXgWgI0xIboh/c5KQ07cxJwwBd/iHay2kr2wCIC6R4CjgHdnxVX5/wLESOlH6lVnrzQHAAzRyG8leUwfHNO6RIDq3s/+PTMfWBGZmTBVn6dkes7HNVOoZcd+y5JwdyJKfCkdVLjrCBY1XM1YbrhT2v5Ebu5OG/52rt4HBN5/iNI9FAqtt16AiIIjdHrOR9j99j9p84OkJl3pvqOsd/O0bZjNSQVnomwr26utLxBEqJgJHECQAA
   </data>
  </layer>
+ <layer name="foreground" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3NuQ0AIADDwEDHt/9MfDuRmpoK+STXloB/9SANN91yO7x/pChlV1x1Lb5/AABwO+AomxzECQAA
+  </data>
+ </layer>
+ <objectgroup name="object layer" width="25" height="25">
+  <object name="house" type="entrance" x="320" y="352" width="32" height="32"/>
+  <object name="player" type="spawn" x="480" y="416" width="32" height="32"/>
+  <object name="house" type="exit" x="320" y="384" width="32" height="32"/>
+  <object name="water" type="water" gid="1796" x="128" y="480"/>
+  <object name="water" type="water" gid="1796" x="160" y="512"/>
+  <object name="water" type="water" gid="1796" x="128" y="512"/>
+  <object name="water" type="water" gid="1796" x="160" y="480"/>
+ </objectgroup>
 </map>

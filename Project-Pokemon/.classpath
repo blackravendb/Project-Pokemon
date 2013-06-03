@@ -3,5 +3,15 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Slick2D"/>
+	<classpathentry kind="lib" path="lib/jars/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Project-Pokemon/lib/natives/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jars/slick.jar" sourcepath="C:/Users/Lukas/Dropbox/Prog. Projekt Vorbereitung/Tutorials/libs/Slick/trunk/Slick/src">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Users/Lukas/Dropbox/Prog. Projekt Vorbereitung/Tutorials/libs/Slick/trunk/Slick/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

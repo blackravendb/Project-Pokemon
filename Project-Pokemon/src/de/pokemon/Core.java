@@ -13,12 +13,18 @@ public class Core extends StateBasedGame {
 		super(name);
 		
 	}
-
+	
+	/** Entry point for game
+	 * 
+	 * @param args
+	 * @throws SlickException
+	 */
 	public static void main(String[] args) throws SlickException {
 		
 		container = new AppGameContainer(new Core("Project Pokemon"));
-		container.setDisplayMode(600, 600, false);
+		container.setDisplayMode(640, 640, false);
 		container.setTargetFrameRate(60);
+		container.setShowFPS(false);
 		container.start();
 		
 	}
