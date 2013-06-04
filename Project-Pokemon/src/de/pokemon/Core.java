@@ -28,7 +28,7 @@ public class Core extends StateBasedGame {
 	public static void main(String[] args) throws SlickException {
 		
 		container = new AppGameContainer(new Core("Project Pokemon"));
-		container.setDisplayMode(640, 640, false);
+		container.setDisplayMode(640, 480, false);
 		container.setTargetFrameRate(60);
 		container.setShowFPS(false);
 		container.start();
