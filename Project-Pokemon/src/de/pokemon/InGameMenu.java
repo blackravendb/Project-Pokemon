@@ -5,16 +5,19 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class InGameMenu {
 
+	StateBasedGame sbg;
 	Rectangle cursor, background;
 	boolean showMenu;
 	private GameContainer gc;
 	private final String[] items = {"Menu", "Resume", "Debug", "Save", "Exit"};
 
-	public InGameMenu(GameContainer gc){
+	public InGameMenu(GameContainer gc,StateBasedGame sbg){
 		this.gc = gc;
+		this.sbg = sbg;
 		cursor = new Rectangle(gc.getWidth()-gc.getWidth()/5,32,128,32);
 		background = new Rectangle(gc.getWidth()-gc.getWidth()/5,0,gc.getWidth()/5,items.length*32);
 
@@ -37,19 +40,20 @@ public class InGameMenu {
 			if(cursor.getY() == 32){
 				showMenu = false;
 			}else if(cursor.getY() == 64){
-				if(!freeWorldState.debug){
-					freeWorldState.debug = true;
+				if(!PlayState.debug){
+					PlayState.debug = true;
 					gc.setShowFPS(true);
 				}
 				else{
-					freeWorldState.debug = false;
+					PlayState.debug = false;
 					gc.setShowFPS(false);
 				}
 			}else if(cursor.getY() == 96){
 				//TODO Saving the game
 			}else if(cursor.getY() == 128){
 				//TODO Dialog for exit
-				gc.exit();
+				sbg.enterState(Core.menu);
+				
 			}
 		}
 		

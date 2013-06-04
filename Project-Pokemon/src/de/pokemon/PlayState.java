@@ -10,15 +10,19 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
-public class freeWorldState extends BasicGameState {
+public class PlayState extends BasicGameState {
 
-	public static final int ID = 1;
+	public static int ID;
 	public static boolean debug;
 	Map map;
 	Camera camera;
 	Rectangle player;
 	InGameMenu menu;
 
+	public PlayState(int id){
+		ID = id;
+	}
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -27,7 +31,7 @@ public class freeWorldState extends BasicGameState {
 		map = new Map("res/world/testmap.tmx");
 		camera = new Camera(container, map);
 		camera.centerOn(player);
-		menu = new InGameMenu(container);
+		menu = new InGameMenu(container,game);
 		debug = false;
 	}
 

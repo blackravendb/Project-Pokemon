@@ -8,10 +8,16 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Core extends StateBasedGame {
 
 	static AppGameContainer container;
+	public static final int menu = 0;
+	public static final int play = 1;
+	public static final int devtools = 2;
 	
 	public Core(String name) throws SlickException {
 		super(name);
-		
+		this.addState(new Menu(menu));
+		this.addState(new PlayState(play));
+		//this.addState(new DevTools(devtools));
+
 	}
 	
 	/** Entry point for game
@@ -30,7 +36,10 @@ public class Core extends StateBasedGame {
 	}
 
 	public void initStatesList(GameContainer gc) throws SlickException {
-		this.addState(new freeWorldState());
+		this.getState(menu).init(gc, this);
+		this.getState(play).init(gc, this);
+		//this.getState(devtools).init(gc, this);
+		this.enterState(menu);
 	}
 
 }
