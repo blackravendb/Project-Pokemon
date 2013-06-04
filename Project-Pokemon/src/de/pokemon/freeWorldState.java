@@ -17,7 +17,7 @@ public class freeWorldState extends BasicGameState {
 	Map map;
 	Camera camera;
 	Rectangle player;
-	Menu menu;
+	InGameMenu menu;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -27,7 +27,7 @@ public class freeWorldState extends BasicGameState {
 		map = new Map("res/world/testmap.tmx");
 		camera = new Camera(container, map);
 		camera.centerOn(player);
-		menu = new Menu(container);
+		menu = new InGameMenu(container);
 		debug = false;
 	}
 

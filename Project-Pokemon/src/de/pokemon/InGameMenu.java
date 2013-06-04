@@ -6,14 +6,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Menu {
+public class InGameMenu {
 
 	Rectangle cursor, background;
 	boolean showMenu;
 	private GameContainer gc;
 	private final String[] items = {"Menu", "Resume", "Debug", "Save", "Exit"};
 
-	public Menu(GameContainer gc){
+	public InGameMenu(GameContainer gc){
 		this.gc = gc;
 		cursor = new Rectangle(gc.getWidth()-gc.getWidth()/5,32,128,32);
 		background = new Rectangle(gc.getWidth()-gc.getWidth()/5,0,gc.getWidth()/5,items.length*32);

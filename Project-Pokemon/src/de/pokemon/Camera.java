@@ -66,13 +66,13 @@ public class Camera {
       cameraX = x - gc.getWidth()  / 2;
       cameraY = y - gc.getHeight() / 2;
       
-//      //if the camera is at the right or left edge lock it to prevent a black bar
-//      if(cameraX < 0) cameraX = 0;
-//      if(cameraX + gc.getWidth() > mapWidth) cameraX = mapWidth - gc.getWidth();
-//      
-//      //if the camera is at the top or bottom edge lock it to prevent a black bar
-//      if(cameraY < 0) cameraY = 0;
-//      if(cameraY + gc.getHeight() > mapHeight) cameraY = mapHeight - gc.getHeight();
+      //if the camera is at the right or left edge lock it to prevent a black bar
+      if(cameraX < 0) cameraX = 0;
+      if(cameraX + gc.getWidth() > mapWidth) cameraX = mapWidth - gc.getWidth();
+      
+      //if the camera is at the top or bottom edge lock it to prevent a black bar
+      if(cameraY < 0) cameraY = 0;
+      if(cameraY + gc.getHeight() > mapHeight) cameraY = mapHeight - gc.getHeight();
    }
    
    /**
