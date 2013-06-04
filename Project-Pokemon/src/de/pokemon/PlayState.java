@@ -12,12 +12,20 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayState extends BasicGameState {
 
-	public static int ID;
-	public static boolean debug;
+	/** ID of the state*/
+	public static int ID; // ID of this state
+	
+	//public static boolean debug; // if debug option is activated
+	/** reference for the map*/
 	Map map;
+	/** reference for the camera*/
 	Camera camera;
+	/** for now a player is a rectangle ^.^ */
 	Rectangle player;
+	/** reference for the inGameMenu */
 	InGameMenu menu;
+	/** reference for the*/
+	Input input;
 
 	public PlayState(int id){
 		ID = id;
@@ -32,7 +40,7 @@ public class PlayState extends BasicGameState {
 		camera = new Camera(container, map);
 		camera.centerOn(player);
 		menu = new InGameMenu(container,game);
-		debug = false;
+		
 	}
 
 	@Override
@@ -40,20 +48,24 @@ public class PlayState extends BasicGameState {
 			throws SlickException {
 
 		camera.drawMap();
-
-		camera.translateGraphics();
 		
-		if(debug){
-			map.showGrid(g);
+		camera.translateGraphics();
+		//DRAW EVERYTHING AT NORMAL POSITION ON THE MAP AFTER TRANSLATEGRAPHICS
+		gc.setShowFPS(menu.showFps);
+		
+		if(menu.showGrid){
+			map.showGrid(g);	
+		}
+		
+		if(menu.showBlocked){
 			map.showBlocked(g);
 		}
 
-		g.setColor(Color.white);
-		//g.draw(player);
-
 		camera.untranslateGraphics();
+		// DRAW THE HUD AND MENU AFTER UNTRANSLATEGRAPHIS
 		
-		if(debug){
+		if(menu.showPosition){
+			g.setColor(Color.white);
 			g.drawString(map.getCoordinates(player.getX(), player.getY()), 10, 30);
 		}
 		if(menu.showMenu){
@@ -66,9 +78,10 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 
-		Input input = gc.getInput();
+		input = gc.getInput();
 		float speed = (float) delta*0.2f;
 
+		//if menu is not open yet process normal input 
 		if(!menu.showMenu){
 			if(input.isKeyDown(Input.KEY_W)){
 				player.setY(player.getY()- speed);
@@ -91,7 +104,7 @@ public class PlayState extends BasicGameState {
 //				}
 //			}
 
-			if(input.isKeyDown(Input.KEY_ESCAPE)){
+			if(input.isKeyPressed(Input.KEY_ESCAPE)){
 				menu.showMenu = true;
 			}
 			
@@ -99,6 +112,7 @@ public class PlayState extends BasicGameState {
 			menu.update(input);
 			
 		}
+		
 		input.clearKeyPressedRecord();	
 	}
 

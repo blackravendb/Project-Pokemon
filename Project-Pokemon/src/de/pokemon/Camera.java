@@ -1,4 +1,5 @@
 package de.pokemon;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;
 
@@ -147,6 +148,7 @@ public class Camera {
        translateGraphics();
        
        map.renderWater();
+       gc.getGraphics().setColor(Color.white);
        gc.getGraphics().draw(shape);
        
        untranslateGraphics();

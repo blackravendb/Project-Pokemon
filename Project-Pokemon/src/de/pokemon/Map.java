@@ -36,7 +36,7 @@ public class Map extends TiledMapPlus{
 		blocked = buildCollisionMap();
 		tileSize = getTileWidth();
 		createWater();
-		System.out.println(Arrays.deepToString(blocked));
+		//System.out.println(Arrays.deepToString(blocked));
 	}
 
 	/**

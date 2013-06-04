@@ -63,9 +63,8 @@ public class Menu extends BasicGameState{
 		
 			if(pointy == 265){ // Spiel starten
 				if(input.isKeyPressed(Input.KEY_ENTER)){
-				
-					sbg.enterState(Core.play);
-					
+					sbg.getState(Core.play).init(gc, sbg); // init state to create a new game
+					sbg.enterState(Core.play);	
 				}
 			}
 		
