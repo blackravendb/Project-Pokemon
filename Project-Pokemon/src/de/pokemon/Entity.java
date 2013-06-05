@@ -85,11 +85,12 @@ public class Entity {
 	}
 	
 	protected void renderEntity (){
+		//TODO
 		image.getSubImage(0, 0, width, height).draw(posX,posY);
 	}
 	
 	public void updateEntity (Input input){
-		
+		//TODO
 	}
 	
 	
