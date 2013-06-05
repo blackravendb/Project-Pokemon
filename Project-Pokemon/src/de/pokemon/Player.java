@@ -1,5 +1,6 @@
 package de.pokemon;
 
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Player extends Entity {
@@ -11,6 +12,12 @@ public class Player extends Entity {
 	public void renderPlayer() {
 		super.renderEntity();
 	}
+	
+	public void updatePlayer(Input input) {
+		super.updateEntity(input);
+	}
+	
+	
 
 
 
