@@ -92,6 +92,7 @@ public class PlayState extends BasicGameState {
 			}else if(input.isKeyDown(Input.KEY_D)){
 				player.setX(player.getX()+ speed);
 			}
+			
 			camera.centerOn(player);
 
 			//TODO check boolean if not moving 
