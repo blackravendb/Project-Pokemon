@@ -10,6 +10,7 @@ public class Core extends StateBasedGame {
 	
 	public static final int menu = 0;
 	public static final int play = 1;
+	public static final int tileSize = 32;
 	
 	
 	public Core(String name) throws SlickException {
