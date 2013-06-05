@@ -35,7 +35,7 @@ public class Camera {
    /** the y-position of our "camera" in pixel */
    public static float cameraY;
    Shape shape;
- //  Player player = new Player(); TODO
+   Player player;
    /**
     * Create a new camera
     * 
