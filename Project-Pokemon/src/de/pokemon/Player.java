@@ -1,10 +1,13 @@
 package de.pokemon;
 
+import org.newdawn.slick.SlickException;
+
 public class Player extends Entity {
 	
-	
-	public void renderPlayer(){
-		
+	Player(int posX, int posY, int width, int height, String imagePath) throws SlickException {
+		super(posX, posY, width, height, imagePath);
 	}
+
+
 
 }
