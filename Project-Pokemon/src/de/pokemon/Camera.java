@@ -89,6 +89,11 @@ public class Camera {
       this.centerOn(x + width / 2, y + height / 2);
    }
 
+   public void centerOn(Player player){
+	   this.player = player;
+	   this.centerOn(player.getPosX(),player.getPosY());
+   }
+   
    /**
     * "locks the camera on the center of the given Shape. The camera tries to keep the location in it's center.
     * @param shape the Shape which should be centered on the screen
@@ -150,8 +155,7 @@ public class Camera {
        
        map.renderWater();
        gc.getGraphics().setColor(Color.white);
-       gc.getGraphics().draw(shape);
-       
+       player.renderPlayer();
        untranslateGraphics();
        
        map.render(   
