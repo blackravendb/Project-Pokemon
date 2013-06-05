@@ -84,8 +84,8 @@ public class Entity {
 		return false;
 	}
 	
-	public void renderEntity (){
-		image.getSubImage(0, 0, 32, 32).draw(0,0);
+	protected void renderEntity (){
+		image.getSubImage(0, 0, width, height).draw(posX,posY);
 	}
 	
 	public void updateEntity (Input input){
