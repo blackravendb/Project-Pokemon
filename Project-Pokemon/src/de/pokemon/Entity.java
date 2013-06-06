@@ -13,7 +13,10 @@ public class Entity {
 	private int height;
 	private int tileX;
 	private int tileY;
+	private int moveSpeed = 2;
+	
 	private static LastDir lastDir = LastDir.DOWN; /** Angabe ueber letzte Bewegungsrichtung, wobei 0 = down, 1 = right, 2 = top, 3 = left entspricht */
+
 	
 	private enum LastDir {DOWN, LEFT, UP, RIGHT};
 	
@@ -161,35 +164,102 @@ public class Entity {
 	}
 	
 	public void updateEntity (Input input){
-		if(input.isKeyDown(Input.KEY_A)){
+		if(isRunning){
+			if(lastDir == LastDir.DOWN){
+				if(posY % Core.tileSize == 0){
+					isRunning = false;
+				}
+				else {
+					posY += moveSpeed;
+				}
+			}
+			else if(lastDir == LastDir.UP){
+				if(posY % Core.tileSize == 0){
+					isRunning = false;
+				}
+				else {
+					posY -= moveSpeed;
+				}
+				
+			}
+			else if (lastDir == LastDir.LEFT){
+				if(posX % Core.tileSize == 0){
+					isRunning = false;
+				}
+				else {
+					posX -= moveSpeed;
+				}
+			}
+			else if(lastDir == LastDir.RIGHT){
+				if(posX % Core.tileSize == 0){
+					isRunning = false;
+				}
+				else {
+					posX += moveSpeed;
+				}
+			}
+		}
+		else if(input.isKeyDown(Input.KEY_A)){
 			lastDir = LastDir.LEFT;
 			isRunning = true;
-			posX -= 1;
+			posX -= moveSpeed;
 		}
 		
 		else if(input.isKeyDown(Input.KEY_W)){
 			lastDir = LastDir.UP;
 			isRunning = true;
-			posY -= 1;
+			posY -= moveSpeed;
 		}
 		
 		else if(input.isKeyDown(Input.KEY_D)){
 			lastDir = LastDir.RIGHT;
 			isRunning = true;
-			posX += 1;
+			posX += moveSpeed;
 		}
 		
 		else if(input.isKeyDown(Input.KEY_S)){
 			lastDir = LastDir.DOWN;
 			isRunning = true;
-			posY += 1;
+			posY += moveSpeed;
 		}
 		else{
-			aniLeft.restart();
-			aniRight.restart();
-			aniUp.restart();
-			aniDown.restart();
-			isRunning = false;
+			
+			if(lastDir == LastDir.DOWN){
+				if(posY % Core.tileSize != 0){
+					posY += moveSpeed;
+				}
+				else{
+					isRunning = false;
+					aniDown.restart();
+				}
+			}
+			else if (lastDir == LastDir.UP){
+				if(posY % Core.tileSize != 0){
+					posY -= moveSpeed;
+				}
+				else{
+					isRunning = false;
+					aniUp.restart();
+				}
+			}
+			else if (lastDir == LastDir.RIGHT){
+				if(posX % Core.tileSize != 0){
+					posX += moveSpeed;
+				}
+				else{
+					isRunning = false;
+					aniRight.restart();
+				}
+			}
+			else if (lastDir == LastDir.LEFT){
+				if(posX % Core.tileSize != 0){
+					posX -= moveSpeed;
+				}
+				else{
+					isRunning = false;
+					aniLeft.restart();
+				}
+			}
 		}
 	}
 }
