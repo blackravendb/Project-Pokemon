@@ -91,7 +91,9 @@ public class InGameMenu {
 		if(input.isKeyPressed(Input.KEY_W)){
 			if(cursor.getCenterY() > 48){
 				cursor.setY(cursor.getY() - 32);
-			} 
+			}else if(cursor.getCenterY() == 48){ //jump to exit
+		 		cursor.setLocation(x+16, Arrays.binarySearch(mainItems, "Exit")*32+8);
+			}
 		}else if(input.isKeyPressed(Input.KEY_S)){
 			if(cursor.getCenterY() < background.getMaxY()-16){
 				cursor.setY(cursor.getY() + 32);

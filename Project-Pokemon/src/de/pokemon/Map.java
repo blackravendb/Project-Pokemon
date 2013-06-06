@@ -12,7 +12,7 @@ public class Map extends TiledMapPlus{
 	/** The current TiledMap*/
 	private TiledMapPlus currentMap;
 	/** 2D boolean array, true if Tile is blocked*/
-	private boolean[][] blocked;
+	public  boolean[][] blocked;
 	/** size of a quadratic tile*/
 	private int tileSize;
 	/** name of the map*/
@@ -64,7 +64,7 @@ public class Map extends TiledMapPlus{
 	 * @param y coordinate
 	 * @return True, if the tile specified by the coordinates is blocked or out of bounds
 	 */
-	public boolean isBlocked(int x, int y){
+	public  boolean isBlocked(int x, int y){
 		if( (x < 0) || (x >= getWidth()) || (y < 0) || (y >= getHeight()) ){
 			return true;
 		}
@@ -195,8 +195,13 @@ public class Map extends TiledMapPlus{
 		return currentMap;
 	}
 
-	public String getCoordinates(double x, double y){		
-		return new String((int)x + "," + (int)y + "\n" + (int)x/getTileSize() + "," + (int)y/getTileSize() + "\n" + name);
+	public String getCoordinates(double x, double y, int tileX, int tileY){		
+		return new String((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name);
+	}
+	
+	public void showPlayerPosition(Graphics g, double x, double y, int tileX, int tileY){
+		g.setColor(Color.white);
+		g.drawString((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name, 10, 30);
 	}
 
 	public void setCurrentMap(TiledMapPlus currentMap) {

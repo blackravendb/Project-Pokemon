@@ -1,6 +1,5 @@
 package de.pokemon;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -64,8 +63,8 @@ public class PlayState extends BasicGameState {
 		// DRAW THE HUD AND MENU AFTER UNTRANSLATEGRAPHIS
 		
 		if(menu.showPosition){
-			g.setColor(Color.white);
-			g.drawString(map.getCoordinates(player.getPosX(), player.getPosY()+Core.tileSize), 10, 30);
+			map.showPlayerPosition(g, player.getPosX(), player.getPosY(),player.getTileX(),player.getTileY());
+			//g.drawString(map.getCoordinates(player.getPosX(), player.getPosY(),player.getTileX(),player.getTileY()), 10, 30);
 		}
 		if(menu.showMenu){
 			menu.render(g);
