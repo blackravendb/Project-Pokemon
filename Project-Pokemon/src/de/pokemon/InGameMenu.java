@@ -40,7 +40,7 @@ public class InGameMenu {
 	/** the main-menu background*/
 	private Rectangle background;
 	/** the main menu items */
-	private final String[] mainItems = {"Menu", "Resume", "Debug", "Save", "Exit"};
+	private final String[] mainItems = {"Menu", "Resume", "Debug", "Save", "Exit"}; // TODO make ArrayLists
 	/** the debug submenu items */
 	private final String[] debugItems = {"Debug", "FPS", "Grid", "Blocked", "Position", "Back"};
 	/** the triangle cursor*/
@@ -70,6 +70,9 @@ public class InGameMenu {
 		showBlocked = false;
 		showPosition = false;
 		showMain = false;
+		
+		System.out.println(Arrays.binarySearch(mainItems, "Debug"));
+		
 	}
 
 	/** Updates the menu, e.g. cursor position, processes Input, adjusts the background of the menu to fit the items
@@ -91,12 +94,14 @@ public class InGameMenu {
 		if(input.isKeyPressed(Input.KEY_W)){
 			if(cursor.getCenterY() > 48){
 				cursor.setY(cursor.getY() - 32);
-			}//else if(cursor.getCenterY() == 48){ //jump to exit
-		 	//	cursor.setLocation(x+16, Arrays.binarySearch(mainItems, "Exit")*32+8);
-			//}
+			}else{  //jump to exit
+		 		cursor.setCenterY(background.getMaxY()-16);
+			}
 		}else if(input.isKeyPressed(Input.KEY_S)){
 			if(cursor.getCenterY() < background.getMaxY()-16){
 				cursor.setY(cursor.getY() + 32);
+			}else{
+				resetCursor();
 			}
 		}
 
@@ -205,7 +210,7 @@ public class InGameMenu {
 	}
 	
 	/**
-	 * Reset the cursor the its original position
+	 * Reset the cursor the its first position
 	 */
 	private void resetCursor(){
 		cursor.setLocation(x+16, 40);
