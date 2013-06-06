@@ -91,11 +91,11 @@ public class InGameMenu {
 		if(input.isKeyPressed(Input.KEY_W)){
 			if(cursor.getCenterY() > 48){
 				cursor.setY(cursor.getY() - 32);
-			}
+			} 
 		}else if(input.isKeyPressed(Input.KEY_S)){
 			if(cursor.getCenterY() < background.getMaxY()-16){
 				cursor.setY(cursor.getY() + 32);
-			}	
+			}
 		}
 
 		if(input.isKeyPressed(Input.KEY_ENTER)){
@@ -208,15 +208,15 @@ public class InGameMenu {
 	private void resetCursor(){
 		cursor.setLocation(x+16, 40);
 	}
-	/**The shape slides
+	
+	/**The shape slides in from the right until it is fully visible.
 	 * 
 	 * @param shape
 	 * @param startX
 	 * @param startY
 	 */
-	public void slideIn(Shape shape, int startX, int startY) {
-		shape.setLocation(startX, startY - shape.getMaxY()); 
-		shape.setLocation(startX, startY + shape.getHeight()); // x location is constant
-
+	public void slideFromRight(Shape shape) {
+		shape.setLocation(gc.getWidth(), 0); 
+		shape.setLocation(gc.getWidth() - shape.getWidth(), 0); 
 	}
 }

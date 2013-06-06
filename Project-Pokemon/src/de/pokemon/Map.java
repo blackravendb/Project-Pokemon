@@ -1,8 +1,6 @@
 package de.pokemon;
 
-import java.util.Arrays;
 import java.util.Iterator;
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -70,7 +68,6 @@ public class Map extends TiledMapPlus{
 		if( (x < 0) || (x >= getWidth()) || (y < 0) || (y >= getHeight()) ){
 			return true;
 		}
-
 		return blocked[x][y];
 	}
 

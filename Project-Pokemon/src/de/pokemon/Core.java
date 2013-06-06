@@ -10,6 +10,7 @@ public class Core extends StateBasedGame {
 	
 	public static final int menu = 0;
 	public static final int play = 1;
+	public static final int intro = 2;
 	public static final int tileSize = 32;
 	
 	
@@ -41,6 +42,7 @@ public class Core extends StateBasedGame {
 		//this.getState(devtools).init(gc, this);
 		this.addState(new Menu(menu));
 		this.addState(new PlayState(play));
+		this.addState(new IntroState(intro));
 		this.enterState(menu);
 	}
 
