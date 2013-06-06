@@ -9,9 +9,13 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Menu extends BasicGameState{
 	public static int ID;
 	Image pokemon;
+	Image bild;
 	
 	public int imagex;
 	public int imagey;
+	
+	public int imagebildx;
+	public int imagebildy;
 	
 	public int rectx;
 	public int recty;
@@ -45,24 +49,28 @@ public class Menu extends BasicGameState{
 	}
 	
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
-		pokemon = new Image("res/url2.jpg");
+		pokemon = new Image("res/Pokemon-Logo.png");
 		cursor = new Polygon(cursorPoints); 
+		bild = new Image("res/Pokemon-Bild.jpg");
 		
-		imagex = gc.getWidth()/2 - pokemon.getWidth()/2;
+		imagex = (gc.getWidth() - pokemon.getWidth())/2;
 		imagey = 0;
 		
+		imagebildx = gc.getWidth() - bild.getWidth();
+		imagebildy = gc.getHeight() - bild.getHeight();
+				
 		menüx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Menu"))/2;
 		menüy = pokemon.getHeight() + 5;
 		
 		rectbreite = 150;
-		recthöhe = gc.getHeight()/2;
+		recthöhe = gc.getHeight()/3;
 		rectx = (gc.getWidth() - rectbreite)/2;
-		recty = pokemon.getHeight() + 20;
+		recty = pokemon.getHeight() + 30;
 		
-		spielfortsetzenx = rectx + 15;
+		spielfortsetzenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Continue Game"))/2;
 		spielfortsetzeny = recty + 10;;
 		
-		neuesspielx = spielfortsetzenx;
+		neuesspielx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("New Game"))/2;
 		neuesspiely = spielfortsetzeny + 40;
 		
 		pointx = spielfortsetzenx - 8;
@@ -70,16 +78,17 @@ public class Menu extends BasicGameState{
 		
 		cursor.setLocation(pointx, pointy);
 		
-		spielladenx = spielfortsetzenx;
+		spielladenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Load Game"))/2;
 		spielladeny = neuesspiely + 40;
 		
-		spielbeendenx = spielfortsetzenx;
+		spielbeendenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Quit Game"))/2;;
 		spielbeendeny = spielladeny + 40;
 		
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		g.setColor(Color.white);
+		g.drawImage(bild, imagebildx, imagebildy);
 		g.drawString("Menu", menüx, menüy);
 		g.drawString("Continue Game", spielfortsetzenx, spielfortsetzeny);
 		g.drawString("New Game", neuesspielx, neuesspiely);
@@ -88,6 +97,7 @@ public class Menu extends BasicGameState{
 		g.fill(cursor);
 		g.drawRect(rectx, recty, rectbreite, recthöhe); //x,y, breite, höhe
 		g.drawImage(pokemon, imagex, imagey);
+		
 		
 	}
 	
