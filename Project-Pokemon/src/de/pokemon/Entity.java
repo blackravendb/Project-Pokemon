@@ -11,6 +11,8 @@ public class Entity {
 	private int posY;
 	private int width;
 	private int height;
+	private int blockedX;
+	private int blockedY;
 	private int tileX;
 	private int tileY;
 	private int moveSpeed = 2;
@@ -22,16 +24,19 @@ public class Entity {
 	
 	private Image image;
 	
-	private Boolean isRunning = false;
+	private boolean isRunning = false;
+	private boolean isStanding = true;
 	
 	private Image charImages[][] = new Image[4][4];
 	private Animation aniLeft, aniUp, aniRight, aniDown;
 	
-	Entity (int posX, int posY, int width, int height, String imagePath) throws SlickException{
+	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException{
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
 		this.height = height;
+		this.blockedX = blockedX;
+		this.blockedY = blockedY;
 		
 		image = new Image(imagePath);
 		
@@ -68,7 +73,6 @@ public class Entity {
 		aniRight = new Animation(charImages[3],200);
 		aniUp = new Animation(charImages[2],200);
 		aniDown = new Animation(charImages[0],200);
-
 	}
 	
 	public int getPosX(){
@@ -132,8 +136,7 @@ public class Entity {
 	}
 	
 	protected void renderEntity (){
-		//TODO
-		if(isRunning){
+		if(!isStanding){
 			//Bewegungsanimation
 			if(lastDir == LastDir.LEFT){
 				aniLeft.draw(posX, posY);
@@ -212,25 +215,36 @@ public class Entity {
 		else if(input.isKeyDown(Input.KEY_A)){
 			lastDir = LastDir.LEFT;
 			isRunning = true;
+			isStanding = false;
 			posX -= moveSpeed;
 		}
 		
 		else if(input.isKeyDown(Input.KEY_W)){
 			lastDir = LastDir.UP;
 			isRunning = true;
+			isStanding = false;
 			posY -= moveSpeed;
 		}
 		
 		else if(input.isKeyDown(Input.KEY_D)){
 			lastDir = LastDir.RIGHT;
 			isRunning = true;
+			isStanding = false;
 			posX += moveSpeed;
 		}
 		
 		else if(input.isKeyDown(Input.KEY_S)){
 			lastDir = LastDir.DOWN;
 			isRunning = true;
+			isStanding = false;
 			posY += moveSpeed;
+		}
+		else {
+			aniLeft.restart();
+			aniUp.restart();
+			aniRight.restart();
+			aniDown.restart();
+			isStanding = true;
 		}
 	}
 }
