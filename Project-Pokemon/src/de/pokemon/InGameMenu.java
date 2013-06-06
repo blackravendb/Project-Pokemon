@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class InGameMenu {
@@ -80,7 +81,7 @@ public class InGameMenu {
 		if(showMenu && !showDebug){
 			showMain = true;
 		}
-
+		
 		if(showMain){
 			background.setHeight(mainItems.length*32);
 		}else if(showDebug){
@@ -200,10 +201,22 @@ public class InGameMenu {
 			
 		}
 	}
+	
 	/**
 	 * Reset the cursor the its original position
 	 */
 	private void resetCursor(){
 		cursor.setLocation(x+16, 40);
+	}
+	/**The shape slides
+	 * 
+	 * @param shape
+	 * @param startX
+	 * @param startY
+	 */
+	public void slideIn(Shape shape, int startX, int startY) {
+		shape.setLocation(startX, startY - shape.getMaxY()); 
+		shape.setLocation(startX, startY + shape.getHeight()); // x location is constant
+
 	}
 }

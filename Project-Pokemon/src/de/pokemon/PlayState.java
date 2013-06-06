@@ -78,20 +78,10 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 		input = gc.getInput();
-		float speed = (float) delta*0.2f;
 
 		//if menu is not open yet process normal input 
 		if(!menu.showMenu){
-			if(input.isKeyDown(Input.KEY_W)){
-				player.setPosY(player.getPosY()- (int) speed);
-			}else if(input.isKeyDown(Input.KEY_S)){
-				player.setPosY(player.getPosY()+ (int)speed);
-			}else if(input.isKeyDown(Input.KEY_A)){
-				player.setPosX(player.getPosX()- (int)speed);
-			}else if(input.isKeyDown(Input.KEY_D)){
-				player.setPosX(player.getPosX()+ (int) speed);
-			}
-			
+			player.updatePlayer(input);			
 			camera.centerOn(player);
 
 			//TODO check boolean if not moving 
