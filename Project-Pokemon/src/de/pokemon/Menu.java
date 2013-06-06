@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Menu extends BasicGameState{
 	public static int ID;
+	
 	Image pokemon;
 	Image bild;
 	
@@ -19,7 +20,6 @@ public class Menu extends BasicGameState{
 	
 	public int rectx;
 	public int recty;
-	
 	public int rectbreite;
 	public int recthöhe;
 	
@@ -48,6 +48,7 @@ public class Menu extends BasicGameState{
 		ID = state;
 	}
 	
+	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		pokemon = new Image("res/Pokemon-Logo.png");
 		cursor = new Polygon(cursorPoints); 
@@ -86,6 +87,7 @@ public class Menu extends BasicGameState{
 		
 	}
 	
+	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		g.setColor(Color.white);
 		g.drawImage(bild, imagebildx, imagebildy);
@@ -101,6 +103,7 @@ public class Menu extends BasicGameState{
 		
 	}
 	
+	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
 		Input input = gc.getInput();
@@ -137,8 +140,10 @@ public class Menu extends BasicGameState{
 
 			else if(pointy == neuesspiely + 4){ // neues Spiel
 				if(input.isKeyPressed(Input.KEY_ENTER)){
-					sbg.getState(Core.play).init(gc, sbg); // init state to create a new game
-					sbg.enterState(Core.play);	
+					sbg.enterState(Core.intro);
+					
+					/*sbg.getState(Core.play).init(gc, sbg); // init state to create a new game
+					sbg.enterState(Core.play);	*/
 				}
 			}
 			
