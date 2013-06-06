@@ -21,11 +21,8 @@ public class Entity {
 	
 	private Boolean isRunning = false;
 	
-	private Image charImages[][] = new Image[4][3];
-	private Animation aniLeft;
-	private Animation aniUp = new Animation();
-	private Animation aniRight = new Animation();
-	private Animation aniDown = new Animation();;
+	private Image charImages[][] = new Image[4][4];
+	private Animation aniLeft, aniUp, aniRight, aniDown;
 	
 	Entity (int posX, int posY, int width, int height, String imagePath) throws SlickException{
 		this.posX = posX;
@@ -42,13 +39,34 @@ public class Entity {
 			tileX %= Core.tileSize;
 		
 		//Animationsbilder laden
-		for(int i = 0; i < 4; i++){
-			for (int j = 0; j < 3; j++){
-				charImages[i][j]= image.getSubImage(i*width, j*height, width, height);
-			}
-		}
-		aniLeft = new Animation(charImages[0],200);
-		aniLeft.setPingPong(true);
+		//Down
+		charImages[0][0]= image.getSubImage(2*width, 2*height, width, height);
+		charImages[0][1]= image.getSubImage(2*width, 1*height, width, height);
+		charImages[0][2]= image.getSubImage(2*width, 3*height, width, height);
+		charImages[0][3]= charImages[0][1];
+		
+		//LEFT
+		charImages[1][0]= image.getSubImage(0*width, 1*height, width, height);
+		charImages[1][1]= image.getSubImage(0*width, 2*height, width, height);
+		charImages[1][2]= image.getSubImage(0*width, 3*height, width, height);
+		charImages[1][3]= charImages[1][1];
+		
+		//UP
+		charImages[2][0]= image.getSubImage(2*width, 0*height, width, height);
+		charImages[2][1]= image.getSubImage(0*width, 0*height, width, height);
+		charImages[2][2]= image.getSubImage(1*width, 3*height, width, height);
+		charImages[2][3]= charImages[2][1];
+		
+		//RIGHT
+		charImages[3][0]= image.getSubImage(1*width, 1*height, width, height);
+		charImages[3][1]= image.getSubImage(1*width, 0*height, width, height);
+		charImages[3][2]= image.getSubImage(1*width, 2*height, width, height);
+		charImages[3][3]= charImages[3][1];
+		
+		aniLeft = new Animation(charImages[1],200);
+		aniRight = new Animation(charImages[3],200);
+		aniUp = new Animation(charImages[2],200);
+		aniDown = new Animation(charImages[0],200);
 
 	}
 	
@@ -112,12 +130,15 @@ public class Entity {
 				aniLeft.draw(posX, posY);
 			}
 			else if(lastDir == LastDir.UP){
+				aniUp.draw(posX, posY);
 				
 			}
 			else if(lastDir == LastDir.RIGHT){
+				aniRight.draw(posX, posY);
 				
 			}
 			else if(lastDir == LastDir.DOWN){
+				aniDown.draw(posX, posY);
 				
 				
 			}
@@ -164,6 +185,10 @@ public class Entity {
 			posY += 1;
 		}
 		else{
+			aniLeft.restart();
+			aniRight.restart();
+			aniUp.restart();
+			aniDown.restart();
 			isRunning = false;
 		}
 	}
