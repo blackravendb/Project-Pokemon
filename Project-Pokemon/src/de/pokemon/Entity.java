@@ -35,11 +35,9 @@ public class Entity {
 		
 		image = new Image(imagePath);
 		
-		if(tileY % Core.tileSize == 0)
-			tileY %= Core.tileSize;
+			tileY = posY / Core.tileSize + 1;
 
-		if(tileX % Core.tileSize == 0)
-			tileX %= Core.tileSize;
+			tileX = posX / Core.tileSize;
 		
 		//Animationsbilder laden
 		//Down
@@ -87,6 +85,14 @@ public class Entity {
 	
 	public void setPosY(int posY){
 		this.posY = posY;
+	}
+	
+	public int getTileX(){
+		return tileX;
+	}
+	
+	public int getTileY(){
+		return tileY;
 	}
 	
 	public void setWidth(int width){
@@ -168,6 +174,7 @@ public class Entity {
 			if(lastDir == LastDir.DOWN){
 				if(posY % Core.tileSize == 0){
 					isRunning = false;
+					tileY++;
 				}
 				else {
 					posY += moveSpeed;
@@ -176,6 +183,7 @@ public class Entity {
 			else if(lastDir == LastDir.UP){
 				if(posY % Core.tileSize == 0){
 					isRunning = false;
+					tileY--;
 				}
 				else {
 					posY -= moveSpeed;
@@ -185,6 +193,7 @@ public class Entity {
 			else if (lastDir == LastDir.LEFT){
 				if(posX % Core.tileSize == 0){
 					isRunning = false;
+					tileX--;
 				}
 				else {
 					posX -= moveSpeed;
@@ -193,6 +202,7 @@ public class Entity {
 			else if(lastDir == LastDir.RIGHT){
 				if(posX % Core.tileSize == 0){
 					isRunning = false;
+					tileX++;
 				}
 				else {
 					posX += moveSpeed;
@@ -221,45 +231,6 @@ public class Entity {
 			lastDir = LastDir.DOWN;
 			isRunning = true;
 			posY += moveSpeed;
-		}
-		else{
-			
-			if(lastDir == LastDir.DOWN){
-				if(posY % Core.tileSize != 0){
-					posY += moveSpeed;
-				}
-				else{
-					isRunning = false;
-					aniDown.restart();
-				}
-			}
-			else if (lastDir == LastDir.UP){
-				if(posY % Core.tileSize != 0){
-					posY -= moveSpeed;
-				}
-				else{
-					isRunning = false;
-					aniUp.restart();
-				}
-			}
-			else if (lastDir == LastDir.RIGHT){
-				if(posX % Core.tileSize != 0){
-					posX += moveSpeed;
-				}
-				else{
-					isRunning = false;
-					aniRight.restart();
-				}
-			}
-			else if (lastDir == LastDir.LEFT){
-				if(posX % Core.tileSize != 0){
-					posX -= moveSpeed;
-				}
-				else{
-					isRunning = false;
-					aniLeft.restart();
-				}
-			}
 		}
 	}
 }
