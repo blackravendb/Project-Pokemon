@@ -33,7 +33,7 @@ public class PlayState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		//player = new Rectangle(map.getSpawn("player").x,map.getSpawn("player").y, 32, 32);
-		player = new Player(32,32,Core.tileSize,Core.tileSize * 2,"res/player2.png");
+		player = new Player(32,32);
 		map = new Map("res/world/testmap.tmx");
 		camera = new Camera(container, map);
 		camera.centerOn(player);
