@@ -19,7 +19,7 @@ public class Entity {
 	
 	/** Angabe ueber letzte Bewegungsrichtung*/
 	protected enum LastDir {DOWN, LEFT, UP, RIGHT, NULL};
-	private LastDir lastDir = LastDir.DOWN;
+	protected LastDir lastDir = LastDir.DOWN;
 	protected LastDir standDir; //Variable für Standanimation letzte bewegungsrichtung
 	
 	private Image image;

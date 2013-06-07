@@ -21,6 +21,9 @@ public class Player extends Entity {
 	/**Methode für überprüfung ob eine Standanimation oder eine Laufanimtaion ausgeführt werden soll*/
 	private standAnimationRet standAnimation (Input input){
 		if(input.isKeyDown(Input.KEY_A)){
+			//Steht der Player bereits in der richtigen Richtung?
+			if(super.lastDir == LastDir.LEFT)
+				return standAnimationRet.RUN;
 			if(standCounterLeft < standCounterDelta){
 				standCounterLeft++;
 				super.standDir = LastDir.LEFT;
@@ -33,6 +36,9 @@ public class Player extends Entity {
 		}
 		
 		if(input.isKeyDown(Input.KEY_S)){
+			//Steht der Player bereits in der richtigen Richtung?
+			if(super.lastDir == LastDir.DOWN)
+				return standAnimationRet.RUN;
 			if(standCounterDown < standCounterDelta){
 				standCounterDown++;
 				super.standDir = LastDir.DOWN;
@@ -45,6 +51,9 @@ public class Player extends Entity {
 		}
 		
 		if(input.isKeyDown(Input.KEY_D)){
+			//Steht der Player bereits in der richtigen Richtung?
+			if(super.lastDir == LastDir.RIGHT)
+				return standAnimationRet.RUN;
 			if(standCounterRight < standCounterDelta){
 				standCounterRight++;
 				super.standDir = LastDir.RIGHT;
@@ -57,6 +66,9 @@ public class Player extends Entity {
 		}
 		
 		if(input.isKeyDown(Input.KEY_W)){
+			//Steht der Player bereits in der richtigen Richtung?
+			if(super.lastDir == LastDir.UP)
+				return standAnimationRet.RUN;
 			if(standCounterUp < standCounterDelta){
 				standCounterUp++;
 				super.standDir = LastDir.UP;
