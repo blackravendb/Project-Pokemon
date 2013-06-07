@@ -17,18 +17,24 @@ public class Entity {
 	private int tileY;
 	private int moveSpeed = 2;
 	
-	private static LastDir lastDir = LastDir.DOWN; /** Angabe ueber letzte Bewegungsrichtung, wobei 0 = down, 1 = right, 2 = top, 3 = left entspricht */
-
+	private LastDir lastDir = LastDir.DOWN;
 	
-	private enum LastDir {DOWN, LEFT, UP, RIGHT};
+	/** Angabe ueber letzte Bewegungsrichtung*/
+	private enum LastDir {DOWN, LEFT, UP, RIGHT, NULL};
 	
 	private Image image;
 	
-	private boolean isRunning = false;
+	protected boolean isRunning = false;
 	private boolean isStanding = true;
 	
 	private Image charImages[][] = new Image[4][4];
+	/**Laufanimationen für verschiedene Richtungen*/
 	private Animation aniLeft, aniUp, aniRight, aniDown;
+	/**Standanimationen für verschiedene Richtungen*/
+	private Animation aniStandLeft = new Animation();
+	private Animation aniStandUp = new Animation();
+	private Animation aniStandRight = new Animation();
+	private Animation aniStandDown = new Animation();
 	
 	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException{
 		this.posX = posX;
@@ -44,7 +50,7 @@ public class Entity {
 
 			tileX = posX / Core.tileSize;
 		
-		//Animationsbilder laden
+		//Animationsbilder laden (Laufanimationen)
 		//Down
 		charImages[0][0]= image.getSubImage(2*width, 2*height, width, height);
 		charImages[0][1]= image.getSubImage(2*width, 1*height, width, height);
@@ -73,6 +79,23 @@ public class Entity {
 		aniRight = new Animation(charImages[3],200);
 		aniUp = new Animation(charImages[2],200);
 		aniDown = new Animation(charImages[0],200);
+		
+		//Animatinsbilder Laden (Standanimationen)
+		//LEFT
+		aniStandLeft.addFrame(charImages[1][0], 200);
+		aniStandLeft.addFrame(charImages[1][1], 200);
+		
+		//RIGHT
+		aniStandRight.addFrame(charImages[3][0],200);
+		aniStandRight.addFrame(charImages[3][1],200);
+		
+		//UP
+		aniStandUp.addFrame(charImages[2][0],200);
+		aniStandUp.addFrame(charImages[2][1],200);
+		
+		//DOWN
+		aniStandDown.addFrame(charImages[0][0],200);
+		aniStandDown.addFrame(charImages[0][1],200);
 	}
 	
 	public int getPosX(){
@@ -173,6 +196,11 @@ public class Entity {
 	}
 	
 	public void updateEntity (Input input){
+		this.updateEntity(input, false);
+	}
+	
+	
+	public void updateEntity (Input input, boolean standAnimation){
 		if(isRunning){
 			if(lastDir == LastDir.DOWN){
 				if(posY % Core.tileSize == 0){
