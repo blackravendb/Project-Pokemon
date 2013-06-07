@@ -10,7 +10,7 @@ public class Player extends Entity {
 	private int standCounterLeft = 0;
 	private int standCounterRight = 0;
 	
-	private int standCounterDelta = 10; //Counter wie viele Frames gewartet wird, bis Bewegung der figur startet
+	private int standCounterDelta = 7; //Counter wie viele Frames gewartet wird, bis Bewegung der figur startet
 	
 	private enum standAnimationRet {STAND, RUN, WAIT}; //Rückgabewert für Methode standAnimation
 	private standAnimationRet move; //Variable zum Zwischenspeichern des Rückgabewerts standAnimation
@@ -98,15 +98,15 @@ public class Player extends Entity {
 		if(super.isStanding){
 			move = standAnimation(input);
 			if(move == standAnimationRet.STAND){
-				super.updateEntity(input, true);
+				super.updateEntity(input, true, 0);
 			}
 			else if(move == standAnimationRet.RUN){
-				super.updateEntity(input);
+				super.updateEntity(input, 1);
 			}
 		}
 		//Bewegung wird im Moment ausgeführt, Eingabe zu Entity durchschleifen
 		else{
-			super.updateEntity(input);
+			super.updateEntity(input, 1);
 		}
 	//	super.updateEntity(input);	
 	}

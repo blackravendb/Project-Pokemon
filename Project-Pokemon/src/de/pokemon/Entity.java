@@ -144,14 +144,58 @@ public class Entity {
 		return height;
 	}
 	
-	public boolean moveX (int tileX){
-		//TODO
-		return true;
+	public void moveX (int tileX){
+		//Überprüft, ob Player bereits in Bewegung ist. Wenn ja wird Bewegung bis zum nächsten Tile vortgesetzt
+		if(isRunning){
+			if(posX % Core.tileSize == 0){
+				isRunning = false;
+			//	isStanding = true;
+				this.tileX=(tileX < 0) ? this.tileX-1 : this.tileX+1;
+			}
+			else{
+				posX = (tileX<0) ? posX - moveSpeed : posX + moveSpeed;
+			}
+		}
+		//Player noch nicht in Bewegung, soll aber Schritte machen
+		else if (tileX != 0){
+			lastDir = (tileX<0) ? LastDir.LEFT : LastDir.RIGHT;
+			isRunning = true;
+			isStanding = false;
+			posX = (tileX<0) ? posX-moveSpeed : posX+moveSpeed;
+		}
+		//Standanimation
+		else {
+			aniLeft.restart();
+			aniRight.restart();
+			isStanding = true;
+		}
 	}
 	
-	public boolean moveY (int tileY){
-		//TODO
-		return true;
+	public void moveY (int tileY){
+		//Überprüft, ob Player bereits in Bewegung ist. Wenn ja wird Bewegung bis zum nächsten Tile vortgesetzt
+		if(isRunning){
+			if(posY % Core.tileSize == 0){
+				isRunning = false;
+		//		isStanding = true;
+				this.tileY=(tileY < 0) ? this.tileY-1 : this.tileY+1;
+			}
+			else{
+				posY = (tileY<0) ? posY - moveSpeed : posY + moveSpeed;
+			}
+		}
+		//Player noch nicht in Bewegung, soll aber Schritte machen
+		else if (tileY != 0){
+			lastDir = (tileY<0) ? LastDir.UP : LastDir.DOWN;
+			isRunning = true;
+			isStanding = false;
+			posY = (tileY<0) ? posY-moveSpeed : posY+moveSpeed;
+		}
+		//Standanimation
+		else {
+			aniLeft.restart();
+			aniRight.restart();
+			isStanding = true;
+		}
 	}
 	
 	private boolean isBlocked (int tileX, int tileY){
@@ -162,6 +206,19 @@ public class Entity {
 	public boolean collideWith (Entity me, Entity him){ //Fraglich ob benoetigt
 		//TODO
 		return false;
+	}
+	/**Wo kann ich die Methode nutzen -.-*/
+	//TODO
+	private int getDirection(Input input){
+		if(input.isKeyPressed(Input.KEY_A))
+			return 30;
+		if(input.isKeyPressed(Input.KEY_W))
+			return 17;
+		if(input.isKeyPressed(Input.KEY_D))
+			return 32;
+		if(input.isKeyPressed(Input.KEY_S))
+			return 31;
+		return 0;
 	}
 	
 	protected void renderEntity (){
@@ -219,7 +276,7 @@ public class Entity {
 		}
 	}
 	
-	public void updateEntity (Input input, boolean standAnimation){
+	public void updateEntity (Input input, boolean standAnimation, int steps){
 		this.standAnimation = standAnimation;
 		
 		if(standDir == LastDir.LEFT)
@@ -231,12 +288,47 @@ public class Entity {
 		else if (standDir == LastDir.DOWN)
 			lastDir = LastDir.DOWN;
 
-		this.updateEntity(input);
+		this.updateEntity(input, steps);
 	}
 	
-	
-	public void updateEntity (Input input){
+	/**Update Methode des Objektes Entity
+	 * @param input (Input) Key Listener Variable
+	 * @param steps (int) Wie viele Tiles soll die Entity laufen
+	 * @return void*/
+	public void updateEntity (Input input, int steps){
+		//Ist Entity bereits in bewegung
 		if(isRunning){
+			if(lastDir == LastDir.LEFT)
+				moveX(-steps);
+			else if (lastDir == LastDir.RIGHT)
+				moveX(steps);
+			else if (lastDir == LastDir.DOWN)
+				moveY(steps);
+			else if(lastDir == LastDir.UP)
+				moveY(-steps);
+		}
+		//Noch nicht in Bewegung jedoch Key Listener eingabe
+		else {
+			if(input.isKeyDown(Input.KEY_A))
+				moveX(-steps);
+			else if(input.isKeyDown(Input.KEY_D))
+				moveX(steps);
+			else if(input.isKeyDown(Input.KEY_S))
+				moveY(steps);
+			else if(input.isKeyDown(Input.KEY_W))
+				moveY(-steps);
+			//Keine Key Listener eingabe, Animationen werden zurückgesetzt; Bewegungszustand auf stehen gesetzt
+			else{
+				isRunning = false;
+				isStanding = true;
+				aniLeft.restart();
+				aniUp.restart();
+				aniRight.restart();
+				aniDown.restart();
+			}
+		}
+/*		//Überprüft, ob Player bereits in Bewegung ist. Wenn ja wird bewegung bis zum nächsten Tile vortgesetzt
+		if(isRunning){//TODO
 			if(lastDir == LastDir.DOWN){
 				if(posY % Core.tileSize == 0){
 					isRunning = false;
@@ -308,6 +400,6 @@ public class Entity {
 			aniRight.restart();
 			aniDown.restart();
 			isStanding = true;
-		}
+		}*/
 	}
 }
