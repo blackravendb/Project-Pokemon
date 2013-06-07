@@ -17,15 +17,16 @@ public class Entity {
 	private int tileY;
 	private int moveSpeed = 2;
 	
-	private LastDir lastDir = LastDir.DOWN;
-	
 	/** Angabe ueber letzte Bewegungsrichtung*/
-	private enum LastDir {DOWN, LEFT, UP, RIGHT, NULL};
+	protected enum LastDir {DOWN, LEFT, UP, RIGHT, NULL};
+	private LastDir lastDir = LastDir.DOWN;
+	protected LastDir standDir; //Variable für Standanimation letzte bewegungsrichtung
 	
 	private Image image;
 	
-	protected boolean isRunning = false;
-	private boolean isStanding = true;
+	private boolean isRunning = false;
+	protected boolean isStanding = true;
+	private boolean standAnimation = false; //Boolean ob Standanimation ausgeführt werden soll
 	
 	private Image charImages[][] = new Image[4][4];
 	/**Laufanimationen für verschiedene Richtungen*/
@@ -35,6 +36,7 @@ public class Entity {
 	private Animation aniStandUp = new Animation();
 	private Animation aniStandRight = new Animation();
 	private Animation aniStandDown = new Animation();
+	private int standAniDelta = 200; //Dauer der Standanimation
 	
 	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException{
 		this.posX = posX;
@@ -82,20 +84,24 @@ public class Entity {
 		
 		//Animatinsbilder Laden (Standanimationen)
 		//LEFT
-		aniStandLeft.addFrame(charImages[1][0], 200);
-		aniStandLeft.addFrame(charImages[1][1], 200);
+		aniStandLeft.addFrame(charImages[1][0], standAniDelta);
+		aniStandLeft.addFrame(charImages[1][1], standAniDelta);
+		aniStandLeft.setLooping(false);
 		
 		//RIGHT
-		aniStandRight.addFrame(charImages[3][0],200);
-		aniStandRight.addFrame(charImages[3][1],200);
+		aniStandRight.addFrame(charImages[3][0],standAniDelta);
+		aniStandRight.addFrame(charImages[3][1],standAniDelta);
+		aniStandRight.setLooping(false);
 		
 		//UP
-		aniStandUp.addFrame(charImages[2][0],200);
-		aniStandUp.addFrame(charImages[2][1],200);
+		aniStandUp.addFrame(charImages[2][0],standAniDelta);
+		aniStandUp.addFrame(charImages[2][1],standAniDelta);
+		aniStandUp.setLooping(false);
 		
 		//DOWN
-		aniStandDown.addFrame(charImages[0][0],200);
-		aniStandDown.addFrame(charImages[0][1],200);
+		aniStandDown.addFrame(charImages[0][0],standAniDelta);
+		aniStandDown.addFrame(charImages[0][1],standAniDelta);
+		aniStandDown.setLooping(false);
 	}
 	
 	public int getPosX(){
@@ -178,8 +184,26 @@ public class Entity {
 				
 			}
 		}
+		else if (standAnimation){
+			if (standDir == LastDir.LEFT)
+				aniStandLeft.draw(posX, posY);
+			else if (standDir == LastDir.UP)
+				aniStandUp.draw(posX, posY);
+			else if (standDir == LastDir.RIGHT)
+				aniStandRight.draw(posX, posY);
+			else if (standDir == LastDir.DOWN)
+				aniStandDown.draw(posX, posY);
+			
+			if(standDir == LastDir.UP && aniStandUp.isStopped() || standDir == LastDir.DOWN && aniStandDown.isStopped() || standDir == LastDir.LEFT && aniStandLeft.isStopped() || standDir == LastDir.RIGHT && aniStandRight.isStopped()){
+				standAnimation = false;
+				aniStandUp.restart();
+				aniStandDown.restart();
+				aniStandRight.restart();
+				aniStandLeft.restart();
+			}
+		}
 		else{
-			//Standanimation
+			//Stehbild
 			if(lastDir.equals(LastDir.LEFT)){
 				image.getSubImage(0, 2*height, width, height).draw(posX,posY);
 			}
@@ -195,12 +219,23 @@ public class Entity {
 		}
 	}
 	
-	public void updateEntity (Input input){
-		this.updateEntity(input, false);
+	public void updateEntity (Input input, boolean standAnimation){
+		this.standAnimation = standAnimation;
+		
+		if(standDir == LastDir.LEFT)
+			lastDir = LastDir.LEFT;
+		else if(standDir == LastDir.RIGHT)
+			lastDir = LastDir.RIGHT;
+		else if (standDir == LastDir.UP)
+			lastDir = LastDir.UP;
+		else if (standDir == LastDir.DOWN)
+			lastDir = LastDir.DOWN;
+
+		this.updateEntity(input);
 	}
 	
 	
-	public void updateEntity (Input input, boolean standAnimation){
+	public void updateEntity (Input input){
 		if(isRunning){
 			if(lastDir == LastDir.DOWN){
 				if(posY % Core.tileSize == 0){

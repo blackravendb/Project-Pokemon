@@ -5,10 +5,12 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends Entity {
 	
-	private int standCounterUp = 0; //Counter für standanimationen; sobald 5 Durchläufe abgefangen wurden wird das Ergebnis an Entity weitergeleitet
+	private int standCounterUp = 0; //Counter für standanimationen; sobald standCounterDelta Durchläufe abgefangen wurden wird das Ergebnis an Entity weitergeleitet
 	private int standCounterDown = 0;
 	private int standCounterLeft = 0;
 	private int standCounterRight = 0;
+	
+	private int standCounterDelta = 10; //Counter wie viele Frames gewartet wird, bis Bewegung der figur startet
 	
 	private enum standAnimationRet {STAND, RUN, WAIT}; //Rückgabewert für Methode standAnimation
 	private standAnimationRet move; //Variable zum Zwischenspeichern des Rückgabewerts standAnimation
@@ -19,8 +21,9 @@ public class Player extends Entity {
 	/**Methode für überprüfung ob eine Standanimation oder eine Laufanimtaion ausgeführt werden soll*/
 	private standAnimationRet standAnimation (Input input){
 		if(input.isKeyDown(Input.KEY_A)){
-			if(standCounterLeft < 5){
+			if(standCounterLeft < standCounterDelta){
 				standCounterLeft++;
+				super.standDir = LastDir.LEFT;
 				return standAnimationRet.WAIT;
 			}
 			else{
@@ -30,8 +33,9 @@ public class Player extends Entity {
 		}
 		
 		if(input.isKeyDown(Input.KEY_S)){
-			if(standCounterDown < 5){
+			if(standCounterDown < standCounterDelta){
 				standCounterDown++;
+				super.standDir = LastDir.DOWN;
 				return standAnimationRet.WAIT;
 			}
 			else{
@@ -41,8 +45,9 @@ public class Player extends Entity {
 		}
 		
 		if(input.isKeyDown(Input.KEY_D)){
-			if(standCounterRight < 5){
+			if(standCounterRight < standCounterDelta){
 				standCounterRight++;
+				super.standDir = LastDir.RIGHT;
 				return standAnimationRet.WAIT;
 			}
 			else{
@@ -52,8 +57,9 @@ public class Player extends Entity {
 		}
 		
 		if(input.isKeyDown(Input.KEY_W)){
-			if(standCounterUp < 5){
+			if(standCounterUp < standCounterDelta){
 				standCounterUp++;
+				super.standDir = LastDir.UP;
 				return standAnimationRet.WAIT;
 			}
 			else{
@@ -61,7 +67,15 @@ public class Player extends Entity {
 				return standAnimationRet.RUN;
 			}
 		}
-		return standAnimationRet.STAND;
+		//Überprüfen, ob zuvor eine Bewegungstaste gedrückt wurde, oder Spieler einfach nur Pausiert
+		if(standCounterUp > 0 || standCounterDown > 0 || standCounterLeft > 0 || standCounterRight > 0){
+			standCounterUp = 0;
+			standCounterDown = 0;
+			standCounterLeft = 0;
+			standCounterRight = 0;
+			return standAnimationRet.STAND;
+		}
+		return standAnimationRet.WAIT;
 	}
 	
 	public void renderPlayer() {
@@ -69,7 +83,7 @@ public class Player extends Entity {
 	}
 	
 	public void updatePlayer(Input input) {
-/*		if(!(super.isRunning)){
+		if(super.isStanding){
 			move = standAnimation(input);
 			if(move == standAnimationRet.STAND){
 				super.updateEntity(input, true);
@@ -81,13 +95,7 @@ public class Player extends Entity {
 		//Bewegung wird im Moment ausgeführt, Eingabe zu Entity durchschleifen
 		else{
 			super.updateEntity(input);
-		}*/
-		super.updateEntity(input);
-		
+		}
+	//	super.updateEntity(input);	
 	}
-	
-	
-
-
-
 }
