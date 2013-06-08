@@ -78,7 +78,7 @@ public class Map extends TiledMapPlus{
 	 */
 	public static void setBlocked(int x, int y, boolean value){
 		if( (x < 0) || (x >= blocked.length) || (y < 0) || (y >= blocked[0].length) ){
-			return ;
+			return;
 		}
 		blocked[x][y] = value;
 	}

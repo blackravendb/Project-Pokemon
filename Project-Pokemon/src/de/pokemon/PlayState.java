@@ -35,11 +35,15 @@ public class PlayState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		//player = new Rectangle(map.getSpawn("player").x,map.getSpawn("player").y, 32, 32);
+<<<<<<< HEAD
 		try {
 			player = new Player(32,32);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
+=======
+		player = new Player(10*32,13*32);
+>>>>>>> branch 'master' of https://github.com/blackravendb/Project-Pokemon.git
 		map = new Map("res/world/testmap.tmx");
 		camera = new Camera(container, map);
 		camera.centerOn(player);
@@ -72,7 +76,7 @@ public class PlayState extends BasicGameState {
 			map.showPlayerPosition(g, player.getPosX(), player.getPosY(),player.getTileX(),player.getTileY());
 			//g.drawString(map.getCoordinates(player.getPosX(), player.getPosY(),player.getTileX(),player.getTileY()), 10, 30);
 		}
-		if(menu.showMenu){
+		if(menu.showMenu || menu.sliding){
 			menu.render(g);
 		}
 
@@ -84,7 +88,7 @@ public class PlayState extends BasicGameState {
 		input = gc.getInput();
 
 		//if menu is not open yet process normal input 
-		if(!menu.showMenu){
+		if(!menu.showMenu && !menu.sliding){
 			player.updatePlayer(input);			
 			camera.centerOn(player);
 
@@ -97,16 +101,16 @@ public class PlayState extends BasicGameState {
 //					player = new Rectangle(96,96,32,32);
 //				}
 //			}
-
-			if(input.isKeyPressed(Input.KEY_ESCAPE)){
-				menu.showMenu = true;
+			if(player.isStanding){
+				if(input.isKeyPressed(Input.KEY_ESCAPE)){
+					menu.sliding = true;
+				}
 			}
-			
-		}else{
-			menu.update(input);
 			
 		}
 		
+		menu.update(input);
+
 		input.clearKeyPressedRecord();	
 	}
 
