@@ -35,15 +35,16 @@ public class PlayState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		//player = new Rectangle(map.getSpawn("player").x,map.getSpawn("player").y, 32, 32);
-<<<<<<< HEAD
 		try {
 			player = new Player(32,32);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-=======
-		player = new Player(10*32,13*32);
->>>>>>> branch 'master' of https://github.com/blackravendb/Project-Pokemon.git
+		try {
+			player = new Player(10*32,13*32);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		map = new Map("res/world/testmap.tmx");
 		camera = new Camera(container, map);
 		camera.centerOn(player);
