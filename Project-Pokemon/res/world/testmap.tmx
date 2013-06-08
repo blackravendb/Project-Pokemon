@@ -13,20 +13,20 @@
  </tileset>
  <layer name="collision" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC7vLzsBwdxSThGkBaG0HMf6gNAyQxfHZgY9PSBybe4kVJ1YNOf7AZw8++wnFBzHqaW0HobAiNV3h0keJHZSCUTuGrx2klHf4zMDFJ7VMJccOfGDUjsFvBz5MiV4QBgBfyNW4xAkAAA==
+   H4sIAAAAAAAAC7vLzsBwdxhgZEBPu6gFaG0HMf6gNAyQxfHZgY9PSBybe4kVJ1YNOf7AZw8++wnFBzHqaW0HobAiNV3h0keJHZSCUTuGrx2klHf4zMDFJ7VMJccOfGDUjsFvBz5MiV4QBgA1fpsrxAkAAA==
   </data>
  </layer>
  <layer name="background" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WsQ2AMBADnd8sFCSbwWYwFkaRJ0COBHxxcrrT6Zs0AJ00425kN698BzlNK18pQJhQR+V7MaEOhyNi4OyQ4+0dM+4h/tSx3ncjPXwdTx3ZkR3Z8f0O/R+cjgsDIsD3xAkAAA==
+   H4sIAAAAAAAAC+2WsQ2AMAwEbW8GBclmsBmMxaPolQHIIwEuTk53urhxMbMKinCuYBNPB7M3Drx3Gz/pczhCBP9t8t4zGnYoHBENZQcdb+94Yh/kTx3LtTdQQ9dx15Ed2ZEd3+/g/aB0nNxwD2/ECQAA
   </data>
  </layer>
- <layer name="objects" width="25" height="25">
+ <layer name="objects" width="25" height="25" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+2SWw6CMBBFL1Ap29LEty5KEzG+tiX42pMXgWgI0xIboh/c5KQ07cxJwwBd/iHay2kr2wCIC6R4CjgHdnxVX5/wLESOlH6lVnrzQHAAzRyG8leUwfHNO6RIDq3s/+PTMfWBGZmTBVn6dkes7HNVOoZcd+y5JwdyJKfCkdVLjrCBY1XM1YbrhT2v5Ebu5OG/52rt4HBN5/iNI9FAqtt16AiIIjdHrOR9j99j9p84OkJl3pvqOsd/O0bZjNSQVnomwr26utLxBEqJgJHECQAA
   </data>
  </layer>
- <layer name="foreground" width="25" height="25">
+ <layer name="foreground" width="25" height="25" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3NuQ0AIADDwEDHt/9MfDuRmpoK+STXloB/9SANN91yO7x/pChlV1x1Lb5/AABwO+AomxzECQAA
   </data>

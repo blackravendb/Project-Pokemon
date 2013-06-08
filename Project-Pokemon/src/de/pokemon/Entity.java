@@ -158,10 +158,18 @@ public class Entity {
 		}
 		//Player noch nicht in Bewegung, soll aber Schritte machen
 		else if (tileX != 0){
-			lastDir = (tileX<0) ? LastDir.LEFT : LastDir.RIGHT;
-			isRunning = true;
-			isStanding = false;
-			posX = (tileX<0) ? posX-moveSpeed : posX+moveSpeed;
+			//Überprüfen ob nächster Tile blocked ist
+			if(!Map.isBlocked(this.tileX+tileX, tileY)){
+				lastDir = (tileX<0) ? LastDir.LEFT : LastDir.RIGHT;
+				isRunning = true;
+				isStanding = false;
+				posX = (tileX<0) ? posX-moveSpeed : posX+moveSpeed;
+			}
+			//Entity will gegen einen Soliden Block laufen
+			else{
+				lastDir = (tileX<0) ? LastDir.LEFT : LastDir.RIGHT;
+				isStanding = false;
+			}
 		}
 		//Standanimation
 		else {
@@ -183,12 +191,20 @@ public class Entity {
 				posY = (tileY<0) ? posY - moveSpeed : posY + moveSpeed;
 			}
 		}
-		//Player noch nicht in Bewegung, soll aber Schritte machen
+		//Entity noch nicht in Bewegung, soll aber Schritte machen
 		else if (tileY != 0){
-			lastDir = (tileY<0) ? LastDir.UP : LastDir.DOWN;
-			isRunning = true;
-			isStanding = false;
-			posY = (tileY<0) ? posY-moveSpeed : posY+moveSpeed;
+			//Überprüfen ob nächster Tile blocked ist
+			if(!Map.isBlocked(tileX, this.tileY+tileY)){
+				lastDir = (tileY<0) ? LastDir.UP : LastDir.DOWN;
+				isRunning = true;
+				isStanding = false;
+				posY = (tileY<0) ? posY-moveSpeed : posY+moveSpeed;
+			}
+			//Entity will gegen einen Soliden Block laufen
+			else{
+				lastDir = (tileY<0) ? LastDir.UP : LastDir.DOWN;
+				isStanding = false;
+			}
 		}
 		//Standanimation
 		else {
