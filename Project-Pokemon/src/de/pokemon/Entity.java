@@ -1,12 +1,16 @@
 package de.pokemon;
 
+import java.io.IOException;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Entity {
-
 	private int posX;
 	private int posY;
 	private int width;
@@ -38,7 +42,9 @@ public class Entity {
 	private Animation aniStandDown = new Animation();
 	private int standAniDelta = 200; //Dauer der Standanimation
 	
-	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException{
+	private Audio audioSolid;
+	
+	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException, IOException{
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
@@ -51,7 +57,7 @@ public class Entity {
 			tileY = posY / Core.tileSize + 1;
 
 			tileX = posX / Core.tileSize;
-		
+			
 		//Animationsbilder laden (Laufanimationen)
 		//Down
 		charImages[0][0]= image.getSubImage(2*width, 2*height, width, height);
@@ -102,6 +108,9 @@ public class Entity {
 		aniStandDown.addFrame(charImages[0][0],standAniDelta);
 		aniStandDown.addFrame(charImages[0][1],standAniDelta);
 		aniStandDown.setLooping(false);
+		
+		//Sounds
+		audioSolid =  AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/solid.wav"));
 	}
 	
 	public int getPosX(){
@@ -169,6 +178,7 @@ public class Entity {
 			else{
 				lastDir = (tileX<0) ? LastDir.LEFT : LastDir.RIGHT;
 				isStanding = false;
+				audioSolid.playAsSoundEffect(1.0f, 1.0f, true);
 			}
 		}
 		//Standanimation
@@ -204,6 +214,7 @@ public class Entity {
 			else{
 				lastDir = (tileY<0) ? LastDir.UP : LastDir.DOWN;
 				isStanding = false;
+				audioSolid.playAsSoundEffect(1.0f, 1.0f, true);
 			}
 		}
 		//Standanimation

@@ -1,5 +1,7 @@
 package de.pokemon;
 
+import java.io.IOException;
+
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -15,7 +17,7 @@ public class Player extends Entity {
 	private enum standAnimationRet {STAND, RUN, WAIT}; //Rückgabewert für Methode standAnimation
 	private standAnimationRet move; //Variable zum Zwischenspeichern des Rückgabewerts standAnimation
 	
-	Player(int posX, int posY) throws SlickException {
+	Player(int posX, int posY) throws SlickException, IOException {
 		super(posX, posY, Core.tileSize, Core.tileSize*2, "res/player2.png", 1, 1);
 	}
 	/**Methode für überprüfung ob eine Standanimation oder eine Laufanimtaion ausgeführt werden soll*/
