@@ -12,7 +12,7 @@ public class Map extends TiledMapPlus{
 	/** The current TiledMap*/
 	private TiledMapPlus currentMap;
 	/** 2D boolean array, true if Tile is blocked*/
-	public  boolean[][] blocked;
+	private static boolean[][] blocked;
 	/** size of a quadratic tile*/
 	private int tileSize;
 	/** name of the map*/
@@ -34,7 +34,7 @@ public class Map extends TiledMapPlus{
 		blocked = buildCollisionMap();
 		tileSize = getTileWidth();
 		createWater();
-		//System.out.println(Arrays.deepToString(blocked));
+		//System.out.println(blocked[24].length);
 	}
 
 	/**
@@ -60,15 +60,27 @@ public class Map extends TiledMapPlus{
 
 	/**Checks if the tile specified by the x and y coordinate is blocked on the current map.
 	 *
-	 * @param x coordinate
-	 * @param y coordinate
+	 * @param x tile coordinate
+	 * @param y tile coordinate
 	 * @return True, if the tile specified by the coordinates is blocked or out of bounds
 	 */
-	public  boolean isBlocked(int x, int y){
-		if( (x < 0) || (x >= getWidth()) || (y < 0) || (y >= getHeight()) ){
+	public static boolean isBlocked(int x, int y){
+		if( (x < 0) || (x >= blocked.length) || (y < 0) || (y >= blocked[0].length) ){
 			return true;
 		}
 		return blocked[x][y];
+	}
+	/**Tries to set a value in the blocked array. If out of bounds nothing will be set.
+	 * 
+	 * @param x tile coordinate
+	 * @param y tile coordinate
+	 * @param value to be set. true if tile should be blocked.
+	 */
+	public static void setBlocked(int x, int y, boolean value){
+		if( (x < 0) || (x >= blocked.length) || (y < 0) || (y >= blocked[0].length) ){
+			return ;
+		}
+		blocked[x][y] = value;
 	}
 
 	/**

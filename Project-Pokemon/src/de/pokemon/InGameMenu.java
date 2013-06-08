@@ -71,7 +71,6 @@ public class InGameMenu {
 		showPosition = false;
 		showMain = false;
 		
-		System.out.println(Arrays.binarySearch(mainItems, "Debug"));
 		
 	}
 
