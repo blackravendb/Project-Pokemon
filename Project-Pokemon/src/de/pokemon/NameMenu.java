@@ -76,15 +76,14 @@ public class NameMenu {
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 		if(showMenu){
 			if(cursor.getCenterY() == 48){ //Name
+				//TODO
 				//sbg.enterState(Core.name);
 			}else if(cursor.getCenterY() == 118){ //Rot
-				name = "Rot";
+				name = mainItems[2];
 			}else if(cursor.getCenterY() == 150){ //Ash
-				name = "Ash";
-				//TODO weiter?
+				name = mainItems[3];
 			}else if(cursor.getCenterY() == 182){ //Jack
-				name = "Jack";
-				//TODO weiter?
+				name = mainItems[4];
 			}
 		}
 	}

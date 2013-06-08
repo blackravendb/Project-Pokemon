@@ -198,7 +198,7 @@ public class IntroState extends BasicGameState {
 		else if(text == 8){
 			g.drawImage(enkel, enkelx, enkely);
 			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString("Blau! Stimmt! Grod hob i's no", stringx[0], stringy[0]); 
+			g.drawString(menu2.name + "! Stimmt! Grod hob i's no", stringx[0], stringy[0]); 
 			g.drawString("gwusst! [Enter drücken]", stringx[1], stringy[1]);
 			if(input.isKeyPressed(Input.KEY_ENTER)){ 
 				text = 9;
@@ -207,7 +207,7 @@ public class IntroState extends BasicGameState {
 		else if(text == 9){
 			g.drawImage(trainer, trainerx, trainery);
 			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString("Rot! A unglaubliche Reise in de", stringx[0], stringy[0]);
+			g.drawString(menu.name + "! A unglaubliche Reise in de", stringx[0], stringy[0]);
 			g.drawString("Wäid da Pokemon erwartet Di!", stringx[1], stringy[1]);
 			g.drawString("A Wäid voia Wunda, Obnteia", stringx[2], stringy[2]);
 			g.drawString("und Geheimnisse! Des is a Draum!", stringx[3], stringy[3]);
