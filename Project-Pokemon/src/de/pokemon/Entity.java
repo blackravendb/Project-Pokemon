@@ -43,6 +43,9 @@ public class Entity {
 	private int standAniDelta = 200; //Dauer der Standanimation
 	
 	private Audio audioSolid;
+	private Audio audioBackground;
+	
+	private boolean blockedDelta = false;
 	
 	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException, IOException{
 		this.posX = posX;
@@ -111,6 +114,9 @@ public class Entity {
 		
 		//Sounds
 		audioSolid =  AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/solid.wav"));
+		audioBackground = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/105_mishiro_town.wav"));
+		
+		audioBackground.playAsMusic(1.0f, 1.0f, true);
 	}
 	
 	public int getPosX(){
@@ -178,7 +184,13 @@ public class Entity {
 			else{
 				lastDir = (tileX<0) ? LastDir.LEFT : LastDir.RIGHT;
 				isStanding = false;
-				audioSolid.playAsSoundEffect(1.0f, 1.0f, true);
+				if(aniLeft.getFrame() == 1 || aniRight.getFrame() == 1){
+					blockedDelta =true;
+				}
+				if(aniLeft.getFrame() == 2 && blockedDelta == true || aniRight.getFrame() == 2 && blockedDelta == true){
+					audioSolid.playAsSoundEffect(1.0f, 1.0f, false);
+					blockedDelta = false;
+				}
 			}
 		}
 		//Standanimation
@@ -214,7 +226,14 @@ public class Entity {
 			else{
 				lastDir = (tileY<0) ? LastDir.UP : LastDir.DOWN;
 				isStanding = false;
-				audioSolid.playAsSoundEffect(1.0f, 1.0f, true);
+				if(aniDown.getFrame() == 1 || aniUp.getFrame() == 1){
+					blockedDelta =true;
+				}
+				if(aniDown.getFrame() == 2 && blockedDelta == true || aniUp.getFrame() == 2 && blockedDelta == true){
+					audioSolid.playAsSoundEffect(1.0f, 1.0f, false);
+					blockedDelta = false;
+				}
+
 			}
 		}
 		//Standanimation
