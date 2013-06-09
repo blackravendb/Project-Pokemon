@@ -9,6 +9,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import de.pokemon.Entity.LastDir;
+
 
 public class PlayState extends BasicGameState {
 
@@ -37,14 +39,13 @@ public class PlayState extends BasicGameState {
 		//player = new Rectangle(map.getSpawn("player").x,map.getSpawn("player").y, 32, 32);
 		map = new Map("res/world/testmap.tmx");
 		try {
-			player = new Player(10*32,13*32);
+			player = new Player(10*32,15*32);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		camera = new Camera(container, map);
 		camera.centerOn(player);
 		menu = new InGameMenu(container,game);
-		
 	}
 
 	@Override
@@ -52,6 +53,13 @@ public class PlayState extends BasicGameState {
 			throws SlickException {
 
 		camera.drawMap();
+		
+		camera.translateGraphics();
+		map.renderWater();
+		//draw player and all entities here
+		player.renderPlayer();
+		camera.untranslateGraphics();
+		camera.drawForeground();
 		
 		camera.translateGraphics();
 		//DRAW EVERYTHING AT NORMAL POSITION ON THE MAP AFTER TRANSLATEGRAPHICS
@@ -66,7 +74,7 @@ public class PlayState extends BasicGameState {
 		}
 
 		camera.untranslateGraphics();
-		// DRAW THE HUD AND MENU AFTER UNTRANSLATEGRAPHIS
+		// DRAW THE HUD AND MENU AFTER UNTRANSLATEGRAPHICS	
 		
 		if(menu.showPosition){
 			map.showPlayerPosition(g, player.getPosX(), player.getPosY(),player.getTileX(),player.getTileY());
@@ -89,14 +97,13 @@ public class PlayState extends BasicGameState {
 			camera.centerOn(player);
 
 			//TODO check boolean if not moving 
-//			if(map.getName().equals("Alabasta")){
-//				if(map.getEntrance("house").x == (int) player.getX() && map.getEntrance("house").y == (int) player.getY() ){
-//					System.out.println("ENTERED HOUSE");
-//					map = new Map("res/world/Level_1.tmx");
-//					camera = new Camera(gc,map);
-//					player = new Rectangle(96,96,32,32);
-//				}
-//			}
+			if(map.getName().equals("Alabasta")){
+				if(map.getEntrance("house").x == player.getPosX() && map.getEntrance("house").y == player.getPosY() && player.lastDir == LastDir.UP ){
+					System.out.println("ENTERED HOUSE");
+				//	map = new Map("res/world/Level_1.tmx");
+				//	camera = new Camera(gc,map);
+				}
+			}
 			if(player.isStanding){
 				if(input.isKeyPressed(Input.KEY_ESCAPE)){
 					menu.sliding = true;
