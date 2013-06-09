@@ -32,13 +32,13 @@ public class NameMenu {
 	/** the main-menu background*/
 	private Rectangle background;
 	
-	private final String[] mainItems = {"NAME", "NEUER NAME", "ROT", "ASH", "JACK"};
+	private String[] mainItems = new String[5];
 	/** the debug submenu items */
 	private Polygon cursor;
 	/** the points for the triangle in x,y order*/
 	private final float[] cursorPoints = new float[]{0,0,6,6,0,12};
 	
-	public NameMenu(GameContainer gc,StateBasedGame game){
+	public NameMenu(GameContainer gc,StateBasedGame game, String name1, String name2, String name3){
 		this.gc = gc;
 		this.sbg = game;
 		x = gc.getWidth()/8;
@@ -50,7 +50,13 @@ public class NameMenu {
 		cursory = 80;
 		cursor.setLocation(cursorx , cursory);
 		showMenu = false;
+		mainItems[0] = "NAME";
+		mainItems[1] = "NEUER NAME";
+		mainItems[2] = name1;
+		mainItems[3] = name2;
+		mainItems[4] = name3;
 		background = new Rectangle(x,y,width,mainItems.length*32);
+		name = null;
 		
 	}
 	
@@ -70,16 +76,14 @@ public class NameMenu {
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 		if(showMenu){
 			if(cursor.getCenterY() == 48){ //Name
+				//TODO
 				//sbg.enterState(Core.name);
-			}else if(cursor.getCenterY() == 80){ //Rot
-				name = "Rot";
-				//TODO weiter?
-			}else if(cursor.getCenterY() == 112){ //Ash
-				name = "Ash";
-				//TODO weiter?
-			}else if(cursor.getCenterY() == 144){ //Jack
-				name = "Jack";
-				//TODO weiter?
+			}else if(cursor.getCenterY() == 118){ //Rot
+				name = mainItems[2];
+			}else if(cursor.getCenterY() == 150){ //Ash
+				name = mainItems[3];
+			}else if(cursor.getCenterY() == 182){ //Jack
+				name = mainItems[4];
 			}
 		}
 	}
@@ -88,8 +92,8 @@ public class NameMenu {
 	public void render(Graphics g){
 		if(showMenu){
 			g.setColor(Color.white);
-			g.drawString("Cursor: X = " + cursor.getCenterX(), 50, 400);
-			g.drawString("Cursor: Y = " + cursor.getCenterY(), 50, 450);
+			//g.drawString("Cursor: X = " + cursor.getCenterX(), 50, 400);
+			//g.drawString("Cursor: Y = " + cursor.getCenterY(), 50, 450);
 			g.drawRect(x, y, width, height);
 			for(int i = 0, j = y - 15; i < mainItems.length; i++, j += 32){
 				g.drawString(mainItems[i], background.getCenterX()-g.getFont().getWidth(mainItems[i])/2, j-g.getFont().getHeight(mainItems[i])/2);
