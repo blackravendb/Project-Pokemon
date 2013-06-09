@@ -1,7 +1,6 @@
 package de.pokemon;
 
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.util.Arrays;
 import java.util.List;
 
