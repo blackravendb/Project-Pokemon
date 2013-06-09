@@ -13,12 +13,12 @@
  </tileset>
  <layer name="collision" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC7vLzsBwdxhgZEBPu6gFaG0HMf6gNAyQxfHZgY9PSBybe4kVJ1YNOf7AZw8++wnFBzHqaW0HobAiNV3h0keJHZSCUTuGrx2klHf4zMDFJ7VMJccOfGDUjsFvBz5MiV4QBgA1fpsrxAkAAA==
+   H4sIAAAAAAAAC7vLzsBwdxSThGkBaG0HMf6gNAyQxfHZgY9PSBybe4kVJ1YNOf7AZw8++wnFBzHqaW0HobAiNV3h0keJHZSCUTuGrx2klHf4zMDFJ7VMJccOfGDUjsFvBz5MiV4QBgBfyNW4xAkAAA==
   </data>
  </layer>
  <layer name="background" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WsQ2AMAwEbW8GBclmsBmMxaPolQHIIwEuTk53urhxMbMKinCuYBNPB7M3Drx3Gz/pczhCBP9t8t4zGnYoHBENZQcdb+94Yh/kTx3LtTdQQ9dx15Ed2ZEd3+/g/aB0nNxwD2/ECQAA
+   H4sIAAAAAAAAC+2WsQ2AMBADnd8sFCSbwWYwFkaRJ0COBHxxcrrT6Zs0AJ00425kN698BzlNK18pQJhQR+V7MaEOhyNi4OyQ4+0dM+4h/tSx3ncjPXwdTx3ZkR3Z8f0O/R+cjgsDIsD3xAkAAA==
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
@@ -36,8 +36,9 @@
   <object name="water" type="water" gid="1796" x="160" y="512" width="32" height="32"/>
   <object name="water" type="water" gid="1796" x="128" y="512" width="32" height="32"/>
   <object name="water" type="water" gid="1796" x="160" y="480" width="32" height="32"/>
-  <object name="house" type="entrance" gid="2013" x="320" y="352" width="32" height="32"/>
+  <object name="house" type="entrance" gid="2013" x="320" y="320" width="32" height="32"/>
   <object name="player" type="spawn" gid="2013" x="448" y="448"/>
-  <object name="house" type="exit" gid="2013" x="320" y="384" width="32" height="32"/>
+  <object name="water" type="water" gid="1796" x="192" y="480" width="32" height="32"/>
+  <object name="water" type="water" gid="1796" x="192" y="512" width="32" height="32"/>
  </objectgroup>
 </map>
