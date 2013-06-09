@@ -35,6 +35,8 @@ public class Entity {
 	private Image charImages[][] = new Image[4][4];
 	/**Laufanimationen für verschiedene Richtungen*/
 	private Animation aniLeft, aniUp, aniRight, aniDown;
+	/**Animationsgeschwindigkeit für Laufanimation*/
+	private int aniDelta = 150;
 	/**Standanimationen für verschiedene Richtungen*/
 	private Animation aniStandLeft = new Animation();
 	private Animation aniStandUp = new Animation();
@@ -45,7 +47,7 @@ public class Entity {
 	private Audio audioSolid;
 	private Audio audioBackground;
 	
-	private boolean blockedDelta = false;
+	private boolean blockedDelta = true;
 	
 	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException, IOException{
 		this.posX = posX;
@@ -57,9 +59,12 @@ public class Entity {
 		
 		image = new Image(imagePath);
 		
-			tileY = posY / Core.tileSize + 1;
+		tileY = posY / Core.tileSize + 1;
 
-			tileX = posX / Core.tileSize;
+		tileX = posX / Core.tileSize;
+		System.out.println(tileX +" blub "+ tileY);
+		//Aktuelle Position blocken
+		Map.setBlocked(tileX, tileY, true);
 			
 		//Animationsbilder laden (Laufanimationen)
 		//Down
@@ -86,10 +91,10 @@ public class Entity {
 		charImages[3][2]= image.getSubImage(1*width, 2*height, width, height);
 		charImages[3][3]= charImages[3][1];
 		
-		aniLeft = new Animation(charImages[1],200);
-		aniRight = new Animation(charImages[3],200);
-		aniUp = new Animation(charImages[2],200);
-		aniDown = new Animation(charImages[0],200);
+		aniLeft = new Animation(charImages[1],aniDelta);
+		aniRight = new Animation(charImages[3],aniDelta);
+		aniUp = new Animation(charImages[2],aniDelta);
+		aniDown = new Animation(charImages[0],aniDelta);
 		
 		//Animatinsbilder Laden (Standanimationen)
 		//LEFT
@@ -116,7 +121,7 @@ public class Entity {
 		audioSolid =  AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/solid.wav"));
 		audioBackground = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/105_mishiro_town.wav"));
 		
-		audioBackground.playAsMusic(1.0f, 1.0f, true);
+	//	audioBackground.playAsMusic(1.0f, 1.0f, true);
 	}
 	
 	public int getPosX(){
@@ -164,7 +169,7 @@ public class Entity {
 		if(isRunning){
 			if(posX % Core.tileSize == 0){
 				isRunning = false;
-			//	isStanding = true;
+				Map.setBlocked(this.tileX, tileY, false);
 				this.tileX=(tileX < 0) ? this.tileX-1 : this.tileX+1;
 			}
 			else{
@@ -175,6 +180,7 @@ public class Entity {
 		else if (tileX != 0){
 			//Überprüfen ob nächster Tile blocked ist
 			if(!Map.isBlocked(this.tileX+tileX, tileY)){
+				Map.setBlocked(this.tileX+tileX, tileY, true);
 				lastDir = (tileX<0) ? LastDir.LEFT : LastDir.RIGHT;
 				isRunning = true;
 				isStanding = false;
@@ -184,6 +190,7 @@ public class Entity {
 			else{
 				lastDir = (tileX<0) ? LastDir.LEFT : LastDir.RIGHT;
 				isStanding = false;
+
 				if(aniLeft.getFrame() == 1 || aniRight.getFrame() == 1){
 					blockedDelta =true;
 				}
@@ -206,7 +213,7 @@ public class Entity {
 		if(isRunning){
 			if(posY % Core.tileSize == 0){
 				isRunning = false;
-		//		isStanding = true;
+				Map.setBlocked(tileX, this.tileY, false);
 				this.tileY=(tileY < 0) ? this.tileY-1 : this.tileY+1;
 			}
 			else{
@@ -217,6 +224,7 @@ public class Entity {
 		else if (tileY != 0){
 			//Überprüfen ob nächster Tile blocked ist
 			if(!Map.isBlocked(tileX, this.tileY+tileY)){
+				Map.setBlocked(tileX, tileY+this.tileY, true);
 				lastDir = (tileY<0) ? LastDir.UP : LastDir.DOWN;
 				isRunning = true;
 				isStanding = false;
@@ -226,6 +234,7 @@ public class Entity {
 			else{
 				lastDir = (tileY<0) ? LastDir.UP : LastDir.DOWN;
 				isStanding = false;
+				
 				if(aniDown.getFrame() == 1 || aniUp.getFrame() == 1){
 					blockedDelta =true;
 				}
