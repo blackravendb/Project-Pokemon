@@ -21,23 +21,23 @@
    H4sIAAAAAAAAC+2WsQ2AMAwEbW8GBclmsBmMxaPolQHIIwEuTk53urhxMbMKinCuYBNPB7M3Drx3Gz/pczhCBP9t8t4zGnYoHBENZQcdb+94Yh/kTx3LtTdQQ9dx15Ed2ZEd3+/g/aB0nNxwD2/ECQAA
   </data>
  </layer>
- <layer name="objects" width="25" height="25" visible="0">
+ <layer name="objects" width="25" height="25">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+2SWw6CMBBFL1Ap29LEty5KEzG+tiX42pMXgWgI0xIboh/c5KQ07cxJwwBd/iHay2kr2wCIC6R4CjgHdnxVX5/wLESOlH6lVnrzQHAAzRyG8leUwfHNO6RIDq3s/+PTMfWBGZmTBVn6dkes7HNVOoZcd+y5JwdyJKfCkdVLjrCBY1XM1YbrhT2v5Ebu5OG/52rt4HBN5/iNI9FAqtt16AiIIjdHrOR9j99j9p84OkJl3pvqOsd/O0bZjNSQVnomwr26utLxBEqJgJHECQAA
   </data>
  </layer>
- <layer name="foreground" width="25" height="25" visible="0">
+ <layer name="foreground" width="25" height="25">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3NuQ0AIADDwEDHt/9MfDuRmpoK+STXloB/9SANN91yO7x/pChlV1x1Lb5/AABwO+AomxzECQAA
   </data>
  </layer>
  <objectgroup name="object layer" width="25" height="25">
-  <object name="house" type="entrance" x="320" y="352" width="32" height="32"/>
-  <object name="player" type="spawn" x="480" y="416" width="32" height="32"/>
-  <object name="house" type="exit" x="320" y="384" width="32" height="32"/>
-  <object name="water" type="water" gid="1796" x="128" y="480"/>
-  <object name="water" type="water" gid="1796" x="160" y="512"/>
-  <object name="water" type="water" gid="1796" x="128" y="512"/>
-  <object name="water" type="water" gid="1796" x="160" y="480"/>
+  <object name="water" type="water" gid="1796" x="128" y="480" width="32" height="32"/>
+  <object name="water" type="water" gid="1796" x="160" y="512" width="32" height="32"/>
+  <object name="water" type="water" gid="1796" x="128" y="512" width="32" height="32"/>
+  <object name="water" type="water" gid="1796" x="160" y="480" width="32" height="32"/>
+  <object name="house" type="entrance" gid="2013" x="320" y="352" width="32" height="32"/>
+  <object name="player" type="spawn" gid="2013" x="448" y="448"/>
+  <object name="house" type="exit" gid="2013" x="320" y="384" width="32" height="32"/>
  </objectgroup>
 </map>

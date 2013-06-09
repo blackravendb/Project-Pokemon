@@ -1,5 +1,4 @@
 package de.pokemon;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Shape;
 
@@ -34,8 +33,8 @@ public class Camera {
    
    /** the y-position of our "camera" in pixel */
    public static float cameraY;
-   Shape shape;
-   Player player;
+   
+
    /**
     * Create a new camera
     * 
@@ -65,16 +64,20 @@ public class Camera {
     */
    public void centerOn(float x, float y) {
       //try to set the given position as center of the camera by default
-      cameraX = x - gc.getWidth()  / 2;
+      cameraX = x - gc.getWidth() / 2;
       cameraY = y - gc.getHeight() / 2;
       
       //if the camera is at the right or left edge lock it to prevent a black bar
-      if(cameraX < 0) cameraX = 0;
-      if(cameraX + gc.getWidth() > mapWidth) cameraX = mapWidth - gc.getWidth();
+      if(cameraX < 0)
+    	  cameraX = 0;
+      if(cameraX + gc.getWidth() > mapWidth)
+    	  cameraX = mapWidth - gc.getWidth();
       
       //if the camera is at the top or bottom edge lock it to prevent a black bar
-      if(cameraY < 0) cameraY = 0;
-      if(cameraY + gc.getHeight() > mapHeight) cameraY = mapHeight - gc.getHeight();
+      if(cameraY < 0)
+    	  cameraY = 0;
+      if(cameraY + gc.getHeight() > mapHeight)
+    	  cameraY = mapHeight - gc.getHeight();
    }
    
    /**
@@ -90,7 +93,6 @@ public class Camera {
    }
 
    public void centerOn(Player player){
-	   this.player = player;
 	   this.centerOn(player.getPosX(),player.getPosY());
    }
    
@@ -99,26 +101,14 @@ public class Camera {
     * @param shape the Shape which should be centered on the screen
     */
    public void centerOn(Shape shape){
-	  this.shape = shape;
       this.centerOn(shape.getCenterX(), shape.getCenterY());
    }
    
-   /**
-    * draws the part of the map which is currently focussed by the camera on the screen
+   
+   /**Has to be called before Camera.translateGraphics() !
+    * Draws the part of the map which is currently focussed by the camera on the screen   
     */
    public void drawMap() {
-      this.drawMap(0, 0);
-   }
-   
-   /**
-    * draws the part of the map which is currently focused by the camera on the screen.
-    * You need to draw something over the offset, to prevent the edge of the map to be displayed below it
-    * Has to be called before Camera.translateGraphics() !
-    * @param offsetX the x-coordinate (in pixel) where the camera should start drawing the map at
-    * @param offsetY the y-coordinate (in pixel) where the camera should start drawing the map at
-    */
-   
-   public void drawMap(int offsetX, int offsetY) {
        //calculate the offset to the next tile (needed by TiledMap.render())
        int tileOffsetX = (int) - (cameraX % tileWidth);
        int tileOffsetY = (int) - (cameraY % tileHeight);
@@ -129,43 +119,34 @@ public class Camera {
        
        //finally draw the section of the map on the screen
        map.render(   
-             tileOffsetX + offsetX, 
-             tileOffsetY + offsetY, 
+             tileOffsetX, 
+             tileOffsetY, 
              tileIndexX,  
              tileIndexY,
-                (gc.getWidth()  - tileOffsetX) / tileWidth  + 2,
-                (gc.getHeight() - tileOffsetY) / tileHeight + 2);
+                (gc.getWidth()  - tileOffsetX) / tileWidth  + 1,
+                (gc.getHeight() - tileOffsetY) / tileHeight + 1);
        
-//       map.render(   
-//             tileOffsetX + offsetX, 
-//             tileOffsetY + offsetY, 
-//             tileIndexX,  
-//             tileIndexY,
-//               (gc.getWidth()  - tileOffsetX) / tileWidth  + 2,
-//              (gc.getHeight() - tileOffsetY) / tileHeight + 2,1,false);
-//       map.render(   
-//               tileOffsetX + offsetX, 
-//               tileOffsetY + offsetY, 
-//               tileIndexX,  
-//               tileIndexY,
-//                 (gc.getWidth()  - tileOffsetX) / tileWidth  + 2,
-//                (gc.getHeight() - tileOffsetY) / tileHeight + 2,2,false);
+              
+   }
+   
+   /**
+    * Draws the Foreground of the map.
+    */
+   public void drawForeground(){
+	 //calculate the offset to the next tile (needed by TiledMap.render())
+       int tileOffsetX = (int) - (cameraX % tileWidth);
+       int tileOffsetY = (int) - (cameraY % tileHeight);
        
-       translateGraphics();
-       
-       map.renderWater();
-       gc.getGraphics().setColor(Color.white);
-       player.renderPlayer();
-       untranslateGraphics();
-       
-       map.render(   
-               tileOffsetX + offsetX, 
-               tileOffsetY + offsetY, 
+       //calculate the index of the leftmost tile that is being displayed
+       int tileIndexX = (int) (cameraX / tileWidth);
+       int tileIndexY = (int) (cameraY / tileHeight);
+	   map.render(   
+               tileOffsetX, 
+               tileOffsetY, 
                tileIndexX,  
                tileIndexY,
                  (gc.getWidth()  - tileOffsetX) / tileWidth  + 2,
-                (gc.getHeight() - tileOffsetY) / tileHeight + 2,3,false);
-      
+                (gc.getHeight() - tileOffsetY) / tileHeight + 2,3,false); 
    }
    
    /**

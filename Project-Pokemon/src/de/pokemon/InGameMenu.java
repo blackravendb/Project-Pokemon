@@ -81,12 +81,13 @@ public class InGameMenu {
 		showPosition = false;
 		showMain = false;
 		sliding = false;
+		
 		try {
-			font = new SimpleFont("Cambria", Font.BOLD, 16);
+			font = new SimpleFont("Calibri", Font.BOLD, 14);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-
+		
 
 	}
 
