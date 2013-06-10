@@ -93,7 +93,7 @@ public class Camera {
    }
 
    public void centerOn(Player player){
-	   this.centerOn(player.getPosX(),player.getPosY());
+	   this.centerOn(player.getPosX()+player.getWidth()/2,player.getPosY()+player.getHeight()/2);
    }
    
    /**
@@ -164,4 +164,7 @@ public class Camera {
       gc.getGraphics().translate(cameraX, cameraY);
    }
    
+   public void update(Map map){
+	   this.map = map;
+   }
 }

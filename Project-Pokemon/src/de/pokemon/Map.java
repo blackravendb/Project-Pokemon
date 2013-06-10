@@ -19,6 +19,7 @@ public class Map extends TiledMapPlus{
 	private String name;
 	/** Array of Animation holding the */
 	private Animation[] water = null;
+	boolean hasWater;
 
 
 	/**
@@ -33,8 +34,8 @@ public class Map extends TiledMapPlus{
 		blocked = new boolean[getWidth()][getHeight()];
 		blocked = buildCollisionMap();
 		tileSize = getTileWidth();
-		createWater();
-		//System.out.println(this.getObjectGroup("object layer").objects.get(5).name);
+		hasWater = createWater();
+		System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
 		//System.out.println(blocked[24].length);
 	}
 
@@ -91,12 +92,13 @@ public class Map extends TiledMapPlus{
 	public  void showGrid(Graphics g){
 		g.setColor(Color.black);
 		g.setLineWidth(1);
-		for(int i = tileSize; i < getHeight()*tileSize; i = i + tileSize){
+		//rows
+		for(int i = tileSize; i < getWidth()*tileSize; i = i + tileSize){
 			g.drawLine(0, i, getWidth()*tileSize, i);
 		}
-
+		//coloumns
 		for(int j = tileSize; j < getHeight()*tileSize; j = j + tileSize){
-			g.drawLine(j-1, 0, j-1, getHeight()*tileSize);
+			g.drawLine(j, 0, j, getHeight()*tileSize);
 		}
 	}
 
@@ -166,7 +168,10 @@ public class Map extends TiledMapPlus{
 	/**
 	 * creates the Water Animations by reading from the map. Objects are from the type "water" stored within the "object layer".
 	 */
-	private void createWater() throws SlickException{
+	private boolean createWater() throws SlickException{
+		if(getObjectGroup("object layer").getObjectsOfType("water").isEmpty())
+			return false;
+		
 		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("water").iterator();
 
 		water = new Animation[getObjectGroup("object layer").getObjectsOfType("water").size()];
@@ -188,13 +193,15 @@ public class Map extends TiledMapPlus{
 					1000, //updatetime
 					true); //autoupdate
 			counter++;
-		}	
+		}
+		return true;
 	}
 
 	/**
 	 * renders the water animations for the map
 	 */
 	public void renderWater(){
+		
 		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("water").iterator();
 		while(itr.hasNext()){
 			GroupObject element = itr.next();
@@ -221,6 +228,20 @@ public class Map extends TiledMapPlus{
 		this.currentMap = currentMap;
 	}
 
+	public Map update(Player player) throws SlickException{
+		if(getName().equals("Alabasta")){
+			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY() ){
+				System.out.println("ENTERED HOUSE");
+				return new Map("res/world/Level_1.tmx");
+			}
+		}
+		
+		return this;
+	}
+	
+	public Map changeMap(){
+		return this;
+	}
 
 	public int getTileSize() {
 		return tileSize;
