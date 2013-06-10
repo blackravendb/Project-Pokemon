@@ -32,6 +32,9 @@ public class NameMenu {
 	/** the main-menu background*/
 	private Rectangle background;
 	
+	/** height of one item in the menu*/
+	private final int itemHeight = 32;
+	
 	private String[] mainItems = new String[5];
 	/** the debug submenu items */
 	private Polygon cursor;
@@ -64,13 +67,19 @@ public class NameMenu {
 		if(showMenu){
 			background.setHeight(mainItems.length*32);
 		}
-		if(input.isKeyPressed(Input.KEY_W)){
+		if(input.isKeyPressed(Input.KEY_W)){ // nach oben
 			if(cursor.getCenterY() > 86){
 				cursor.setY(cursor.getY() - 32);
-			} 
-		}else if(input.isKeyPressed(Input.KEY_S)){
+			}
+			else{
+				cursor.setCenterY(182);
+			}
+		}else if(input.isKeyPressed(Input.KEY_S)){ // nach unten
 			if(cursor.getCenterY() < background.getMaxY()- 64){
 				cursor.setY(cursor.getY() + 32);
+			}
+			else{
+				resetCursor();
 			}
 		}
 		if(input.isKeyPressed(Input.KEY_ENTER)){
@@ -80,16 +89,20 @@ public class NameMenu {
 				//sbg.enterState(Core.name);
 			}else if(cursor.getCenterY() == 118){ //Rot
 				name = mainItems[2];
+				resetCursor();
 			}else if(cursor.getCenterY() == 150){ //Ash
 				name = mainItems[3];
+				resetCursor();
 			}else if(cursor.getCenterY() == 182){ //Jack
 				name = mainItems[4];
+				resetCursor();
 			}
 		}
 	}
 	}
 	
 	public void render(Graphics g){
+	
 		if(showMenu){
 			g.setColor(Color.white);
 			//g.drawString("Cursor: X = " + cursor.getCenterX(), 50, 400);
@@ -101,5 +114,9 @@ public class NameMenu {
 		}
 		g.setColor(Color.white);
 		g.fill(cursor);
+	}
+
+private void resetCursor(){
+	cursor.setLocation(x+16, 80);
 	}
 }

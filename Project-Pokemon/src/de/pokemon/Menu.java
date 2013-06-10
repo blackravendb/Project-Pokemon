@@ -50,9 +50,9 @@ public class Menu extends BasicGameState{
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
-		pokemon = new Image("res/Pokemon-Logo.png");
+		pokemon = new Image("res/Intro/Pokemon-Logo.png");
 		cursor = new Polygon(cursorPoints); 
-		bild = new Image("res/Pokemon-Bild.jpg");
+		bild = new Image("res/Intro/Pokemon-Bild.jpg");
 		
 		imagex = (gc.getWidth() - pokemon.getWidth())/2;
 		imagey = 0;
@@ -69,7 +69,7 @@ public class Menu extends BasicGameState{
 		recty = pokemon.getHeight() + 30;
 		
 		spielfortsetzenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Continue Game"))/2;
-		spielfortsetzeny = recty + 10;;
+		spielfortsetzeny = recty + 10;
 		
 		neuesspielx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("New Game"))/2;
 		neuesspiely = spielfortsetzeny + 40;
@@ -108,26 +108,25 @@ public class Menu extends BasicGameState{
 		
 		Input input = gc.getInput();
 		
-			if(pointy >= spielbeendeny + 4){
-				if(input.isKeyPressed(Input.KEY_S)){
-				pointy += 0;
-				}
+		if(input.isKeyPressed(Input.KEY_S)){
+			if(pointy == spielbeendeny + 4){
+				pointy = spielfortsetzeny - 36;
 			}
-			else if(input.isKeyPressed(Input.KEY_S)){
+			if(pointy < spielbeendeny + 4){
 				pointy += 40;
 			}
+		}
 		
-			if(pointy <= spielfortsetzeny + 4){
-				if(input.isKeyPressed(Input.KEY_W)){
-					pointy += 0;
-				}
+		if(input.isKeyPressed(Input.KEY_W)){
+			if(pointy == spielfortsetzeny + 4){
+				pointy = spielbeendeny + 44;
 			}
-			else if(input.isKeyPressed(Input.KEY_W)){
+			if(pointy > spielfortsetzeny + 4){
 				pointy -= 40; 
-			
-				}
-			
-			cursor.setLocation(pointx, pointy);
+			}
+		}
+		
+		cursor.setLocation(pointx, pointy);
 		
 			if(pointy == spielfortsetzeny + 4){ //Spiel fortsetzen
 				if(input.isKeyPressed(Input.KEY_ENTER)){
@@ -140,6 +139,7 @@ public class Menu extends BasicGameState{
 
 			else if(pointy == neuesspiely + 4){ // neues Spiel
 				if(input.isKeyPressed(Input.KEY_ENTER)){
+					
 					sbg.enterState(Core.intro);
 					
 					/*sbg.getState(Core.play).init(gc, sbg); // init state to create a new game

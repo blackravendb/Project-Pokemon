@@ -17,19 +17,25 @@ public class IntroState extends BasicGameState {
 	Image pokemon2;
 	Image trainer;
 	Image enkel;
+	Image trainerSpiel;
 	
 	public int deublerx;
 	public int deublery;
-	public int xend;
+	public int deublerXEnd;
 	
 	public int pokemonx;
 	public int pokemony;
+	public int pokemonXEnd;
 	
 	public int trainerx;
 	public int trainery;
+	public int trainerXEnd;
+	public int trainerWidth;
+	public int trainerHeight;
 	
 	public int enkelx;
 	public int enkely;
+	public int enkelXEnd;
 	
 	public int text;
 	
@@ -48,10 +54,14 @@ public class IntroState extends BasicGameState {
 	public int rectnamewidth;
 	public int rectnameheight;
 	
+	public long counter;
+	public long counter1;
+	
 	Input input;
 	
 	public boolean sliding;
 	
+	public int i;
 	public IntroState(int id){
 		ID = id;
 	}
@@ -59,29 +69,36 @@ public class IntroState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
+		
 		menu = new NameMenu(gc, game, "ROT", "ASH", "JACK");
 		menu2 = new NameMenu (gc, game, "BLAU", "GARY", "JOHN");
 		
-		deubler = new Image("res/lind.png");
-		pokemon = new Image("res/Glurak2.png");
-		pokemon2 = new Image("res/Glurak3.png");
-		enkel = new Image("res/Enkel.png");
-		trainer = new Image("res/trainer1.png");
-		
-		deublerx = (gc.getWidth() - deubler.getWidth())/2;
-		deublery = gc.getHeight()/4;
-		xend = (gc.getWidth() - deubler.getWidth())/2;
-		
-		pokemonx = (gc.getWidth() - pokemon.getWidth())/2;
-		pokemony = gc.getHeight()/6;
-		
-		enkelx = (gc.getWidth() - enkel.getWidth())/2;
-		enkely = gc.getHeight()/7;
-		
-		trainerx = (gc.getWidth() - trainer.getWidth())/2;
-		trainery = gc.getHeight()/6;
-		
 		text = 1;
+		
+		deubler = new Image("res/Intro/lind.png");
+		pokemon = new Image("res/Intro/Glurak2.png");
+		pokemon2 = new Image("res/Intro/Glurak3.png");
+		enkel = new Image("res/Intro/Enkel.png");
+		trainer = new Image("res/Intro/trainer1.png");
+		trainerSpiel = new Image("res/Intro/Player.png");
+		
+		deublerx = gc.getWidth() + 20;
+		deublery = gc.getHeight()/4;
+		deublerXEnd = (gc.getWidth() - deubler.getWidth())/2;
+		
+		pokemonx = gc.getWidth() + 30;
+		pokemony = gc.getHeight()/6;
+		pokemonXEnd = (gc.getWidth() - pokemon.getWidth())/2;
+		
+		enkelx = gc.getWidth() + 20;
+		enkely = gc.getHeight()/7;
+		enkelXEnd = (gc.getWidth() - enkel.getWidth())/2;
+		
+		trainerx = gc.getWidth() + 20;
+		trainery = gc.getHeight()/6;
+		trainerXEnd = (gc.getWidth() - trainer.getWidth())/2;
+		trainerWidth = trainer.getWidth();
+		trainerHeight = trainer.getHeight();
 		
 		rectwidth = gc.getWidth()/2;
 		rectheight = gc.getHeight()/5;
@@ -103,7 +120,13 @@ public class IntroState extends BasicGameState {
 		rectnamey = (gc.getWidth() - rectnameheight)/9;
 		rectnamewidth = 150;
 		rectnameheight = gc.getHeight()/3;
-		sliding = false; //später auf true setzen!
+		sliding = true; 
+		
+		counter = 0;
+		counter1 = 0;
+		
+		i = 1;
+		
 	}
 
 	@Override
@@ -112,6 +135,8 @@ public class IntroState extends BasicGameState {
 		Input input = gc.getInput();
 		
 		if(text == 1){
+			menu.name = null;
+			menu2.name = null;
 			g.drawImage(deubler, deublerx, deublery);
 		}
 		
@@ -152,7 +177,6 @@ public class IntroState extends BasicGameState {
 			
 			g.drawImage(pokemon2, pokemonx, pokemony);
 			//TODO Sound abspielen!
-			//TODO Bilder animieren
 			g.drawString("[Enter drücken]", mittex, stringy[1]);
 			if(input.isKeyPressed(Input.KEY_ENTER)){
 				text = 5;
@@ -217,6 +241,19 @@ public class IntroState extends BasicGameState {
 			}
 		}
 		else if(text == 10){
+			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
+			if (counter1 >= 800){
+			text = 11;
+			}
+		}
+		else if(text == 11){
+			g.drawImage(trainerSpiel, trainerx, trainery); 
+			if (counter >= 1000){
+			text = 12;
+			}
+		}
+		else if(text == 12){
+			text = 1;
 			game.enterState(1);
 		}
 		if(menu.showMenu && text == 5){
@@ -225,7 +262,6 @@ public class IntroState extends BasicGameState {
 		if(menu2.showMenu && text == 7){
 			menu2.render(g);
 		}
-		
 	}
 	
 	@Override
@@ -235,16 +271,67 @@ public class IntroState extends BasicGameState {
 		
 		if(menu.showMenu && text == 5){
 			menu.update(input);
-		/*	
-		if (text == 1 && sliding == true){ //Ansicht 1 Animation
-			if(x > xend){ //not at end position
-				x -= 16;
+		}
+		
+		if(text == 11){
+			if (counter <= 1000){
+			counter += delta;
+			}
+		}
+		
+		if (text == 10){ //trainer Animation Übergang + counter start
+			if(counter1 <= 800){
+				counter1 += delta;
+			}
+			if(i < 50){
+				trainerWidth -= trainerWidth/30;
+				trainerHeight -= trainerHeight/30;
+				trainerx = (gc.getWidth() - trainerWidth)/2;
+				trainery += 2;
+				i++;
+			}
+		}	
+		
+		if (text == 1){ //Deubler Animation
+			if(deublerx > deublerXEnd && sliding == true){
+				deublerx -= 8;
 			}
 			else{
 				sliding = false;
 			}
-		}*/
-	}
+			//animation(deublerx, deublerXEnd);
+		}
+		if (text == 2){ //Glurak Animation
+			sliding = true;
+			if(pokemonx > pokemonXEnd && sliding == true){
+				pokemonx -= 8;
+			}
+			else{
+				sliding = false;
+			}
+			//animation(pokemonx, pokemonXEnd);
+		}
+		if (text == 5){ //Trainer Animation
+			sliding = true;
+			if(trainerx > trainerXEnd && sliding == true){
+				trainerx -= 8;
+			}
+			else{
+				sliding = false;
+			}
+			//animation(trainerx, trainerXEnd);
+		}
+		if (text == 7){ //Enkel Animation
+			sliding = true;
+			if(enkelx > enkelXEnd && sliding == true){
+				enkelx -= 8;
+			}
+			else{
+				sliding = false;
+			}
+			//animation(enkelx, enkelXEnd);
+		}
+		
 		if(menu2.showMenu && text == 7){
 			menu2.update(input);
 		}
@@ -255,5 +342,16 @@ public class IntroState extends BasicGameState {
 		// TODO Auto-generated method stub
 		return ID;
 	}
+	
+	/*
+	public void animation(int koordinateX, int ende){
+		if(koordinateX > ende && sliding == true){
+			koordinateX -= 16;
+		}
+		else{
+			sliding = false;
+		}
+	}
+	*/
 
 }
