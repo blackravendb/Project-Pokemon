@@ -25,7 +25,7 @@ public class PlayState extends BasicGameState {
 	Player player;
 	/** reference for the inGameMenu */
 	InGameMenu menu;
-	/** reference for the*/
+	/** reference for the input*/
 	Input input;
 
 	public PlayState(int id){
