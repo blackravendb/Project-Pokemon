@@ -145,8 +145,9 @@ public class Camera {
                tileOffsetY, 
                tileIndexX,  
                tileIndexY,
-                 (gc.getWidth()  - tileOffsetX) / tileWidth  + 2,
-                (gc.getHeight() - tileOffsetY) / tileHeight + 2,3,false); 
+                 (gc.getWidth()  - tileOffsetX) / tileWidth  + 1,
+                (gc.getHeight() - tileOffsetY) / tileHeight + 1,map.getLayerIndex("foreground"),false);
+	   
    }
    
    /**

@@ -35,10 +35,9 @@ public class PlayState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
-		//player = new Rectangle(map.getSpawn("player").x,map.getSpawn("player").y, 32, 32);
 		map = new Map("res/world/testmap.tmx");
 		try {
-			player = new Player(10*32,15*32);
+			player = new Player(map.getSpawn("player").x,map.getSpawn("player").y);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

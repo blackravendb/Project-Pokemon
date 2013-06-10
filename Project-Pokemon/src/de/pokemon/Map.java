@@ -9,8 +9,7 @@ import org.newdawn.slick.tiled.GroupObject;
 import org.newdawn.slick.tiled.TiledMapPlus;
 
 public class Map extends TiledMapPlus{
-	/** The current TiledMap*/
-	private TiledMapPlus currentMap;
+
 	/** 2D boolean array, true if Tile is blocked*/
 	private static boolean[][] blocked;
 	/** size of a quadratic tile*/
@@ -19,7 +18,8 @@ public class Map extends TiledMapPlus{
 	private String name;
 	/** Array of Animation holding the */
 	private Animation[] water = null;
-	boolean hasWater;
+	/** indicates if the current map has water to render*/
+	public boolean hasWater;
 
 
 	/**
@@ -29,7 +29,6 @@ public class Map extends TiledMapPlus{
 	 */
 	public Map(String ref) throws SlickException{
 		super(ref);
-		setCurrentMap(this);
 		name = getMapProperty("name", "unknown name");
 		blocked = new boolean[getWidth()][getHeight()];
 		blocked = buildCollisionMap();
@@ -53,7 +52,7 @@ public class Map extends TiledMapPlus{
 		for (int x = 0; x < getWidth(); x++) {
 			for (int y = 0; y < getHeight(); y++) {
 				int tileID = getTileId(x, y, layerIndex);
-				blocked[x][y] = getTileProperty(tileID, "blocked", "false").equals("true") ? true : false;
+				blocked[x][y] = getTileProperty(tileID, "blocked", "false").equals("true");
 			}
 		}
 
@@ -211,9 +210,6 @@ public class Map extends TiledMapPlus{
 		}
 	}
 
-	public TiledMapPlus getCurrentMap() {
-		return currentMap;
-	}
 
 	public String getCoordinates(double x, double y, int tileX, int tileY){		
 		return new String((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name);
@@ -224,15 +220,15 @@ public class Map extends TiledMapPlus{
 		g.drawString((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name, 10, 30);
 	}
 
-	public void setCurrentMap(TiledMapPlus currentMap) {
-		this.currentMap = currentMap;
-	}
-
-	//update
+	
+	//this method is gonna be big
 	public Map update(Player player) throws SlickException{
 		if(getName().equals("Alabasta")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY() ){
 				System.out.println("ENTERED HOUSE");
+				//Map tmp = new Map ("res/world/testmap1.tmx");	
+				//set position of the player
+				//probably add the npcs
 				return new Map("res/world/testmap1.tmx");
 			}
 		}
@@ -240,9 +236,6 @@ public class Map extends TiledMapPlus{
 		return this;
 	}
 	
-	public Map changeMap(){
-		return this;
-	}
 
 	public int getTileSize() {
 		return tileSize;
