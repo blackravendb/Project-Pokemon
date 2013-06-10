@@ -232,7 +232,7 @@ public class Map extends TiledMapPlus{
 		if(getName().equals("Alabasta")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY() ){
 				System.out.println("ENTERED HOUSE");
-				return new Map("res/world/Level_1.tmx");
+				return new Map("res/world/testmap1.tmx");
 			}
 		}
 		
