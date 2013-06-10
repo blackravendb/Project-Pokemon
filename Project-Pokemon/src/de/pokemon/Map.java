@@ -228,6 +228,7 @@ public class Map extends TiledMapPlus{
 		this.currentMap = currentMap;
 	}
 
+	//update
 	public Map update(Player player) throws SlickException{
 		if(getName().equals("Alabasta")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY() ){
