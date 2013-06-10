@@ -134,9 +134,23 @@ public class IntroState extends BasicGameState {
 			throws SlickException {
 		Input input = gc.getInput();
 		
-		if(text == 1){
+		if(text == 0){ //Koordinaten resetten
 			menu.name = null;
 			menu2.name = null;
+			deublerx = gc.getWidth() + 20;
+			pokemonx = gc.getWidth() + 30;
+			enkelx = gc.getWidth() + 20;
+			trainerx = gc.getWidth() + 20;
+			trainerWidth = trainer.getWidth();
+			trainerHeight = trainer.getHeight();
+			sliding = true;
+			trainery = gc.getHeight()/6;
+			counter1 = 0;
+			counter = 0;
+			i = 1;
+			text = 1;
+		}
+		if(text == 1){ 
 			g.drawImage(deubler, deublerx, deublery);
 		}
 		
@@ -253,7 +267,7 @@ public class IntroState extends BasicGameState {
 			}
 		}
 		else if(text == 12){
-			text = 1;
+			text = 0;
 			game.enterState(1);
 		}
 		if(menu.showMenu && text == 5){
