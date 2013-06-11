@@ -138,7 +138,7 @@ public class Camera {
    }
    
    /**
-    * Draws the Foreground of the map.
+    * Draws the Foreground of the map. The layer named "foreground" will be rendered.
     */
    public void drawForeground(){
 	 //calculate the offset to the next tile (needed by TiledMap.render())

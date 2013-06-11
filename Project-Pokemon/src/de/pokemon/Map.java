@@ -34,7 +34,7 @@ public class Map extends TiledMapPlus{
 		blocked = buildCollisionMap();
 		tileSize = getTileWidth();
 		hasWater = createWater();
-		System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
+		//System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
 		//System.out.println(blocked[24].length);
 		
 	}
@@ -110,14 +110,17 @@ public class Map extends TiledMapPlus{
 		for(int i = 0; i < getWidth(); i++)
 			for(int j = 0; j < getHeight(); j++){
 				if(blocked[i][j]){
-					g.setColor(Color.red);	
+					g.setColor(new Color(1.0f, 0.0f, 0.0f, 0.5f));	
 				}else{
-					g.setColor(Color.green);
+					g.setColor(new Color(0.0f, 1.0f, 0.0f, 0.5f));
 				}
-				g.setDrawMode(Graphics.MODE_ADD_ALPHA);
+				//g.setDrawMode(Graphics.MODE_ADD_ALPHA);
+				
 				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 			}
 		g.setDrawMode(Graphics.MODE_NORMAL);
+		
+		
 	}
 
 	/**
@@ -226,13 +229,17 @@ public class Map extends TiledMapPlus{
 	public Map update(Player player) throws SlickException{
 		if(getName().equals("Alabasta")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY() ){
-				System.out.println("ENTERED HOUSE");
 				Map tmp = new Map ("res/world/testmap1.tmx");	
 				//set position of the player
-				System.out.println(tmp.getExit("house").x + " " + tmp.getExit("house").y);
-				player.setPosition(tmp.getExit("house").x, tmp.getExit("house").y);
+				player.setPosition(tmp.getEntrance("house").x, tmp.getEntrance("house").y);
 				//probably add the npcs
 				return tmp;//new Map("res/world/testmap1.tmx");
+			}
+		}else if(getName().equals("House")){
+			if(getExit("house").x == player.getPosX() && getExit("house").y == player.getPosY()){
+				Map tmp = new Map("res/world/testmap.tmx");
+				player.setPosition(tmp.getExit("house").x, tmp.getExit("house").y);
+				return tmp;
 			}
 		}
 		

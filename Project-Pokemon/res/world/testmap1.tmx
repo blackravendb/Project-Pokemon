@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="name" value="House"/>
+ </properties>
  <tileset firstgid="1" name="tileset32x32" tilewidth="32" tileheight="32">
   <image source="tileset32x32.png" width="2048" height="2048"/>
   <tile id="2012">
@@ -8,9 +11,9 @@
    </properties>
   </tile>
  </tileset>
- <layer name="collision" width="25" height="25" visible="0">
+ <layer name="collision" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC7vLzsBwdxSP4lFMNQwC1DaPEKC1+dS0A5+dgz2sCNlBjfgnxv3U9AeuOKJm2sXnt8GedumVrkbxKCYHAwBHWsnFxAkAAA==
+   H4sIAAAAAAAAC7vLzsBwdxSP4lE8aDExgNbmU9MOfHYO9rAiZAdMnpZ+oIYdyPbgiiNqhhM+vw32tEuvdIXPblqZPYqHPgYAlmxzVMQJAAA=
   </data>
  </layer>
  <layer name="background" width="25" height="25">
@@ -29,6 +32,7 @@
   </data>
  </layer>
  <objectgroup name="object layer" width="25" height="25">
-  <object name="house" type="exit" gid="2013" x="448" y="544"/>
+  <object name="house" type="entrance" gid="2013" x="448" y="544"/>
+  <object name="house" type="exit" gid="2013" x="448" y="576"/>
  </objectgroup>
 </map>
