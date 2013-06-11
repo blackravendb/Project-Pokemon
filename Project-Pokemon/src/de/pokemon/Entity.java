@@ -13,8 +13,6 @@ public class Entity {
 	private int posY;
 	private int width;
 	private int height;
-	private int blockedX;
-	private int blockedY;
 	private int tileX;
 	private int tileY;
 	private int moveSpeed = 2;
@@ -47,13 +45,11 @@ public class Entity {
 	
 	private boolean blockedDelta = true;
 	
-	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException{
+	Entity (int posX, int posY, int width, int height, String imagePath) throws SlickException{
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
 		this.height = height;
-		this.blockedX = blockedX;
-		this.blockedY = blockedY;
 		
 		image = new Image(imagePath);
 		
@@ -130,10 +126,12 @@ public class Entity {
 	
 	public void setPosX(int posX){
 		this.posX = posX;
+		calcTilePosition(posX, true);
 	}
 	
 	public void setPosY(int posY){
 		this.posY = posY;
+		calcTilePosition(posY, true);
 	}
 	
 	public int getTileX(){
@@ -158,6 +156,14 @@ public class Entity {
 	
 	public int getHeight (){
 		return height;
+	}
+	
+	private void calcTilePosition(int posPixel, boolean direction){
+		//direction == true (X) direction == false (Y)
+		if(direction)
+			tileX = posPixel % Core.tileSize;
+		else
+			tileY = posPixel % Core.tileSize;
 	}
 	
 	public void moveX (int tileX){

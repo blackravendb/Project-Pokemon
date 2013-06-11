@@ -16,7 +16,7 @@ public class Player extends Entity {
 	private standAnimationRet move; //Variable zum Zwischenspeichern des Rückgabewerts standAnimation
 	
 	Player(int posX, int posY) throws SlickException {
-		super(posX, posY, Core.tileSize, Core.tileSize*2, "res/player2.png", 1, 1);
+		super(posX, posY, Core.tileSize, Core.tileSize*2, "res/player2.png");
 	}
 	/**Methode für überprüfung ob eine Standanimation oder eine Laufanimtaion ausgeführt werden soll*/
 	private standAnimationRet standAnimation (Input input){
