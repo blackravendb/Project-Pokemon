@@ -1,7 +1,5 @@
 package de.pokemon;
 
-import java.io.IOException;
-
 import org.newdawn.slick.SlickException;
 
 public class Npcs extends Entity {

@@ -125,13 +125,24 @@ public class Entity {
 	}
 	
 	public void setPosX(int posX){
+		Map.setBlocked(tileX, tileY, false);
 		this.posX = posX;
 		calcTilePosition(posX, true);
+		Map.setBlocked(tileX, tileY, true);
 	}
 	
 	public void setPosY(int posY){
+		Map.setBlocked(tileX, tileY, false);
 		this.posY = posY;
 		calcTilePosition(posY, true);
+		Map.setBlocked(tileX, tileY, true);
+	}
+	
+	public void setPosition(int posX, int posY){
+		Map.setBlocked(tileX, tileY, false);
+		calcTilePosition(posX, true);
+		calcTilePosition(posY, false);
+		Map.setBlocked(tileX, tileY, true);
 	}
 	
 	public int getTileX(){
@@ -164,6 +175,11 @@ public class Entity {
 			tileX = posPixel % Core.tileSize;
 		else
 			tileY = posPixel % Core.tileSize;
+	}
+	
+	private void calcTilePosition (int posX, int posY){
+		calcTilePosition(posX, true);
+		calcTilePosition(posY, false);
 	}
 	
 	public void moveX (int tileX){
