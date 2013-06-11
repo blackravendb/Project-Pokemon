@@ -1,7 +1,5 @@
 package de.pokemon;
 
-import java.io.IOException;
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -44,12 +42,12 @@ public class Entity {
 	private Animation aniStandDown = new Animation();
 	private int standAniDelta = 200; //Dauer der Standanimation
 	
-	private Audio audioSolid;
-	private Audio audioBackground;
+//	private Audio audioSolid;
+//	private Audio audioBackground;
 	
 	private boolean blockedDelta = true;
 	
-	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException, IOException{
+	Entity (int posX, int posY, int width, int height, String imagePath, int blockedX, int blockedY) throws SlickException{
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
@@ -60,9 +58,7 @@ public class Entity {
 		image = new Image(imagePath);
 		
 		tileY = posY / Core.tileSize + 1;
-
 		tileX = posX / Core.tileSize;
-		System.out.println(tileX +" blub "+ tileY);
 		//Aktuelle Position blocken
 		Map.setBlocked(tileX, tileY, true);
 			
@@ -118,8 +114,8 @@ public class Entity {
 		aniStandDown.setLooping(false);
 		
 		//Sounds
-		audioSolid =  AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/solid.wav"));
-		audioBackground = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/105_mishiro_town.wav"));
+	//	audioSolid =  AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/solid.wav"));
+	//	audioBackground = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/105_mishiro_town.wav"));
 		
 	//	audioBackground.playAsMusic(1.0f, 1.0f, true);
 	}
@@ -195,7 +191,7 @@ public class Entity {
 					blockedDelta =true;
 				}
 				if(aniLeft.getFrame() == 2 && blockedDelta == true || aniRight.getFrame() == 2 && blockedDelta == true){
-					audioSolid.playAsSoundEffect(1.0f, 1.0f, false);
+					Sound.audioSolid.playAsSoundEffect(1.0f, 1.0f, false);
 					blockedDelta = false;
 				}
 			}
@@ -239,7 +235,7 @@ public class Entity {
 					blockedDelta =true;
 				}
 				if(aniDown.getFrame() == 2 && blockedDelta == true || aniUp.getFrame() == 2 && blockedDelta == true){
-					audioSolid.playAsSoundEffect(1.0f, 1.0f, false);
+					Sound.audioSolid.playAsSoundEffect(1.0f, 1.0f, false);
 					blockedDelta = false;
 				}
 
