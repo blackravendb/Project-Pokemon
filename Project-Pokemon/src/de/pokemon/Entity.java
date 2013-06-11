@@ -172,14 +172,9 @@ public class Entity {
 	private void calcTilePosition(int posPixel, boolean direction){
 		//direction == true (X) direction == false (Y)
 		if(direction)
-			tileX = posPixel % Core.tileSize;
+			tileX = posPixel / Core.tileSize;
 		else
-			tileY = posPixel % Core.tileSize;
-	}
-	
-	private void calcTilePosition (int posX, int posY){
-		calcTilePosition(posX, true);
-		calcTilePosition(posY, false);
+			tileY = posPixel / Core.tileSize;
 	}
 	
 	public void moveX (int tileX){
