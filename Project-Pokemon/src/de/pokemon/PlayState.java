@@ -1,7 +1,5 @@
 package de.pokemon;
 
-import java.io.IOException;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -36,11 +34,9 @@ public class PlayState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		map = new Map("res/world/testmap.tmx");
-		try {
-			player = new Player(map.getSpawn("player").x,map.getSpawn("player").y);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		player = new Player(map.getSpawn("player").x,map.getSpawn("player").y);
+
 		camera = new Camera(gc, map);
 		camera.centerOn(player);
 		menu = new InGameMenu(gc,game);
