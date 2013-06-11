@@ -33,6 +33,7 @@ public class IntroState extends BasicGameState {
 	public int trainerXEnd;
 	public int trainerWidth;
 	public int trainerHeight;
+	public int trainerYEnd;
 	
 	public int enkelx;
 	public int enkely;
@@ -75,6 +76,8 @@ public class IntroState extends BasicGameState {
 		menu = new NameMenu(gc, game, "ROT", "ASH", "JACK");
 		menu2 = new NameMenu (gc, game, "BLAU", "GARY", "JOHN");
 		
+		musicStart = true;
+		
 		text = 1;
 		
 		deubler = new Image("res/Intro/lind.png");
@@ -86,6 +89,8 @@ public class IntroState extends BasicGameState {
 		
 		deublerx = (gc.getWidth() - deubler.getWidth())/2;
 		deublery = gc.getHeight()/4;
+		deltaDeublerTransparence = 0;
+		aWildDeublerAppearse = true;
 		
 		pokemonx = gc.getWidth() + 30;
 		pokemony = gc.getHeight()/6;
@@ -100,6 +105,7 @@ public class IntroState extends BasicGameState {
 		trainerXEnd = (gc.getWidth() - trainer.getWidth())/2;
 		trainerWidth = trainer.getWidth();
 		trainerHeight = trainer.getHeight();
+		trainerYEnd = trainery + 80;
 		
 		rectwidth = gc.getWidth()/2;
 		rectheight = gc.getHeight()/5;
@@ -135,22 +141,6 @@ public class IntroState extends BasicGameState {
 			throws SlickException {
 		Input input = gc.getInput();
 		
-		if(text == 0){ //Koordinaten resetten
-			menu.name = null;
-			menu2.name = null;
-			deublerx = gc.getWidth() + 20;
-			pokemonx = gc.getWidth() + 30;
-			enkelx = gc.getWidth() + 20;
-			trainerx = gc.getWidth() + 20;
-			trainerWidth = trainer.getWidth();
-			trainerHeight = trainer.getHeight();
-			sliding = true;
-			trainery = gc.getHeight()/6;
-			counter1 = 0;
-			counter = 0;
-			i = 1;
-			text = 1;
-		}
 		if(text == 1){ 
 			g.drawImage(deubler, deublerx, deublery);
 		}
@@ -250,24 +240,26 @@ public class IntroState extends BasicGameState {
 			g.drawString("Wäid da Pokemon erwartet Di!", stringx[1], stringy[1]);
 			g.drawString("A Wäid voia Wunda, Obnteia", stringx[2], stringy[2]);
 			g.drawString("und Geheimnisse! Des is a Draum!", stringx[3], stringy[3]);
-			//Übergang?
 			if(input.isKeyPressed(Input.KEY_ENTER)){ 
 				text = 10;
 			}
 		}
 		else if(text == 10){
-			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
-			if (counter1 >= 800){
-			text = 11;
-			}
+			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);
 		}
 		else if(text == 11){
-			g.drawImage(trainerSpiel, trainerx, trainery); 
-			if (counter >= 1000){
+			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
+			if (counter1 >= 1000){
 			text = 12;
 			}
 		}
 		else if(text == 12){
+			g.drawImage(trainerSpiel, trainerx, trainery); 
+			if (counter >= 1000){
+			text = 13;
+			}
+		}
+		else if(text == 13){
 			text = 0;
 			game.enterState(1);
 		}
@@ -293,22 +285,34 @@ public class IntroState extends BasicGameState {
 			menu.update(input);
 		}
 		
-		if(text == 11){
+		if(text == 12){
 			if (counter <= 1000){
 			counter += delta;
 			}
 		}
 		
-		if (text == 10){ //trainer Animation Übergang + counter start
-			if(counter1 <= 800){
+		if(text == 10){
+			sliding = true;
+			if(trainery < trainerYEnd && sliding == true){
+				trainery += 1;
+			}else{
+				sliding = false;
+			}
+			if(sliding == false){
+				text = 11;
+			}
+		}
+		if (text == 11){ //trainer Animation Übergang + counter start
+
+			if(counter1 <= 1000 && sliding == false){
 				counter1 += delta;
 			}
-			if(i < 50){
-				trainerWidth -= trainerWidth/30;
-				trainerHeight -= trainerHeight/30;
+			if(trainerHeight > 20){//i<70
+				trainerWidth -= trainerWidth/40;
+				trainerHeight -= trainerHeight/40;
 				trainerx = (gc.getWidth() - trainerWidth)/2;
-				trainery += 2;
-				i++;
+				trainery = (gc.getHeight() - trainerHeight)/2;
+				//i++;
 			}
 		}	
 		
@@ -357,7 +361,7 @@ public class IntroState extends BasicGameState {
 			menu2.update(input);
 		}
 		
-		if(text==12)
+		if(text==13)
 			Sound.audioIntro.stop();
 	}
 	

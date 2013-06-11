@@ -141,7 +141,7 @@ public class Menu extends BasicGameState{
 
 			else if(pointy == neuesspiely + 4){ // neues Spiel
 				if(input.isKeyPressed(Input.KEY_ENTER)){
-					
+					sbg.getState(Core.intro).init(gc, sbg);
 					sbg.enterState(Core.intro);
 					
 					/*sbg.getState(Core.play).init(gc, sbg); // init state to create a new game
