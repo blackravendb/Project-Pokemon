@@ -36,6 +36,7 @@ public class Map extends TiledMapPlus{
 		hasWater = createWater();
 		System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
 		//System.out.println(blocked[24].length);
+		
 	}
 
 	/**
@@ -226,10 +227,12 @@ public class Map extends TiledMapPlus{
 		if(getName().equals("Alabasta")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY() ){
 				System.out.println("ENTERED HOUSE");
-				//Map tmp = new Map ("res/world/testmap1.tmx");	
+				Map tmp = new Map ("res/world/testmap1.tmx");	
 				//set position of the player
+				System.out.println(tmp.getExit("house").x + " " + tmp.getExit("house").y);
+				player.setPosition(tmp.getExit("house").x, tmp.getExit("house").y);
 				//probably add the npcs
-				return new Map("res/world/testmap1.tmx");
+				return tmp;//new Map("res/world/testmap1.tmx");
 			}
 		}
 		

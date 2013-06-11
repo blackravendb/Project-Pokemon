@@ -118,14 +118,22 @@ public class Camera {
        int tileIndexY = (int) (cameraY / tileHeight);
        
        //finally draw the section of the map on the screen
+       
        map.render(   
              tileOffsetX, 
              tileOffsetY, 
              tileIndexX,  
              tileIndexY,
                 (gc.getWidth()  - tileOffsetX) / tileWidth  + 1,
-                (gc.getHeight() - tileOffsetY) / tileHeight + 1);
+                (gc.getHeight() - tileOffsetY) / tileHeight + 1,map.getLayerID("background"), false);
        
+       map.render(   
+               tileOffsetX, 
+               tileOffsetY, 
+               tileIndexX,  
+               tileIndexY,
+                  (gc.getWidth()  - tileOffsetX) / tileWidth  + 1,
+                  (gc.getHeight() - tileOffsetY) / tileHeight + 1,map.getLayerID("objects"), false);
               
    }
    

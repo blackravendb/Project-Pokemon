@@ -11,7 +11,7 @@
    </properties>
   </tile>
  </tileset>
- <layer name="collision" width="25" height="25">
+ <layer name="collision" width="25" height="25" visibility="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC7vLzsBwdxSThGkBaG0HMf6gNAyQxfHZgY9PSBybe4kVJ1YNOf7AZw8++wnFBzHqaW0HobAiNV3h0keJHZSCUTuGrx2klHf4zMDFJ7VMJccOfGDUjsFvBz5MiV4QBgBfyNW4xAkAAA==
   </data>

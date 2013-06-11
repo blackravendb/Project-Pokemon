@@ -2,26 +2,33 @@
 <map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tileset32x32" tilewidth="32" tileheight="32">
   <image source="tileset32x32.png" width="2048" height="2048"/>
+  <tile id="2012">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="collision" width="25" height="25">
+ <layer name="collision" width="25" height="25" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
+   H4sIAAAAAAAAC7vLzsBwdxSP4lFMNQwC1DaPEKC1+dS0A5+dgz2sCNlBjfgnxv3U9AeuOKJm2sXnt8GedumVrkbxKCYHAwBHWsnFxAkAAA==
   </data>
  </layer>
  <layer name="background" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3DAQkAAAwDoL3a+odajoOCvaSqqr4614odTcQJAAA=
+   H4sIAAAAAAAAC2NgGAWjYPiBAmYGhkICuISZMjs2APVvJIC3UGiHFpF41I5RO0btGLp2jIJRQC4AAP2TRprECQAA
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgIB4wQTEtAT3soCVgwoGpbQcxYqN2DG07CKUhStMYqfrIsYdcd41UO2gdH8j6iMWjYBSMgsELAPGHD6vECQAA
+   H4sIAAAAAAAAC+3T2wqCQBSF4R2m9igVFB3onVLIysqeqEu76GAvVdDRbvuhAulwNVNQzIIPZcPshcKImJj8dyo5kSpCWyTCGEOMbLW9h9v5tSPSYX+AGbMEKyywVOxoOs+zPTtTnHHESbFj8KLjUym6IiWUXf27E+v6bLPbg48tdthr6kut51mtIFJHAy16unk9Xdn02N1HiEhDR3w7P+F7Ogis6/s9CR0rxX+2yXTEmD50/Ermb+5Xm3vjwf/i/TExecwF8QD5jcQJAAA=
   </data>
  </layer>
  <layer name="foreground" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
+   H4sIAAAAAAAAC2NgGAWjYBSMAgaGF2wMDC+B+BXbQLtkFIwC4kAx60C7YBSMgoEFAKoggbLECQAA
   </data>
  </layer>
- <objectgroup name="object layer" width="25" height="25"/>
+ <objectgroup name="object layer" width="25" height="25">
+  <object name="house" type="exit" gid="2013" x="448" y="544"/>
+ </objectgroup>
 </map>
