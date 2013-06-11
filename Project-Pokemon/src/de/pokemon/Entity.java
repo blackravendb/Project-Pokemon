@@ -125,7 +125,7 @@ public class Entity {
 	}
 	
 	public void setPosX(int posX){
-		Map.setBlocked(tileX, tileY, false);
+		Map.setBlocked(tileX, tileY, true);
 		this.posX = posX;
 		calcTilePosition(posX, true);
 		Map.setBlocked(tileX, tileY, true);
@@ -134,12 +134,11 @@ public class Entity {
 	public void setPosY(int posY){
 		Map.setBlocked(tileX, tileY, false);
 		this.posY = posY;
-		calcTilePosition(posY, true);
+		calcTilePosition(posY, false);
 		Map.setBlocked(tileX, tileY, true);
 	}
 	
 	public void setPosition(int posX, int posY){
-		Map.setBlocked(tileX, tileY, false);
 		calcTilePosition(posX, true);
 		calcTilePosition(posY, false);
 		this.posX = posX;
@@ -176,7 +175,7 @@ public class Entity {
 		if(direction)
 			tileX = posPixel / Core.tileSize;
 		else
-			tileY = posPixel / Core.tileSize;
+			tileY = posPixel / Core.tileSize + 1;
 	}
 	
 	public void moveX (int tileX){
