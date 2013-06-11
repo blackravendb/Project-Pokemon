@@ -142,6 +142,8 @@ public class Entity {
 		Map.setBlocked(tileX, tileY, false);
 		calcTilePosition(posX, true);
 		calcTilePosition(posY, false);
+		this.posX = posX;
+		this.posY = posY;
 		Map.setBlocked(tileX, tileY, true);
 	}
 	
