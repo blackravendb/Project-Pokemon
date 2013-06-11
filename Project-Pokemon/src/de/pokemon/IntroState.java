@@ -21,7 +21,8 @@ public class IntroState extends BasicGameState {
 	
 	public int deublerx;
 	public int deublery;
-	public int deublerXEnd;
+	public float deltaDeublerTransparence = 0;
+	private boolean aWildDeublerAppearse = true;
 	
 	public int pokemonx;
 	public int pokemony;
@@ -60,6 +61,7 @@ public class IntroState extends BasicGameState {
 	Input input;
 	
 	public boolean sliding;
+	public boolean musicStart = true;
 	
 	public int i;
 	public IntroState(int id){
@@ -82,9 +84,8 @@ public class IntroState extends BasicGameState {
 		trainer = new Image("res/Intro/trainer1.png");
 		trainerSpiel = new Image("res/Intro/Player.png");
 		
-		deublerx = gc.getWidth() + 20;
+		deublerx = (gc.getWidth() - deubler.getWidth())/2;
 		deublery = gc.getHeight()/4;
-		deublerXEnd = (gc.getWidth() - deubler.getWidth())/2;
 		
 		pokemonx = gc.getWidth() + 30;
 		pokemony = gc.getHeight()/6;
@@ -154,7 +155,7 @@ public class IntroState extends BasicGameState {
 			g.drawImage(deubler, deublerx, deublery);
 		}
 		
-		if(text == 1 && sliding == false){ //Ansicht 1
+		if(text == 1 && aWildDeublerAppearse == false){ //Ansicht 1
 			g.drawRect(rectx, recty, rectwidth, rectheight);
 			g.drawString("Servus! Herzli Wuikomma in da Wäid" , stringx[0], stringy[0]); //String 1
 			g.drawString("vo de Pokemon!", stringx[1], stringy[1]); //String 2
@@ -283,6 +284,11 @@ public class IntroState extends BasicGameState {
 			throws SlickException {
 		input = gc.getInput();
 		
+		if(musicStart){
+			Sound.audioIntro.playAsMusic(1.0f, 1.0f, true);
+			musicStart = false;
+		}
+		
 		if(menu.showMenu && text == 5){
 			menu.update(input);
 		}
@@ -307,13 +313,14 @@ public class IntroState extends BasicGameState {
 		}	
 		
 		if (text == 1){ //Deubler Animation
-			if(deublerx > deublerXEnd && sliding == true){
-				deublerx -= 8;
+			if(deltaDeublerTransparence < 1 && aWildDeublerAppearse == true){
+				deubler.setAlpha(deltaDeublerTransparence);
+				deltaDeublerTransparence += 0.004f;
 			}
 			else{
-				sliding = false;
+				aWildDeublerAppearse = false;
+				System.out.println("blub");
 			}
-			//animation(deublerx, deublerXEnd);
 		}
 		if (text == 2){ //Glurak Animation
 			sliding = true;
@@ -349,6 +356,9 @@ public class IntroState extends BasicGameState {
 		if(menu2.showMenu && text == 7){
 			menu2.update(input);
 		}
+		
+		if(text==12)
+			Sound.audioIntro.stop();
 	}
 	
 	@Override

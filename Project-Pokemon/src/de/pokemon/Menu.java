@@ -50,6 +50,8 @@ public class Menu extends BasicGameState{
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+		Sound.init();
+		
 		pokemon = new Image("res/Intro/Pokemon-Logo.png");
 		cursor = new Polygon(cursorPoints); 
 		bild = new Image("res/Intro/Pokemon-Bild.jpg");
