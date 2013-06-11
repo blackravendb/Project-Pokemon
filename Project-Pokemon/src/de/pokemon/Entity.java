@@ -125,20 +125,19 @@ public class Entity {
 	}
 	
 	public void setPosX(int posX){
-		Map.setBlocked(tileX, tileY, true);
 		this.posX = posX;
 		calcTilePosition(posX, true);
 		Map.setBlocked(tileX, tileY, true);
 	}
 	
 	public void setPosY(int posY){
-		Map.setBlocked(tileX, tileY, false);
 		this.posY = posY;
 		calcTilePosition(posY, false);
 		Map.setBlocked(tileX, tileY, true);
 	}
 	
 	public void setPosition(int posX, int posY){
+		isRunning = false;
 		calcTilePosition(posX, true);
 		calcTilePosition(posY, false);
 		this.posX = posX;
@@ -175,7 +174,8 @@ public class Entity {
 		if(direction)
 			tileX = posPixel / Core.tileSize;
 		else
-			tileY = posPixel / Core.tileSize + 1;
+			this.tileY = (posPixel / Core.tileSize + 1);
+
 	}
 	
 	public void moveX (int tileX){
@@ -347,7 +347,6 @@ public class Entity {
 	
 	public void updateEntity (Input input, boolean standAnimation, int steps){
 		this.standAnimation = standAnimation;
-		
 		if(standDir == LastDir.LEFT)
 			lastDir = LastDir.LEFT;
 		else if(standDir == LastDir.RIGHT)
