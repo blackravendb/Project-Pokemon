@@ -48,15 +48,19 @@ public class Entity {
 
 	private boolean blockedDelta = true;
 
-	Entity(int posX, int posY, int width, int height, String imagePath)
-			throws SlickException {
+	Entity(int posX, int posY, int width, int height, String imagePath){
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
 		this.height = height;
 
 		// Bilddatei mit Animationsabläufen
-		image = new Image(imagePath);
+		try {
+			image = new Image(imagePath);
+		} catch (SlickException e) {
+			System.err.println("Error while loading character images");
+			e.printStackTrace();
+		}
 
 		// Aktueller Standort in Tiles (y+1, da Position von Körper der Entität
 		// abhängt

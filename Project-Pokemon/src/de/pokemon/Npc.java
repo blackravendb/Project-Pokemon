@@ -13,8 +13,6 @@ public class Npc extends Entity {
 	 *            (int) Start X Position des Npc's gemessen Kopf oben links
 	 * @param posY
 	 *            (int) Start Y Position des Npc's gemessen Kopf oben links
-	 * @param height
-	 *            (int) Höhe des Npc's
 	 * @param imagePath
 	 *            (String) Pfad zum Animationsbild
 	 * @param route
@@ -27,8 +25,7 @@ public class Npc extends Entity {
 	 *            auf der Stelle stehen
 	 * @return void
 	 */
-	Npc(int posX, int posY, String imagePath, int[][] route)
-			throws SlickException {
+	Npc(int posX, int posY, String imagePath, int[][] route){
 		super(posX, posY, Core.tileSize, Core.tileSize*2, imagePath);
 
 		this.route = route;
@@ -41,8 +38,6 @@ public class Npc extends Entity {
 	 *            (int) Start X Position des Npc's gemessen Kopf oben links
 	 * @param posY
 	 *            (int) Start Y Position des Npc's gemessen Kopf oben links
-	 * @param height
-	 *            (int) Höhe des Npc's
 	 * @param imagePath
 	 *            (String) Pfad zum Animationsbild
 	 * @param random
