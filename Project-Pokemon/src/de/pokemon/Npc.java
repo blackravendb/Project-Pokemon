@@ -59,7 +59,7 @@ public class Npc extends Entity {
 	}
 	
 	public void renderNpc() {
-		
+		super.renderEntity();
 	}
 
 }
