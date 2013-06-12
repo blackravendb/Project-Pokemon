@@ -1,5 +1,6 @@
 package de.pokemon;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -20,7 +21,8 @@ public class Map extends TiledMapPlus{
 	private Animation[] water = null;
 	/** indicates if the current map has water to render*/
 	public boolean hasWater;
-
+	/** contains the npcs of the current map*/
+	private ArrayList<Npc> npcs = new ArrayList<Npc>();
 
 	/**
 	 * Creates new tile map and builds up a collision map based on a given tmx file.
@@ -28,12 +30,13 @@ public class Map extends TiledMapPlus{
 	 * @throws SlickException
 	 */
 	public Map(String ref) throws SlickException{
-		super(ref);
+		super("res/world/" + ref + ".tmx");
 		name = getMapProperty("name", "unknown name");
 		blocked = new boolean[getWidth()][getHeight()];
 		blocked = buildCollisionMap();
 		tileSize = getTileWidth();
 		hasWater = createWater();
+		
 		//System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
 		//System.out.println(blocked[24].length);
 		
@@ -214,6 +217,15 @@ public class Map extends TiledMapPlus{
 		}
 	}
 
+	public ArrayList<Npc> createNpcs(){
+		if(getName().equals("Alabasta")){
+			//add npcs to arraylist
+		}else if(getName().equals("House")){
+			
+		}
+		
+		return npcs;
+	}
 
 	public String getCoordinates(double x, double y, int tileX, int tileY){		
 		return new String((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name);
@@ -229,15 +241,17 @@ public class Map extends TiledMapPlus{
 	public Map update(Player player) throws SlickException{
 		if(getName().equals("Alabasta")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY() ){
-				Map tmp = new Map ("res/world/testmap1.tmx");	
+				Map tmp = new Map ("House");	
 				//set position of the player
 				player.setPosition(tmp.getEntrance("house").x, tmp.getEntrance("house").y);
 				//probably add the npcs
+				npcs.clear();
+				
 				return tmp;//new Map("res/world/testmap1.tmx");
 			}
 		}else if(getName().equals("House")){
 			if(getExit("house").x == player.getPosX() && getExit("house").y == player.getPosY()){
-				Map tmp = new Map("res/world/testmap.tmx");
+				Map tmp = new Map("Home");
 				player.setPosition(tmp.getExit("house").x, tmp.getExit("house").y);
 				return tmp;
 			}
