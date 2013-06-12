@@ -27,7 +27,7 @@ public class Npc extends Entity {
 	 * @return void
 	 */
 	Npc(int posX, int posY, String name){
-		super(posX, posY, Core.tileSize, Core.tileSize*2, "npc1.png");
+		super(posX, posY, Core.tileSize, Core.tileSize*2, "res/npc1.png");
 		System.out.println("blub");
 	}
 
