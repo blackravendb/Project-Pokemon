@@ -35,6 +35,6 @@
   <object name="house" type="entrance" gid="2013" x="448" y="544"/>
   <object name="house" type="exit" gid="2013" x="448" y="576"/>
   <object name="player" type="spawn" gid="2013" x="352" y="320"/>
-  <object name="mom" type="spawn" gid="2013" x="448" y="576"/>
+  <object name="mom" type="npc" gid="2013" x="416" y="544"/>
  </objectgroup>
 </map>

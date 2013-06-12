@@ -39,7 +39,7 @@ public class Map extends TiledMapPlus{
 		createNpcs();
 		//System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
 		//System.out.println(blocked[24].length);
-		
+		System.out.println(npcs);
 	}
 
 	/**
@@ -218,9 +218,11 @@ public class Map extends TiledMapPlus{
 	}
 
 	private void createNpcs() {
+		System.out.println(getObjectGroup("object layer").getObjectsOfType("npc").size());
 		if(getObjectGroup("object layer").getObjectsOfType("npc") != null){
 			for(GroupObject go: getObjectGroup("object layer").getObjectsOfType("npc")){
 				npcs.add(new Npc(go.x, go.y, go.name));
+				System.out.println(go.x + go.y + go.name);
 			}
 		}
 	}
