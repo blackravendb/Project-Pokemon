@@ -90,8 +90,12 @@ public class Player extends Entity {
 		return standAnimationRet.WAIT;
 	}
 	
-	public void renderPlayer() {
-		super.renderEntity();
+	public void renderPlayerHead() {
+		super.renderEntityHead();
+	}
+	
+	public void renderPlayerBody() {
+		super.renderEntityBody();
 	}
 	
 	public void updatePlayer(Input input) {

@@ -58,8 +58,12 @@ public class Npc extends Entity {
 		}*/
 	}
 	
-	public void renderNpc() {
-		super.renderEntity();
+	public void renderNpcHead() {
+		super.renderEntityHead();
+	}
+	
+	public void renderNpcBody() {
+		super.renderEntityBody();
 	}
 
 }

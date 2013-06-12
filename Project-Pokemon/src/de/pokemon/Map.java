@@ -229,7 +229,8 @@ public class Map extends TiledMapPlus{
 	
 	public void renderNpcs(){
 		for(Npc npc: npcs){
-			npc.renderNpc();
+			npc.renderNpcHead();
+			npc.renderNpcBody();
 		}
 	}
 	

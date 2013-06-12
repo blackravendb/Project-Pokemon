@@ -34,13 +34,17 @@ public class Entity {
 	private boolean standAnimation = false; // Boolean ob Standanimation
 											// ausgeführt werden soll
 
-	private Image charImages[][] = new Image[4][4];
-	private Animation aniLeft, aniUp, aniRight, aniDown;
+	private Image charImages[][] = new Image[8][4];
+	private Animation aniLeftHead, aniUpHead, aniRightHead, aniDownHead, aniLeftBody, aniUpBody, aniRightBody, aniDownBody;
 	private int aniDelta = 150;
-	private Animation aniStandLeft = new Animation();
-	private Animation aniStandUp = new Animation();
-	private Animation aniStandRight = new Animation();
-	private Animation aniStandDown = new Animation();
+	private Animation aniStandLeftHead = new Animation();
+	private Animation aniStandUpHead = new Animation();
+	private Animation aniStandRightHead = new Animation();
+	private Animation aniStandDownHead = new Animation();
+	private Animation aniStandLeftBody = new Animation();
+	private Animation aniStandUpBody = new Animation();
+	private Animation aniStandRightBody = new Animation();
+	private Animation aniStandDownBody = new Animation();
 	private int standAniDelta = 200; // Dauer der Standanimation
 
 	// private Audio audioSolid;
@@ -70,69 +74,135 @@ public class Entity {
 		// Aktuelle Position blocken
 		Map.setBlocked(tileX, tileY, true);
 
-		// Animationsbilder laden (Laufanimationen)
+		// Animationsbilder laden (Köpfe) (Laufanimationen)
 		// Down
 		charImages[0][0] = image.getSubImage(2 * width, 2 * height, width,
-				height);
+				height/2);
 		charImages[0][1] = image.getSubImage(2 * width, 1 * height, width,
-				height);
+				height/2);
 		charImages[0][2] = image.getSubImage(2 * width, 3 * height, width,
-				height);
+				height/2);
 		charImages[0][3] = charImages[0][1];
 
 		// LEFT
 		charImages[1][0] = image.getSubImage(0 * width, 1 * height, width,
-				height);
+				height/2);
 		charImages[1][1] = image.getSubImage(0 * width, 2 * height, width,
-				height);
+				height/2);
 		charImages[1][2] = image.getSubImage(0 * width, 3 * height, width,
-				height);
+				height/2);
 		charImages[1][3] = charImages[1][1];
 
 		// UP
 		charImages[2][0] = image.getSubImage(2 * width, 0 * height, width,
-				height);
+				height/2);
 		charImages[2][1] = image.getSubImage(0 * width, 0 * height, width,
-				height);
+				height/2);
 		charImages[2][2] = image.getSubImage(1 * width, 3 * height, width,
-				height);
+				height/2);
 		charImages[2][3] = charImages[2][1];
 
 		// RIGHT
 		charImages[3][0] = image.getSubImage(1 * width, 1 * height, width,
-				height);
+				height/2);
 		charImages[3][1] = image.getSubImage(1 * width, 0 * height, width,
-				height);
+				height/2);
 		charImages[3][2] = image.getSubImage(1 * width, 2 * height, width,
-				height);
+				height/2);
 		charImages[3][3] = charImages[3][1];
 
-		// Arrays den Animationen zuordnen mit Abspielgeschwindigkeit aniDelta
-		aniLeft = new Animation(charImages[1], aniDelta);
-		aniRight = new Animation(charImages[3], aniDelta);
-		aniUp = new Animation(charImages[2], aniDelta);
-		aniDown = new Animation(charImages[0], aniDelta);
+		// Animationsbilder laden (Körper) (Laufanimationen)
+		// Down
+		charImages[4][0] = image.getSubImage(2 * width, 2 * height + height/2, width,
+				height/2);
+		charImages[4][1] = image.getSubImage(2 * width, 1 * height + height/2, width,
+				height/2);
+		charImages[4][2] = image.getSubImage(2 * width, 3 * height + height/2, width,
+				height/2);
+		charImages[4][3] = charImages[0][1];
 
-		// Animatinsbilder Laden (Standanimationen)
 		// LEFT
-		aniStandLeft.addFrame(charImages[1][0], standAniDelta);
-		aniStandLeft.addFrame(charImages[1][1], standAniDelta);
-		aniStandLeft.setLooping(false);
-
-		// RIGHT
-		aniStandRight.addFrame(charImages[3][0], standAniDelta);
-		aniStandRight.addFrame(charImages[3][1], standAniDelta);
-		aniStandRight.setLooping(false);
+		charImages[5][0] = image.getSubImage(0 * width, 1 * height + height/2, width,
+				height/2);
+		charImages[5][1] = image.getSubImage(0 * width, 2 * height + height/2, width,
+				height/2);
+		charImages[5][2] = image.getSubImage(0 * width, 3 * height + height/2, width,
+				height/2);
+		charImages[5][3] = charImages[1][1];
 
 		// UP
-		aniStandUp.addFrame(charImages[2][0], standAniDelta);
-		aniStandUp.addFrame(charImages[2][1], standAniDelta);
-		aniStandUp.setLooping(false);
+		charImages[6][0] = image.getSubImage(2 * width, 0 * height + height/2, width,
+				height/2);
+		charImages[6][1] = image.getSubImage(0 * width, 0 * height + height/2, width,
+				height/2);
+		charImages[6][2] = image.getSubImage(1 * width, 3 * height + height/2, width,
+				height/2);
+		charImages[6][3] = charImages[2][1];
+
+		// RIGHT
+		charImages[7][0] = image.getSubImage(1 * width, 1 * height + height/2, width,
+				height/2);
+		charImages[7][1] = image.getSubImage(1 * width, 0 * height + height/2, width,
+				height/2);
+		charImages[7][2] = image.getSubImage(1 * width, 2 * height + height/2, width,
+				height/2);
+		charImages[7][3] = charImages[3][1];
+
+		
+		// Arrays den Animationen zuordnen mit Abspielgeschwindigkeit aniDelta (Kopf)
+		aniLeftHead = new Animation(charImages[1], aniDelta);
+		aniRightHead = new Animation(charImages[3], aniDelta);
+		aniUpHead = new Animation(charImages[2], aniDelta);
+		aniDownHead = new Animation(charImages[0], aniDelta);
+		
+		// Arrays den Animationen zuordnen mit Abspielgeschwindigkeit aniDelta (Körper)
+				aniLeftBody = new Animation(charImages[5], aniDelta);
+				aniRightBody = new Animation(charImages[7], aniDelta);
+				aniUpBody = new Animation(charImages[6], aniDelta);
+				aniDownBody = new Animation(charImages[4], aniDelta);
+
+
+		// Animatinsbilder Laden (Standanimationen) (Kopf)
+		// LEFT
+		aniStandLeftHead.addFrame(charImages[1][0], standAniDelta);
+		aniStandLeftHead.addFrame(charImages[1][1], standAniDelta);
+		aniStandLeftHead.setLooping(false);
+
+		// RIGHT
+		aniStandRightHead.addFrame(charImages[3][0], standAniDelta);
+		aniStandRightHead.addFrame(charImages[3][1], standAniDelta);
+		aniStandRightHead.setLooping(false);
+
+		// UP
+		aniStandUpHead.addFrame(charImages[2][0], standAniDelta);
+		aniStandUpHead.addFrame(charImages[2][1], standAniDelta);
+		aniStandUpHead.setLooping(false);
 
 		// DOWN
-		aniStandDown.addFrame(charImages[0][0], standAniDelta);
-		aniStandDown.addFrame(charImages[0][1], standAniDelta);
-		aniStandDown.setLooping(false);
+		aniStandDownHead.addFrame(charImages[0][0], standAniDelta);
+		aniStandDownHead.addFrame(charImages[0][1], standAniDelta);
+		aniStandDownHead.setLooping(false);
+		
+		// Animatinsbilder Laden (Standanimationen) (Körper)
+				// LEFT
+				aniStandLeftBody.addFrame(charImages[5][0], standAniDelta);
+				aniStandLeftBody.addFrame(charImages[5][1], standAniDelta);
+				aniStandLeftBody.setLooping(false);
+
+				// RIGHT
+				aniStandRightBody.addFrame(charImages[7][0], standAniDelta);
+				aniStandRightBody.addFrame(charImages[7][1], standAniDelta);
+				aniStandRightBody.setLooping(false);
+
+				// UP
+				aniStandUpBody.addFrame(charImages[6][0], standAniDelta);
+				aniStandUpBody.addFrame(charImages[6][1], standAniDelta);
+				aniStandUpBody.setLooping(false);
+
+				// DOWN
+				aniStandDownBody.addFrame(charImages[4][0], standAniDelta);
+				aniStandDownBody.addFrame(charImages[4][1], standAniDelta);
+				aniStandDownBody.setLooping(false);
 	}
 
 	public int getPosX() {
@@ -228,26 +298,26 @@ public class Entity {
 				lastDir = (tileX < 0) ? LastDir.LEFT : LastDir.RIGHT;
 				isStanding = false;
 
-				// blockedDelta = aniLeft.getFrame() == 1
-				// || aniRight.getFrame() == 1;
+				// blockedDelta = aniLeftHead.getFrame() == 1
+				// || aniRightHead.getFrame() == 1;
 				//
-				System.out.println(aniRight.getFrame());
+				System.out.println(aniRightHead.getFrame());
 				if (blockedDelta
-						&& (aniLeft.getFrame() == 0 || aniRight.getFrame() == 0)) {
+						&& (aniLeftHead.getFrame() == 0 || aniRightHead.getFrame() == 0)) {
 					Sound.audioSolid.playAsSoundEffect(1.0f, 1.0f, false);
 					blockedDelta = false;
-					if (aniLeft.getFrame() == 1 || aniRight.getFrame() == 1) {
+					if (aniLeftHead.getFrame() == 1 || aniRightHead.getFrame() == 1) {
 						blockedDelta = true;
 					}
-					// if(aniLeft.getFrame() == 2 && blockedDelta == true ||
-					// aniRight.getFrame() == 2 && blockedDelta == true){
+					// if(aniLeftHead.getFrame() == 2 && blockedDelta == true ||
+					// aniRightHead.getFrame() == 2 && blockedDelta == true){
 				}
 			}
 		}
 		// Standanimation
 		else {
-			aniLeft.restart();
-			aniRight.restart();
+			aniLeftHead.restart();
+			aniRightHead.restart();
 			isStanding = true;
 		}
 	}
@@ -279,11 +349,11 @@ public class Entity {
 				lastDir = (tileY < 0) ? LastDir.UP : LastDir.DOWN;
 				isStanding = false;
 
-				if (aniDown.getFrame() == 1 || aniUp.getFrame() == 1) {
+				if (aniDownHead.getFrame() == 1 || aniUpHead.getFrame() == 1) {
 					blockedDelta = true;
 				}
-				if (aniDown.getFrame() == 2 && blockedDelta == true
-						|| aniUp.getFrame() == 2 && blockedDelta == true) {
+				if (aniDownHead.getFrame() == 2 && blockedDelta == true
+						|| aniUpHead.getFrame() == 2 && blockedDelta == true) {
 					Sound.audioSolid.playAsSoundEffect(1.0f, 1.0f, false);
 					blockedDelta = false;
 				}
@@ -292,8 +362,8 @@ public class Entity {
 		}
 		// Standanimation
 		else {
-			aniLeft.restart();
-			aniRight.restart();
+			aniLeftHead.restart();
+			aniRightHead.restart();
 			isStanding = true;
 		}
 	}
@@ -322,40 +392,91 @@ public class Entity {
 		return 0;
 	}
 
-	protected void renderEntity() {
+	protected void renderEntityHead() {
 		if (!isStanding) {
 			// Bewegungsanimation
 			if (lastDir == LastDir.LEFT) {
-				aniLeft.draw(posX, posY);
+				aniLeftHead.draw(posX, posY);
 			} else if (lastDir == LastDir.UP) {
-				aniUp.draw(posX, posY);
+				aniUpHead.draw(posX, posY);
 
 			} else if (lastDir == LastDir.RIGHT) {
-				aniRight.draw(posX, posY);
+				aniRightHead.draw(posX, posY);
 
 			} else if (lastDir == LastDir.DOWN) {
-				aniDown.draw(posX, posY);
+				aniDownHead.draw(posX, posY);
 
 			}
 		} else if (standAnimation) {
 			if (standDir == LastDir.LEFT)
-				aniStandLeft.draw(posX, posY);
+				aniStandLeftHead.draw(posX, posY);
 			else if (standDir == LastDir.UP)
-				aniStandUp.draw(posX, posY);
+				aniStandUpHead.draw(posX, posY);
 			else if (standDir == LastDir.RIGHT)
-				aniStandRight.draw(posX, posY);
+				aniStandRightHead.draw(posX, posY);
 			else if (standDir == LastDir.DOWN)
-				aniStandDown.draw(posX, posY);
+				aniStandDownHead.draw(posX, posY);
 
-			if (standDir == LastDir.UP && aniStandUp.isStopped()
-					|| standDir == LastDir.DOWN && aniStandDown.isStopped()
-					|| standDir == LastDir.LEFT && aniStandLeft.isStopped()
-					|| standDir == LastDir.RIGHT && aniStandRight.isStopped()) {
+			if (standDir == LastDir.UP && aniStandUpHead.isStopped()
+					|| standDir == LastDir.DOWN && aniStandDownHead.isStopped()
+					|| standDir == LastDir.LEFT && aniStandLeftHead.isStopped()
+					|| standDir == LastDir.RIGHT && aniStandRightHead.isStopped()) {
 				standAnimation = false;
-				aniStandUp.restart();
-				aniStandDown.restart();
-				aniStandRight.restart();
-				aniStandLeft.restart();
+				aniStandUpHead.restart();
+				aniStandDownHead.restart();
+				aniStandRightHead.restart();
+				aniStandLeftHead.restart();
+			}
+		} else {
+			// Stehbild
+			if (lastDir.equals(LastDir.LEFT)) {
+				image.getSubImage(0, 2 * height, width, height)
+						.draw(posX, posY);
+			} else if (lastDir.equals(LastDir.UP)) {
+				image.getSubImage(0, 0, width, height).draw(posX, posY);
+			} else if (lastDir.equals(LastDir.RIGHT)) {
+				image.getSubImage(1 * width, 0, width, height).draw(posX, posY);
+			} else if (lastDir.equals(LastDir.DOWN)) {
+				image.getSubImage(2 * width, 1 * height, width, height).draw(
+						posX, posY);
+			}
+		}
+	}
+	
+	protected void renderEntityBody() {
+		if (!isStanding) {
+			// Bewegungsanimation
+			if (lastDir == LastDir.LEFT) {
+				aniLeftHead.draw(posX, posY);
+			} else if (lastDir == LastDir.UP) {
+				aniUpHead.draw(posX, posY);
+
+			} else if (lastDir == LastDir.RIGHT) {
+				aniRightHead.draw(posX, posY);
+
+			} else if (lastDir == LastDir.DOWN) {
+				aniDownHead.draw(posX, posY);
+
+			}
+		} else if (standAnimation) {
+			if (standDir == LastDir.LEFT)
+				aniStandLeftHead.draw(posX, posY);
+			else if (standDir == LastDir.UP)
+				aniStandUpHead.draw(posX, posY);
+			else if (standDir == LastDir.RIGHT)
+				aniStandRightHead.draw(posX, posY);
+			else if (standDir == LastDir.DOWN)
+				aniStandDownHead.draw(posX, posY);
+
+			if (standDir == LastDir.UP && aniStandUpHead.isStopped()
+					|| standDir == LastDir.DOWN && aniStandDownHead.isStopped()
+					|| standDir == LastDir.LEFT && aniStandLeftHead.isStopped()
+					|| standDir == LastDir.RIGHT && aniStandRightHead.isStopped()) {
+				standAnimation = false;
+				aniStandUpBody.restart();
+				aniStandDownBody.restart();
+				aniStandRightBody.restart();
+				aniStandLeftBody.restart();
 			}
 		} else {
 			// Stehbild
@@ -423,10 +544,16 @@ public class Entity {
 			else {
 				isRunning = false;
 				isStanding = true;
-				aniLeft.restart();
-				aniUp.restart();
-				aniRight.restart();
-				aniDown.restart();
+				aniLeftHead.restart();
+				aniUpHead.restart();
+				aniRightHead.restart();
+				aniDownHead.restart();
+				
+				aniLeftBody.restart();
+				aniUpBody.restart();
+				aniRightBody.restart();
+				aniDownBody.restart();
+				
 			}
 		}
 		/*
@@ -452,8 +579,8 @@ public class Entity {
 		 * 
 		 * else if(input.isKeyDown(Input.KEY_S)){ lastDir = LastDir.DOWN;
 		 * isRunning = true; isStanding = false; posY += moveSpeed; } else {
-		 * aniLeft.restart(); aniUp.restart(); aniRight.restart();
-		 * aniDown.restart(); isStanding = true; }
+		 * aniLeftHead.restart(); aniUpHead.restart(); aniRightHead.restart();
+		 * aniDownHead.restart(); isStanding = true; }
 		 */
 	}
 }
