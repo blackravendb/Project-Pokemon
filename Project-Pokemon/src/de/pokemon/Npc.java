@@ -43,8 +43,7 @@ public class Npc extends Entity {
 	 *            (boolean) Wert ob Bewegungsmuster zufällig (true)
 	 * @return void
 	 */
-	Npc(int posX, int posY, String imagePath, boolean random)
-			throws SlickException {
+	Npc(int posX, int posY, String imagePath, boolean random){
 		super(posX, posY, Core.tileSize, Core.tileSize*2, imagePath);
 
 	}
@@ -57,6 +56,10 @@ public class Npc extends Entity {
 			tick = true;
 			super.moveX(-1);
 		}
+	}
+	
+	public void renderNpc() {
+		
 	}
 
 }
