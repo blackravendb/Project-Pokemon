@@ -36,7 +36,7 @@ public class Map extends TiledMapPlus{
 		blocked = buildCollisionMap();
 		tileSize = getTileWidth();
 		hasWater = createWater();
-		
+		createNpcs();
 		//System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
 		//System.out.println(blocked[24].length);
 		
@@ -217,15 +217,26 @@ public class Map extends TiledMapPlus{
 		}
 	}
 
-	public ArrayList<Npc> createNpcs(){
-		if(getName().equals("Alabasta")){
-			//add npcs to arraylist
-		}else if(getName().equals("House")){
-			
+	private void createNpcs() {
+		if(getObjectGroup("object layer").getObjectsOfType("npc") != null){
+			for(GroupObject go: getObjectGroup("object layer").getObjectsOfType("npc")){
+				npcs.add(new Npc(go.x, go.y, go.name));
+			}
 		}
-		
-		return npcs;
 	}
+	
+	public void renderNpcs(){
+		for(Npc npc: npcs){
+			npc.renderNpc();
+		}
+	}
+	
+	public void updateNpcs(){
+		for(Npc npc: npcs){
+			npc.updateNpc();
+		}
+	}
+	
 
 	public String getCoordinates(double x, double y, int tileX, int tileY){		
 		return new String((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name);
@@ -245,7 +256,7 @@ public class Map extends TiledMapPlus{
 				//set position of the player
 				player.setPosition(tmp.getEntrance("house").x, tmp.getEntrance("house").y);
 				//probably add the npcs
-				npcs.clear();
+				
 				
 				return tmp;//new Map("res/world/testmap1.tmx");
 			}

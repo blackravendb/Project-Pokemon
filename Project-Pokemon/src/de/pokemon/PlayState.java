@@ -55,6 +55,7 @@ public class PlayState extends BasicGameState {
 		}
 		//draw player and all entities here
 		player.renderPlayer();
+		map.renderNpcs();
 		camera.untranslateGraphics();
 		camera.drawForeground();
 
@@ -98,6 +99,7 @@ public class PlayState extends BasicGameState {
 				camera = new Camera(gc, map);
 			}
 			camera.centerOn(player);
+			map.updateNpcs();
 			if(player.isStanding){
 				if(input.isKeyPressed(Input.KEY_ESCAPE)){
 					menu.sliding = true;
