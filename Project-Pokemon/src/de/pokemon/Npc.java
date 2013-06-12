@@ -28,7 +28,6 @@ public class Npc extends Entity {
 	 */
 	Npc(int posX, int posY, String name){
 		super(posX, posY, Core.tileSize, Core.tileSize*2, "res/npc1.png");
-		System.out.println("blub");
 	}
 
 	/**
@@ -50,13 +49,13 @@ public class Npc extends Entity {
 	}
 
 	public void updateNpc() {
-		if (tick) {
+	/*	if (tick) {
 			tick = false;
 			super.moveX(1);
 		} else {
 			tick = true;
 			super.moveX(-1);
-		}
+		}*/
 	}
 	
 	public void renderNpc() {
