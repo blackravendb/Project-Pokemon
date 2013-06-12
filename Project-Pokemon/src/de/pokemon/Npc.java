@@ -23,12 +23,11 @@ public class Npc extends Entity {
 	 *            bzw. Schrittweite (z.B Array 2:0 bedeutung Hoch drehen; Array
 	 *            6:3 bedeutung 3 Schritte nach oben); NULL beudeutet Npc bleibt
 	 *            auf der Stelle stehen
+	 * @param name (String) Name des Npc's und Referenz für übrige Werte
 	 * @return void
 	 */
-	Npc(int posX, int posY, String imagePath, int[][] route){
-		super(posX, posY, Core.tileSize, Core.tileSize*2, imagePath);
-
-		this.route = route;
+	Npc(int posX, int posY, String name){
+		super(posX, posY, Core.tileSize, Core.tileSize*2, "test");
 	}
 
 	/**
