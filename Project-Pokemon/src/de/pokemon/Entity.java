@@ -28,7 +28,7 @@ public class Entity {
 	protected boolean isStanding = true;
 	private boolean standAnimation = false; //Boolean ob Standanimation ausgeführt werden soll
 	
-	private Image charImages[][] = new Image[4][4];
+	public Image charImages[][] = new Image[4][4];
 	/**Laufanimationen für verschiedene Richtungen*/
 	private Animation aniLeft, aniUp, aniRight, aniDown;
 	/**Animationsgeschwindigkeit für Laufanimation*/
@@ -37,7 +37,7 @@ public class Entity {
 	private Animation aniStandLeft = new Animation();
 	private Animation aniStandUp = new Animation();
 	private Animation aniStandRight = new Animation();
-	private Animation aniStandDown = new Animation();
+	public Animation aniStandDown = new Animation();
 	private int standAniDelta = 200; //Dauer der Standanimation
 	
 //	private Audio audioSolid;
@@ -364,6 +364,7 @@ public class Entity {
 	 * @param steps (int) Wie viele Tiles soll die Entity laufen
 	 * @return void*/
 	public void updateEntity (Input input, int steps){
+		System.out.println("blub");
 		//Ist Entity bereits in bewegung
 		if(isRunning){
 			if(lastDir == LastDir.LEFT)
