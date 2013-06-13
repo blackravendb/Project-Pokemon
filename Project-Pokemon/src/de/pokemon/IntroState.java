@@ -10,6 +10,8 @@ public class IntroState extends BasicGameState {
 	NameMenu menu;
 	NameMenu menu2;
 	
+	TextBox textBox;
+	
 	public static int ID;
 	
 	Image deubler;
@@ -51,11 +53,6 @@ public class IntroState extends BasicGameState {
 	
 	public int mittex;
 	
-	public int rectnamex;
-	public int rectnamey;
-	public int rectnamewidth;
-	public int rectnameheight;
-	
 	public long counter;
 	public long counter1;
 	
@@ -79,6 +76,8 @@ public class IntroState extends BasicGameState {
 		musicStart = true;
 		
 		text = 1;
+		
+		textBox = new TextBox("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
 		
 		deubler = new Image("res/Intro/lind.png");
 		pokemon = new Image("res/Intro/Glurak2.png");
@@ -122,11 +121,7 @@ public class IntroState extends BasicGameState {
 		}
 		
 		mittex = (gc.getWidth() - gc.getGraphics().getFont().getWidth("[Enter drücken]"))/2;
-		
-		rectnamex = (gc.getWidth() - rectnamewidth)/9;
-		rectnamey = (gc.getWidth() - rectnameheight)/9;
-		rectnamewidth = 150;
-		rectnameheight = gc.getHeight()/3;
+	
 		sliding = true; 
 		
 		counter = 0;
@@ -157,11 +152,13 @@ public class IntroState extends BasicGameState {
 			}
 		else if(text == 2){ //Ansicht 2
 			g.drawImage(pokemon, pokemonx, pokemony);
-			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString("De Wäid werd vo komische Wesn", stringx[0], stringy[0]); //String 1
+			//g.drawRect(rectx, recty, rectwidth, rectheight);
+			textBox.render(g);
+			
+			/*g.drawString("De Wäid werd vo komische Wesn", stringx[0], stringy[0]); //String 1
 			g.drawString("bewohnt, zu dene ma Pokemon sogt!", stringx[1], stringy[1]); //String2
 			g.drawString("Fia manche Leid han Pokemon", stringx[2], stringy[2]); //String 3
-			g.drawString("Haustiere, andre [Enter drücken]", stringx[3], stringy[3]); //String 4
+			g.drawString("Haustiere, andre [Enter drücken]", stringx[3], stringy[3]); //String 4*/
 			if(input.isKeyPressed(Input.KEY_ENTER)){
 				text = 3;
 			}
@@ -323,7 +320,7 @@ public class IntroState extends BasicGameState {
 			}
 			else{
 				aWildDeublerAppearse = false;
-				System.out.println("blub");
+				//System.out.println("blub");
 			}
 		}
 		if (text == 2){ //Glurak Animation
@@ -334,6 +331,7 @@ public class IntroState extends BasicGameState {
 			else{
 				sliding = false;
 			}
+			textBox.update(input, delta); //updated die textBox
 			//animation(pokemonx, pokemonXEnd);
 		}
 		if (text == 5){ //Trainer Animation
@@ -363,6 +361,7 @@ public class IntroState extends BasicGameState {
 		
 		if(text==13)
 			Sound.audioIntro.stop();
+	
 	}
 	
 	@Override
