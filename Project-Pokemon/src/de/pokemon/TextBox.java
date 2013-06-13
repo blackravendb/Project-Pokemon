@@ -168,7 +168,7 @@ public class TextBox {
 		
 		if(string.length >= (changeStrings*3)){
 		for(int x = 0; x <= 2 + changeStrings; x++){ //gibt die Strings aus
-				g.drawString(string[x+changeStrings], stringx, stringy[x]); //passt!
+				g.drawString(string[x+changeStrings], stringx, stringy[x]); //out of BounceException?!?
 				//System.out.println("string[x]: " + string[x]);
 			}
 		}
