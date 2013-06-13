@@ -55,8 +55,8 @@ public class PlayState extends BasicGameState {
 		}
 		//draw player and all entities here
 		player.renderPlayerBody();
-		player.renderPlayerHead();
 		map.renderNpcs();
+		player.renderPlayerHead();
 		camera.untranslateGraphics();
 		camera.drawForeground();
 
