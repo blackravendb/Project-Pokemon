@@ -10,7 +10,14 @@ public class IntroState extends BasicGameState {
 	NameMenu menu;
 	NameMenu menu2;
 	
-	TextBox textBox;
+	TextBox textBox1;
+	TextBox textBox2;
+	TextBox textBox3;
+	TextBox textBox4;
+	TextBox textBox5;
+	TextBox textBox6;
+	TextBox textBox7;
+	
 	
 	public static int ID;
 	
@@ -26,6 +33,8 @@ public class IntroState extends BasicGameState {
 	public float deltaDeublerTransparence = 0;
 	private boolean aWildDeublerAppearse = true;
 	
+	public int text;
+	
 	public int pokemonx;
 	public int pokemony;
 	public int pokemonXEnd;
@@ -40,8 +49,6 @@ public class IntroState extends BasicGameState {
 	public int enkelx;
 	public int enkely;
 	public int enkelXEnd;
-	
-	public int text;
 	
 	public int rectx;
 	public int recty;
@@ -75,9 +82,15 @@ public class IntroState extends BasicGameState {
 		
 		musicStart = true;
 		
-		text = 1;
+		textBox1 = new TextBox("Servus! Herzli Wuikomma in da Wäid vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon-PROFESSOR!", Color.black, Color.white, gc);
+		textBox2 = new TextBox("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
+		textBox3 = new TextBox("Wia hoaßtn du glei wieda?", Color.black, Color.white, gc);
+		textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc);
+		textBox5 = new TextBox("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaßtn der jetz scho wieda?", Color.black, Color.white, gc);
+		textBox6 = new TextBox(menu2.name + "! Stimmt! Grod hob i's no gwusst!", Color.black, Color.white, gc);
+		textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
 		
-		textBox = new TextBox("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
+		text = 1;
 		
 		deubler = new Image("res/Intro/lind.png");
 		pokemon = new Image("res/Intro/Glurak2.png");
@@ -141,36 +154,18 @@ public class IntroState extends BasicGameState {
 		}
 		
 		if(text == 1 && aWildDeublerAppearse == false){ //Ansicht 1
-			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString("Servus! Herzli Wuikomma in da Wäid" , stringx[0], stringy[0]); //String 1
-			g.drawString("vo de Pokemon!", stringx[1], stringy[1]); //String 2
-			g.drawString("I hoass DEUBLER! Man nennt mi den", stringx[2], stringy[2]); //String 3
-			g.drawString("Pokemon-PROFESSOR! [Enter drücken]", stringx[3], stringy[3]); //String 4
+			textBox1.render(g);
 			if(input.isKeyPressed(Input.KEY_ENTER)){
 				text = 2;
 			}
 			}
 		else if(text == 2){ //Ansicht 2
 			g.drawImage(pokemon, pokemonx, pokemony);
-			//g.drawRect(rectx, recty, rectwidth, rectheight);
-			textBox.render(g);
-			
-			/*g.drawString("De Wäid werd vo komische Wesn", stringx[0], stringy[0]); //String 1
-			g.drawString("bewohnt, zu dene ma Pokemon sogt!", stringx[1], stringy[1]); //String2
-			g.drawString("Fia manche Leid han Pokemon", stringx[2], stringy[2]); //String 3
-			g.drawString("Haustiere, andre [Enter drücken]", stringx[3], stringy[3]); //String 4*/
-			if(input.isKeyPressed(Input.KEY_ENTER)){
-				text = 3;
-			}
+			textBox2.render(g);
 		}
 	
 		else if(text == 3){ //Ansicht 4
 			g.drawImage(pokemon, pokemonx, pokemony);
-			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString("drogn a Kämpfe, mit eana aus.", stringx[0], stringy[0]); //String1
-			g.drawString("I seiba hob mei Hobby zum Beruf", stringx[1], stringy[1]); //String2
-			g.drawString("gmacht und studier Pokemon.", stringx[2], stringy[2]); //String3
-			g.drawString("[Enter drücken]", stringx[3], stringy[3]); //String 4
 			if(input.isKeyPressed(Input.KEY_ENTER)){
 				text = 4;
 			}
@@ -186,9 +181,7 @@ public class IntroState extends BasicGameState {
 		}
 		else if(text == 5){ //Ansicht 6
 			g.drawImage(trainer, trainerx, trainery);
-			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString("Wia hoaßtn du glei wieda?", stringx[0], stringy[0]);
-			g.drawString("[Enter drücken]", stringx[1], stringy[1]);
+			textBox3.render(g);
 			if(input.isKeyPressed(Input.KEY_ENTER)){ //NameMenu aufrufen
 				menu.showMenu = true;
 			}
@@ -199,44 +192,32 @@ public class IntroState extends BasicGameState {
 		}
 		else if(text == 6){ //Ansicht 7
 			g.drawImage(trainer, trainerx, trainery);
-			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString("Stimmt ja, du warst da " + menu.name + "!", stringx[0], stringy[0]);
-			g.drawString("[Enter drücken]", stringx[1], stringy[1]);
+			textBox4.render(g);
 			if(input.isKeyPressed(Input.KEY_ENTER)){ 
 				text = 7;
 			}
 		}
 		else if(text == 7){
 			g.drawImage(enkel, enkelx, enkely);
-			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString("Des is mei Enkel. Scho imma woits", stringx[0], stringy[0]);
-			g.drawString("ihr besser sei wia da andere!", stringx[1], stringy[1]);
-			g.drawString("Wie hoaßtn der jetz scho wieda?", stringx[2], stringy[2]);
-			g.drawString("[Enter drücken]", stringx[3], stringy[3]);
+			textBox5.render(g);
 			if(input.isKeyPressed(Input.KEY_ENTER)){ 
 				menu2.showMenu = true;
 			}
-			if(menu2.name != null && text == 7){
+			if(menu2.name != null && text== 7){
 				menu2.showMenu = false;
 				text = 8;
 			}
 		}
 		else if(text == 8){
 			g.drawImage(enkel, enkelx, enkely);
-			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString(menu2.name + "! Stimmt! Grod hob i's no", stringx[0], stringy[0]); 
-			g.drawString("gwusst! [Enter drücken]", stringx[1], stringy[1]);
+			textBox6.render(g);
 			if(input.isKeyPressed(Input.KEY_ENTER)){ 
 				text = 9;
 			}
 		}
 		else if(text == 9){
 			g.drawImage(trainer, trainerx, trainery);
-			g.drawRect(rectx, recty, rectwidth, rectheight);
-			g.drawString(menu.name + "! A unglaubliche Reise in de", stringx[0], stringy[0]);
-			g.drawString("Wäid da Pokemon erwartet Di!", stringx[1], stringy[1]);
-			g.drawString("A Wäid voia Wunda, Obnteia", stringx[2], stringy[2]);
-			g.drawString("und Geheimnisse! Des is a Draum!", stringx[3], stringy[3]);
+			textBox7.render(g);
 			if(input.isKeyPressed(Input.KEY_ENTER)){ 
 				text = 10;
 			}
@@ -244,7 +225,7 @@ public class IntroState extends BasicGameState {
 		else if(text == 10){
 			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);
 		}
-		else if(text == 11){
+		else if(text== 11){
 			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
 			if (counter1 >= 1000){
 			text = 12;
@@ -253,7 +234,7 @@ public class IntroState extends BasicGameState {
 		else if(text == 12){
 			g.drawImage(trainerSpiel, trainerx, trainery); 
 			if (counter >= 1000){
-			text = 13;
+			text= 13;
 			}
 		}
 		else if(text == 13){
@@ -278,14 +259,70 @@ public class IntroState extends BasicGameState {
 			musicStart = false;
 		}
 		
-		if(menu.showMenu && text == 5){
-			menu.update(input);
+		if (text == 1){ //Deubler Animation
+			if(deltaDeublerTransparence < 1 && aWildDeublerAppearse == true){
+				deubler.setAlpha(deltaDeublerTransparence);
+				deltaDeublerTransparence += 0.004f;
+			}
+			else{
+				aWildDeublerAppearse = false;
+				//System.out.println("blub");
+			}
+			textBox1.update(input, delta); 
 		}
 		
-		if(text == 12){
-			if (counter <= 1000){
-			counter += delta;
+		if (text == 2){ //Glurak Animation
+			sliding = true;
+			if(pokemonx > pokemonXEnd && sliding == true){
+				pokemonx -= 8;
 			}
+			else{
+				sliding = false;
+			}
+			//animation(pokemonx, pokemonXEnd);
+			textBox2.update(input, delta);
+		}
+		
+		if (text == 5){ //Trainer Animation
+			sliding = true;
+			if(trainerx > trainerXEnd && sliding == true){
+				trainerx -= 8;
+			}
+			else{
+				sliding = false;
+			}
+			if(menu.showMenu){
+				menu.update(input);
+			}
+			//animation(trainerx, trainerXEnd);
+			textBox3.update(input, delta);
+		}
+		
+		if(text == 6) {
+			textBox4.update(input, delta);
+		}
+		
+		if (text== 7){ //Enkel Animation
+			sliding = true;
+			if(enkelx > enkelXEnd && sliding == true){
+				enkelx -= 8;
+			}
+			else{
+				sliding = false;
+			}
+			//animation(enkelx, enkelXEnd);
+			if(menu2.showMenu){
+				menu2.update(input);
+			}
+			textBox5.update(input, delta);
+		}
+		
+		if(text == 8){
+			textBox6.update(input, delta);
+		}
+		
+		if(text == 9){
+			textBox7.update(input, delta);
 		}
 		
 		if(text == 10){
@@ -299,69 +336,28 @@ public class IntroState extends BasicGameState {
 				text = 11;
 			}
 		}
+		
 		if (text == 11){ //trainer Animation Übergang + counter start
 
 			if(counter1 <= 1000 && sliding == false){
 				counter1 += delta;
 			}
-			if(trainerHeight > 20){//i<70
+			if(trainerHeight > 20){
 				trainerWidth -= trainerWidth/40;
 				trainerHeight -= trainerHeight/40;
 				trainerx = (gc.getWidth() - trainerWidth)/2;
 				trainery = (gc.getHeight() - trainerHeight)/2;
-				//i++;
 			}
-		}	
-		
-		if (text == 1){ //Deubler Animation
-			if(deltaDeublerTransparence < 1 && aWildDeublerAppearse == true){
-				deubler.setAlpha(deltaDeublerTransparence);
-				deltaDeublerTransparence += 0.004f;
-			}
-			else{
-				aWildDeublerAppearse = false;
-				//System.out.println("blub");
-			}
-		}
-		if (text == 2){ //Glurak Animation
-			sliding = true;
-			if(pokemonx > pokemonXEnd && sliding == true){
-				pokemonx -= 8;
-			}
-			else{
-				sliding = false;
-			}
-			textBox.update(input, delta); //updated die textBox
-			//animation(pokemonx, pokemonXEnd);
-		}
-		if (text == 5){ //Trainer Animation
-			sliding = true;
-			if(trainerx > trainerXEnd && sliding == true){
-				trainerx -= 8;
-			}
-			else{
-				sliding = false;
-			}
-			//animation(trainerx, trainerXEnd);
-		}
-		if (text == 7){ //Enkel Animation
-			sliding = true;
-			if(enkelx > enkelXEnd && sliding == true){
-				enkelx -= 8;
-			}
-			else{
-				sliding = false;
-			}
-			//animation(enkelx, enkelXEnd);
 		}
 		
-		if(menu2.showMenu && text == 7){
-			menu2.update(input);
+		if(text == 12){
+			if (counter <= 1000){
+			counter += delta;
+			}
 		}
 		
-		if(text==13)
+		if(text ==13)
 			Sound.audioIntro.stop();
-	
 	}
 	
 	@Override
