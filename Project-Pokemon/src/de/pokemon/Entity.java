@@ -85,6 +85,14 @@ public class Entity {
 	 */
 	protected boolean moveAgainstSolid = false;
 
+	/**
+	 * Variable zum Abspeichern, welcher Frame beim letzten Durchlauf, bei
+	 * Bewegung gegen einen Soliden block abgespielt wurde. Wird in renderTick()
+	 * verwendet um moveAgainstSolid animation abzubrechen. Initialisierungswert
+	 * ist erster Frame
+	 */
+	private int lastSolidFrame = 0;
+
 	private boolean blockedDelta = true;
 
 	Entity(int posX, int posY, int width, int height, String imagePath) {
@@ -766,11 +774,12 @@ public class Entity {
 					// dies der Fall, ist Bewegung abgeschlossen und
 					// Werte/Animationen können zurückgesetzt werden
 					System.out.println("nicht stop");
-					if (currentAnimationBody.isStopped()) {
+					if (currentAnimationBody.getFrame() == 0 && lastSolidFrame == currentAnimationBody.getFrameCount()-1) { // TODO
 						System.out.println("stop");
 						isRunning = false;
 						isStanding = true;
 						moveAgainstSolid = false;
+						lastSolidFrame = 0;
 
 						// Animationen neustarten, sodass bei nächsten abspielen
 						// kein Probleme auftreten können
@@ -780,7 +789,10 @@ public class Entity {
 						// Temporäre Reference Variable wieder freigeben
 						currentAnimationBody = null;
 						currentAnimationHead = null;
-
+					}
+					//Animation wird noch ausgeführt
+					else{
+						lastSolidFrame = currentAnimationBody.getFrame();
 					}
 				}
 				// Entität bewegt sich auf neue Position
@@ -801,7 +813,7 @@ public class Entity {
 							// isRunning false setzen, sodass im nächsten
 							// Schritt keine Fehlermeldung ausgegeben wird
 							isRunning = false;
-							isStanding = false;
+							isStanding = true;
 
 							// Überprüfe ob Bewegung weitergeführt werden soll
 							// (Wenn input = 0 => keine Key eingabe, siehe
@@ -886,21 +898,11 @@ public class Entity {
 
 					// Animationen neustarten, sodass bei nächsten abspielen
 					// kein Probleme auftreten können
-					// currentAnimationBody.restart();
-					// currentAnimationHead.restart();
+					currentAnimationBody.restart();
+					currentAnimationHead.restart();
 
 					currentAnimationBody = null;
 					currentAnimationHead = null;
-					// TODO muss wirklich jede animation zurückgesetzt werden?
-					aniTurnDownBody.restart();
-					aniTurnDownHead.restart();
-					aniTurnUpBody.restart();
-					aniTurnUpHead.restart();
-					aniTurnLeftBody.restart();
-					aniTurnLeftHead.restart();
-					aniTurnRightBody.restart();
-					aniTurnRightHead.restart();
-
 				}
 			}
 		}
