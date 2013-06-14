@@ -263,6 +263,11 @@ public class Player extends Entity {
 		keyInput = getKeyValue(input);
 
 		// Überprüfen, ob Animation ausgeführt werden muss
+		System.out.println("isRunning: " + super.isRunning);
+		System.out.println("isStanding: " + super.isStanding);
+		System.out.println("currentView: " + super.currentView);
+		System.out.println("moveAgainstSolid: " + super.moveAgainstSolid);
+		System.out.println("---------------------------------");
 		if (!super.isRunning) {
 			// Überprüfen, welche Animation ausgeführt werden muss
 			move = getAnimation(keyInput);

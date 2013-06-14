@@ -644,7 +644,6 @@ public class Entity {
 
 		// Nochmalige Kontrolle ob Entität im moment keine Bewegung ausführt
 		if (!isRunning) {
-			System.out.println("blub");
 			// Aktuelle Blickrichtung der Variable currentView übergeben
 			currentView = input;
 
@@ -682,7 +681,6 @@ public class Entity {
 				if (!Map.isBlocked(tileX + 1, tileY)) {
 					Map.setBlocked(tileX + 1, tileY, true);
 					moveX(1);
-					System.out.println("mäh");
 				} else
 					moveAgainstSolid = true;
 
@@ -773,9 +771,7 @@ public class Entity {
 					// Überprüfe, ob aktuelle animation abgeschlossen ist. Ist
 					// dies der Fall, ist Bewegung abgeschlossen und
 					// Werte/Animationen können zurückgesetzt werden
-					System.out.println("nicht stop");
 					if (currentAnimationBody.getFrame() == 0 && lastSolidFrame == currentAnimationBody.getFrameCount()-1) { // TODO
-						System.out.println("stop");
 						isRunning = false;
 						isStanding = true;
 						moveAgainstSolid = false;
@@ -860,7 +856,7 @@ public class Entity {
 							isStanding = true;
 
 							// Überprüfe ob Bewegung weitergeführt werden soll
-							// (Wenn input = 0 => keine Key eingabe, siehe
+							// (Wenn input == 0 => keine Key eingabe, siehe
 							// Player.getKeyValue()
 							if (input != 0) {
 								// Rufe renderMoveAnimation() methode auf, um
