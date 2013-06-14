@@ -264,6 +264,10 @@ public class Entity {
 		// aniStandRightBody.setLooping(false);
 		// aniStandUpBody.setLooping(false);
 		// aniStandLeftBody.setLooping(false);
+		
+		//currentAnimation vorbelegen
+		renderStand();
+
 	}
 
 	public int getPosX() {
@@ -465,8 +469,8 @@ public class Entity {
 	protected void renderEntityHead() {
 		// Sollte currentAnimationHead == null sein wird Standbild von aktueller
 		// Blickrichtung gerendert
-		if (currentAnimationHead == null)
-			renderStand();
+//		if (currentAnimationHead == null)
+//			renderStand();
 		renderEntity(posX, posY, true);
 		/*
 		 * if (standAnimation) { if (standDir == Direction.UP &&
@@ -667,14 +671,16 @@ public class Entity {
 					moveX(-1);
 				} else
 					moveAgainstSolid = true;
+
 			} else if (input == Input.KEY_W) {
 				currentAnimationHead = aniMoveUpHead;
 				currentAnimationBody = aniMoveUpBody;
 				if (!Map.isBlocked(tileX, tileY - 1)) {
-					Map.setBlocked(tileX, tileX - 1, true);
+					Map.setBlocked(tileX, tileY - 1, true);
 					moveY(-1);
 				} else
 					moveAgainstSolid = true;
+
 			} else if (input == Input.KEY_D) {
 				currentAnimationHead = aniMoveRightHead;
 				currentAnimationBody = aniMoveRightBody;
@@ -771,7 +777,8 @@ public class Entity {
 					// Überprüfe, ob aktuelle animation abgeschlossen ist. Ist
 					// dies der Fall, ist Bewegung abgeschlossen und
 					// Werte/Animationen können zurückgesetzt werden
-					if (currentAnimationBody.getFrame() == 0 && lastSolidFrame == currentAnimationBody.getFrameCount()-1) { // TODO
+					if (currentAnimationBody.getFrame() == 3
+							&& lastSolidFrame == 2) {
 						isRunning = false;
 						isStanding = true;
 						moveAgainstSolid = false;
@@ -782,12 +789,11 @@ public class Entity {
 						currentAnimationBody.restart();
 						currentAnimationHead.restart();
 
-						// Temporäre Reference Variable wieder freigeben
-						currentAnimationBody = null;
-						currentAnimationHead = null;
+						// Temporäre Reference Variable auf Standanimation zurücksetzen
+						renderStand();
 					}
-					//Animation wird noch ausgeführt
-					else{
+					// Animation wird noch ausgeführt
+					else {
 						lastSolidFrame = currentAnimationBody.getFrame();
 					}
 				}
@@ -812,11 +818,11 @@ public class Entity {
 							isStanding = true;
 
 							// Überprüfe ob Bewegung weitergeführt werden soll
-							// (Wenn input = 0 => keine Key eingabe, siehe
+							// (Wenn input == 0 => keine Key Eingabe, siehe
 							// Player.getKeyValue()
 							if (input != 0) {
 								// Rufe renderMoveAnimation() methode auf, um
-								// Bewegung vortzusetzen
+								// Bewegung fortzusetzen
 								renderMoveAnimation(input);
 							}
 							// Keine Key eingabe.
@@ -826,9 +832,8 @@ public class Entity {
 								currentAnimationBody.restart();
 								currentAnimationHead.restart();
 
-								// Temporäre Reference Variable wieder freigeben
-								currentAnimationBody = null;
-								currentAnimationHead = null;
+								// Temporäre Reference Variable wieder auf Standanimation zurücksetzen
+								renderStand();
 							}
 						}
 						// Entität noch in Bewegung
@@ -840,7 +845,8 @@ public class Entity {
 						}
 					}
 					// Bewegung auf Y-Achse
-					else {
+					else if (currentView == Input.KEY_W
+							|| currentView == Input.KEY_S) {
 						// Ist aktuelle Y Position moduli Tilegröße 0, wurde
 						// Ziel erreicht
 						if (posY % Core.tileSize == 0) {
@@ -856,11 +862,11 @@ public class Entity {
 							isStanding = true;
 
 							// Überprüfe ob Bewegung weitergeführt werden soll
-							// (Wenn input == 0 => keine Key eingabe, siehe
+							// (Wenn input == 0 => keine Key Eingabe, siehe
 							// Player.getKeyValue()
 							if (input != 0) {
 								// Rufe renderMoveAnimation() methode auf, um
-								// Bewegung vortzusetzen
+								// Bewegung fortzusetzen
 								renderMoveAnimation(input);
 							}
 							// Keine Key eingabe. Werte können zurückgesetzt
@@ -868,12 +874,13 @@ public class Entity {
 							// Animationen neustarten, sodass bei nächsten
 							// abspielen
 							// kein Probleme auftreten können
-							currentAnimationBody.restart();
-							currentAnimationHead.restart();
+							else {
+								currentAnimationBody.restart();
+								currentAnimationHead.restart();
 
-							// Temporäre Reference Variable wieder freigeben
-							currentAnimationBody = null;
-							currentAnimationHead = null;
+								// Temporäre Reference Variable wieder auf Standanimation zurücksetzen
+								renderStand();
+							}
 						}
 						// Entität noch in Bewegung
 						else {
@@ -897,8 +904,8 @@ public class Entity {
 					currentAnimationBody.restart();
 					currentAnimationHead.restart();
 
-					currentAnimationBody = null;
-					currentAnimationHead = null;
+					// Temporäre Reference Variable auf Standanimation zurücksetzen
+					renderStand();
 				}
 			}
 		}
@@ -911,10 +918,8 @@ public class Entity {
 	private void renderEntity(int posX, int posY, boolean headBody) {
 		// aniTemp = getAnimation(headBody);
 		if (!headBody) {
-			if (currentAnimationBody != null)
 				currentAnimationBody.draw(posX, posY);
 		} else {
-			if (currentAnimationHead != null)
 				currentAnimationHead.draw(posX, posY);
 		}
 	}
@@ -922,8 +927,8 @@ public class Entity {
 	protected void renderEntityBody() {
 		// Sollte currentAnimationBody == null sein wird Standbild von aktueller
 		// Blickrichtung gerendert
-		if (currentAnimationBody == null)
-			renderStand();
+//		if (currentAnimationBody == null)
+//			renderStand();
 		renderEntity(posX, posY + height / 2, false);
 		/* Alter Quellcode */
 		/*

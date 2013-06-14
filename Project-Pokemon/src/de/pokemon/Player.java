@@ -56,6 +56,12 @@ public class Player extends Entity {
 	private animationRet move;
 
 	/**
+	 * boolean Wert, ob Solid Sound abgespielt werden soll. Dieser wird nur
+	 * einmal pro Bewegungsablauf abgespielt
+	 */
+	private boolean playSolidSound = false;
+
+	/**
 	 * Player Objekt Hauptfigur im Spiel. Wird über Key Eingaben gesteuert.
 	 * Übergabeparameter werden an Entity weitergegeben
 	 * 
@@ -121,7 +127,8 @@ public class Player extends Entity {
 				// Player führt Bewegungsanimation aus
 				return animationRet.RUN;
 			if (standCounterLeft < standCounterDelta) {
-				// Tastenloops noch kleiner als CounterDelta, warten und turnDirection setzen
+				// Tastenloops noch kleiner als CounterDelta, warten und
+				// turnDirection setzen
 				standCounterLeft++;
 				turnDirection = input;
 				return animationRet.WAIT;
@@ -135,11 +142,13 @@ public class Player extends Entity {
 		// Unten
 		if (input == Input.KEY_S) {
 			// Steht der Player bereits in der richtigen Richtung?
-			if (super.currentView == Input.KEY_S)
+			if (super.currentView == Input.KEY_S){
 				// Player führt Bewegungsanimation aus
 				return animationRet.RUN;
+			}
 			if (standCounterDown < standCounterDelta) {
-				// Tastenloops noch kleiner als CounterDelta, warten und turnDirection setzen
+				// Tastenloops noch kleiner als CounterDelta, warten und
+				// turnDirection setzen
 				standCounterDown++;
 				turnDirection = input;
 				return animationRet.WAIT;
@@ -157,7 +166,8 @@ public class Player extends Entity {
 				// Player führt Bewegungsanimation aus
 				return animationRet.RUN;
 			if (standCounterRight < standCounterDelta) {
-				// Tastenloops noch kleiner als CounterDelta, warten und turnDirection setzen
+				// Tastenloops noch kleiner als CounterDelta, warten und
+				// turnDirection setzen
 				standCounterRight++;
 				turnDirection = input;
 				return animationRet.WAIT;
@@ -175,7 +185,8 @@ public class Player extends Entity {
 				// Player führt Bewegungsanimation aus
 				return animationRet.RUN;
 			if (standCounterUp < standCounterDelta) {
-				// Tastenloops noch kleiner als CounterDelta, warten und turnDirection setzen
+				// Tastenloops noch kleiner als CounterDelta, warten und
+				// turnDirection setzen
 				standCounterUp++;
 				turnDirection = input;
 				return animationRet.WAIT;
@@ -195,11 +206,12 @@ public class Player extends Entity {
 			standCounterDown = 0;
 			standCounterLeft = 0;
 			standCounterRight = 0;
-			//Wert der letzen Key eingabe (vorheriger Loop) dem keyInput mitteilen
+			// Wert der letzen Key eingabe (vorheriger Loop) dem keyInput
+			// mitteilen
 			keyInput = turnDirection;
 			return animationRet.TURN;
 		}
-		//Player pausiert
+		// Player pausiert
 		return animationRet.WAIT;
 	}
 
@@ -263,18 +275,20 @@ public class Player extends Entity {
 		keyInput = getKeyValue(input);
 
 		// Überprüfen, ob Animation ausgeführt werden muss
-		System.out.println("isRunning: " + super.isRunning);
-		System.out.println("isStanding: " + super.isStanding);
-		System.out.println("currentView: " + super.currentView);
-		System.out.println("moveAgainstSolid: " + super.moveAgainstSolid);
-		System.out.println("---------------------------------");
+		// System.out.println("isRunning: " + super.isRunning);
+		// System.out.println("isStanding: " + super.isStanding);
+		// System.out.println("currentView: " + super.currentView);
+		// System.out.println("moveAgainstSolid: " + super.moveAgainstSolid);
+		// System.out.println("---------------------------------");
 		if (!super.isRunning) {
 			// Überprüfen, welche Animation ausgeführt werden muss
 			move = getAnimation(keyInput);
 
 			// Verschiedene Render Methoden der Entity Klasse aufrufen
-			if (move == animationRet.RUN)
+			if (move == animationRet.RUN){
+				playSolidSound = true;
 				super.renderMoveAnimation(keyInput);
+			}
 			else if (move == animationRet.TURN)
 				super.renderTurnAnimation(keyInput);
 			else
@@ -283,6 +297,10 @@ public class Player extends Entity {
 		}
 		// Vorherige Animation wird noch ausgeführt; Tick aufrufen
 		else {
+			if (super.moveAgainstSolid && playSolidSound){
+				Sound.audioSolid.playAsSoundEffect(1, 1, false);
+				playSolidSound = false;
+			}
 			super.renderTick(keyInput);
 		}
 	}
