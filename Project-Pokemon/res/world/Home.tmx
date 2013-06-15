@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
  <properties>
-  <property name="name" value="Alabasta"/>
+  <property name="name" value="Home"/>
  </properties>
  <tileset firstgid="1" name="tileset32x32.png" tilewidth="32" tileheight="32">
   <image source="tileset32x32.png" width="2048" height="2048"/>
@@ -23,7 +23,7 @@
  </layer>
  <layer name="objects" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2SWw6CMBBFh1Ip29LEt27FPWgixtdCdCGCr424Ci8C0ZAOBRXCBzc5gQZmTtoOUZM6RFkRZWVlE3kxXCxJdLLNCKmv9/HNoQgu7VQtt+cO4yDK58gof0VmOL7ZBxfOoaT5Pj4dQ0E0AmMwAVNhdnjSPFeJo4vnGj03YAt2YB87wnrO4eRwzOO5WuJ5Rs8LuIIbuIv3XC0KOo4u7ywazvGowHGowDH7nyLXneeNr4gCVa5D4XxdzRkXcXiSX7fw3kf/wY8OR2avs+oaR70dvXBGNASpnj7zn64ucTwBmgh9QcQJAAA=
+   H4sIAAAAAAAAC+2SWw6CMBBFB6iUbWniW7fiHjQB42shug8FXxtxFV4EoiEdKCqED25yAg3MnLQdoiZ1iDQiysrSIvJiuBiC6GTlYwp1/RHfbIrg0k7VcnvuMA4iPUdG+Ssiw+F+sQ8unEOK/Pv4dAxNohEYgwmYmvkOT+TPVeLo4rlCzzXYgC3YxY6wnnPYGo55PFcunmf0vIAruIG7+Z6rRUHHweGdRcM5HhU49hU4Zv9TaN25bnxJFMhyHRLn6yjOuIjDE/y6hfc++g9+dNgie51V1zjq7eiFM6IgSPX0mf9UdYnjCYtfi6PECQAA
   </data>
  </layer>
  <layer name="foreground" width="25" height="25">
@@ -37,9 +37,10 @@
   <object name="water" type="water" gid="1796" x="128" y="512" width="32" height="32"/>
   <object name="water" type="water" gid="1796" x="160" y="480" width="32" height="32"/>
   <object name="house" type="entrance" gid="2013" x="320" y="320" width="32" height="32"/>
-  <object name="player" type="spawn" gid="2013" x="448" y="448"/>
   <object name="water" type="water" gid="1796" x="192" y="480" width="32" height="32"/>
   <object name="water" type="water" gid="1796" x="192" y="512" width="32" height="32"/>
   <object name="house" type="exit" gid="2013" x="320" y="352"/>
+  <object name="town" type="entrance" gid="2013" x="288" y="736" width="96"/>
+  <object name="town" type="exit" gid="2013" x="320" y="704"/>
  </objectgroup>
 </map>

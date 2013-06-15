@@ -12,7 +12,8 @@ public class Core extends StateBasedGame {
 	public static final int play = 1;
 	public static final int intro = 2;
 	public static final int tileSize = 32;
-	
+	public static final int width = 640;
+	public static final int height = 480;
 	
 	public Core(String name) throws SlickException {
 		super(name);
@@ -28,7 +29,7 @@ public class Core extends StateBasedGame {
 	public static void main(String[] args) throws SlickException {
 		
 		AppGameContainer container = new AppGameContainer(new Core("Project Pokemon"));
-		container.setDisplayMode(640, 480, false);
+		container.setDisplayMode(width, height, false);
 		container.setTargetFrameRate(60);
 		container.setShowFPS(false);
 		

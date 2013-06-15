@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="30" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="name" value="Town"/>
+ </properties>
+ <tileset firstgid="1" name="tileset32x32" tilewidth="32" tileheight="32">
+  <image source="tileset32x32.png" width="2048" height="2048"/>
+  <tile id="2012">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="collision" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2UUQ7AIAhD/dv9D+hd9rXEGLWsVJnbmvAF8hoV8pFSBlEK1bJRq8VVCHGRDwXTegfWswy3zK/gtvKruVfNzlzvHP3cGO6o512fdT+LDyT273sVwfXM+mwPo7oZvKdx2X5f43r3lUrWfaX2tSuXZUdxFR7exO3VKaV4azZOxrnapBAOAAA=
+  </data>
+ </layer>
+ <layer name="background" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2XWwrDIBBFx7HouppC23WZvtbVx756BxkaQiGhNZPS+HEQUTyMAxdtHFEzwJaJdmDPw3s/xQHu4At670SUMLZv1ta9+aagV866BqJbGLf/n71T3HO3r5ZeOSP5jLX3ARfHjI92XqlxFV9U7+94T/CdwcXQW4K5vAfkxhHeBNpg5xUkLzQzrLySk5obfgH9rd7qnYI5vZpXmllWXn3nCGPfk98i+cwu/wEsvf26l+h9AjgiUjgQDgAA
+  </data>
+ </layer>
+ <layer name="objects" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC73W2VLiQBiG4WiSTsTSqiDo9cwMIqdBnbkecYFT4nY9ogOcJm6345shKUKTThOC81c9xZKmP/500tA3DGOAE3QwsXieMUC2+tLxdUyteV4/yZdrbBW/XrfSvDRfV3bJ3Lzhzs5yv55pGHUcoIGmmT9fyPuRwlAYRiDU30XUlvv1+VwXpzjDuSLXo5G6QkhmpMlVrW8P27hS5PrM31XwHPKdcv3KNVXkDpk/wC3ucI8HPMIns6vJLbqerYLckIMRXvGGd3zgE0MyAyn3hWvpuDbTrtCvZ3MucYAGmjjEEUIyIynXqi2+zus3e+2rcn3m7+IUZzjHb/yB5/Kd3OLctdeX+QPc4g73eMAjfDK7mlzdfqVcX+aP8Io3vOMDnxiSGZTs98acMZLnrrThOMnnPe7Pupjdbw0emzjEEUIyo4r9bqrKru8mKj5HreQeGu/M3vtf/aYlkr51/V4wrofLWs7BEpXuG+1kHl2/T4wb4blibtn13drl9wHmbv58F3ucD1ziCte42dPnVl3fJzJGeMYL/mK8Qm5Rv6v8tdja53zAhAUbAtfShzfd7w8yfuIXWjhGe395nKrfCaYQ7HOOgmsXf4dewTE5d8Jc08zc8euTjLE9H9PR5BaVnOuwn7piMStLiMUxup5Vle5X6Z6ly23Hx9BJxlTpOa14z9LlxpzM8e/IbaGfY2TNnw80uavce3Kuqpftgv/C69S//5PS2k3c+fp/l/i34QvUMH64EA4AAA==
+  </data>
+ </layer>
+ <layer name="foreground" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2QywmAMBBEhyiKgkXF/9mm9KpNefbXj1OACBpJFPfBu+0ywwD/ZlLATBe60k0d3/UeMJzYBHZ7C8KfqEKgDq//tZFZbsvM7kbuaJhrE9ON7vKljXQMpDSLXTd5BzrhHjSjOS1ombhuZZ/Cd91AEAThGXao0PI0EA4AAA==
+  </data>
+ </layer>
+ <objectgroup name="object layer" width="30" height="30">
+  <object name="town" type="exit" gid="2013" x="288" y="0"/>
+  <object name="town" type="entrance" gid="2013" x="320" y="32"/>
+ </objectgroup>
+</map>

@@ -39,7 +39,7 @@ public class Map extends TiledMapPlus{
 		createNpcs();
 		//System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
 		//System.out.println(blocked[24].length);
-		System.out.println(npcs);
+		//System.out.println(npcs);
 	}
 
 	/**
@@ -89,41 +89,53 @@ public class Map extends TiledMapPlus{
 	}
 
 	/**
-	 * Draws a black Grid on the current map
+	 * Draws a black Grid on the current map. The grid is only drawn for the part which is focused by the camera.
 	 * @param g Graphics
 	 */
 	public  void showGrid(Graphics g){
 		g.setColor(Color.black);
 		g.setLineWidth(1);
 		//rows
-		for(int i = tileSize; i < getWidth()*tileSize; i = i + tileSize){
-			g.drawLine(0, i, getWidth()*tileSize, i);
+		for(int i =	(int)Math.floor(Camera.cameraY/32)*32; i < Camera.cameraY+Core.height; i = i + tileSize){
+			g.drawLine(Camera.cameraX, i, Camera.cameraX+Core.width, i);
+
 		}
 		//coloumns
-		for(int j = tileSize; j < getHeight()*tileSize; j = j + tileSize){
-			g.drawLine(j, 0, j, getHeight()*tileSize);
+		for(int i =	(int)Math.floor(Camera.cameraX/32)*32; i < Camera.cameraX+Core.width; i = i + tileSize){
+			g.drawLine(i, Camera.cameraY, i, Camera.cameraY+Core.height);
 		}
 	}
 
 	/**
 	 * Displays the blocked array as rectangles. Green Color if true, else red.
+	 * The grid is only drawn for the part which is focused by the camera.
 	 * @param g Graphics
 	 */
 	public void showBlocked(Graphics g){
-		for(int i = 0; i < getWidth(); i++)
-			for(int j = 0; j < getHeight(); j++){
+		for(int i =	(int)Math.floor(Camera.cameraX/32); i < (Camera.cameraX+Core.width)/tileSize; i++)
+			for(int j =	(int)Math.floor(Camera.cameraY/32); j < (Camera.cameraY+Core.height)/tileSize; j++)
+			{
 				if(blocked[i][j]){
 					g.setColor(new Color(1.0f, 0.0f, 0.0f, 0.5f));	
 				}else{
 					g.setColor(new Color(0.0f, 1.0f, 0.0f, 0.5f));
 				}
-				//g.setDrawMode(Graphics.MODE_ADD_ALPHA);
-				
 				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 			}
-		g.setDrawMode(Graphics.MODE_NORMAL);
-		
-		
+
+		//		for(int i = 0; i < getWidth(); i++)
+		//			for(int j = 0; j < getHeight(); j++){
+		//				if(blocked[i][j]){
+		//					g.setColor(new Color(1.0f, 0.0f, 0.0f, 0.5f));	
+		//				}else{
+		//					g.setColor(new Color(0.0f, 1.0f, 0.0f, 0.5f));
+		//				}
+		//				//g.setDrawMode(Graphics.MODE_ADD_ALPHA);
+		//				
+		//				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
+		//			}
+		//		g.setDrawMode(Graphics.MODE_NORMAL);
+		//			
 	}
 
 	/**
@@ -177,19 +189,19 @@ public class Map extends TiledMapPlus{
 	private boolean createWater() throws SlickException{
 		if(getObjectGroup("object layer").getObjectsOfType("water").isEmpty())
 			return false;
-		
+
 		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("water").iterator();
 
 		water = new Animation[getObjectGroup("object layer").getObjectsOfType("water").size()];
 		int counter = 0;
 		while(itr.hasNext()){
 			GroupObject element = itr.next();
-//			water[counter] = new Animation(true);
-//			for(int i = 0; i < 2; i++){
-//				int x = ((element.gid - 1 + i) % (getTileSetByGID(1).tiles.getWidth()/32)) * 32;
-//				int y = ((element.gid - 1 + i) / (getTileSetByGID(1).tiles.getHeight()/32))* 32;
-//				water[counter].addFrame(getTileSet(0).tiles.getSubImage(x, y, 32,32), 1000);
-//			}
+			//			water[counter] = new Animation(true);
+			//			for(int i = 0; i < 2; i++){
+			//				int x = ((element.gid - 1 + i) % (getTileSetByGID(1).tiles.getWidth()/32)) * 32;
+			//				int y = ((element.gid - 1 + i) / (getTileSetByGID(1).tiles.getHeight()/32))* 32;
+			//				water[counter].addFrame(getTileSet(0).tiles.getSubImage(x, y, 32,32), 1000);
+			//			}
 			water[counter] = new Animation(getTileSet(0).tiles,
 					((element.gid - 1 ) % (getTileSetByGID(1).tiles.getWidth()/32)), //start row
 					((element.gid - 1 ) / (getTileSetByGID(1).tiles.getHeight()/32)), //start coloumn
@@ -207,7 +219,7 @@ public class Map extends TiledMapPlus{
 	 * renders the water animations for the map
 	 */
 	public void renderWater(){
-		
+
 		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("water").iterator();
 		while(itr.hasNext()){
 			GroupObject element = itr.next();
@@ -226,42 +238,43 @@ public class Map extends TiledMapPlus{
 			}
 		}
 	}
-	
+
 	public void renderNpcs(){
 		for(Npc npc: npcs){
 			npc.renderNpcHead();
 			npc.renderNpcBody();
 		}
 	}
-	
+
 	public void updateNpcs(){
 		for(Npc npc: npcs){
 			npc.updateNpc();
 		}
 	}
-	
+
 
 	public String getCoordinates(double x, double y, int tileX, int tileY){		
 		return new String((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name);
 	}
-	
+
 	public void showPlayerPosition(Graphics g, double x, double y, int tileX, int tileY){
 		g.setColor(Color.white);
 		g.drawString((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name, 10, 30);
 	}
 
-	
+
 	//this method is gonna be big
 	public Map update(Player player) throws SlickException{
-		if(getName().equals("Alabasta")){
-			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY() ){
-				Map tmp = new Map ("House");	
-				//set position of the player
+		if(getName().equals("Home")){
+			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY()){
+				Map tmp = new Map("House");	
 				player.setPosition(tmp.getEntrance("house").x, tmp.getEntrance("house").y);
-				//probably add the npcs
-				
-				
-				return tmp;//new Map("res/world/testmap1.tmx");
+				return tmp;
+			}else if( (getEntrance("town").x == player.getPosX() || getEntrance("town").x + 32 == player.getPosX() || getEntrance("town").x +64 == player.getPosX())
+					&& getEntrance("town").y == player.getPosY()){
+				Map tmp = new Map("Town");
+				player.setPosition(tmp.getEntrance("town").x, tmp.getEntrance("town").y);
+				return tmp;
 			}
 		}else if(getName().equals("House")){
 			if(getExit("house").x == player.getPosX() && getExit("house").y == player.getPosY()){
@@ -269,11 +282,17 @@ public class Map extends TiledMapPlus{
 				player.setPosition(tmp.getExit("house").x, tmp.getExit("house").y);
 				return tmp;
 			}
+		}else if(getName().equals("Town")){
+			if((getExit("town").x == player.getPosX() || getExit("town").x + 32 == player.getPosX() || getExit("town").x + 64 == player.getPosX()) && getExit("town").y == player.getPosY()){
+				Map tmp = new Map("Home");
+				player.setPosition(tmp.getExit("town").x, tmp.getExit("town").y);
+				return tmp;
+			}
 		}
-		
+
 		return this;
 	}
-	
+
 
 	public int getTileSize() {
 		return tileSize;
