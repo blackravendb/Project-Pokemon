@@ -13,7 +13,7 @@
  </tileset>
  <layer name="collision" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UUQ7AIAhD/dv9D+hd9rXEGLWsVJnbmvAF8hoV8pFSBlEK1bJRq8VVCHGRDwXTegfWswy3zK/gtvKruVfNzlzvHP3cGO6o512fdT+LDyT273sVwfXM+mwPo7oZvKdx2X5f43r3lUrWfaX2tSuXZUdxFR7exO3VKaV4azZOxrnapBAOAAA=
+   H4sIAAAAAAAAC+2UQQ7AIAgEvfX/D/QvPTUhxgosIGq7CfEAMhsV61VKZYKKq0WjVY/rIY7L+fBgSs9Auhfh0vwMbi8/m/vU7My1ztHPzeGOemp9tv0kPjihb9+qDK5l1qM9jOoieKtx0X5f41r/Kw2frhp/kXO2KxdlZ3E9PJzEfavzlMddo3EDEo7EaBAOAAA=
   </data>
  </layer>
  <layer name="background" width="30" height="30">
@@ -34,5 +34,47 @@
  <objectgroup name="object layer" width="30" height="30">
   <object name="town" type="exit" gid="2013" x="288" y="0"/>
   <object name="town" type="entrance" gid="2013" x="320" y="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="288" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="288" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="320" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="352" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="384" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="416" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="448" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="320" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="352" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="384" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="416" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="448" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="288" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="320" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="352" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="384" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="416" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="448" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="480" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="512" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="544" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="576" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="608" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="640" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="672" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="704" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="736" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="768" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="576" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="608" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="640" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="672" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="736" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="736" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="768" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="768" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="704" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="672" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="704" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="640" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="608" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="576" height="32"/>
  </objectgroup>
 </map>

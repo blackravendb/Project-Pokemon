@@ -211,6 +211,7 @@ public class Map extends TiledMapPlus{
 					1000, //updatetime
 					true); //autoupdate
 			counter++;
+			
 		}
 		return true;
 	}
@@ -230,11 +231,11 @@ public class Map extends TiledMapPlus{
 	}
 
 	private void createNpcs() {
-		System.out.println(getObjectGroup("object layer").getObjectsOfType("npc").size());
+		//System.out.println(getObjectGroup("object layer").getObjectsOfType("npc").size());
 		if(getObjectGroup("object layer").getObjectsOfType("npc") != null){
 			for(GroupObject go: getObjectGroup("object layer").getObjectsOfType("npc")){
 				npcs.add(new Npc(go.x, go.y, go.name));
-				System.out.println(go.x + go.y + go.name);
+			//	System.out.println(go.x + go.y + go.name);
 			}
 		}
 	}
