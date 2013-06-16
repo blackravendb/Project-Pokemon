@@ -296,6 +296,7 @@ public class Entity {
 
 	public void setPosition(int posX, int posY) {
 		isRunning = false;
+		isStanding = true;
 		calcTilePosition(posX, true);
 		calcTilePosition(posY, false);
 		this.posX = posX;

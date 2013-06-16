@@ -30,7 +30,7 @@ public class Npc extends Entity {
 		
 		if(step <= route.length){
 			//Warten
-			switch(route[step][0]){
+			switch(route[step-1][0]){
 			case 0:
 				if(counterDelta <= route[step][0])
 					step++;
