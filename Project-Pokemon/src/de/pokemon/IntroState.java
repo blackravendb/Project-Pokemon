@@ -85,10 +85,7 @@ public class IntroState extends BasicGameState {
 		textBox1 = new TextBox("Servus! Herzli Wuikomma in da Wäid vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
 		textBox2 = new TextBox("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
 		textBox3 = new TextBox("Wia hoaßtn du glei wieda?", Color.black, Color.white, gc);
-		textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc);
 		textBox5 = new TextBox("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaßtn der jetz scho wieda?", Color.black, Color.white, gc);
-		textBox6 = new TextBox(menu2.name + "! Stimmt! Grod hob i's no gwusst!", Color.black, Color.white, gc);
-		textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
 		
 		text = 1;
 		
@@ -179,13 +176,9 @@ public class IntroState extends BasicGameState {
 		else if(text == 4){ //Ansicht 6
 			g.drawImage(trainer, trainerx, trainery);
 			textBox3.render(g);
-			if(textBox3.textBox == 1){
+			if(textBox3.textBox == 1 && sliding == false){
 				menu.showMenu = true; //NameMenu aufrufen
 				}
-			if(menu.name != null){
-				menu.showMenu = false;
-				text = 5;
-			}
 		}
 		else if(text == 5){ //Ansicht 7
 			g.drawImage(trainer, trainerx, trainery);
@@ -197,16 +190,10 @@ public class IntroState extends BasicGameState {
 		else if(text == 6){
 			g.drawImage(enkel, enkelx, enkely);
 			textBox5.render(g);
-			if(textBox5.textBox == 1){
-				if(input.isKeyPressed(Input.KEY_ENTER)){ 
-					menu2.showMenu = true;
+			if(textBox5.textBox == 1 && sliding == false){
+				menu2.showMenu = true; //NameMenu aufrufen
 				}
 			}
-			if(menu2.name != null){
-				menu2.showMenu = false;
-				text = 7;
-			}
-		}
 		else if(text == 7){
 			g.drawImage(enkel, enkelx, enkely);
 			textBox6.render(g);
@@ -221,7 +208,7 @@ public class IntroState extends BasicGameState {
 				text = 9;
 			}
 		}
-		else if(text== 9){
+		else if(text == 9){
 			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
 			if (counter1 >= 1000){
 			text = 10;
@@ -237,10 +224,10 @@ public class IntroState extends BasicGameState {
 			text = 0;
 			game.enterState(1);
 		}
-		if(menu.showMenu && text == 5){
+		if(menu.showMenu && text == 4){
 			menu.render(g);
 		}
-		if(menu2.showMenu && text == 7){
+		if(menu2.showMenu && text == 6){
 			menu2.render(g);
 		}
 	}
@@ -290,14 +277,20 @@ public class IntroState extends BasicGameState {
 			if(!menu.showMenu){
 				textBox3.update(input, delta);
 			}
-			else if(menu.showMenu){
+			else if(menu.showMenu && sliding == false){
+				textBox3.update = false;
 				textBox3.showDreieck = false;
 				menu.update(input);
+			}
+			if(menu.name != null){
+				menu.showMenu = false;
+				text = 5;
 			}
 			//animation(trainerx, trainerXEnd);
 		}
 		
 		if(text == 5) {
+			textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc);
 			textBox4.update(input, delta);
 		}
 		
@@ -310,26 +303,40 @@ public class IntroState extends BasicGameState {
 				sliding = false;
 			}
 			//animation(enkelx, enkelXEnd);
-			if(menu2.showMenu){
+			if(!menu2.showMenu){
+				textBox5.update(input, delta);
+			}
+			else if(menu2.showMenu && sliding == false){
+				textBox5.update = false;
+				textBox5.showDreieck = false;
 				menu2.update(input);
 			}
-			textBox5.update(input, delta);
+			if(menu2.name != null){
+				menu2.showMenu = false;
+				text = 7;
+			}
 		}
 		
 		if(text == 7){
+			textBox6 = new TextBox(menu2.name + "! Stimmt! Grod hob i's no gwusst!", Color.black, Color.white, gc);
 			textBox6.update(input, delta);
 		}
 		
 		if(text == 8){
+			textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
 			textBox7.update(input, delta);
+			
 			sliding = true;
+			
+			if(textBox7.textBox == 1){
 			if(trainery < trainerYEnd && sliding == true){
 				trainery += 1;
 			}else{
 				sliding = false;
 			}
 			if(sliding == false){
-				text = 11;
+				text = 9;
+			}
 			}
 		}
 		
@@ -346,13 +353,13 @@ public class IntroState extends BasicGameState {
 			}
 		}
 		
-		if(text == 11){
+		if(text == 10){
 			if (counter <= 1000){
 			counter += delta;
 			}
 		}
 		
-		if(text ==12)
+		if(text == 11)
 			Sound.audioIntro.stop();
 	}
 	

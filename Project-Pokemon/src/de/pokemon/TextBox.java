@@ -19,12 +19,15 @@ import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public class TextBox {
+	boolean update;
+	
 	public int rectx;
 	public int recty;
 	public int rectwidth;
 	public int rectheight;
 	
 	public int textBox;
+	public int merke;
 	
 	public int length;  // Länge des übergebenen Strings
 	public float maxLength; // maximallänge eines Teilstrings
@@ -62,6 +65,8 @@ public class TextBox {
 		this.colorBackground = colorBackground;
 		this.colorFont = colorFont;
 		//this.font = font;
+		
+		update = true;
 		
 		rectwidth = gc.getWidth()/2;
 		rectheight = gc.getHeight()/6; // noch auf 3 Zeilen anpassen!
@@ -112,6 +117,7 @@ public class TextBox {
 	
 	public void update(Input input, int delta){
 		
+		if(update == true){
 		 // counter regelt, dass "weiter" nur jede Sekunde angezeigt wird
 			if (counter <= 1000){
 			counter += delta;
@@ -124,7 +130,7 @@ public class TextBox {
 				showDreieck = false;
 			}
 		
-		weiter.setLocation(rectx + rectwidth - 5, stringy[2] + 3); //setzt das Dreieck nach rechts unten
+		weiter.setLocation(rectx + rectwidth - 10, stringy[2] + 5); //setzt das Dreieck nach rechts unten
 		
 		if(input.isKeyPressed(Input.KEY_ENTER)){ //beim drücken von Enter werden die Strings nach oben verschoben
 				changeStrings++;
@@ -132,9 +138,7 @@ public class TextBox {
 			}
 			input.clearKeyPressedRecord();
 		}
-
-	
-	
+	}
 	
 	public void render(Graphics g){
 		g.setColor(colorBackground);
@@ -144,24 +148,33 @@ public class TextBox {
 		
 		if(string.length == 1){
 			g.drawString(string[0], stringx, stringy[0]);
+			if(changeStrings == 1){
 			textBox = 1;
+			}
 		}
 		else if(string.length == 2){
 			for(int q = 0; q <= 1; q++){
 			g.drawString(string[q], stringx, stringy[q]);
 			}
+			if(changeStrings == 1){
 			textBox = 1;
+			}
 		}
 		
+		else if(string.length > 2){
 		for(int k = 0; k <= 2; k++){ // ändert die Position der Strings
 			if(string.length == 3){
 				g.drawString(string[k], stringx, stringy[k]);
 			}else if(changeStrings <= string.length - 3){
-			g.drawString(string[k + changeStrings], stringx, stringy[k]); 
+				g.drawString(string[k + changeStrings], stringx, stringy[k]); 
+			}else{
+				merke = changeStrings - 1;
 			}
-			else if(changeStrings > string.length - 3){
-			textBox = 1;
-			System.out.println("textBox: " + textBox);
+			if(changeStrings > string.length - 3){
+				g.drawString(string[k + merke], stringx, stringy[k]);
+				textBox = 1;
+				System.out.println("textBox: " + textBox);
+				}
 			}
 		}
 		if(showDreieck == true){
