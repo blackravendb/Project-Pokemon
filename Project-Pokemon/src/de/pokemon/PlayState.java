@@ -102,7 +102,7 @@ public class PlayState extends BasicGameState {
 				camera = new Camera(gc, map);
 			}
 			camera.centerOn(player);
-			map.updateNpcs();
+			map.updateNpcs(delta);
 			if(player.isStanding){
 				if(input.isKeyPressed(Input.KEY_ESCAPE)){
 					menu.sliding = true;

@@ -247,9 +247,9 @@ public class Map extends TiledMapPlus{
 		}
 	}
 
-	public void updateNpcs(){
+	public void updateNpcs(int delta){
 		for(Npc npc: npcs){
-			npc.updateNpc();
+			npc.updateNpc(delta);
 		}
 	}
 
