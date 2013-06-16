@@ -13,17 +13,17 @@
  </tileset>
  <layer name="collision" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UQQ7AIAgEvfX/D/QvPTUhxgosIGq7CfEAMhsV61VKZYKKq0WjVY/rIY7L+fBgSs9Auhfh0vwMbi8/m/vU7My1ztHPzeGOemp9tv0kPjihb9+qDK5l1qM9jOoieKtx0X5f41r/Kw2frhp/kXO2KxdlZ3E9PJzEfavzlMddo3EDEo7EaBAOAAA=
+   H4sIAAAAAAAAC+2USwrAIAxE3fX+B/QuXRWCWPMbEyIOBBeJvvET+9NaZ4KKq7XGqBkXIY7L+UAwpWcgnWvh0nwEd5aP5n41lbnePrrcHO5qTa3PcT2JD07Wt+9VBtfT67s9rOoqctHnrO3HDG7Efr3/lYZPR42/nX1WlWtlZ3ERHk7i/tUhhbhra7zp52GmEA4AAA==
   </data>
  </layer>
  <layer name="background" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2XWwrDIBBFx7HouppC23WZvtbVx756BxkaQiGhNZPS+HEQUTyMAxdtHFEzwJaJdmDPw3s/xQHu4At670SUMLZv1ta9+aagV866BqJbGLf/n71T3HO3r5ZeOSP5jLX3ARfHjI92XqlxFV9U7+94T/CdwcXQW4K5vAfkxhHeBNpg5xUkLzQzrLySk5obfgH9rd7qnYI5vZpXmllWXn3nCGPfk98i+cwu/wEsvf26l+h9AjgiUjgQDgAA
+   H4sIAAAAAAAAC+2XWwrDIBBFr2PRdTWFtusyfa2rj311BpFKCCS0ZgxNPg4iiodRuWhjgGaAPQEH5kjDc7/FMJRhC3qfAAK3bc/YttPfFfTKWncHPNy4+f/snWKf83PV9MoawUa0vS92kY9Yr+eVGjf+w+qdj/fCvitzU/SWoJb3xLlxZm9gWqfnFSQvUmZoeSUna3jzvLILuFerdz7eKajpTXmVMkvLm945wtj35K9IPpOJfwBNb7fuJXrf3LWP3hAOAAA=
   </data>
  </layer>
  <layer name="objects" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC73W2VLiQBiG4WiSTsTSqiDo9cwMIqdBnbkecYFT4nY9ogOcJm6345shKUKTThOC81c9xZKmP/500tA3DGOAE3QwsXieMUC2+tLxdUyteV4/yZdrbBW/XrfSvDRfV3bJ3Lzhzs5yv55pGHUcoIGmmT9fyPuRwlAYRiDU30XUlvv1+VwXpzjDuSLXo5G6QkhmpMlVrW8P27hS5PrM31XwHPKdcv3KNVXkDpk/wC3ucI8HPMIns6vJLbqerYLckIMRXvGGd3zgE0MyAyn3hWvpuDbTrtCvZ3MucYAGmjjEEUIyIynXqi2+zus3e+2rcn3m7+IUZzjHb/yB5/Kd3OLctdeX+QPc4g73eMAjfDK7mlzdfqVcX+aP8Io3vOMDnxiSGZTs98acMZLnrrThOMnnPe7Pupjdbw0emzjEEUIyo4r9bqrKru8mKj5HreQeGu/M3vtf/aYlkr51/V4wrofLWs7BEpXuG+1kHl2/T4wb4blibtn13drl9wHmbv58F3ucD1ziCte42dPnVl3fJzJGeMYL/mK8Qm5Rv6v8tdja53zAhAUbAtfShzfd7w8yfuIXWjhGe395nKrfCaYQ7HOOgmsXf4dewTE5d8Jc08zc8euTjLE9H9PR5BaVnOuwn7piMStLiMUxup5Vle5X6Z6ly23Hx9BJxlTpOa14z9LlxpzM8e/IbaGfY2TNnw80uavce3Kuqpftgv/C69S//5PS2k3c+fp/l/i34QvUMH64EA4AAA==
+   H4sIAAAAAAAAC73Wa1eiQBzHcQoYyE6dg2m9nt018ylUu68nu+hT6fZ6slZ9Ct3eTl9WOOLIMCq2c87nBM4wP/5cJnqGYfRxgg7GFts5feRbT+pfx8Sa5fXSfLmNrPL9dVuWl+Xrmr1ibtFwZ2exXs80jDoO0EDTLJ4v4vdYYSAMIxTqcxG1xXp9jgtwijOcK3I9CqkrRGTGmlzV/e1iG1eKXJ/5AwXPId9ZrV65TRS5A+YPcYs73OMBj/DJDDS5Zc+zVZIb0RnjFW94xwc+MSAzlHJfeJaOa1PtCvV6NtcSB2igiUMcISIzlnKt2vx+Ub35Z1+V6zN/gFOc4Ry/8Qeeyzm55blr31/mD3GLO9zjAY/wyQw0ubr1Snl/mT/GK97wjg98YkBmuGK9N+aUkW670oLjpMd7vJ91MX3fGvxt4hBHiMiMK9a7qbbq/d1ES65RK32HRjvT3/5XvVkTad26ei8Y18VlraCzQq6u3ifGDfFcMTdbr9pL1ru1y/8HmLvF813scT1wiStc42Zvcdymn+cnMoZ4xgv+YrREblm9y3xabO1zPWDCgg2Ba+ngTdf7g4yf+IUWjtHeXxynqneMCQTrnKPg2uXn0C3pk3PHzDXJzZ3sn+SM7NmYjia3rMm5DuupK+az8oSYH6OrWdWy9Spbs3S57aQPnXRMlZqzlqwdutyEk+v/jtwWegWG1my7r8ld5t2Tc1W1bJd8C6/T/n1PSvdu7M7u/3dJ1ugvnqnfihAOAAA=
   </data>
  </layer>
  <layer name="foreground" width="30" height="30">
@@ -62,7 +62,6 @@
   <object name="water" type="water" gid="1796" x="928" y="704" height="32"/>
   <object name="water" type="water" gid="1796" x="928" y="736" height="32"/>
   <object name="water" type="water" gid="1796" x="928" y="768" height="32"/>
-  <object name="water" type="water" gid="1796" x="896" y="576" height="32"/>
   <object name="water" type="water" gid="1796" x="896" y="608" height="32"/>
   <object name="water" type="water" gid="1796" x="896" y="640" height="32"/>
   <object name="water" type="water" gid="1796" x="896" y="672" height="32"/>
@@ -75,6 +74,11 @@
   <object name="water" type="water" gid="1796" x="864" y="704" height="32"/>
   <object name="water" type="water" gid="1796" x="864" y="640" height="32"/>
   <object name="water" type="water" gid="1796" x="864" y="608" height="32"/>
-  <object name="water" type="water" gid="1796" x="864" y="576" height="32"/>
+  <object name="supervisor" type="npc" gid="2013" x="416" y="864"/>
+  <object name="biker" type="npc" gid="2013" x="352" y="544"/>
+  <object name="captain" type="npc" gid="2013" x="864" y="448"/>
+  <object gid="2013" x="455" y="484"/>
+  <object gid="2013" x="448" y="352"/>
+  <object name="deubler1" type="npc" gid="2013" x="448" y="352"/>
  </objectgroup>
 </map>
