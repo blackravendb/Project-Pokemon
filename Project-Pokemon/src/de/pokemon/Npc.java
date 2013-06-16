@@ -1,9 +1,14 @@
 package de.pokemon;
 
+import org.newdawn.slick.Input;
+
 public class Npc extends Entity {
 	private int[][] route;
 	private String name;
-//	private boolean tick = true;
+	
+	private int counterDelta;
+	
+	private int step = 1;
 
 	/**
 	 * Konstruktor Npc
@@ -23,6 +28,23 @@ public class Npc extends Entity {
 	
 	public void updateNpc(int delta){
 		
+		if(step <= route.length){
+			//Warten
+			switch(route[step][0]){
+			case 0:
+				if(counterDelta <= route[step][0])
+					step++;
+				else
+					counterDelta+= delta;
+				break;
+				//Runter drehen
+			case 4:
+				super.renderTurnAnimation(Input.KEY_S);
+			}
+			
+		}
+		else
+			step = 1;
 	}
 	
 	public void renderNpcHead() {
