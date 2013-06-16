@@ -264,8 +264,8 @@ public class Entity {
 		// aniStandRightBody.setLooping(false);
 		// aniStandUpBody.setLooping(false);
 		// aniStandLeftBody.setLooping(false);
-		
-		//currentAnimation vorbelegen
+
+		// currentAnimation vorbelegen
 		renderStand();
 
 	}
@@ -296,6 +296,7 @@ public class Entity {
 
 	public void setPosition(int posX, int posY) {
 		isRunning = false;
+		isStanding = true;
 		calcTilePosition(posX, true);
 		calcTilePosition(posY, false);
 		this.posX = posX;
@@ -469,8 +470,8 @@ public class Entity {
 	protected void renderEntityHead() {
 		// Sollte currentAnimationHead == null sein wird Standbild von aktueller
 		// Blickrichtung gerendert
-//		if (currentAnimationHead == null)
-//			renderStand();
+		// if (currentAnimationHead == null)
+		// renderStand();
 		renderEntity(posX, posY, true);
 		/*
 		 * if (standAnimation) { if (standDir == Direction.UP &&
@@ -669,8 +670,15 @@ public class Entity {
 				if (!Map.isBlocked(tileX - 1, tileY)) {
 					Map.setBlocked(tileX - 1, tileY, true);
 					moveX(-1);
-				} else
+				} else {
 					moveAgainstSolid = true;
+					// Nochmaliges zurücksetzen der Animationen, da sonst
+					// Soundfehler in einem Player Objekt auftauchen können,
+					// wenn dieser direkt nach einer move Animation gegen einen
+					// Soliden Block läuft
+					currentAnimationBody.restart();
+					currentAnimationHead.restart();
+				}
 
 			} else if (input == Input.KEY_W) {
 				currentAnimationHead = aniMoveUpHead;
@@ -678,8 +686,15 @@ public class Entity {
 				if (!Map.isBlocked(tileX, tileY - 1)) {
 					Map.setBlocked(tileX, tileY - 1, true);
 					moveY(-1);
-				} else
+				} else {
 					moveAgainstSolid = true;
+					// Nochmaliges zurücksetzen der Animationen, da sonst
+					// Soundfehler in einem Player Objekt auftauchen können,
+					// wenn dieser direkt nach einer move Animation gegen einen
+					// Soliden Block läuft
+					currentAnimationBody.restart();
+					currentAnimationHead.restart();
+				}
 
 			} else if (input == Input.KEY_D) {
 				currentAnimationHead = aniMoveRightHead;
@@ -687,8 +702,15 @@ public class Entity {
 				if (!Map.isBlocked(tileX + 1, tileY)) {
 					Map.setBlocked(tileX + 1, tileY, true);
 					moveX(1);
-				} else
+				} else {
 					moveAgainstSolid = true;
+					// Nochmaliges zurücksetzen der Animationen, da sonst
+					// Soundfehler in einem Player Objekt auftauchen können,
+					// wenn dieser direkt nach einer move Animation gegen einen
+					// Soliden Block läuft
+					currentAnimationBody.restart();
+					currentAnimationHead.restart();
+				}
 
 			} else if (input == Input.KEY_S) {
 				currentAnimationHead = aniMoveDownHead;
@@ -696,8 +718,15 @@ public class Entity {
 				if (!Map.isBlocked(tileX, tileY + 1)) {
 					Map.setBlocked(tileX, tileY + 1, true);
 					moveY(1);
-				} else
+				} else {
 					moveAgainstSolid = true;
+					// Nochmaliges zurücksetzen der Animationen, da sonst
+					// Soundfehler in einem Player Objekt auftauchen können,
+					// wenn dieser direkt nach einer move Animation gegen einen
+					// Soliden Block läuft
+					currentAnimationBody.restart();
+					currentAnimationHead.restart();
+				}
 			}
 		}
 		// Sollte isRunning true sein wird eine Warnung ausgegeben
@@ -767,7 +796,7 @@ public class Entity {
 	 * @return void
 	 */
 	protected void renderTick(int input) {
-		if (isRunning) { // TODO
+		if (isRunning) {
 			// Überprüfe, welcher Bewegungsvorgang aktuell abgearbeitet wird
 			// move Bewegung wird ausgeführt
 			if (!isStanding) {
@@ -789,7 +818,8 @@ public class Entity {
 						currentAnimationBody.restart();
 						currentAnimationHead.restart();
 
-						// Temporäre Reference Variable auf Standanimation zurücksetzen
+						// Temporäre Reference Variable auf Standanimation
+						// zurücksetzen
 						renderStand();
 					}
 					// Animation wird noch ausgeführt
@@ -832,7 +862,8 @@ public class Entity {
 								currentAnimationBody.restart();
 								currentAnimationHead.restart();
 
-								// Temporäre Reference Variable wieder auf Standanimation zurücksetzen
+								// Temporäre Reference Variable wieder auf
+								// Standanimation zurücksetzen
 								renderStand();
 							}
 						}
@@ -878,7 +909,8 @@ public class Entity {
 								currentAnimationBody.restart();
 								currentAnimationHead.restart();
 
-								// Temporäre Reference Variable wieder auf Standanimation zurücksetzen
+								// Temporäre Reference Variable wieder auf
+								// Standanimation zurücksetzen
 								renderStand();
 							}
 						}
@@ -904,7 +936,8 @@ public class Entity {
 					currentAnimationBody.restart();
 					currentAnimationHead.restart();
 
-					// Temporäre Reference Variable auf Standanimation zurücksetzen
+					// Temporäre Reference Variable auf Standanimation
+					// zurücksetzen
 					renderStand();
 				}
 			}
@@ -918,17 +951,17 @@ public class Entity {
 	private void renderEntity(int posX, int posY, boolean headBody) {
 		// aniTemp = getAnimation(headBody);
 		if (!headBody) {
-				currentAnimationBody.draw(posX, posY);
+			currentAnimationBody.draw(posX, posY);
 		} else {
-				currentAnimationHead.draw(posX, posY);
+			currentAnimationHead.draw(posX, posY);
 		}
 	}
 
 	protected void renderEntityBody() {
 		// Sollte currentAnimationBody == null sein wird Standbild von aktueller
 		// Blickrichtung gerendert
-//		if (currentAnimationBody == null)
-//			renderStand();
+		// if (currentAnimationBody == null)
+		// renderStand();
 		renderEntity(posX, posY + height / 2, false);
 		/* Alter Quellcode */
 		/*

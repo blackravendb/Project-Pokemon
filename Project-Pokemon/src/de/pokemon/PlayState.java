@@ -33,6 +33,8 @@ public class PlayState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
+		
+		ResourceManager.init();
 		map = new Map("House");
 		
 		player = new Player(map.getSpawn("player").x,map.getSpawn("player").y);
@@ -100,7 +102,7 @@ public class PlayState extends BasicGameState {
 				camera = new Camera(gc, map);
 			}
 			camera.centerOn(player);
-			map.updateNpcs();
+			map.updateNpcs(delta);
 			if(player.isStanding){
 				if(input.isKeyPressed(Input.KEY_ESCAPE)){
 					menu.sliding = true;

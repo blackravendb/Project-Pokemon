@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="30" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="name" value="Town"/>
+ </properties>
+ <tileset firstgid="1" name="tileset32x32" tilewidth="32" tileheight="32">
+  <image source="tileset32x32.png" width="2048" height="2048"/>
+  <tile id="2012">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="collision" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2UQQ7AIAgEvfX/D/QvPTUhxgosIGq7CfEAMhsV61VKZYKKq0WjVY/rIY7L+fBgSs9Auhfh0vwMbi8/m/vU7My1ztHPzeGOemp9tv0kPjihb9+qDK5l1qM9jOoieKtx0X5f41r/Kw2frhp/kXO2KxdlZ3E9PJzEfavzlMddo3EDEo7EaBAOAAA=
+  </data>
+ </layer>
+ <layer name="background" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2XWwrDIBBFx7HouppC23WZvtbVx756BxkaQiGhNZPS+HEQUTyMAxdtHFEzwJaJdmDPw3s/xQHu4At670SUMLZv1ta9+aagV866BqJbGLf/n71T3HO3r5ZeOSP5jLX3ARfHjI92XqlxFV9U7+94T/CdwcXQW4K5vAfkxhHeBNpg5xUkLzQzrLySk5obfgH9rd7qnYI5vZpXmllWXn3nCGPfk98i+cwu/wEsvf26l+h9AjgiUjgQDgAA
+  </data>
+ </layer>
+ <layer name="objects" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC73W2VLiQBiG4WiSTsTSqiDo9cwMIqdBnbkecYFT4nY9ogOcJm6345shKUKTThOC81c9xZKmP/500tA3DGOAE3QwsXieMUC2+tLxdUyteV4/yZdrbBW/XrfSvDRfV3bJ3Lzhzs5yv55pGHUcoIGmmT9fyPuRwlAYRiDU30XUlvv1+VwXpzjDuSLXo5G6QkhmpMlVrW8P27hS5PrM31XwHPKdcv3KNVXkDpk/wC3ucI8HPMIns6vJLbqerYLckIMRXvGGd3zgE0MyAyn3hWvpuDbTrtCvZ3MucYAGmjjEEUIyIynXqi2+zus3e+2rcn3m7+IUZzjHb/yB5/Kd3OLctdeX+QPc4g73eMAjfDK7mlzdfqVcX+aP8Io3vOMDnxiSGZTs98acMZLnrrThOMnnPe7Pupjdbw0emzjEEUIyo4r9bqrKru8mKj5HreQeGu/M3vtf/aYlkr51/V4wrofLWs7BEpXuG+1kHl2/T4wb4blibtn13drl9wHmbv58F3ucD1ziCte42dPnVl3fJzJGeMYL/mK8Qm5Rv6v8tdja53zAhAUbAtfShzfd7w8yfuIXWjhGe395nKrfCaYQ7HOOgmsXf4dewTE5d8Jc08zc8euTjLE9H9PR5BaVnOuwn7piMStLiMUxup5Vle5X6Z6ly23Hx9BJxlTpOa14z9LlxpzM8e/IbaGfY2TNnw80uavce3Kuqpftgv/C69S//5PS2k3c+fp/l/i34QvUMH64EA4AAA==
+  </data>
+ </layer>
+ <layer name="foreground" width="30" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2QywmAMBBEhyiKgkXF/9mm9KpNefbXj1OACBpJFPfBu+0ywwD/ZlLATBe60k0d3/UeMJzYBHZ7C8KfqEKgDq//tZFZbsvM7kbuaJhrE9ON7vKljXQMpDSLXTd5BzrhHjSjOS1ombhuZZ/Cd91AEAThGXao0PI0EA4AAA==
+  </data>
+ </layer>
+ <objectgroup name="object layer" width="30" height="30">
+  <object name="town" type="exit" gid="2013" x="288" y="0"/>
+  <object name="town" type="entrance" gid="2013" x="320" y="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="288" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="288" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="320" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="352" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="384" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="416" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="448" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="320" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="352" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="384" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="416" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="448" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="288" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="320" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="352" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="384" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="416" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="448" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="480" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="512" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="544" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="576" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="608" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="640" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="672" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="704" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="736" height="32"/>
+  <object name="water" type="water" gid="1796" x="928" y="768" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="576" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="608" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="640" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="672" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="736" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="736" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="768" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="768" height="32"/>
+  <object name="water" type="water" gid="1796" x="896" y="704" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="672" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="704" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="640" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="608" height="32"/>
+  <object name="water" type="water" gid="1796" x="864" y="576" height="32"/>
+ </objectgroup>
+</map>
