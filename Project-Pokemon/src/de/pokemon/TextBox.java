@@ -92,6 +92,8 @@ public class TextBox {
 		showDreieck = true;
 		counter = 0;
 		
+		textBox = 0;
+		
 		StringBuffer buffer;
 		StringTokenizer tokenizer = new StringTokenizer(text);
 		
@@ -100,6 +102,7 @@ public class TextBox {
 				while(((buffer.toString().length()) * 9)  < maxLength && tokenizer.hasMoreTokens()){
 					buffer.append((tokenizer.nextToken() + " ")); //speichert jeden Token in den buffer
 					}
+				string[i] = buffer.toString();
 				System.out.println("string[i]: " + string[i]);
 				System.out.println("maxLength: " + maxLength);
 				System.out.println("buffer länge: " + buffer.toString().length()); //buffer Länge stimmt nicht; jetzt *9
@@ -139,18 +142,33 @@ public class TextBox {
 		g.setColor(colorFont);
 		g.drawRect(rectx, recty, rectwidth, rectheight);
 		
-		if(changeStrings < (string.length - 2)){
-		for(int k = 0; k <= 2; k++){ // ändert die Position der Strings
-			g.drawString(string[k + changeStrings], stringx, stringy[k]); 
+		if(string.length == 1){
+			g.drawString(string[0], stringx, stringy[0]);
+			textBox = 1;
+		}
+		else if(string.length == 2){
+			for(int q = 0; q <= 1; q++){
+			g.drawString(string[q], stringx, stringy[q]);
 			}
-		}else{
-			textBox++;
+			textBox = 1;
 		}
 		
+		for(int k = 0; k <= 2; k++){ // ändert die Position der Strings
+			if(string.length == 3){
+				g.drawString(string[k], stringx, stringy[k]);
+			}else if(changeStrings <= string.length - 3){
+			g.drawString(string[k + changeStrings], stringx, stringy[k]); 
+			}
+			else if(changeStrings > string.length - 3){
+			textBox = 1;
+			System.out.println("textBox: " + textBox);
+			}
+		}
 		if(showDreieck == true){
 			g.fill(weiter);
+			}
 		}
 	}
-}
+
 
 

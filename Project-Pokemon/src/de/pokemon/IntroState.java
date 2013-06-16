@@ -82,7 +82,7 @@ public class IntroState extends BasicGameState {
 		
 		musicStart = true;
 		
-		textBox1 = new TextBox("Servus! Herzli Wuikomma in da Wäid vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon-PROFESSOR!", Color.black, Color.white, gc);
+		textBox1 = new TextBox("Servus! Herzli Wuikomma in da Wäid vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
 		textBox2 = new TextBox("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
 		textBox3 = new TextBox("Wia hoaßtn du glei wieda?", Color.black, Color.white, gc);
 		textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc);
@@ -149,95 +149,91 @@ public class IntroState extends BasicGameState {
 			throws SlickException {
 		Input input = gc.getInput();
 		
-		if(text == 1){ 
-			g.drawImage(deubler, deublerx, deublery);
+		if(text == 1){
+		g.drawImage(deubler, deublerx, deublery);
+		if(aWildDeublerAppearse == false){ //Ansicht 1
+			textBox1.render(g);
+			if(textBox1.textBox == 1){
+				text = 2;
+				}
+			}
 		}
 		
-		if(text == 1 && aWildDeublerAppearse == false){ //Ansicht 1
-			textBox1.render(g);
-			if(input.isKeyPressed(Input.KEY_ENTER)){
-				text = 2;
-			}
-			}
 		else if(text == 2){ //Ansicht 2
 			g.drawImage(pokemon, pokemonx, pokemony);
 			textBox2.render(g);
-		}
-	
-		else if(text == 3){ //Ansicht 4
-			g.drawImage(pokemon, pokemonx, pokemony);
-			if(input.isKeyPressed(Input.KEY_ENTER)){
-				text = 4;
+			if(textBox2.textBox == 1){
+				text = 3;
 			}
 		}
-		else if(text == 4){ //Ansicht 5
+		
+		else if(text == 3){ //Ansicht 5
 			
 			g.drawImage(pokemon2, pokemonx, pokemony);
 			//TODO Sound abspielen!
 			g.drawString("[Enter drücken]", mittex, stringy[1]);
 			if(input.isKeyPressed(Input.KEY_ENTER)){
-				text = 5;
+				text = 4;
 				}
 		}
-		else if(text == 5){ //Ansicht 6
+		else if(text == 4){ //Ansicht 6
 			g.drawImage(trainer, trainerx, trainery);
 			textBox3.render(g);
-			if(input.isKeyPressed(Input.KEY_ENTER)){ //NameMenu aufrufen
-				menu.showMenu = true;
-			}
-			if(menu.name != null && text == 5){
+			if(textBox3.textBox == 1){
+				menu.showMenu = true; //NameMenu aufrufen
+				}
+			if(menu.name != null){
 				menu.showMenu = false;
+				text = 5;
+			}
+		}
+		else if(text == 5){ //Ansicht 7
+			g.drawImage(trainer, trainerx, trainery);
+			textBox4.render(g);
+			if(textBox4.textBox == 1){
 				text = 6;
 			}
 		}
-		else if(text == 6){ //Ansicht 7
-			g.drawImage(trainer, trainerx, trainery);
-			textBox4.render(g);
-			if(input.isKeyPressed(Input.KEY_ENTER)){ 
+		else if(text == 6){
+			g.drawImage(enkel, enkelx, enkely);
+			textBox5.render(g);
+			if(textBox5.textBox == 1){
+				if(input.isKeyPressed(Input.KEY_ENTER)){ 
+					menu2.showMenu = true;
+				}
+			}
+			if(menu2.name != null){
+				menu2.showMenu = false;
 				text = 7;
 			}
 		}
 		else if(text == 7){
 			g.drawImage(enkel, enkelx, enkely);
-			textBox5.render(g);
-			if(input.isKeyPressed(Input.KEY_ENTER)){ 
-				menu2.showMenu = true;
-			}
-			if(menu2.name != null && text== 7){
-				menu2.showMenu = false;
+			textBox6.render(g);
+			if(textBox6.textBox == 1){
 				text = 8;
 			}
 		}
 		else if(text == 8){
-			g.drawImage(enkel, enkelx, enkely);
-			textBox6.render(g);
-			if(input.isKeyPressed(Input.KEY_ENTER)){ 
+			g.drawImage(trainer, trainerx, trainery);
+			textBox7.render(g);
+			if(textBox7.textBox == 1){
 				text = 9;
 			}
 		}
-		else if(text == 9){
-			g.drawImage(trainer, trainerx, trainery);
-			textBox7.render(g);
-			if(input.isKeyPressed(Input.KEY_ENTER)){ 
-				text = 10;
+		else if(text== 9){
+			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
+			if (counter1 >= 1000){
+			text = 10;
 			}
 		}
 		else if(text == 10){
-			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);
-		}
-		else if(text== 11){
-			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
-			if (counter1 >= 1000){
-			text = 12;
-			}
-		}
-		else if(text == 12){
 			g.drawImage(trainerSpiel, trainerx, trainery); 
 			if (counter >= 1000){
-			text= 13;
+			text= 11;
 			}
 		}
-		else if(text == 13){
+		else if(text == 11){
 			text = 0;
 			game.enterState(1);
 		}
@@ -283,7 +279,7 @@ public class IntroState extends BasicGameState {
 			textBox2.update(input, delta);
 		}
 		
-		if (text == 5){ //Trainer Animation
+		if (text == 4){ //Trainer Animation
 			sliding = true;
 			if(trainerx > trainerXEnd && sliding == true){
 				trainerx -= 8;
@@ -291,18 +287,21 @@ public class IntroState extends BasicGameState {
 			else{
 				sliding = false;
 			}
-			if(menu.showMenu){
+			if(!menu.showMenu){
+				textBox3.update(input, delta);
+			}
+			else if(menu.showMenu){
+				textBox3.showDreieck = false;
 				menu.update(input);
 			}
 			//animation(trainerx, trainerXEnd);
-			textBox3.update(input, delta);
 		}
 		
-		if(text == 6) {
+		if(text == 5) {
 			textBox4.update(input, delta);
 		}
 		
-		if (text== 7){ //Enkel Animation
+		if (text== 6){ //Enkel Animation
 			sliding = true;
 			if(enkelx > enkelXEnd && sliding == true){
 				enkelx -= 8;
@@ -317,15 +316,12 @@ public class IntroState extends BasicGameState {
 			textBox5.update(input, delta);
 		}
 		
-		if(text == 8){
+		if(text == 7){
 			textBox6.update(input, delta);
 		}
 		
-		if(text == 9){
+		if(text == 8){
 			textBox7.update(input, delta);
-		}
-		
-		if(text == 10){
 			sliding = true;
 			if(trainery < trainerYEnd && sliding == true){
 				trainery += 1;
@@ -337,7 +333,7 @@ public class IntroState extends BasicGameState {
 			}
 		}
 		
-		if (text == 11){ //trainer Animation Übergang + counter start
+		if (text == 9){ //trainer Animation Übergang + counter start
 
 			if(counter1 <= 1000 && sliding == false){
 				counter1 += delta;
@@ -350,13 +346,13 @@ public class IntroState extends BasicGameState {
 			}
 		}
 		
-		if(text == 12){
+		if(text == 11){
 			if (counter <= 1000){
 			counter += delta;
 			}
 		}
 		
-		if(text ==13)
+		if(text ==12)
 			Sound.audioIntro.stop();
 	}
 	
