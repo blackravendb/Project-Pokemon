@@ -21,7 +21,7 @@ public class Npc extends Entity {
 		this.name = name;
 	}
 	
-	public void updateNpc(){
+	public void updateNpc(int delta){
 		
 	}
 	

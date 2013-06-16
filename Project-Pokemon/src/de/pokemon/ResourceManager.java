@@ -10,7 +10,6 @@ import java.util.HashMap;
  *
  */
 public class ResourceManager {
-	int [][] test = new int[][]{{1},{2}};
 	//Npc Datenbank
 	private static HashMap<String, NpcStruct> npcDatabase;
 	
