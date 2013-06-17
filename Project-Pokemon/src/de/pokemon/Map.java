@@ -211,7 +211,7 @@ public class Map extends TiledMapPlus{
 					1000, //updatetime
 					true); //autoupdate
 			counter++;
-			
+
 		}
 		return true;
 	}
@@ -235,7 +235,7 @@ public class Map extends TiledMapPlus{
 		if(getObjectGroup("object layer").getObjectsOfType("npc") != null){
 			for(GroupObject go: getObjectGroup("object layer").getObjectsOfType("npc")){
 				npcs.add(new Npc(go.x, go.y, go.name));
-			//	System.out.println(go.x + go.y + go.name);
+				//	System.out.println(go.x + go.y + go.name);
 			}
 		}
 	}
@@ -266,32 +266,37 @@ public class Map extends TiledMapPlus{
 
 	//this method is gonna be big
 	public Map update(Player player) throws SlickException{
+		Map tmp = this;
 		if(getName().equals("Home")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY()){
-				Map tmp = new Map("House");	
+				tmp = new Map("House");	
 				player.setPosition(tmp.getEntrance("house").x, tmp.getEntrance("house").y);
-				return tmp;
 			}else if( (getEntrance("town").x == player.getPosX() || getEntrance("town").x + 32 == player.getPosX() || getEntrance("town").x +64 == player.getPosX())
 					&& getEntrance("town").y == player.getPosY()){
-				Map tmp = new Map("Town");
+				tmp = new Map("Town");
 				player.setPosition(tmp.getEntrance("town").x, tmp.getEntrance("town").y);
-				return tmp;
 			}
 		}else if(getName().equals("House")){
 			if(getExit("house").x == player.getPosX() && getExit("house").y == player.getPosY()){
-				Map tmp = new Map("Home");
+				tmp = new Map("Home");
 				player.setPosition(tmp.getExit("house").x, tmp.getExit("house").y);
-				return tmp;
 			}
 		}else if(getName().equals("Town")){
 			if((getExit("town").x == player.getPosX() || getExit("town").x + 32 == player.getPosX() || getExit("town").x + 64 == player.getPosX()) && getExit("town").y == player.getPosY()){
-				Map tmp = new Map("Home");
+				tmp = new Map("Home");
 				player.setPosition(tmp.getExit("town").x, tmp.getExit("town").y);
-				return tmp;
+			}else if(getEntrance("townHouse1").x == player.getPosX() && getEntrance("townHouse1").y == player.getPosY()){
+				tmp = new Map("townHouse1");
+				player.setPosition(getEntrance("townHouse1").x, getEntrance("townHouse1").y);
+			}
+		}else if(getName().equals("townHouse1")){
+			if(getExit("townFromTownHouse1").x == player.getPosX() && getExit("townFromTownHouse1").y == player.getPosY()){
+				tmp = new Map("Town");
+				player.setPosition(getExit("townFromTownHouse1").x, getExit("townFromTownHouse1").y);
 			}
 		}
 
-		return this;
+		return tmp;
 	}
 
 

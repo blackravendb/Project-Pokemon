@@ -77,7 +77,6 @@
   <object name="supervisor" type="npc" gid="2013" x="416" y="864"/>
   <object name="biker" type="npc" gid="2013" x="576" y="736"/>
   <object name="captain" type="npc" gid="2013" x="864" y="448"/>
-  <object gid="2013" x="448" y="352"/>
   <object name="deubler1" type="npc" gid="2013" x="448" y="352"/>
   <object name="holzerarmee" type="npc" gid="2013" x="576" y="384" width="128" height="64"/>
   <object name="holzerarmee" type="npc" gid="2013" x="608" y="384" width="128" height="64"/>
@@ -90,5 +89,7 @@
   <object name="holzerarmee" type="npc" gid="2013" x="704" y="384" width="128" height="64"/>
   <object name="holzerarmee" type="npc" gid="2013" x="704" y="416" width="128" height="64"/>
   <object name="skateboader" type="npc" gid="2013" x="352" y="544"/>
+  <object name="townFromTownHouse1" type="exit" gid="2013" x="192" y="128"/>
+  <object name="townHouse1" type="entrance" gid="2013" x="192" y="96"/>
  </objectgroup>
 </map>
