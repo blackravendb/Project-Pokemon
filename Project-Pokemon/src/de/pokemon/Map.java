@@ -250,14 +250,13 @@ public class Map extends TiledMapPlus{
 	public void updateNpcs(int delta, boolean update) {
 		for (Npc npc : npcs) {
 			if (update) {
-				if(npc.currentAnimationHead.isStopped()){
-					npc.currentAnimationBody.start();
-					npc.currentAnimationHead.start();
-				}
+				npc.currentAnimationBody.setAutoUpdate(true);
+				npc.currentAnimationHead.setAutoUpdate(true);
 				npc.updateNpc(delta);
 			} else {
-				npc.currentAnimationBody.stop();
-				npc.currentAnimationHead.stop();
+				npc.currentAnimationBody.setAutoUpdate(false);
+				npc.currentAnimationHead.setAutoUpdate(false);
+				
 			}
 		}
 	}
