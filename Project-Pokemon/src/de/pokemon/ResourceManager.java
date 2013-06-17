@@ -33,11 +33,7 @@ public class ResourceManager {
 						{ moveSequence.wait.ordinal(), 3000 },
 						{ moveSequence.turnUp.ordinal(), 0 },
 						{ moveSequence.wait.ordinal(), 3000 } }));
-		npcDatabase.put("biker", new NpcStruct("biker", "res/biker.png",
-				new int[][] { { moveSequence.moveUp.ordinal(), 3 },
-						{ moveSequence.moveLeft.ordinal(), 4 },
-						{ moveSequence.moveDown.ordinal(), 3 },
-						{ moveSequence.moveRight.ordinal(), 4 } }));
+		npcDatabase.put("biker", new NpcStruct("biker", "res/biker.png", null));
 		npcDatabase.put("captain", new NpcStruct("captain", "res/captain.png",
 				new int[][] { { 3, 0 },
 						{ moveSequence.wait.ordinal(), 2147483647 } }));
@@ -55,6 +51,13 @@ public class ResourceManager {
 				.put("holzerarmee", new NpcStruct("holzerarmee",
 						"res/holzerarmee.png", new int[][] { {
 								moveSequence.wait.ordinal(), 2147483647 } }));
+
+		npcDatabase.put("skateboader",
+				new NpcStruct("skateboader", "res/skateboader.png",
+						new int[][] { { moveSequence.moveUp.ordinal(), 3 },
+								{ moveSequence.moveLeft.ordinal(), 4 },
+								{ moveSequence.moveDown.ordinal(), 3 },
+								{ moveSequence.moveRight.ordinal(), 4 } }));
 
 	}
 

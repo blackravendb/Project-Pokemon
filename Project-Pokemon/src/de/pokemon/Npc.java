@@ -10,6 +10,10 @@ public class Npc extends Entity {
 
 	private int step = 0;
 
+	private int random;
+	private int random2;
+	private int randomCounter = 0;
+	
 	private int lastTileX;
 	private int lastTileY;
 
@@ -29,8 +33,9 @@ public class Npc extends Entity {
 				.getNpcImagePath(name));
 		route = ResourceManager.getNpcRoute(name);
 		this.name = name;
-		lastTileX = super.getTileX();
-		lastTileY = super.getTileY();
+		
+		lastTileX = getTileX();
+		lastTileY = getTileY();
 	}
 
 	/*
@@ -77,8 +82,8 @@ public class Npc extends Entity {
 			// links laufen
 		case 5:
 			if (counter < duration) {
-				if (Map.isBlocked(getTileX() - 1, getTileY())){
-					if(currentView != Input.KEY_A)
+				if (Map.isBlocked(getTileX() - 1, getTileY())) {
+					if (currentView != Input.KEY_A)
 						renderTurnAnimation(Input.KEY_A);
 					return false;
 				}
@@ -93,8 +98,8 @@ public class Npc extends Entity {
 			// Hoch laufen
 		case 6:
 			if (counter < duration) {
-				if (Map.isBlocked(getTileX(), getTileY() - 1)){
-					if(currentView != Input.KEY_W)
+				if (Map.isBlocked(getTileX(), getTileY() - 1)) {
+					if (currentView != Input.KEY_W)
 						renderTurnAnimation(Input.KEY_W);
 					return false;
 				}
@@ -109,8 +114,8 @@ public class Npc extends Entity {
 			// Rechts laufen
 		case 7:
 			if (counter < duration) {
-				if (Map.isBlocked(getTileX() + 1, getTileY())){
-					if(currentView != Input.KEY_D)
+				if (Map.isBlocked(getTileX() + 1, getTileY())) {
+					if (currentView != Input.KEY_D)
 						renderTurnAnimation(Input.KEY_D);
 					return false;
 				}
@@ -125,8 +130,8 @@ public class Npc extends Entity {
 			// Runter Laufen
 		case 8:
 			if (counter < duration) {
-				if (Map.isBlocked(getTileX(), getTileY() + 1)){
-					if(currentView != Input.KEY_S)
+				if (Map.isBlocked(getTileX(), getTileY() + 1)) {
+					if (currentView != Input.KEY_S)
 						renderTurnAnimation(Input.KEY_S);
 					return false;
 				}
@@ -142,15 +147,45 @@ public class Npc extends Entity {
 	}
 
 	public void updateNpc(int delta) {
-		if (step < route.length) {
-			if (!super.isRunning) {
-				if (moveNpc(route[step][0], route[step][1], delta))
-					step++;
+		if (route != null) {
+			if (step < route.length) {
+				if (!super.isRunning) {
+					if (moveNpc(route[step][0], route[step][1], delta))
+						step++;
+				} else {
+					super.renderTick(0);
+				}
+			} else
+				step = 0;
+		}
+		// Zufallsmuster
+		else {
+			if (!isRunning || randomCounter > 3000) {
+				if (isRunning) {
+					super.isRunning = false;
+					counter = 0;
+					Map.setBlocked(lastTileX, lastTileY, false);
+				}
+				if (counter == 0) {
+					random = (int) (Math.random() * (9 + 6) - 6);
+					if (random <= 0) {
+						random = 0;
+						random2 = (int) (Math.random() * (3000 - 500) + 500);
+					} else {
+						random2 = (int) (Math.random() * (4 - 1) + 1);
+
+					}
+					System.out.println("random: " + random + " random2: "
+							+ random2);
+				}
+				moveNpc(random, random2, delta);
 			} else {
-				super.renderTick(0);
+				renderTick(0);
+				randomCounter += delta;
+				lastTileX = getTileX();
+				lastTileY = getTileY();
 			}
-		} else
-			step = 0;
+		}
 	}
 
 	public void renderNpcHead() {
