@@ -13,7 +13,10 @@ public class Entity {
 	private int tileX;
 	private int tileY;
 	private int moveSpeed = 2;
-
+	
+	/**Referenz auf die PlayState um deren Methoden aufzurufen*/
+	private Event event;
+	
 	/** Enum Feld für die vier Bewegungsrichtungen */
 	protected enum Direction {
 		DOWN, LEFT, UP, RIGHT, NULL
@@ -64,12 +67,12 @@ public class Entity {
 	 * Animation Variable, welche Animation im aktuellem Loop Gerendert werden
 	 * soll. Tile Head
 	 */
-	private Animation currentAnimationHead;
+	protected Animation currentAnimationHead;
 	/**
 	 * Animation Variable, welche Animation im aktuellem Loop Gerendert werden
 	 * soll. Tile Body
 	 */
-	private Animation currentAnimationBody;
+	protected Animation currentAnimationBody;
 	/**
 	 * int Wert für aktuelle Blickrichtung. Hierbei werden die Key ID's
 	 * verwendet, welche normalerweise von einem Input Objekt übergeben werden.
@@ -95,11 +98,12 @@ public class Entity {
 
 	private boolean blockedDelta = true;
 
-	Entity(int posX, int posY, int width, int height, String imagePath) {
+	Entity(int posX, int posY, int width, int height, String imagePath, Event event) {
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
 		this.height = height;
+		this.event = event;
 
 		// Bilddatei mit Animationsabläufen
 		try {

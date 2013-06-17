@@ -28,9 +28,9 @@ public class Npc extends Entity {
 	 *            (String) Name des Npc's und Referenz für übrige Werte
 	 * @return void
 	 */
-	Npc(int posX, int posY, String name) {
+	Npc(int posX, int posY, String name, Event event) {
 		super(posX, posY, Core.tileSize, Core.tileSize * 2, ResourceManager
-				.getNpcImagePath(name));
+				.getNpcImagePath(name), event);
 		route = ResourceManager.getNpcRoute(name);
 		this.name = name;
 		

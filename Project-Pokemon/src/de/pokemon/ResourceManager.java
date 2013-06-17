@@ -66,7 +66,7 @@ public class ResourceManager {
 
 		npcDatabase.put("student1",
 				new NpcStruct("student1", imagePath + "student1.png",
-						new int[][] { { moveSequence.turnRight.ordinal(), 3 },
+						new int[][] { { moveSequence.turnLeft.ordinal(), 3 },
 								{ moveSequence.wait.ordinal(), 2147483647 } }));
 
 		npcDatabase.put("student2",
