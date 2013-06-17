@@ -77,8 +77,11 @@ public class Npc extends Entity {
 			// links laufen
 		case 5:
 			if (counter < duration) {
-				if (Map.isBlocked(getTileX() - 1, getTileY()))
+				if (Map.isBlocked(getTileX() - 1, getTileY())){
+					if(currentView != Input.KEY_A)
+						renderTurnAnimation(Input.KEY_A);
 					return false;
+				}
 				renderMoveAnimation(Input.KEY_A);
 				counter++;
 				return false;
@@ -90,8 +93,11 @@ public class Npc extends Entity {
 			// Hoch laufen
 		case 6:
 			if (counter < duration) {
-				if (Map.isBlocked(getTileX(), getTileY() - 1))
+				if (Map.isBlocked(getTileX(), getTileY() - 1)){
+					if(currentView != Input.KEY_W)
+						renderTurnAnimation(Input.KEY_W);
 					return false;
+				}
 				renderMoveAnimation(Input.KEY_W);
 				counter++;
 				return false;
@@ -103,8 +109,11 @@ public class Npc extends Entity {
 			// Rechts laufen
 		case 7:
 			if (counter < duration) {
-				if (Map.isBlocked(getTileX() + 1, getTileY()))
+				if (Map.isBlocked(getTileX() + 1, getTileY())){
+					if(currentView != Input.KEY_D)
+						renderTurnAnimation(Input.KEY_D);
 					return false;
+				}
 				renderMoveAnimation(Input.KEY_D);
 				counter++;
 				return false;
@@ -116,8 +125,11 @@ public class Npc extends Entity {
 			// Runter Laufen
 		case 8:
 			if (counter < duration) {
-				if (Map.isBlocked(getTileX(), getTileY() + 1))
+				if (Map.isBlocked(getTileX(), getTileY() + 1)){
+					if(currentView != Input.KEY_S)
+						renderTurnAnimation(Input.KEY_S);
 					return false;
+				}
 				renderMoveAnimation(Input.KEY_S);
 				counter++;
 				return false;
@@ -134,20 +146,6 @@ public class Npc extends Entity {
 			if (!super.isRunning) {
 				if (moveNpc(route[step][0], route[step][1], delta))
 					step++;
-				/*
-				 * //Warten switch(route[step][0]){ case 0: if(counter >=
-				 * route[step][1]){ counter = 0; step++;} else counter+= delta;
-				 * break; //Runter drehen case 4:
-				 * renderTurnAnimation(Input.KEY_S); step++; break; //links
-				 * laufen case 5: if(counter < route[step][1]){
-				 * renderMoveAnimation(Input.KEY_A); counter++; } else{ counter
-				 * = 0; step++; } break; //Rechts laufen case 7: if(counter <
-				 * route[step][1]){ renderMoveAnimation(Input.KEY_D); counter++;
-				 * } else{ counter = 0; step++; } break;
-				 * 
-				 * }
-				 */
-
 			} else {
 				super.renderTick(0);
 			}
