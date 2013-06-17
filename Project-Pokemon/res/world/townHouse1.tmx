@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="21" height="15" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="21" height="16" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tileset32x32" tilewidth="32" tileheight="32">
   <image source="../tileset32x32.png" width="2048" height="2048"/>
  </tileset>
- <layer name="collision" width="21" height="15">
+ <layer name="collision" width="21" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMguEPAMWacCzsBAAA
+   H4sIAAAAAAAAC7vLzsBwdxhgGEDmk6IPXT2Mjw7INZsYgE8PLveSqoZUN+Azk1h/kqKGFmYSC4aKmZQAattFSXonZB41zCW3LMFVFqCrBQCaekFLQAUAAA==
   </data>
  </layer>
- <layer name="background" width="21" height="15">
+ <layer name="background" width="21" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNkZmAwpAHWY6AeprZ5o3gUj+KRhwEEjKB67AQAAA==
+   H4sIAAAAAAAACzNkZmAwpAHWY6AeprZ5o3gUj+KRh2kBANidqTJABQAA
   </data>
  </layer>
- <layer name="objects" width="21" height="15">
+ <layer name="objects" width="21" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA0esDIwJGLBD1nxaMKjD4QV2BgYFrJiYkU23Hoe4tEHwgls2N2RiEcPyD6c+gj4D5eaRBzmgcBCIswkRg0+N2gzMTDoMCH4r5mJ8ws+N2QDzctBMlObBaFGFyiux8SAEyCnA2SQzwLBcDtYEGpygeblYTETW/oh1S/Y5JHTD7nxTokbiFUzCjBBBjDeMoE4C0++QwYAeHD/oOwEAAA=
+   H4sIAAAAAAAAC2NgwA0esDIwJGLBD1nxaMKjD4QV2BgYFrJiYkU23Hoe4tEHwgls2N2RiEcPyD6c+qD+S2TGIseMqgbdPhBIYWRgSGWEsPNZIPRCAmFGSM0SoHlLGTHd+QrJjdpMDAw6TAj+a2bs7iTkBi0WBD8baF4OkpnaLBA1uhxADBTXA+J8HGYhp4MsJDNBYZKPbAcLwp25QPPymBgwALb0Q4xfCMkjpx9iwoqc8KSGmlGACTKA8ZYJxFk48jE9AADDfzm4QAUAAA==
   </data>
  </layer>
- <layer name="foreground" width="21" height="15">
+ <layer name="foreground" width="21" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA8WsTAwLGYhoAgH0GVkYNBjxC2/hImBYSkTgp/IimAvZMauJxdoXh4QLwPqW46kVxGq/glQ7CkTQmwh1MwSIF3KiqBBYD3QHBUgVoW68RlQ33Nk92BxA7LYFqA5W1kRNAi8B5qVAsSpUDPzSQy7L0BzvrIiaBhYAjRvKZawfIUjnCgBWkS4WZcD6Deg3euBOB+POm2o+7KIDIf1OPwDShuw9JFNJT+vAsb1amh8r6aSma+A5r1mIqxuoEA5ldNLGdA8Q2bqmQszz5BK5iKbBwAVdnNV7AQAAA==
+   H4sIAAAAAAAAC2NgwA8WsTAwLGYhoAgH0GVkYNBjxC2/hImBYSkTdrmFzNjFc4Hm5QHxMqC+5Uh6FaHqnwDFnjKhioFACSsDQykrggaB9UBzVIBYFerGZ0B9z3G4BxvYAjRnKyuCBoH3ePxLDPgCNOcrK4IezCAfGL7rccQTDGgTkEcHhMwDgWwSzcQFVgHjejU0vldTycxXQPNek5CG6A3KqeRPGCgDmmfITD1zYeYZUslcdPOIwSBArFoAHYrVkkAFAAA=
   </data>
  </layer>
- <objectgroup name="object layer" width="21" height="15">
+ <objectgroup name="object layer" width="21" height="16">
   <object name="townHouse1" type="entrance" gid="2013" x="320" y="416"/>
   <object name="student1" type="npc" gid="2013" x="224" y="160"/>
   <object name="student2" type="npc" gid="2013" x="512" y="160"/>
+  <object name="townFromTownHouse2" type="exit" gid="2013" x="320" y="448"/>
  </objectgroup>
 </map>
