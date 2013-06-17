@@ -287,12 +287,12 @@ public class Map extends TiledMapPlus{
 				player.setPosition(tmp.getExit("town").x, tmp.getExit("town").y);
 			}else if(getEntrance("townHouse1").x == player.getPosX() && getEntrance("townHouse1").y == player.getPosY()){
 				tmp = new Map("townHouse1");
-				player.setPosition(getEntrance("townHouse1").x, getEntrance("townHouse1").y);
+				player.setPosition(tmp.getEntrance("townHouse1").x, tmp.getEntrance("townHouse1").y);
 			}
 		}else if(getName().equals("townHouse1")){
 			if(getExit("townFromTownHouse1").x == player.getPosX() && getExit("townFromTownHouse1").y == player.getPosY()){
 				tmp = new Map("Town");
-				player.setPosition(getExit("townFromTownHouse1").x, getExit("townFromTownHouse1").y);
+				player.setPosition(tmp.getExit("townFromTownHouse1").x, tmp.getExit("townFromTownHouse1").y);
 			}
 		}
 

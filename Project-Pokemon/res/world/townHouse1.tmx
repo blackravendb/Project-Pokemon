@@ -5,6 +5,11 @@
  </properties>
  <tileset firstgid="1" name="tileset32x32" tilewidth="32" tileheight="32">
   <image source="../tileset32x32.png" width="2048" height="2048"/>
+  <tile id="2012">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="collision" width="21" height="16">
   <data encoding="base64" compression="gzip">
