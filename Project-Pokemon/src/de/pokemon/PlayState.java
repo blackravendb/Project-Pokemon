@@ -25,6 +25,7 @@ public class PlayState extends BasicGameState {
 	InGameMenu menu;
 	/** reference for the input*/
 	Input input;
+	Event event;
 
 	public PlayState(int id){
 		ID = id;
@@ -35,9 +36,9 @@ public class PlayState extends BasicGameState {
 			throws SlickException {
 		
 		ResourceManager.init();
-		map = new Map("House");
-		
-		player = new Player(map.getSpawn("player").x,map.getSpawn("player").y);
+		event = new Event();
+		map = new Map("House", event);
+		player = new Player(map.getSpawn("player").x, map.getSpawn("player").y, event);
 
 		camera = new Camera(gc, map);
 		camera.centerOn(player);
@@ -97,18 +98,19 @@ public class PlayState extends BasicGameState {
 		//if menu is not open and not sliding in or out process normal input 
 		if(!menu.showMenu && !menu.sliding){
 			player.updatePlayer(input);			
-			map = map.update(player);
+			map = map.update(player,event);
 			if (map != camera.map) {
 				camera = new Camera(gc, map);
 			}
 			camera.centerOn(player);
-			map.updateNpcs(delta);
+			
 			if(player.isStanding){
 				if(input.isKeyPressed(Input.KEY_ESCAPE)){
 					menu.sliding = true;
 				}
 			}
 		}
+		map.updateNpcs(delta,!menu.showMenu && !menu.sliding);
 
 		menu.update(input);
 

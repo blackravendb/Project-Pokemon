@@ -29,14 +29,14 @@ public class Map extends TiledMapPlus{
 	 * @param ref Path to .tmx file
 	 * @throws SlickException
 	 */
-	public Map(String ref) throws SlickException{
+	public Map(String ref,Event event) throws SlickException{
 		super("res/world/" + ref + ".tmx");
 		name = getMapProperty("name", "unknown name");
 		blocked = new boolean[getWidth()][getHeight()];
 		blocked = buildCollisionMap();
 		tileSize = getTileWidth();
 		hasWater = createWater();
-		createNpcs();
+		createNpcs(event);
 		//System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
 		//System.out.println(blocked[24].length);
 		//System.out.println(npcs);
@@ -230,11 +230,11 @@ public class Map extends TiledMapPlus{
 		}
 	}
 
-	private void createNpcs() {
+	private void createNpcs(Event event) {
 		//System.out.println(getObjectGroup("object layer").getObjectsOfType("npc").size());
 		if(getObjectGroup("object layer").getObjectsOfType("npc") != null){
 			for(GroupObject go: getObjectGroup("object layer").getObjectsOfType("npc")){
-				npcs.add(new Npc(go.x, go.y, go.name));
+				npcs.add(new Npc(go.x, go.y, go.name, event));
 				//	System.out.println(go.x + go.y + go.name);
 			}
 		}
@@ -247,11 +247,21 @@ public class Map extends TiledMapPlus{
 		}
 	}
 
-	public void updateNpcs(int delta){
-		for(Npc npc: npcs){
-			npc.updateNpc(delta);
+	public void updateNpcs(int delta, boolean update) {
+		for (Npc npc : npcs) {
+			if (update) {
+				if(npc.currentAnimationHead.isStopped()){
+					npc.currentAnimationBody.start();
+					npc.currentAnimationHead.start();
+				}
+				npc.updateNpc(delta);
+			} else {
+				npc.currentAnimationBody.stop();
+				npc.currentAnimationHead.stop();
+			}
 		}
 	}
+
 
 
 	public String getCoordinates(double x, double y, int tileX, int tileY){		
@@ -265,33 +275,33 @@ public class Map extends TiledMapPlus{
 
 
 	//this method is gonna be big
-	public Map update(Player player) throws SlickException{
+	public Map update(Player player, Event event) throws SlickException{
 		Map tmp = this;
 		if(getName().equals("Home")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY()){
-				tmp = new Map("House");	
+				tmp = new Map("House", event);	
 				player.setPosition(tmp.getEntrance("house").x, tmp.getEntrance("house").y);
 			}else if( (getEntrance("town").x == player.getPosX() || getEntrance("town").x + 32 == player.getPosX() || getEntrance("town").x +64 == player.getPosX())
 					&& getEntrance("town").y == player.getPosY()){
-				tmp = new Map("Town");
+				tmp = new Map("Town", event);
 				player.setPosition(tmp.getEntrance("town").x, tmp.getEntrance("town").y);
 			}
 		}else if(getName().equals("House")){
 			if(getExit("house").x == player.getPosX() && getExit("house").y == player.getPosY()){
-				tmp = new Map("Home");
+				tmp = new Map("Home", event);
 				player.setPosition(tmp.getExit("house").x, tmp.getExit("house").y);
 			}
 		}else if(getName().equals("Town")){
 			if((getExit("town").x == player.getPosX() || getExit("town").x + 32 == player.getPosX() || getExit("town").x + 64 == player.getPosX()) && getExit("town").y == player.getPosY()){
-				tmp = new Map("Home");
+				tmp = new Map("Home", event);
 				player.setPosition(tmp.getExit("town").x, tmp.getExit("town").y);
 			}else if(getEntrance("townHouse1").x == player.getPosX() && getEntrance("townHouse1").y == player.getPosY()){
-				tmp = new Map("townHouse1");
+				tmp = new Map("townHouse1", event);
 				player.setPosition(tmp.getEntrance("townHouse1").x, tmp.getEntrance("townHouse1").y);
 			}
 		}else if(getName().equals("townHouse1")){
 			if(getExit("townFromTownHouse1").x == player.getPosX() && getExit("townFromTownHouse1").y == player.getPosY()){
-				tmp = new Map("Town");
+				tmp = new Map("Town", event);
 				player.setPosition(tmp.getExit("townFromTownHouse1").x, tmp.getExit("townFromTownHouse1").y);
 			}
 		}
