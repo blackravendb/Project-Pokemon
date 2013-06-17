@@ -18,22 +18,22 @@
  </layer>
  <layer name="background" width="21" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNkZmAwpAHWY6AeprZ5o3gUj+KRh2kBANidqTJABQAA
+   H4sIAAAAAAAACzNkZmAwxIEfsDIwJGLBD1lx68GnD4QV2BgYFrJiYkU23Hoe4tEHwnoMuDEuPSD7cOlJJGAmsWrQ3UENNUPNnbA4pNSd2NIPpe5EN2cohOcoJh/TAgAA9cmDmkAFAAA=
   </data>
  </layer>
  <layer name="objects" width="21" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA0esDIwJGLBD1nxaMKjD4QV2BgYFrJiYkU23Hoe4tEHwgls2N2RiEcPyD6c+qD+S2TGIseMqgbdPhBIYWRgSGWEsPNZIPRCAmFGSM0SoHlLGTHd+QrJjdpMDAw6TAj+a2bs7iTkBi0WBD8baF4OkpnaLBA1uhxADBTXA+J8HGYhp4MsJDNBYZKPbAcLwp25QPPymBgwALb0Q4xfCMkjpx9iwoqc8KSGmlGACTKA8ZYJxFk48jE9AADDfzm4QAUAAA==
+   H4sIAAAAAAAAC+1SOQ7CMBDcOE7EM6AlwJtAAok7DTwoEECCFv4DEocEBQ30jHEib7iSAjpGGq3t7OyONyZ6j7VDNJJEY7DmGG6cD6JIp/LKFlHFSmrzLlHgaIaCaCL0uuAm8wI72S/W9VCvD06hm0Xaqmt6b3G2E3pdY70G4JBF1Y/rFPbQHYTuedfbz3eLz1TOElyxqPqd4a0ONiyd50sdg5SZxTkX8MpijBD1JtaDF3w/Mo8evJeE2Z9sc5esUB6K0uw7qNdlNT2pc8o5EOcV0H9TS70DL/LQZjXVTHzeQxqfPdTrC3oCfz8dO/s8P2GOPguh38Ei46zSco6od2L+v+Hzj9do4r+1wLabnvsr3ACZcS6PQAUAAA==
   </data>
  </layer>
  <layer name="foreground" width="21" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA8WsTAwLGYhoAgH0GVkYNBjxC2/hImBYSkTdrmFzNjFc4Hm5QHxMqC+5Uh6FaHqnwDFnjKhioFACSsDQykrggaB9UBzVIBYFerGZ0B9z3G4BxvYAjRnKyuCBoH3ePxLDPgCNOcrK4IezCAfGL7rccQTDGgTkEcHhMwDgWwSzcQFVgHjejU0vldTycxXQPNek5CG6A3KqeRPGCgDmmfITD1zYeYZUslcdPOIwSBArFoAHYrVkkAFAAA=
+   H4sIAAAAAAAAC2NgGB5AkZk4MWSwnpGBQQWIVRlp46bhDvKB4bueQBiPgsEFyqkcX2VA8wyZqWcuzDxDKpmLbh4xGASIVQsAFPrmiEAFAAA=
   </data>
  </layer>
  <objectgroup name="object layer" width="21" height="16">
   <object name="townHouse1" type="entrance" gid="2013" x="320" y="416"/>
-  <object name="student1" type="npc" gid="2013" x="224" y="160"/>
+  <object name="student1" type="npc" gid="2013" x="448" y="192"/>
   <object name="student2" type="npc" gid="2013" x="512" y="160"/>
   <object name="townFromTownHouse1" type="exit" gid="2013" x="320" y="448"/>
  </objectgroup>
