@@ -72,7 +72,7 @@ public class Player extends Entity {
 	 * @return void
 	 */
 	Player(int posX, int posY) throws SlickException {
-		super(posX, posY, Core.tileSize, Core.tileSize * 2, "res/player2.png");
+		super(posX, posY, Core.tileSize, Core.tileSize * 2, "res/character/player.png");
 	}
 
 	/*
