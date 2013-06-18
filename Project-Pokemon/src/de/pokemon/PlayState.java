@@ -36,7 +36,7 @@ public class PlayState extends BasicGameState {
 			throws SlickException {
 		
 		ResourceManager.init();
-		event = new Event();
+		event = new Event(this);
 		map = new Map("House", event);
 		player = new Player(map.getSpawn("player").x, map.getSpawn("player").y, event);
 
@@ -94,7 +94,7 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 		
-
+		
 		//if menu is not open and not sliding in or out process normal input 
 		if(!menu.showMenu && !menu.sliding){
 			player.updatePlayer(input);			
