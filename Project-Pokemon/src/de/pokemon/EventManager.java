@@ -29,15 +29,16 @@ public class EventManager {
 	}
 	
 	public void sendActionRequest(int tileX, int tileY, int currentView){
+		if(currentView == Input.KEY_A)
+			tileX--;
+		else if(currentView == Input.KEY_W)
+			tileY--;
+		else if(currentView == Input.KEY_D)
+			tileX++;
+		else if(currentView == Input.KEY_S)
+				tileY++;
+		
 		for(EventStruct entries : events){
-			if(currentView == Input.KEY_A)
-				tileX--;
-			else if(currentView == Input.KEY_W)
-				tileY--;
-			else if(currentView == Input.KEY_D)
-				tileX++;
-			else if(currentView == Input.KEY_S)
-					tileY++;
 			if( entries.isOnPosition(tileX, tileY)){
 				//Starte Event
 				System.out. println("blub");
