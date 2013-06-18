@@ -29,7 +29,7 @@ public class Map extends TiledMapPlus{
 	 * @param ref Path to .tmx file
 	 * @throws SlickException
 	 */
-	public Map(String ref,Event event) throws SlickException{
+	public Map(String ref,EventManager event) throws SlickException{
 		super("res/world/" + ref + ".tmx");
 		name = getMapProperty("name", "unknown name");
 		blocked = new boolean[getWidth()][getHeight()];
@@ -230,7 +230,7 @@ public class Map extends TiledMapPlus{
 		}
 	}
 
-	private void createNpcs(Event event) {
+	private void createNpcs(EventManager event) {
 		//System.out.println(getObjectGroup("object layer").getObjectsOfType("npc").size());
 		if(getObjectGroup("object layer").getObjectsOfType("npc") != null){
 			for(GroupObject go: getObjectGroup("object layer").getObjectsOfType("npc")){
@@ -274,7 +274,7 @@ public class Map extends TiledMapPlus{
 
 
 	//this method is gonna be big
-	public Map update(Player player, Event event) throws SlickException{
+	public Map update(Player player, EventManager event) throws SlickException{
 		Map tmp = this;
 		if(getName().equals("Home")){
 			if(getEntrance("house").x == player.getPosX() && getEntrance("house").y == player.getPosY()){
@@ -297,11 +297,19 @@ public class Map extends TiledMapPlus{
 			}else if(getEntrance("townHouse1").x == player.getPosX() && getEntrance("townHouse1").y == player.getPosY()){
 				tmp = new Map("townHouse1", event);
 				player.setPosition(tmp.getEntrance("townHouse1").x, tmp.getEntrance("townHouse1").y);
+			}else if(getEntrance("university").x == player.getPosX() && getEntrance("university").y == player.getPosY()){
+				tmp = new Map("University", event);
+				player.setPosition(tmp.getEntrance("university").x, tmp.getEntrance("university").y);
 			}
 		}else if(getName().equals("townHouse1")){
 			if(getExit("townFromTownHouse1").x == player.getPosX() && getExit("townFromTownHouse1").y == player.getPosY()){
 				tmp = new Map("Town", event);
 				player.setPosition(tmp.getExit("townFromTownHouse1").x, tmp.getExit("townFromTownHouse1").y);
+			}
+		}else if(getName().equals("university")){
+			if(getExit("university").x == player.getPosX() && getExit("university").y == player.getPosY()){
+				tmp = new Map("Town", event);
+				player.setPosition(tmp.getExit("university").x, tmp.getExit("university").y);
 			}
 		}
 

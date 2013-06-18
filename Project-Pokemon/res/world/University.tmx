@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="26" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="name" value="university"/>
+ </properties>
+ <tileset firstgid="1" name="tileset32x32" tilewidth="32" tileheight="32">
+  <image source="../tileset32x32.png" width="2048" height="2048"/>
+  <tile id="2012">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="collision" width="25" height="26">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC7vLzsBwdxhgUgGl+kcBYUBK2BIbH+hq6GEHKWAwpytaumkw+5sUQA/3o9tBCzvpYQe9ACVlP63qj5EE0MvboWrHQAB6lSWktpVI1QMAjd3O2ygKAAA=
+  </data>
+ </layer>
+ <layer name="background" width="25" height="26">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACytgZmAoJBKXALEhGi4gQs8GIN5IJN6CxQxC+kF6MhlIw+hmkKp/FI/iUTyKR/EoHsWjeCAxPQAAOHqCGigKAAA=
+  </data>
+ </layer>
+ <layer name="objects" width="25" height="26">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+VW2U7DMBDcNhu1H8KdtEiIL4JyNrQgIfFL9EBclfgloEBK6QcwwbZioihkRU0fGGlkx/HO2OvNQUTUZ6IBOAQN8saKEFZU++YpJri27j9DZwy+cPHYV1yV6NQnOvNV3yDSHk1WTBDrexN4bmB+AIZ+GpM3NsPcGLo3GLv1VX/ifV9DhxXtGCk2vfz+f8EK8rpa/Xleo050iHM40jwGm/VyHvvQP5izRwtntYOz3y1Z+7bHJXR7mn3BPqTosqIE5zWii5qb9Yyxz3toj8AHRx6ukZzfHXI6EuZV6jGF/szyWEL9LpeoYQm2UHvb1juvBf29OXv8FR6x7icwRM4anF6btgjmW5GNyWqt4ZlfByOMnXB6bdoimG9FNiardeWwrgxeHXgESb50ngN2s4829CPt0WY3+1gE4kr5ue+okSn4IfhXkOj/Bp+qL+4GKAoAAA==
+  </data>
+ </layer>
+ <layer name="foreground" width="25" height="26">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAUjETxjZGB4zkic2mxWBoYcKM5lpZ2bFrEwMCxmwa9GhZmBQQmoRpmAOmwgnxlCr2cmXS+tgQk7A4MpO23MXs3BwFBMI7PpCYqAcV5CRrxTAp4A88hTIvPJSARlwPKgHIjfAPPUW2YEH0bjA++YIRhdD7pZo4A48HoQlmuDGayncb6mtfn0BADejU3ZKAoAAA==
+  </data>
+ </layer>
+ <objectgroup name="object layer" width="25" height="26">
+  <object name="university" type="entrance" gid="2013" x="384" y="736"/>
+  <object name="university" type="exit" gid="2013" x="384" y="768"/>
+ </objectgroup>
+</map>
