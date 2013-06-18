@@ -34,6 +34,7 @@ public class TextBox {
 	public int currentLength; // aktuelle Länge des Arrays string
 	
 	public int changeStrings;
+	boolean textBoxInc;
 	
 	GameContainer gc;
 	
@@ -80,11 +81,7 @@ public class TextBox {
 		currentLength = 3;
 		
 		changeStrings = 0;
-		
-		string = new String[(int) (Math.ceil(length/maxLength))]; // rundet automatisch immer auf
-		System.out.println("länge string: " + length);
-		System.out.println("maximale Länge: " + maxLength);
-		System.out.println("string array länge: " + string.length);
+		textBoxInc = true;
 		
 		stringx =  rectx + 10; // x bleibt immer gleich
 		stringy = new int[3];
@@ -98,6 +95,16 @@ public class TextBox {
 		counter = 0;
 		
 		textBox = 0;
+		
+		splitText(text);
+		
+	} // wird erzeugt!
+	
+	public void splitText (String text){ // Teilt den String in die verschiedenen Teile auf
+		string = new String[(int) (Math.ceil(length/maxLength))]; // rundet automatisch immer auf
+		System.out.println("länge string: " + length);
+		System.out.println("maximale Länge: " + maxLength);
+		System.out.println("string array länge: " + string.length);
 		
 		StringBuffer buffer;
 		StringTokenizer tokenizer = new StringTokenizer(text);
@@ -113,7 +120,27 @@ public class TextBox {
 				System.out.println("buffer länge: " + buffer.toString().length()); //buffer Länge stimmt nicht; jetzt *9
 				System.out.println("string.length: " + string.length);
 			}
-	} // wird erzeugt!
+	}
+	
+	public void setText (String p){
+		text = p;
+		update = true;
+		
+		length = p.length() * 8; // *6 && ändern, wenn Font eingeblendet wird!
+		
+		currentLength = 3;
+		changeStrings = 0;
+		
+		string = new String[(int) (Math.ceil(length/maxLength))];
+		
+		showDreieck = true;
+		counter = 0;
+		
+		textBoxInc = true;
+		
+		splitText(p);
+		
+	}
 	
 	public void update(Input input, int delta){
 		
@@ -148,16 +175,20 @@ public class TextBox {
 		
 		if(string.length == 1){
 			g.drawString(string[0], stringx, stringy[0]);
-			if(changeStrings == 1){
-			textBox = 1;
-			}
+			if(changeStrings == 1 && textBoxInc == true){
+				textBox += 1;
+				textBoxInc = false;
+				}
 		}
 		else if(string.length == 2){
 			for(int q = 0; q <= 1; q++){
 			g.drawString(string[q], stringx, stringy[q]);
 			}
 			if(changeStrings == 1){
-			textBox = 1;
+				if(textBoxInc == true){
+					textBox += 1;
+					textBoxInc = false;
+				}
 			}
 		}
 		
@@ -172,8 +203,11 @@ public class TextBox {
 			}
 			if(changeStrings > string.length - 3){
 				g.drawString(string[k + merke], stringx, stringy[k]);
-				textBox = 1;
-				System.out.println("textBox: " + textBox);
+				if(textBoxInc == true){
+					textBox += 1;
+					System.out.println("textBox: " + textBox);
+					textBoxInc = false;
+					}
 				}
 			}
 		}

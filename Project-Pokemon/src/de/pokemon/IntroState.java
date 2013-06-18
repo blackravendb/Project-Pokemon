@@ -83,7 +83,7 @@ public class IntroState extends BasicGameState {
 		musicStart = true;
 		
 		textBox1 = new TextBox("Servus! Herzli Wuikomma in da W‰id vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
-		textBox2 = new TextBox("De W‰id werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a K‰mpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
+		//textBox2 = new TextBox("De W‰id werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a K‰mpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
 		textBox3 = new TextBox("Wia hoaﬂtn du glei wieda?", Color.black, Color.white, gc);
 		textBox5 = new TextBox("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaﬂtn der jetz scho wieda?", Color.black, Color.white, gc);
 		
@@ -158,8 +158,11 @@ public class IntroState extends BasicGameState {
 		
 		else if(text == 2){ //Ansicht 2
 			g.drawImage(pokemon, pokemonx, pokemony);
-			textBox2.render(g);
-			if(textBox2.textBox == 1){
+			textBox1.setText("De W‰id werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a K‰mpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.");
+			textBox1.render(g);
+			
+			//textBox2.render(g);
+			if(textBox1.textBox == 2){
 				text = 3;
 			}
 		}
@@ -263,7 +266,8 @@ public class IntroState extends BasicGameState {
 				sliding = false;
 			}
 			//animation(pokemonx, pokemonXEnd);
-			textBox2.update(input, delta);
+			//textBox2.update(input, delta);
+			textBox1.update(input, delta);
 		}
 		
 		if (text == 4){ //Trainer Animation
@@ -290,7 +294,7 @@ public class IntroState extends BasicGameState {
 		}
 		
 		if(text == 5) {
-			textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc);
+			textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc); // update Fehler, weils nicht oben erzeugt wird
 			textBox4.update(input, delta);
 		}
 		
