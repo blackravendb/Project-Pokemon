@@ -34,6 +34,9 @@ public class Npc extends Entity {
 		route = ResourceManager.getNpcRoute(name);
 		this.name = name;
 		
+		//Position und Reference an Events übermitteln
+		event.initNpc(this, this.name, getTileX(), getTileY());
+		
 		lastTileX = getTileX();
 		lastTileY = getTileY();
 	}
@@ -88,6 +91,7 @@ public class Npc extends Entity {
 					return false;
 				}
 				renderMoveAnimation(Input.KEY_A);
+				event.setNpcPosX(this, getTileX()-1);
 				counter++;
 				return false;
 			} else {
@@ -104,6 +108,7 @@ public class Npc extends Entity {
 					return false;
 				}
 				renderMoveAnimation(Input.KEY_W);
+				event.setNpcPosY(this, getTileY()-1);
 				counter++;
 				return false;
 			} else {
@@ -120,6 +125,7 @@ public class Npc extends Entity {
 					return false;
 				}
 				renderMoveAnimation(Input.KEY_D);
+				event.setNpcPosX(this, getTileX()+1);
 				counter++;
 				return false;
 			} else {
@@ -136,6 +142,7 @@ public class Npc extends Entity {
 					return false;
 				}
 				renderMoveAnimation(Input.KEY_S);
+				event.setNpcPosY(this, getTileY()+1);
 				counter++;
 				return false;
 			} else {

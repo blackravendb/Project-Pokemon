@@ -231,6 +231,8 @@ public class Player extends Entity {
 			return Input.KEY_D;
 		else if (input.isKeyDown(Input.KEY_S))
 			return Input.KEY_S;
+		else if (input.isKeyDown(Input.KEY_ENTER))
+			return Input.KEY_ENTER;
 		else
 			return 0;
 
@@ -281,6 +283,9 @@ public class Player extends Entity {
 		// System.out.println("moveAgainstSolid: " + super.moveAgainstSolid);
 		// System.out.println("---------------------------------");
 		if (!super.isRunning) {
+			//Überprüfen ob Aktionstaste gedrückt wurde
+			if(keyInput == Input.KEY_ENTER)
+				event.sendActionQuestion(getTileX(), getTileY(), currentView);
 			// Überprüfen, welche Animation ausgeführt werden muss
 			move = getAnimation(keyInput);
 

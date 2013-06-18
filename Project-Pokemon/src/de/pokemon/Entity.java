@@ -15,7 +15,7 @@ public class Entity {
 	private int moveSpeed = 2;
 	
 	/**Referenz auf die PlayState um deren Methoden aufzurufen*/
-	private Event event;
+	protected Event event;
 	
 	/** Enum Feld für die vier Bewegungsrichtungen */
 	protected enum Direction {
