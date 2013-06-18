@@ -35,8 +35,8 @@ public class ResourceManager {
 								{ moveSequence.wait.ordinal(), 3000 },
 								{ moveSequence.turnUp.ordinal(), 0 },
 								{ moveSequence.wait.ordinal(), 3000 } }));
-		npcDatabase.put("biker", new NpcStruct("biker",
-				imagePath + "biker.png", null));
+	/*	npcDatabase.put("biker", new NpcStruct("biker",
+				imagePath + "biker.png", null));*/
 		npcDatabase.put("captain",
 				new NpcStruct("captain", imagePath + "captain.png",
 						new int[][] { { 3, 0 },

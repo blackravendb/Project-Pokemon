@@ -75,7 +75,6 @@
   <object name="water" type="water" gid="1796" x="864" y="640" height="32"/>
   <object name="water" type="water" gid="1796" x="864" y="608" height="32"/>
   <object name="supervisor" type="npc" gid="2013" x="416" y="864"/>
-  <object name="biker" type="npc" gid="2013" x="576" y="736"/>
   <object name="captain" type="npc" gid="2013" x="864" y="448"/>
   <object name="deubler1" type="npc" gid="2013" x="448" y="352"/>
   <object name="holzerarmee" type="npc" gid="2013" x="576" y="384" width="128" height="64"/>

@@ -159,7 +159,7 @@ public class Npc extends Entity {
 				step = 0;
 		}
 		// Zufallsmuster
-		else {
+	/*	else {
 			if (!isRunning || randomCounter > 3000) {
 				if (isRunning) {
 					super.isRunning = false;
@@ -185,7 +185,7 @@ public class Npc extends Entity {
 				lastTileX = getTileX();
 				lastTileY = getTileY();
 			}
-		}
+		}*/
 	}
 
 	public void renderNpcHead() {
