@@ -25,7 +25,7 @@ public class PlayState extends BasicGameState {
 	InGameMenu menu;
 	/** reference for the input*/
 	Input input;
-	Event event;
+	EventManager event;
 
 	public PlayState(int id){
 		ID = id;
@@ -36,7 +36,7 @@ public class PlayState extends BasicGameState {
 			throws SlickException {
 		
 		ResourceManager.init();
-		event = new Event(this);
+		event = new EventManager(this);
 		map = new Map("House", event);
 		player = new Player(map.getSpawn("player").x, map.getSpawn("player").y, event);
 

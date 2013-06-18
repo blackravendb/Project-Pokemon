@@ -71,7 +71,7 @@ public class Player extends Entity {
 	 *            (int) Y-Position, wo der Player gerendert wird
 	 * @return void
 	 */
-	Player(int posX, int posY, Event event) throws SlickException {
+	Player(int posX, int posY, EventManager event) throws SlickException {
 		super(posX, posY, Core.tileSize, Core.tileSize * 2, "res/character/player.png", event);
 	}
 

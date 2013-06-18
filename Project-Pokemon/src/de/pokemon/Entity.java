@@ -15,7 +15,7 @@ public class Entity {
 	private int moveSpeed = 2;
 	
 	/**Referenz auf die PlayState um deren Methoden aufzurufen*/
-	protected Event event;
+	protected EventManager event;
 	
 	/** Enum Feld für die vier Bewegungsrichtungen */
 	protected enum Direction {
@@ -98,7 +98,7 @@ public class Entity {
 
 	private boolean blockedDelta = true;
 
-	Entity(int posX, int posY, int width, int height, String imagePath, Event event) {
+	Entity(int posX, int posY, int width, int height, String imagePath, EventManager event) {
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
