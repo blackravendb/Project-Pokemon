@@ -3,6 +3,7 @@ package de.pokemon;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Input;
+import org.newdawn.slick.tiled.GroupObject;
 
 public class Event {
 	
@@ -27,7 +28,7 @@ public class Event {
 		
 	}
 	
-	public void sendActionQuestion(int tileX, int tileY, int currentView){
+	public void sendActionRequest(int tileX, int tileY, int currentView){
 		for(EventStruct entries : events){
 			if(currentView == Input.KEY_A)
 				tileX--;
@@ -79,6 +80,12 @@ public class Event {
 		}
 		if(!isContained)
 			events.add(new EventStruct(npc, name, tileX, tileY));
+	}
+	
+	public void initStaticEvents (ArrayList <GroupObject> staticEvents){
+		if (!staticEvents.isEmpty()){
+			//blub
+		}
 	}
 	
 	

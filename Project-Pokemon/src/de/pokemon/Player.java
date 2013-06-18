@@ -285,7 +285,7 @@ public class Player extends Entity {
 		if (!super.isRunning) {
 			//Überprüfen ob Aktionstaste gedrückt wurde
 			if(keyInput == Input.KEY_ENTER)
-				event.sendActionQuestion(getTileX(), getTileY(), currentView);
+				event.sendActionRequest(getTileX(), getTileY(), currentView);
 			// Überprüfen, welche Animation ausgeführt werden muss
 			move = getAnimation(keyInput);
 
