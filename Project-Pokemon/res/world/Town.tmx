@@ -13,7 +13,7 @@
  </tileset>
  <layer name="collision" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2USwrAIAxE3fX+B/QuXRWCWPMbEyIOBBeJvvET+9NaZ4KKq7XGqBkXIY7L+UAwpWcgnWvh0nwEd5aP5n41lbnePrrcHO5qTa3PcT2JD07Wt+9VBtfT67s9rOoqctHnrO3HDG7Efr3/lYZPR42/nX1WlWtlZ3ERHk7i/tUhhbhra7zp52GmEA4AAA==
+   H4sIAAAAAAAAC+2UQQ7AIAgEvfX/D/QvPTUxxgosK4Smm3ASmRXFfrXWhRgl5aIxa8VlSOJKPhhMbQ+0exHuuB7BXa1Hc5+cylzvHP3cHO6uptXnXE/jQxL69r3K4Hpm/bSHXV5FLrvP1nnM4Eac1/tfIXyrv5NzVpWLsrO4DA9f4r7lMcW4azRuFEL6MBAOAAA=
   </data>
  </layer>
  <layer name="background" width="30" height="30">
@@ -90,5 +90,7 @@
   <object name="skateboader" type="npc" gid="2013" x="352" y="544"/>
   <object name="townFromTownHouse1" type="exit" gid="2013" x="192" y="128"/>
   <object name="townHouse1" type="entrance" gid="2013" x="192" y="96"/>
+  <object name="university" type="entrance" gid="2013" x="512" y="320"/>
+  <object name="university" type="exit" gid="2013" x="512" y="352"/>
  </objectgroup>
 </map>
