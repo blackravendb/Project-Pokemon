@@ -123,6 +123,8 @@ public class TextBox {
 	}
 	
 	public void setText (String p){
+		
+		
 		text = p;
 		update = true;
 		
@@ -143,8 +145,29 @@ public class TextBox {
 	}
 	
 	public void update(Input input, int delta){
-		
+
 		if(update == true){
+			
+		if(string.length == 1 && changeStrings == 1 && textBoxInc == true){ //ändert die TextBox bei Länge 1
+			textBox += 1;
+			textBoxInc = false;
+			}
+		
+		else if(string.length == 2 && changeStrings == 1){ //ändert die TextBox bei Länge 2
+			if(textBoxInc == true){
+				textBox += 1;
+				textBoxInc = false;
+			}
+		}
+		
+		for(int k = 0; k <= 2; k++){ // ändert die TextBox bei Länge > 2
+			if(string.length >= 3 && changeStrings > string.length - 3 && textBoxInc == true){
+				textBox += 1;
+				System.out.println("textBox: " + textBox);
+				textBoxInc = false;
+				}
+			}
+		
 		 // counter regelt, dass "weiter" nur jede Sekunde angezeigt wird
 			if (counter <= 1000){
 			counter += delta;
@@ -175,20 +198,11 @@ public class TextBox {
 		
 		if(string.length == 1){
 			g.drawString(string[0], stringx, stringy[0]);
-			if(changeStrings == 1 && textBoxInc == true){
-				textBox += 1;
-				textBoxInc = false;
-				}
 		}
+		
 		else if(string.length == 2){
 			for(int q = 0; q <= 1; q++){
 			g.drawString(string[q], stringx, stringy[q]);
-			}
-			if(changeStrings == 1){
-				if(textBoxInc == true){
-					textBox += 1;
-					textBoxInc = false;
-				}
 			}
 		}
 		
@@ -203,14 +217,14 @@ public class TextBox {
 			}
 			if(changeStrings > string.length - 3){
 				g.drawString(string[k + merke], stringx, stringy[k]);
-				if(textBoxInc == true){
+				/*if(textBoxInc == true){
 					textBox += 1;
 					System.out.println("textBox: " + textBox);
 					textBoxInc = false;
-					}
+					}*/
+				}
 				}
 			}
-		}
 		if(showDreieck == true){
 			g.fill(weiter);
 			}

@@ -11,13 +11,6 @@ public class IntroState extends BasicGameState {
 	NameMenu menu2;
 	
 	TextBox textBox1;
-	TextBox textBox2;
-	TextBox textBox3;
-	TextBox textBox4;
-	TextBox textBox5;
-	TextBox textBox6;
-	TextBox textBox7;
-	
 	
 	public static int ID;
 	
@@ -34,6 +27,7 @@ public class IntroState extends BasicGameState {
 	private boolean aWildDeublerAppearse = true;
 	
 	public int text;
+	public int setText;
 	
 	public int pokemonx;
 	public int pokemony;
@@ -84,10 +78,11 @@ public class IntroState extends BasicGameState {
 		
 		textBox1 = new TextBox("Servus! Herzli Wuikomma in da Wäid vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
 		//textBox2 = new TextBox("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
-		textBox3 = new TextBox("Wia hoaßtn du glei wieda?", Color.black, Color.white, gc);
-		textBox5 = new TextBox("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaßtn der jetz scho wieda?", Color.black, Color.white, gc);
+		//textBox3 = new TextBox("Wia hoaßtn du glei wieda?", Color.black, Color.white, gc);
+		//textBox5 = new TextBox("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaßtn der jetz scho wieda?", Color.black, Color.white, gc);
 		
 		text = 1;
+		setText = 1;
 		
 		deubler = new Image("res/Intro/lind.png");
 		pokemon = new Image("res/Intro/Glurak2.png");
@@ -150,21 +145,20 @@ public class IntroState extends BasicGameState {
 		g.drawImage(deubler, deublerx, deublery);
 		if(aWildDeublerAppearse == false){ //Ansicht 1
 			textBox1.render(g);
-			if(textBox1.textBox == 1){
+			/*if(text == 1 && aWildDeublerAppearse == false && textBox1.textBox == 1){
 				text = 2;
-				}
+				}*/
 			}
 		}
 		
 		else if(text == 2){ //Ansicht 2
 			g.drawImage(pokemon, pokemonx, pokemony);
-			textBox1.setText("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.");
 			textBox1.render(g);
 			
 			//textBox2.render(g);
-			if(textBox1.textBox == 2){
+			/*if(textBox1.textBox == 2){
 				text = 3;
-			}
+			}*/
 		}
 		
 		else if(text == 3){ //Ansicht 5
@@ -172,61 +166,61 @@ public class IntroState extends BasicGameState {
 			g.drawImage(pokemon2, pokemonx, pokemony);
 			//TODO Sound abspielen!
 			g.drawString("[Enter drücken]", mittex, stringy[1]);
-			if(input.isKeyPressed(Input.KEY_ENTER)){
+			/*if(input.isKeyPressed(Input.KEY_ENTER)){
 				text = 4;
-				}
+				}*/
 		}
 		else if(text == 4){ //Ansicht 6
 			g.drawImage(trainer, trainerx, trainery);
-			textBox3.render(g);
-			if(textBox3.textBox == 1 && sliding == false){
+			textBox1.render(g);
+			/*if(textBox3.textBox == 1 && sliding == false){
 				menu.showMenu = true; //NameMenu aufrufen
-				}
+				}*/
 		}
 		else if(text == 5){ //Ansicht 7
 			g.drawImage(trainer, trainerx, trainery);
-			textBox4.render(g);
-			if(textBox4.textBox == 1){
+			textBox1.render(g);
+			/*if(textBox4.textBox == 1){
 				text = 6;
-			}
+			}*/
 		}
 		else if(text == 6){
 			g.drawImage(enkel, enkelx, enkely);
-			textBox5.render(g);
-			if(textBox5.textBox == 1 && sliding == false){
+			textBox1.render(g);
+			/*if(textBox5.textBox == 1 && sliding == false){
 				menu2.showMenu = true; //NameMenu aufrufen
-				}
+				}*/
 			}
 		else if(text == 7){
 			g.drawImage(enkel, enkelx, enkely);
-			textBox6.render(g);
-			if(textBox6.textBox == 1){
+			textBox1.render(g);
+			/*if(textBox6.textBox == 1){
 				text = 8;
-			}
+			}*/
 		}
 		else if(text == 8){
 			g.drawImage(trainer, trainerx, trainery);
-			textBox7.render(g);
-			if(textBox7.textBox == 1){
+			textBox1.render(g);
+			/*if(textBox7.textBox == 1){
 				text = 9;
-			}
+			}*/
 		}
 		else if(text == 9){
 			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
-			if (counter1 >= 1000){
+			/*if (counter1 >= 1000){
 			text = 10;
-			}
+			}*/
 		}
 		else if(text == 10){
 			g.drawImage(trainerSpiel, trainerx, trainery); 
-			if (counter >= 1000){
+			/*if (counter >= 1000){
 			text= 11;
-			}
+			}*/
 		}
-		else if(text == 11){
+		/*else if(text == 11){
 			text = 0;
 			game.enterState(1);
-		}
+		}*/
 		if(menu.showMenu && text == 4){
 			menu.render(g);
 		}
@@ -255,9 +249,17 @@ public class IntroState extends BasicGameState {
 				//System.out.println("blub");
 			}
 			textBox1.update(input, delta); 
+			
+			if(aWildDeublerAppearse == false && textBox1.textBox == 1){ //ändert die Textbox
+				text = 2;
+				}
 		}
 		
 		if (text == 2){ //Glurak Animation
+			if(setText == 1){
+				textBox1.setText("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.");
+				setText = 2;
+			}
 			sliding = true;
 			if(pokemonx > pokemonXEnd && sliding == true){
 				pokemonx -= 8;
@@ -268,6 +270,16 @@ public class IntroState extends BasicGameState {
 			//animation(pokemonx, pokemonXEnd);
 			//textBox2.update(input, delta);
 			textBox1.update(input, delta);
+			
+			if(textBox1.textBox == 2){
+				text = 3;
+			}
+		}
+		
+		if(text == 3){ //ändert die Textbox
+			if(input.isKeyPressed(Input.KEY_ENTER)){
+				text = 4;
+				}
 		}
 		
 		if (text == 4){ //Trainer Animation
@@ -278,12 +290,16 @@ public class IntroState extends BasicGameState {
 			else{
 				sliding = false;
 			}
-			if(!menu.showMenu){
-				textBox3.update(input, delta);
+			if(!menu.showMenu){ // Wenn das Menü nicht angezeigt wird, soll die TextBox upgedatet werden
+				if(setText == 2){
+				textBox1.setText("Wia hoaßtn du glei wieda?");
+				setText = 3;
+				}
+				textBox1.update(input, delta);
 			}
 			else if(menu.showMenu && sliding == false){
-				textBox3.update = false;
-				textBox3.showDreieck = false;
+				textBox1.update = false;
+				textBox1.showDreieck = false;
 				menu.update(input);
 			}
 			if(menu.name != null){
@@ -291,15 +307,32 @@ public class IntroState extends BasicGameState {
 				text = 5;
 			}
 			//animation(trainerx, trainerXEnd);
+			if(textBox1.textBox == 3 && sliding == false){
+				menu.showMenu = true; //NameMenu aufrufen
+				}
 		}
 		
 		if(text == 5) {
-			textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc); // update Fehler, weils nicht oben erzeugt wird
-			textBox4.update(input, delta);
+			textBox1.update(input, delta);
+			
+			if(setText == 3){
+				textBox1.setText("Stimmt ja, du warst da " + menu.name + "!");
+				setText = 4;
+			}
+			//textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc); // update Fehler, weils nicht oben erzeugt wird
+			
+			if(textBox1.textBox == 4){ // ändert die TextBox
+				text = 6;
+			}
 		}
 		
 		if (text== 6){ //Enkel Animation
 			sliding = true;
+			if(setText == 4){
+				textBox1.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaßtn der jetz scho wieda?");
+				setText = 5;
+			}
+			
 			if(enkelx > enkelXEnd && sliding == true){
 				enkelx -= 8;
 			}
@@ -308,31 +341,46 @@ public class IntroState extends BasicGameState {
 			}
 			//animation(enkelx, enkelXEnd);
 			if(!menu2.showMenu){
-				textBox5.update(input, delta);
+				textBox1.update(input, delta);
 			}
 			else if(menu2.showMenu && sliding == false){
-				textBox5.update = false;
-				textBox5.showDreieck = false;
+				textBox1.update = false;
+				textBox1.showDreieck = false;
 				menu2.update(input);
 			}
 			if(menu2.name != null){
 				menu2.showMenu = false;
 				text = 7;
 			}
+			if(textBox1.textBox == 5 && sliding == false){
+				menu2.showMenu = true; //NameMenu aufrufen
+				}
 		}
 		
 		if(text == 7){
-			textBox6 = new TextBox(menu2.name + "! Stimmt! Grod hob i's no gwusst!", Color.black, Color.white, gc);
-			textBox6.update(input, delta);
+			if(setText == 5){
+				textBox1.setText(menu2.name + "! Stimmt! Grod hob i's no gwusst!");
+				setText = 6;
+			}
+			//textBox6 = new TextBox(menu2.name + "! Stimmt! Grod hob i's no gwusst!", Color.black, Color.white, gc);
+			textBox1.update(input, delta);
+			
+			if(textBox1.textBox == 5){// ändert die TextBox
+				text = 8;
+			}
 		}
 		
 		if(text == 8){
-			textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
-			textBox7.update(input, delta);
+			if(setText == 6){
+				textBox1.setText(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!");
+				setText = 7;
+			}
+			//textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
+			textBox1.update(input, delta);
 			
 			sliding = true;
 			
-			if(textBox7.textBox == 1){
+			if(textBox1.textBox == 6){
 			if(trainery < trainerYEnd && sliding == true){
 				trainery += 1;
 			}else{
@@ -355,16 +403,26 @@ public class IntroState extends BasicGameState {
 				trainerx = (gc.getWidth() - trainerWidth)/2;
 				trainery = (gc.getHeight() - trainerHeight)/2;
 			}
+			if (counter1 >= 1000){
+				text = 10;
+				}
 		}
 		
 		if(text == 10){
 			if (counter <= 1000){
 			counter += delta;
 			}
+			if (counter >= 1000){
+				text= 11;
+				}
 		}
 		
-		if(text == 11)
+		if(text == 11){
+			text = 0;
+			game.enterState(1);
 			Sound.audioIntro.stop();
+		}
+			
 	}
 	
 	@Override
