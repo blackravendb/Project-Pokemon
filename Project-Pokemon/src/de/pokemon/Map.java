@@ -297,11 +297,19 @@ public class Map extends TiledMapPlus{
 			}else if(getEntrance("townHouse1").x == player.getPosX() && getEntrance("townHouse1").y == player.getPosY()){
 				tmp = new Map("townHouse1", event);
 				player.setPosition(tmp.getEntrance("townHouse1").x, tmp.getEntrance("townHouse1").y);
+			}else if(getEntrance("university").x == player.getPosX() && getEntrance("university").y == player.getPosY()){
+				tmp = new Map("University", event);
+				player.setPosition(tmp.getEntrance("university").x, tmp.getEntrance("university").y);
 			}
 		}else if(getName().equals("townHouse1")){
 			if(getExit("townFromTownHouse1").x == player.getPosX() && getExit("townFromTownHouse1").y == player.getPosY()){
 				tmp = new Map("Town", event);
 				player.setPosition(tmp.getExit("townFromTownHouse1").x, tmp.getExit("townFromTownHouse1").y);
+			}
+		}else if(getName().equals("university")){
+			if(getExit("university").x == player.getPosX() && getExit("university").y == player.getPosY()){
+				tmp = new Map("Town", event);
+				player.setPosition(tmp.getExit("university").x, tmp.getExit("university").y);
 			}
 		}
 
