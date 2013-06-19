@@ -246,7 +246,8 @@ public class IntroState extends BasicGameState {
 				aWildDeublerAppearse = false;
 				//System.out.println("blub");
 			}
-			textBox1.update(input, delta); 
+			if(aWildDeublerAppearse == false)
+				textBox1.update(input, delta); 
 			
 			if(aWildDeublerAppearse == false && textBox1.textBox == 1){ //‰ndert die Textbox
 				text = 2;
@@ -267,6 +268,7 @@ public class IntroState extends BasicGameState {
 			}
 			//animation(pokemonx, pokemonXEnd);
 			//textBox2.update(input, delta);
+			if(sliding == false)
 			textBox1.update(input, delta);
 			
 			if(textBox1.textBox == 2){
@@ -293,6 +295,7 @@ public class IntroState extends BasicGameState {
 				textBox1.setText("Wia hoaﬂtn du glei wieda?");
 				setText = 3;
 				}
+				if(sliding == false)
 				textBox1.update(input, delta);
 			}
 			else if(menu.showMenu && sliding == false){
@@ -338,7 +341,7 @@ public class IntroState extends BasicGameState {
 				sliding = false;
 			}
 			//animation(enkelx, enkelXEnd);
-			if(!menu2.showMenu){
+			if(!menu2.showMenu && sliding == false){
 				textBox1.update(input, delta);
 			}
 			else if(menu2.showMenu && sliding == false){
@@ -361,6 +364,7 @@ public class IntroState extends BasicGameState {
 				setText = 6;
 			}
 			//textBox6 = new TextBox(menu2.name + "! Stimmt! Grod hob i's no gwusst!", Color.black, Color.white, gc);
+			
 			textBox1.update(input, delta);
 			
 			if(textBox1.textBox == 6
@@ -375,6 +379,8 @@ public class IntroState extends BasicGameState {
 				setText = 7;
 			}
 			//textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de W‰id da Pokemon erwartet Di! A W‰id voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
+			
+			if(textBox1.textBox == 6)
 			textBox1.update(input, delta);
 			
 			sliding = true;
