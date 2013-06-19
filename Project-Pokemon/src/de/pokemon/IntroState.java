@@ -1,6 +1,7 @@
 package de.pokemon;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -77,9 +78,6 @@ public class IntroState extends BasicGameState {
 		musicStart = true;
 		
 		textBox1 = new TextBox("Servus! Herzli Wuikomma in da W‰id vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
-		//textBox2 = new TextBox("De W‰id werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a K‰mpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", Color.black, Color.white, gc);
-		//textBox3 = new TextBox("Wia hoaﬂtn du glei wieda?", Color.black, Color.white, gc);
-		//textBox5 = new TextBox("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaﬂtn der jetz scho wieda?", Color.black, Color.white, gc);
 		
 		text = 1;
 		setText = 1;
@@ -365,7 +363,8 @@ public class IntroState extends BasicGameState {
 			//textBox6 = new TextBox(menu2.name + "! Stimmt! Grod hob i's no gwusst!", Color.black, Color.white, gc);
 			textBox1.update(input, delta);
 			
-			if(textBox1.textBox == 5){// ‰ndert die TextBox
+			if(textBox1.textBox == 6
+					){// ‰ndert die TextBox
 				text = 8;
 			}
 		}
@@ -380,7 +379,7 @@ public class IntroState extends BasicGameState {
 			
 			sliding = true;
 			
-			if(textBox1.textBox == 6){
+			if(textBox1.textBox == 7){
 			if(trainery < trainerYEnd && sliding == true){
 				trainery += 1;
 			}else{

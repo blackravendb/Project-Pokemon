@@ -207,6 +207,7 @@ public class TextBox {
 		}
 		
 		else if(string.length > 2){
+			
 		for(int k = 0; k <= 2; k++){ // ändert die Position der Strings
 			if(string.length == 3){
 				g.drawString(string[k], stringx, stringy[k]);
@@ -216,6 +217,7 @@ public class TextBox {
 				merke = changeStrings - 1;
 			}
 			if(changeStrings > string.length - 3){
+				
 				g.drawString(string[k + merke], stringx, stringy[k]);
 				/*if(textBoxInc == true){
 					textBox += 1;

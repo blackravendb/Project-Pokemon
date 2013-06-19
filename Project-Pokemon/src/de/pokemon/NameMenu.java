@@ -1,19 +1,29 @@
 package de.pokemon;
 
+import java.awt.Font;
 import java.util.Arrays;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.gui.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class NameMenu {
 	
 	public boolean showMenu;
+	public boolean showTextField;
+	public boolean update;
+	
+	TextField textField;
+	
 	public String name;
 	/** Position of the Rect*/
 	public int x;
@@ -53,6 +63,9 @@ public class NameMenu {
 		cursory = 80;
 		cursor.setLocation(cursorx , cursory);
 		showMenu = false;
+		showTextField = false;
+		update = true;
+		textField = new TextField(gc, gc.getDefaultFont(), 250, 86 - 10, 100, 20);
 		mainItems[0] = "NAME";
 		mainItems[1] = "NEUER NAME";
 		mainItems[2] = name1;
@@ -64,6 +77,8 @@ public class NameMenu {
 	}
 	
 	public void update(Input input){
+		
+		if(update){
 		if(showMenu){
 			background.setHeight(mainItems.length*32);
 		}
@@ -84,9 +99,10 @@ public class NameMenu {
 		}
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 		if(showMenu){
-			if(cursor.getCenterY() == 48){ //Name
-				//TODO
-				//sbg.enterState(Core.name);
+			if(cursor.getCenterY() == 86){ //Name
+				showTextField = true;
+				textField.setInput(input);
+				textField.setAcceptingInput(true);
 			}else if(cursor.getCenterY() == 118){ //Rot
 				name = mainItems[2];
 				resetCursor();
@@ -100,6 +116,7 @@ public class NameMenu {
 		}
 	}
 	}
+	}
 	
 	public void render(Graphics g){
 	
@@ -111,6 +128,12 @@ public class NameMenu {
 			for(int i = 0, j = y - 15; i < mainItems.length; i++, j += 32){
 				g.drawString(mainItems[i], background.getCenterX()-g.getFont().getWidth(mainItems[i])/2, j-g.getFont().getHeight(mainItems[i])/2);
 			}
+		}
+		if(showTextField){
+			textField.render(gc, g);
+			textField.setBackgroundColor(Color.white);
+			textField.setTextColor(Color.black);
+			//update = false;
 		}
 		g.setColor(Color.white);
 		g.fill(cursor);
