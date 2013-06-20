@@ -16,7 +16,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class NameMenu {
+public class NameMenu implements ComponentListener {
 	
 	public boolean showMenu;
 	public boolean showTextField;
@@ -65,7 +65,13 @@ public class NameMenu {
 		showMenu = false;
 		showTextField = false;
 		update = true;
-		textField = new TextField(gc, gc.getDefaultFont(), 250, 86 - 10, 100, 20);
+		
+		textField = new TextField(gc, gc.getDefaultFont(), 250, 80, 100, 20);
+		textField.addListener(this);
+		textField.setMaxLength(20);
+		textField.setBackgroundColor(Color.white);
+		textField.setTextColor(Color.black);
+		
 		mainItems[0] = "NAME";
 		mainItems[1] = "NEUER NAME";
 		mainItems[2] = name1;
@@ -100,16 +106,19 @@ public class NameMenu {
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 		if(showMenu){
 			if(cursor.getCenterY() == 86){ //Name
+				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				showTextField = true;
-				textField.setInput(input);
-				textField.setAcceptingInput(true);
+				//update = false;
 			}else if(cursor.getCenterY() == 118){ //Rot
+				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[2];
 				resetCursor();
 			}else if(cursor.getCenterY() == 150){ //Ash
+				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[3];
 				resetCursor();
 			}else if(cursor.getCenterY() == 182){ //Jack
+				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[4];
 				resetCursor();
 			}
@@ -131,14 +140,17 @@ public class NameMenu {
 		}
 		if(showTextField){
 			textField.render(gc, g);
-			textField.setBackgroundColor(Color.white);
-			textField.setTextColor(Color.black);
-			//update = false;
 		}
 		g.setColor(Color.white);
 		g.fill(cursor);
 	}
 
+public void componentActivated(AbstractComponent source) {
+	name = textField.getText();
+	//showTextField = false;
+	//update = true;
+}
+	
 private void resetCursor(){
 	cursor.setLocation(x+16, 80);
 	}

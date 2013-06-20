@@ -63,6 +63,8 @@ public class IntroState extends BasicGameState {
 	public boolean sliding;
 	public boolean musicStart = true;
 	
+	public boolean glurakSound = true;
+	
 	public int i;
 	public IntroState(int id){
 		ID = id;
@@ -76,6 +78,7 @@ public class IntroState extends BasicGameState {
 		menu2 = new NameMenu (gc, game, "BLAU", "GARY", "JOHN");
 		
 		musicStart = true;
+		glurakSound = true;
 		
 		textBox1 = new TextBox("Servus! Herzli Wuikomma in da Wäid vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
 		
@@ -277,7 +280,11 @@ public class IntroState extends BasicGameState {
 		}
 		
 		if(text == 3){ //ändert die Textbox
-			if(input.isKeyPressed(Input.KEY_ENTER)){
+			if(glurakSound == true){
+				Sound.audioGlurak.playAsSoundEffect(1.0f, 3.0f, false);
+				glurakSound = false;
+			}
+			if(input.isKeyPressed(Input.KEY_ENTER) && glurakSound == false){
 				text = 4;
 				}
 		}

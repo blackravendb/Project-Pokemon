@@ -133,7 +133,7 @@ public class Menu extends BasicGameState{
 		
 			if(pointy == spielfortsetzeny + 4){ //Spiel fortsetzen
 				if(input.isKeyPressed(Input.KEY_ENTER)){
-					
+				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);	
 				sbg.enterState(Core.play);
 				
 				}
@@ -142,6 +142,7 @@ public class Menu extends BasicGameState{
 
 			else if(pointy == neuesspiely + 4){ // neues Spiel
 				if(input.isKeyPressed(Input.KEY_ENTER)){
+					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					sbg.getState(Core.intro).init(gc, sbg);
 					sbg.enterState(Core.intro);
 					
@@ -152,7 +153,7 @@ public class Menu extends BasicGameState{
 			
 			else if(pointy == spielladeny + 4){ //Spiel laden
 				if(input.isKeyPressed(Input.KEY_ENTER)){
-					
+					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					//TODO
 					
 				}
@@ -160,7 +161,7 @@ public class Menu extends BasicGameState{
 	
 			else if(pointy == spielbeendeny + 4){ //Spiel beenden
 				if(input.isKeyPressed(Input.KEY_ENTER)){
-				
+					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					System.exit(0);
 				
 				}

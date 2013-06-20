@@ -9,6 +9,8 @@ import org.newdawn.slick.util.ResourceLoader;
 public class Sound {
 	public static Audio audioSolid;
 	public static Audio audioIntro;
+	public static Audio audioGlurak;
+	public static Audio audioTextBox;
 	
 	private static Audio currentAudio;
 	
@@ -19,6 +21,9 @@ public class Sound {
 		try {
 			audioSolid = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/solid.wav"));
 			audioIntro = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/104_opening_selection.wav"));
+			audioGlurak = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/Glurak.wav"));
+			audioTextBox = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/TextBox.wav"));
+			
 		} catch (IOException e) {
 			System.err.println("fail, while loading sound files");
 			e.printStackTrace();
@@ -29,6 +34,8 @@ public class Sound {
 	public static void exit(){
 		audioSolid.release();
 		audioIntro.release();
+		audioGlurak.release();
+		audioTextBox.release();
 		
 		currentAudio.release();
 	}

@@ -183,6 +183,7 @@ public class TextBox {
 		weiter.setLocation(rectx + rectwidth - 10, stringy[2] + 5); //setzt das Dreieck nach rechts unten
 		
 		if(input.isKeyPressed(Input.KEY_ENTER)){ //beim drücken von Enter werden die Strings nach oben verschoben
+				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				changeStrings++;
 				System.out.println("changeStrings: " + changeStrings);
 			}
