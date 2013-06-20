@@ -76,8 +76,8 @@ public class IntroState extends BasicGameState{
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		
-		menu = new NameMenu(gc, game, "ROT", "ASH", "JACK");
-		menu2 = new NameMenu (gc, game, "BLAU", "GARY", "JOHN");
+		menu = new NameMenu(gc, game, "FRANZ", "TONI", "SEPP");
+		menu2 = new NameMenu (gc, game, "Sirgo", "Svenni", "Olaf");
 		
 		musicStart = true;
 		glurakSound = true;
@@ -255,7 +255,7 @@ public class IntroState extends BasicGameState{
 		
 		if (text == 2){ //Glurak Animation
 			if(setText == 1){
-				textBox1.setText("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe, mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.");
+				textBox1.setText("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.");
 				setText = 2;
 			}
 			sliding = true;
@@ -381,6 +381,11 @@ public class IntroState extends BasicGameState{
 			if(textBox1.textBox == 5 && sliding == false){
 				menu2.showMenu = true; //NameMenu aufrufen
 				}
+			
+			if(menu2.name != null){
+				menu2.showMenu = false;
+				text = 7;
+			}
 		}
 		
 		if(text == 7){
@@ -392,7 +397,7 @@ public class IntroState extends BasicGameState{
 			
 			textBox1.update(input, delta);
 			
-			if(textBox1.textBox == 7){// ändert die TextBox
+			if(textBox1.textBox == 6){// ändert die TextBox
 				text = 8;
 			}
 		}
@@ -404,12 +409,12 @@ public class IntroState extends BasicGameState{
 			}
 			//textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
 			
-			if(textBox1.textBox == 7)
+			if(textBox1.textBox == 6)
 			textBox1.update(input, delta);
 			
 			sliding = true;
 			
-			if(textBox1.textBox == 8){
+			if(textBox1.textBox == 7){
 			if(trainery < trainerYEnd && sliding == true){
 				trainery += 1;
 			}else{

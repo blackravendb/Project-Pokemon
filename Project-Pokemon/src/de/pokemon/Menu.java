@@ -88,21 +88,21 @@ public class Menu extends BasicGameState{
 		rectx = (gc.getWidth() - rectbreite)/2;
 		recty = pokemon.getHeight() + 30;
 		
-		spielfortsetzenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Continue Game"))/2;
+		spielfortsetzenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Weida"))/2;
 		spielfortsetzeny = recty + 10;
 		
-		neuesspielx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("New Game"))/2;
+		neuesspielx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Neis Spui"))/2;
 		neuesspiely = spielfortsetzeny + 40;
 		
-		pointx = spielfortsetzenx - 8;
+		pointx = spielfortsetzenx - 45;
 		pointy = spielfortsetzeny + 4;
 		
 		cursor.setLocation(pointx, pointy);
 		
-		spielladenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Load Game"))/2;
+		spielladenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Lon"))/2;
 		spielladeny = neuesspiely + 40;
 		
-		spielbeendenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Quit Game"))/2;;
+		spielbeendenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Servus!"))/2;;
 		spielbeendeny = spielladeny + 40;
 		
 		musicStart = true;
@@ -113,10 +113,10 @@ public class Menu extends BasicGameState{
 		g.setColor(Color.white);
 		g.drawImage(bild, imagebildx, imagebildy);
 		g.drawString("Menu", menüx, menüy);
-		g.drawString("Continue Game", spielfortsetzenx, spielfortsetzeny);
-		g.drawString("New Game", neuesspielx, neuesspiely);
-		g.drawString("Load Game", spielladenx, spielladeny);
-		g.drawString("Quit Game", spielbeendenx, spielbeendeny);
+		g.drawString("Weida", spielfortsetzenx, spielfortsetzeny);
+		g.drawString("Neis Spui", neuesspielx, neuesspiely);
+		g.drawString("Lon", spielladenx, spielladeny);
+		g.drawString("Servus!", spielbeendenx, spielbeendeny);
 		g.fill(cursor);
 		g.drawRect(rectx, recty, rectbreite, recthöhe); //x,y, breite, höhe
 		g.drawImage(pokemon, imagex, imagey);
@@ -163,6 +163,7 @@ public class Menu extends BasicGameState{
 		cursor.setLocation(pointx, pointy);
 		
 		if(input.isKeyPressed(Input.KEY_ENTER)){
+			Sound.audioMenu.stop();
 			if(pointy == spielfortsetzeny + 4){ //Spiel fortsetzen
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);	
 				sbg.enterState(Core.play);

@@ -31,6 +31,8 @@ public class NameMenu {
 	public int x;
 	public int y;
 	
+	int sub; // wenn ein neuer Name eingegeben wird, muss von textBox Variable im IntroState 1 abgezogen werden!
+	
 	public int cursorx;
 	public int cursory;
 	/** width and height of the Rect.*/
@@ -69,6 +71,7 @@ public class NameMenu {
 		showTextField = false;
 		update = true;
 		namePlayer = new Name();
+		sub = 0;
 		
 		/*textField.setBackgroundColor(Color.white);
 		textField.setTextColor(Color.black);*/
@@ -121,9 +124,10 @@ public class NameMenu {
 		
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 		if(showMenu){
-			if(cursor.getCenterY() == 86){ //Name
+			if(cursor.getCenterY() == 86){ //neuer Name
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				showTextField = true;
+				sub = 1;
 				resetCursor();
 				//update = false;
 			}else if(cursor.getCenterY() == 118){ //Rot
