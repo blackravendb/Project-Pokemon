@@ -1,12 +1,14 @@
 package de.pokemon;
 
 import org.newdawn.slick.*;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
-public class IntroState extends BasicGameState {
+public class IntroState extends BasicGameState{
 
 	NameMenu menu;
 	NameMenu menu2;
@@ -102,11 +104,11 @@ public class IntroState extends BasicGameState {
 		pokemonXEnd = (gc.getWidth() - pokemon.getWidth())/2;
 		
 		enkelx = gc.getWidth() + 20;
-		enkely = gc.getHeight()/7;
+		enkely = gc.getHeight()/5;
 		enkelXEnd = (gc.getWidth() - enkel.getWidth())/2;
 		
 		trainerx = gc.getWidth() + 20;
-		trainery = gc.getHeight()/6;
+		trainery = gc.getHeight()/5;
 		trainerXEnd = (gc.getWidth() - trainer.getWidth())/2;
 		trainerWidth = trainer.getWidth();
 		trainerHeight = trainer.getHeight();
@@ -163,13 +165,7 @@ public class IntroState extends BasicGameState {
 		}
 		
 		else if(text == 3){ //Ansicht 5
-			
 			g.drawImage(pokemon2, pokemonx, pokemony);
-			//TODO Sound abspielen!
-			g.drawString("[Enter dr¸cken]", mittex, stringy[1]);
-			/*if(input.isKeyPressed(Input.KEY_ENTER)){
-				text = 4;
-				}*/
 		}
 		else if(text == 4){ //Ansicht 6
 			g.drawImage(trainer, trainerx, trainery);
@@ -284,7 +280,7 @@ public class IntroState extends BasicGameState {
 				Sound.audioGlurak.playAsSoundEffect(1.0f, 3.0f, false);
 				glurakSound = false;
 			}
-			if(input.isKeyPressed(Input.KEY_ENTER) && glurakSound == false){
+			if(Sound.audioGlurak.isPlaying() == false){ //input.isKeyPressed(Input.KEY_ENTER) && 
 				text = 4;
 				}
 		}
@@ -308,7 +304,10 @@ public class IntroState extends BasicGameState {
 			else if(menu.showMenu && sliding == false){
 				textBox1.update = false;
 				textBox1.showDreieck = false;
-				menu.update(input);
+				menu.update(input, delta);
+				if(menu.showTextField == true){
+					menu.update = false;
+				}
 			}
 			if(menu.name != null){
 				menu.showMenu = false;
@@ -336,30 +335,49 @@ public class IntroState extends BasicGameState {
 		
 		if (text== 6){ //Enkel Animation
 			sliding = true;
-			if(setText == 4){
-				textBox1.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaﬂtn der jetz scho wieda?");
-				setText = 5;
-			}
-			
 			if(enkelx > enkelXEnd && sliding == true){
 				enkelx -= 8;
 			}
 			else{
 				sliding = false;
 			}
-			//animation(enkelx, enkelXEnd);
-			if(!menu2.showMenu && sliding == false){
+			
+			if(!menu2.showMenu){
+			if(setText == 4){
+				textBox1.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaﬂtn der jetz scho wieda?");
+				setText = 5;
+			}
+			//kopiert!!!
+			if(sliding == false)
 				textBox1.update(input, delta);
 			}
 			else if(menu2.showMenu && sliding == false){
 				textBox1.update = false;
 				textBox1.showDreieck = false;
-				menu2.update(input);
+				menu2.update(input, delta);
+				if(menu2.showTextField == true){
+					menu2.update = false;
+				}
+			}
+			//kopiert
+			
+		
+			//animation(enkelx, enkelXEnd);
+			/*if(!menu2.showMenu && sliding == false){
+				textBox1.update(input, delta);
+			}
+			else if(menu2.showMenu && sliding == false){
+				textBox1.update = false;
+				textBox1.showDreieck = false;
+				menu2.update(input, delta);
+				if(menu2.showTextField == true){
+					menu.update = false;
+				}
 			}
 			if(menu2.name != null){
 				menu2.showMenu = false;
 				text = 7;
-			}
+			}*/
 			if(textBox1.textBox == 5 && sliding == false){
 				menu2.showMenu = true; //NameMenu aufrufen
 				}
@@ -374,8 +392,7 @@ public class IntroState extends BasicGameState {
 			
 			textBox1.update(input, delta);
 			
-			if(textBox1.textBox == 6
-					){// ‰ndert die TextBox
+			if(textBox1.textBox == 7){// ‰ndert die TextBox
 				text = 8;
 			}
 		}
@@ -387,12 +404,12 @@ public class IntroState extends BasicGameState {
 			}
 			//textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de W‰id da Pokemon erwartet Di! A W‰id voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
 			
-			if(textBox1.textBox == 6)
+			if(textBox1.textBox == 7)
 			textBox1.update(input, delta);
 			
 			sliding = true;
 			
-			if(textBox1.textBox == 7){
+			if(textBox1.textBox == 8){
 			if(trainery < trainerYEnd && sliding == true){
 				trainery += 1;
 			}else{

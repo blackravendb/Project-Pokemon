@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.gui.*;
+import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -16,13 +17,14 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class NameMenu implements ComponentListener {
+public class NameMenu {
 	
 	public boolean showMenu;
 	public boolean showTextField;
 	public boolean update;
 	
-	TextField textField;
+	public TextField textField;
+	public Name namePlayer;
 	
 	public String name;
 	/** Position of the Rect*/
@@ -52,6 +54,7 @@ public class NameMenu implements ComponentListener {
 	private final float[] cursorPoints = new float[]{0,0,6,6,0,12};
 	
 	public NameMenu(GameContainer gc,StateBasedGame game, String name1, String name2, String name3){
+		//super("Pokemon");
 		this.gc = gc;
 		this.sbg = game;
 		x = gc.getWidth()/8;
@@ -65,12 +68,10 @@ public class NameMenu implements ComponentListener {
 		showMenu = false;
 		showTextField = false;
 		update = true;
+		namePlayer = new Name();
 		
-		textField = new TextField(gc, gc.getDefaultFont(), 250, 80, 100, 20);
-		textField.addListener(this);
-		textField.setMaxLength(20);
-		textField.setBackgroundColor(Color.white);
-		textField.setTextColor(Color.black);
+		/*textField.setBackgroundColor(Color.white);
+		textField.setTextColor(Color.black);*/
 		
 		mainItems[0] = "NAME";
 		mainItems[1] = "NEUER NAME";
@@ -82,7 +83,21 @@ public class NameMenu implements ComponentListener {
 		
 	}
 	
-	public void update(Input input){
+	/*public void init(GameContainer container) throws SlickException {
+		
+		textField = new TextField(gc, gc.getDefaultFont(), 250, 80, 100, 20);
+		textField.addListener(this);
+		textField.setMaxLength(20);
+		
+	}*/
+	
+	public void update(Input input, int delta) throws SlickException {
+		
+		if(namePlayer.stringFilled == true){
+			name = namePlayer.string;
+			input.clearKeyPressedRecord();
+			System.out.println(name);
+		}
 		
 		if(update){
 		if(showMenu){
@@ -103,11 +118,13 @@ public class NameMenu implements ComponentListener {
 				resetCursor();
 			}
 		}
+		
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 		if(showMenu){
 			if(cursor.getCenterY() == 86){ //Name
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				showTextField = true;
+				resetCursor();
 				//update = false;
 			}else if(cursor.getCenterY() == 118){ //Rot
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
@@ -124,10 +141,16 @@ public class NameMenu implements ComponentListener {
 			}
 		}
 	}
+		
+		if(showTextField){
+			namePlayer.init(gc);
+			namePlayer.update(gc, delta);
+		}
+		
 	}
 	}
 	
-	public void render(Graphics g){
+	public void render(Graphics g) {
 	
 		if(showMenu){
 			g.setColor(Color.white);
@@ -139,19 +162,26 @@ public class NameMenu implements ComponentListener {
 			}
 		}
 		if(showTextField){
-			textField.render(gc, g);
+			//textField.render(gc, g);
+			namePlayer.render(gc, g);
 		}
 		g.setColor(Color.white);
 		g.fill(cursor);
 	}
 
-public void componentActivated(AbstractComponent source) {
+/*public void componentActivated(AbstractComponent source) {
 	name = textField.getText();
 	//showTextField = false;
 	//update = true;
-}
+}*/
 	
 private void resetCursor(){
 	cursor.setLocation(x+16, 80);
 	}
+
+/*@Override
+public void componentActivated(AbstractComponent source) {
+	// TODO Auto-generated method stub
+	
+}*/
 }
