@@ -11,6 +11,7 @@ public class Sound {
 	public static Audio audioIntro;
 	public static Audio audioGlurak;
 	public static Audio audioTextBox;
+	public static Audio audioMenu;
 	
 	private static Audio currentAudio;
 	
@@ -23,6 +24,7 @@ public class Sound {
 			audioIntro = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/104_opening_selection.wav"));
 			audioGlurak = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/Glurak.wav"));
 			audioTextBox = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/TextBox.wav"));
+			audioMenu = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/Intro/MenüMusik.wav"));
 			
 		} catch (IOException e) {
 			System.err.println("fail, while loading sound files");
@@ -36,6 +38,7 @@ public class Sound {
 		audioIntro.release();
 		audioGlurak.release();
 		audioTextBox.release();
+		audioMenu.release();
 		
 		currentAudio.release();
 	}

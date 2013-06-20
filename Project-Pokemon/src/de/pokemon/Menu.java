@@ -9,14 +9,21 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Menu extends BasicGameState{
 	public static int ID;
 	
+	Image logo;
 	Image pokemon;
 	Image bild;
+	
+	boolean sliding;
 	
 	public int imagex;
 	public int imagey;
 	
 	public int imagebildx;
 	public int imagebildy;
+	
+	public int logoX;
+	public int logoY;
+	public int logoXEnd;
 	
 	public int rectx;
 	public int recty;
@@ -41,6 +48,8 @@ public class Menu extends BasicGameState{
 	public int spielbeendenx;
 	public int spielbeendeny;
 	
+	public boolean musicStart;
+	
 	private Polygon cursor;
 	private final float[] cursorPoints = new float[]{0,0,6,6,0,12};
 	
@@ -53,16 +62,24 @@ public class Menu extends BasicGameState{
 		Sound.init();
 		gc.setMusicVolume(0.05f);
 		gc.setSoundVolume(0.05f);
+		
+		logo = new Image("res/Intro/BayrischLogo.png");
 		pokemon = new Image("res/Intro/Pokemon-Logo.png");
 		cursor = new Polygon(cursorPoints); 
 		bild = new Image("res/Intro/Pokemon-Bild.jpg");
+		
+		sliding = true;
 		
 		imagex = (gc.getWidth() - pokemon.getWidth())/2;
 		imagey = 0;
 		
 		imagebildx = gc.getWidth() - bild.getWidth();
 		imagebildy = gc.getHeight() - bild.getHeight();
-				
+		
+		logoX = gc.getWidth() + 50;
+		logoY = imagey + 90;
+		logoXEnd = imagex + bild.getWidth() - 190;
+		
 		menüx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Menu"))/2;
 		menüy = pokemon.getHeight() + 5;
 		
@@ -88,6 +105,7 @@ public class Menu extends BasicGameState{
 		spielbeendenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Quit Game"))/2;;
 		spielbeendeny = spielladeny + 40;
 		
+		musicStart = true;
 	}
 	
 	@Override
@@ -102,7 +120,7 @@ public class Menu extends BasicGameState{
 		g.fill(cursor);
 		g.drawRect(rectx, recty, rectbreite, recthöhe); //x,y, breite, höhe
 		g.drawImage(pokemon, imagex, imagey);
-		
+		g.drawImage(logo, logoX, logoY);
 		
 	}
 	
@@ -111,6 +129,19 @@ public class Menu extends BasicGameState{
 		
 		Input input = gc.getInput();
 		
+		if(musicStart){
+			Sound.audioMenu.playAsMusic(1.0f, 1.0f, true);
+			musicStart = false;
+		}
+		
+		if(logoX > logoXEnd && sliding == true){ // Logo Animation
+			logoX -= 4;
+		}
+		else{
+			sliding = false;
+		}
+		
+		if(sliding == false){
 		if(input.isKeyPressed(Input.KEY_S)){
 			if(pointy == spielbeendeny + 4){
 				pointy = spielfortsetzeny - 36;
@@ -157,6 +188,7 @@ public class Menu extends BasicGameState{
 			}
 		}
 			input.clearKeyPressedRecord();
+	}
 }
 	
 	public int getID(){

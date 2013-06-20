@@ -63,9 +63,9 @@ public class IntroState extends BasicGameState{
 	Input input;
 	
 	public boolean sliding;
-	public boolean musicStart = true;
 	
-	public boolean glurakSound = true;
+	public boolean musicStart;
+	public boolean glurakSound;
 	
 	public int i;
 	public IntroState(int id){
