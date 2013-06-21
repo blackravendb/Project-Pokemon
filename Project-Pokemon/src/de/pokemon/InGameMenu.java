@@ -168,7 +168,7 @@ public class InGameMenu {
 						cursor.setCenterY(mainItems.indexOf("Debug")*itemHeight+16);
 					}
 				}
-
+				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 			}
 
 			if(input.isKeyPressed(Input.KEY_ESCAPE)){
@@ -179,7 +179,10 @@ public class InGameMenu {
 					showMain = true;
 					cursor.setCenterY(mainItems.indexOf("Debug")*itemHeight+16);
 				}
+				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
+				
 			}
+			
 		} else {
 			if(showMenu){ // slide out
 				if(background.getX() < gc.getWidth()){ //not at end position

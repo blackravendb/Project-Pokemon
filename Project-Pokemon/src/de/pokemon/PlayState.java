@@ -106,6 +106,7 @@ public class PlayState extends BasicGameState {
 			
 			if(player.isStanding){
 				if(input.isKeyPressed(Input.KEY_ESCAPE)){
+					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					menu.sliding = true;
 				}
 			}
