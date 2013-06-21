@@ -25,32 +25,27 @@ public class Map extends TiledMapPlus{
 	private ArrayList<Npc> npcs = new ArrayList<Npc>();
 
 	/**
-	 * Creates new tile map and builds up a collision map based on a given tmx file.
+	 * Creates a new map based on a given tmx file.
 	 * @param ref Path to .tmx file
 	 * @throws SlickException
 	 */
 	public Map(String ref,EventManager event) throws SlickException{
 		super("res/world/" + ref + ".tmx");
 		name = getMapProperty("name", "unknown name");
-		blocked = new boolean[getWidth()][getHeight()];
-		blocked = buildCollisionMap();
-		tileSize = getTileWidth();
+		buildCollisionMap();
+		tileSize = getTileWidth(); // since our tiles are quadratic we just use getTileWidth() to determine the tileSize.
 		hasWater = createWater();
 		createNpcs(event);
-		//System.out.println(this.getObjectGroup("object layer").getObjectsOfType("q").isEmpty());
-		//System.out.println(blocked[24].length);
-		//System.out.println(npcs);
 	}
 
 	/**
 	 * Builds a 2 dimensional collision-map from the specified layer name for the current
 	 * map.
 	 *
-	 * @param layerName
-	 * @return array of booleans, true if blocked
 	 */
-	private boolean[][] buildCollisionMap() {
+	private void buildCollisionMap() {
 
+		blocked = new boolean[getWidth()][getHeight()];
 		int layerIndex = getLayerIndex("collision");
 
 		for (int x = 0; x < getWidth(); x++) {
@@ -60,7 +55,6 @@ public class Map extends TiledMapPlus{
 			}
 		}
 
-		return blocked;
 	}
 
 	/**Checks if the tile specified by the x and y coordinate is blocked on the current map.
@@ -75,6 +69,7 @@ public class Map extends TiledMapPlus{
 		}
 		return blocked[x][y];
 	}
+	
 	/**Tries to set a value in the blocked array. If out of bounds nothing will be set.
 	 * 
 	 * @param x tile coordinate
@@ -92,17 +87,20 @@ public class Map extends TiledMapPlus{
 	 * Draws a black Grid on the current map. The grid is only drawn for the part which is focused by the camera.
 	 * @param g Graphics
 	 */
-	public  void showGrid(Graphics g){
+	public void showGrid(Graphics g) {
 		g.setColor(Color.black);
-		g.setLineWidth(1);
-		//rows
-		for(int i =	(int)Math.floor(Camera.cameraY/32)*32; i < Camera.cameraY+Core.height; i = i + tileSize){
-			g.drawLine(Camera.cameraX, i, Camera.cameraX+Core.width, i);
-
+		// rows
+		int start = (int) Math.floor(Camera.cameraY / tileSize) * tileSize;
+		int end = (int) Camera.cameraY + Core.height;
+		for (int y = start; y < end; y += tileSize) {
+			g.drawLine(Camera.cameraX, y, Camera.cameraX + Core.width, y);
 		}
-		//coloumns
-		for(int i =	(int)Math.floor(Camera.cameraX/32)*32; i < Camera.cameraX+Core.width; i = i + tileSize){
-			g.drawLine(i, Camera.cameraY, i, Camera.cameraY+Core.height);
+
+		// coloumns
+		start = (int) Math.floor(Camera.cameraX / tileSize) * tileSize;
+		end = (int) Camera.cameraX + Core.width;
+		for (int x = start; x < end; x += tileSize) {
+			g.drawLine(x, Camera.cameraY, x, Camera.cameraY + Core.height);
 		}
 	}
 
@@ -111,31 +109,35 @@ public class Map extends TiledMapPlus{
 	 * The grid is only drawn for the part which is focused by the camera.
 	 * @param g Graphics
 	 */
-	public void showBlocked(Graphics g){
-		for(int i =	(int)Math.floor(Camera.cameraX/32); i < (Camera.cameraX+Core.width)/tileSize; i++)
-			for(int j =	(int)Math.floor(Camera.cameraY/32); j < (Camera.cameraY+Core.height)/tileSize; j++)
-			{
-				if(blocked[i][j]){
-					g.setColor(new Color(1.0f, 0.0f, 0.0f, 0.5f));	
-				}else{
-					g.setColor(new Color(0.0f, 1.0f, 0.0f, 0.5f));
+	public void showBlocked(Graphics g) {
+//		int startX = (int)(Camera.cameraX / tileSize);
+//		double endX = (Camera.cameraX+Core.width)/tileSize; //using a double value seems to eliminates the annoying clipping problem. 
+//		int startY = (int) (Camera.cameraY / tileSize);
+//		double endY = (Camera.cameraY+Core.height)/tileSize;
+//		for (int x = startX; x < endX; x++)
+//			for (int y = startY; y < endY; y++) {
+//				if (blocked[x][y]) {
+//					g.setColor(new Color(1.0f, 0.0f, 0.0f, 0.5f));//red
+//				} else {
+//					g.setColor(new Color(0.0f, 1.0f, 0.0f, 0.5f));//green
+//				}
+//				g.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+//			}
+		//cleaner way without double values, but rendering an extra row/coloumn to avoid clipping problems
+		//and using an extra method to avoid out of bounds 
+		int startX = (int)(Camera.cameraX / tileSize);
+		int endX = (int)(Camera.cameraX+Core.width)/tileSize + 1;
+		int startY = (int) (Camera.cameraY / tileSize);
+		int endY = (int) (Camera.cameraY+Core.height)/tileSize + 1;
+		for (int x = startX; x < endX; x++)
+			for (int y = startY; y < endY; y++) {
+				if (isBlocked(x, y)) {
+					g.setColor(new Color(1.0f, 0.0f, 0.0f, 0.5f));//red
+				} else {
+					g.setColor(new Color(0.0f, 1.0f, 0.0f, 0.5f));//green
 				}
-				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
-			}
-
-		//		for(int i = 0; i < getWidth(); i++)
-		//			for(int j = 0; j < getHeight(); j++){
-		//				if(blocked[i][j]){
-		//					g.setColor(new Color(1.0f, 0.0f, 0.0f, 0.5f));	
-		//				}else{
-		//					g.setColor(new Color(0.0f, 1.0f, 0.0f, 0.5f));
-		//				}
-		//				//g.setDrawMode(Graphics.MODE_ADD_ALPHA);
-		//				
-		//				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
-		//			}
-		//		g.setDrawMode(Graphics.MODE_NORMAL);
-		//			
+				g.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+			}		
 	}
 
 	/**
@@ -225,55 +227,75 @@ public class Map extends TiledMapPlus{
 		while(itr.hasNext()){
 			GroupObject element = itr.next();
 			for(int i = 0; i < water.length; i++){
-				water[i].draw(element.x, element.y-element.height);
+				water[i].draw(element.x, element.y-element.height); // subtract element.height because image objects have their anchorpoints on the bottom left
 			}
 		}
 	}
 
+	/**
+	 * Creates the NPCs for the Map by reading from the object layer.
+	 * @param event
+	 */
 	private void createNpcs(EventManager event) {
-		//System.out.println(getObjectGroup("object layer").getObjectsOfType("npc").size());
 		if(getObjectGroup("object layer").getObjectsOfType("npc") != null){
 			for(GroupObject go: getObjectGroup("object layer").getObjectsOfType("npc")){
 				npcs.add(new Npc(go.x, go.y, go.name, event));
-				//	System.out.println(go.x + go.y + go.name);
 			}
 		}
 	}
 
+	/**
+	 * Renders the NPCs on the current map
+	 */
 	public void renderNpcs(){
 		for(Npc npc: npcs){
 			npc.renderNpcHead();
 			npc.renderNpcBody();
 		}
 	}
-
+	
+	/**Updates the NPCs on the map
+	 * 
+	 * @param delta time passed since last update
+	 * @param update, true if render should stop at current frame 
+	 */
 	public void updateNpcs(int delta, boolean update) {
 		for (Npc npc : npcs) {
 			if (update) {
-				npc.currentAnimationBody.setAutoUpdate(true);
+				npc.currentAnimationBody.setAutoUpdate(true); 
 				npc.currentAnimationHead.setAutoUpdate(true);
 				npc.updateNpc(delta);
 			} else {
 				npc.currentAnimationBody.setAutoUpdate(false);
-				npc.currentAnimationHead.setAutoUpdate(false);
-				
+				npc.currentAnimationHead.setAutoUpdate(false);	
 			}
 		}
 	}
 
 
-
-	public String getCoordinates(double x, double y, int tileX, int tileY){		
-		return new String((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name);
-	}
-
-	public void showPlayerPosition(Graphics g, double x, double y, int tileX, int tileY){
+	/** Displays the Player coordinates on the screen
+	 * 
+	 * @param g graphics context
+	 * @param x position of the player
+	 * @param y position of the player
+	 * @param tileX position of the player
+	 * @param tileY position of the player
+	 */
+	public void showPlayerPosition(Graphics g, int x, int y, int tileX, int tileY){
 		g.setColor(Color.white);
-		g.drawString((int)x + "," + (int)y + "\n" + tileX + "," + tileY + "\n" + name, 10, 30);
+		g.drawString(x + "," + y + "\n" + tileX + "," + tileY + "\n" + name, 10, 30);
+		g.drawLine(0, Core.height/2, Core.width, Core.height/2);
+		g.drawLine(Core.width/2,0, Core.width/2,Core.height);
 	}
 
 
-	//this method is gonna be big
+	/**This methods handles map updates, e.g. map changes. Probably a mad way of doing it, but it seems to work.
+	 * 
+	 * @param player 
+	 * @param event
+	 * @return this or a new map 
+	 * @throws SlickException
+	 */
 	public Map update(Player player, EventManager event) throws SlickException{
 		Map tmp = this;
 		if(getName().equals("Home")){
@@ -316,11 +338,17 @@ public class Map extends TiledMapPlus{
 		return tmp;
 	}
 
-
+	/**
+	 * 
+	 * @return tileSize of the map
+	 */
 	public int getTileSize() {
 		return tileSize;
 	}
-
+	/**
+	 * 
+	 * @return name of the map
+	 */
 	public String getName(){
 		return name;
 	}

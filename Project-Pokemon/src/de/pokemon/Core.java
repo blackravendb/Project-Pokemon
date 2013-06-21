@@ -7,18 +7,26 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Core extends StateBasedGame {
 
-	
+	/** ID of the menu state */
 	public static final int menu = 0;
+	/** ID of the play state */
 	public static final int play = 1;
+	/** ID of the intro state */
 	public static final int intro = 2;
+	/** size of a single tile */
 	public static final int tileSize = 32;
+	/** width of the game canvas*/
 	public static final int width = 640;
+	/** height of the game canvas*/
 	public static final int height = 480;
 	
+	/**
+	 * 
+	 * @param name
+	 * @throws SlickException
+	 */
 	public Core(String name) throws SlickException {
 		super(name);
-
-
 	}
 	
 	/** Entry point for game
@@ -27,21 +35,16 @@ public class Core extends StateBasedGame {
 	 * @throws SlickException
 	 */
 	public static void main(String[] args) throws SlickException {
-		
 		AppGameContainer container = new AppGameContainer(new Core("Project Pokemon"));
 		container.setDisplayMode(width, height, false);
 		container.setTargetFrameRate(60);
 		container.setShowFPS(false);
-		
-		container.start();
-		
+		//TODO set the app icon!
+		container.start();	
 	}
 
 	public void initStatesList(GameContainer gc) throws SlickException { 
-		//this.getState(menu).init(gc, this);
-		//this.getState(play).init(gc, this);
-		//this.getState(devtools).init(gc, this);
-		this.addState(new Menu(menu));
+		this.addState(new Menu(menu)); // init() is also called when adding a state
 		this.addState(new PlayState(play));
 		this.addState(new IntroState(intro));
 		this.enterState(menu);

@@ -12,21 +12,24 @@ import org.newdawn.slick.state.StateBasedGame;
 public class PlayState extends BasicGameState {
 
 	/** ID of the state*/
-	public static int ID; // ID of this state
-
-	//public static boolean debug; // if debug option is activated
+	public static int ID; 
 	/** reference for the map*/
-	Map map;
+	private Map map;
 	/** reference for the camera*/
-	Camera camera;
+	private Camera camera;
 	/** reference for player */
-	Player player;
+	private Player player;
 	/** reference for the inGameMenu */
-	InGameMenu menu;
+	private InGameMenu menu;
 	/** reference for the input*/
-	Input input;
-	EventManager event;
+	private Input input;
+	/** eventmanager reference*/
+	private EventManager event;
 
+	/**Sets the ID of this state
+	 * 
+	 * @param id
+	 */
 	public PlayState(int id){
 		ID = id;
 	}
@@ -80,9 +83,6 @@ public class PlayState extends BasicGameState {
 
 		if(menu.showPosition){
 			map.showPlayerPosition(g, player.getPosX(), player.getPosY(),player.getTileX(),player.getTileY());
-			//g.drawString(map.getCoordinates(player.getPosX(), player.getPosY(),player.getTileX(),player.getTileY()), 10, 30);
-			g.drawLine(0, gc.getHeight()/2, gc.getWidth(), gc.getHeight()/2);
-			g.drawLine(gc.getWidth()/2,0, gc.getWidth()/2,gc.getHeight());
 		}
 		if(menu.showMenu || menu.sliding){
 			menu.render(g);

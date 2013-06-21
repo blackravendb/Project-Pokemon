@@ -11,7 +11,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class InGameMenu {
@@ -48,7 +47,7 @@ public class InGameMenu {
 	private Polygon cursor;
 	/** the main menu items */
 	private final List<String> mainItems  = Arrays.asList("Menu", "Resume", "Debug", "Save", "Exit");
-	//private final String[] mainItems = {"Menu", "Resume", "Debug", "Save", "Exit"}; // TODO make ArrayLists
+	//private final String[] mainItems = {"Menu", "Resume", "Debug", "Save", "Exit"};
 	/** the debug submenu items */
 	private final List<String> debugItems  = Arrays.asList("Debug", "FPS", "Grid", "Blocked", "Position", "Back");
 	//private final String[] debugItems = {"Debug", "FPS", "Grid", "Blocked", "Position", "Back"};
@@ -87,8 +86,6 @@ public class InGameMenu {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		
-
 	}
 
 	/** Updates the menu, e.g. cursor position, processes Input, adjusts the background of the menu to fit the items
@@ -100,10 +97,6 @@ public class InGameMenu {
 			return;
 
 		if(!sliding){
-
-			//			if(showMenu && !showDebug){
-			//				showMain = true;
-			//			}
 
 			if(showMain){
 				background.setHeight(mainItems.size()*itemHeight);
@@ -128,11 +121,7 @@ public class InGameMenu {
 			if(input.isKeyPressed(Input.KEY_ENTER)){
 				if(showMain){
 					if(cursor.getCenterY() == 48){ //RESUME
-						//showMenu = false;
-						//showMain = false;
 						sliding = true;
-						//background.setX(gc.getWidth());
-						//cursor.setX(gc.getWidth());
 					}else if(cursor.getCenterY() == 80){ //DEBUG
 						showMain = false;
 						resetCursor();
@@ -140,7 +129,6 @@ public class InGameMenu {
 					}else if(cursor.getCenterY() == 112){ //SAVE
 						//TODO Saving the game
 					}else if(cursor.getCenterY() == 144){ //EXIT
-						//TODO Dialog for exit
 						resetCursor();
 						showMenu = false;
 						showMain = false;
@@ -177,32 +165,22 @@ public class InGameMenu {
 					}else if(cursor.getCenterY() == 176){ // BACK
 						showDebug = false;
 						showMain = true;
-						//cursor.setLocation(x+16, mainItems.indexOf("Debug")*itemHeight+8);
 						cursor.setCenterY(mainItems.indexOf("Debug")*itemHeight+16);
 					}
-
 				}
 
 			}
 
 			if(input.isKeyPressed(Input.KEY_ESCAPE)){
 				if(showMain){
-					//showMain = false;
-					//showMenu = false;
-					sliding = true;
-					//resetCursor();
-					//cursor.setX(gc.getWidth());
-					//background.setX(gc.getWidth());
-					//TODO perhaps slide out
+					sliding = true;	
 				}else if(showDebug){
 					showDebug = false;
 					showMain = true;
 					cursor.setCenterY(mainItems.indexOf("Debug")*itemHeight+16);
 				}
-
 			}
 		} else {
-
 			if(showMenu){ // slide out
 				if(background.getX() < gc.getWidth()){ //not at end position
 					background.setX(background.getX() + 16);
@@ -226,9 +204,6 @@ public class InGameMenu {
 					resetCursor();
 				}
 			}
-
-
-
 		}
 	}
 
@@ -243,12 +218,12 @@ public class InGameMenu {
 		if(showMenu || sliding){
 			g.setColor(Color.white);
 			g.fill(background);
-			if(showMain || sliding){
+			if(showMain || sliding){ //render the main items
 				g.setColor(Color.black);
 				for(int i = 0, j = 16; i < mainItems.size(); i++, j += 32){
 					g.drawString(mainItems.get(i), background.getCenterX()-font.get().getWidth(mainItems.get(i))/2, j-font.get().getHeight(mainItems.get(i))/2);
 				}
-			}else if(showDebug){
+			}else if(showDebug){ // render the debug items
 				for(int i = 1; i < debugItems.size() - 1; i++){
 					if((i == 1 && showFps == true) || (i == 2 && showGrid == true) || (i == 3 && showBlocked == true) || (i == 4 && showPosition == true))
 						g.setColor(Color.green);
@@ -267,8 +242,6 @@ public class InGameMenu {
 			g.draw(background);
 			g.drawLine(background.getX(), 32, gc.getWidth(), 32);
 			g.drawRect(background.getX()+1, y+2, width-4, 28);
-
-
 		}
 		g.resetFont();
 	}
@@ -277,19 +250,8 @@ public class InGameMenu {
 	 * Reset the cursor the first item of the menu
 	 */
 	private void resetCursor(){
-		//cursor.setLocation(x+16, 40);
 		cursor.setX(x + 16);
 		cursor.setCenterY(itemHeight*3/2);
 	}
 
-	/**The shape slides in from the right until it is fully visible.
-	 * 
-	 * @param shape
-	 * @param startX
-	 * @param startY
-	 */
-	public void slideFromRight(Shape shape) {
-		shape.setLocation(gc.getWidth(), 0); 
-		shape.setLocation(gc.getWidth() - shape.getWidth(), 0); 
-	}
 }
