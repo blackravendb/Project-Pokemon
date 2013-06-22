@@ -15,16 +15,15 @@ public class Name implements ComponentListener {
 
 	/** The text field */
 	private TextField field;
+	/** the name of the player*/
 	public String string;
+	/** true if the player chose his name*/
 	public boolean stringFilled;
 	
 	public Name() {
 		
 	}
 
-	/**
-	 * @see org.newdawn.slick.BasicGame#init(org.newdawn.slick.GameContainer)
-	 */
 	public void init(GameContainer container) throws SlickException {
 		field = new TextField(container, container.getDefaultFont(), 250, 80, 100, 20);
 		field.addListener(this);
@@ -34,19 +33,11 @@ public class Name implements ComponentListener {
 		stringFilled = false;
 	}
 
-	/**
-	 * @see org.newdawn.slick.BasicGame#render(org.newdawn.slick.GameContainer,
-	 *      org.newdawn.slick.Graphics)
-	 */
 	public void render(GameContainer container, Graphics g) {
 		
 			field.render(container, g);
 	}
 
-	/**
-	 * @see org.newdawn.slick.BasicGame#update(org.newdawn.slick.GameContainer,
-	 *      int)
-	 */
 	public void update(GameContainer container, int delta) {
 		
 	}

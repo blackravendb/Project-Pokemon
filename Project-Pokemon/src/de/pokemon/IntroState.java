@@ -1,73 +1,90 @@
 package de.pokemon;
 
 import org.newdawn.slick.*;
-import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.ComponentListener;
-import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
 public class IntroState extends BasicGameState{
-
-	NameMenu menu;
-	NameMenu menu2;
-	
-	TextBox textBox1;
-	
+	/** ID of the IntroState */
 	public static int ID;
 	
-	Image deubler;
-	Image pokemon;
-	Image pokemon2;
-	Image trainer;
-	Image enkel;
-	Image trainerSpiel;
+	/** NameMenu for the player */
+	private NameMenu menu_1;
+	/** NameMenu for the grandson*/
+	private NameMenu menu_2;
 	
-	public int deublerx;
-	public int deublery;
-	public float deltaDeublerTransparence = 0;
-	private boolean aWildDeublerAppearse = true;
+	/** TextBox of the Intro*/
+	private TextBox textBox;
 	
-	public int text;
-	public int setText;
+	/** image of the professor*/
+	private Image prof;
+	/** image of Glurak*/
+	private Image pokemon_1;
+	/** image for the animation of Glurak*/
+	private Image pokemon_2;
+	/** image of the player*/
+	private Image trainer;
+	/** image of the grandson*/
+	private Image grandson;
+	/** image of the trainer how he looks in the game*/
+	private Image trainerGame;
 	
-	public int pokemonx;
-	public int pokemony;
-	public int pokemonXEnd;
+	/** x-coordinate of the professor*/
+	private int profX;
+	/** y-coordinate of the professor*/
+	private int profY;
+	/** rules the transparency of the professor*/
+	private float deltaProfTransparency = 0;
+	/** true if the professor appears*/
+	private boolean aWildDeublerAppears = true;
 	
-	public int trainerx;
-	public int trainery;
-	public int trainerXEnd;
-	public int trainerWidth;
-	public int trainerHeight;
-	public int trainerYEnd;
+	/** x-coordinate of pokemon_1 and pokemon_2*/
+	private int pokemonX;
+	/** y-coordinate of pokemon_1 and pokemon_2*/
+	private int pokemonY;
+	/** x-coordinate where pokemon_1 and pokemon_2 stops sliding*/
+	private int pokemonXEnd;
 	
-	public int enkelx;
-	public int enkely;
-	public int enkelXEnd;
+	/** x-coordinate of the trainer*/
+	private int trainerX;
+	/** y-coordinate of the trainer*/
+	private int trainerY;
+	/** x-coordinate where trainer stops sliding*/
+	private int trainerXEnd;
+	/** width of the trainer*/
+	private int trainerWidth;
+	/** height of the trainer*/
+	private int trainerHeight;
+	/** y-coordinate where trainer stops sliding*/
+	private int trainerYEnd;
 	
-	public int rectx;
-	public int recty;
-	public int rectwidth;
-	public int rectheight;
+	/** x-coordinate of grandson*/
+	private int grandsonX;
+	/** y-coordinate of grandson*/
+	private int grandsonY;
+	/** x-coordinate where grandson stops sliding*/
+	private int grandsonXEnd;
 	
-	public int[] stringx = new int[10];
-	public int[] stringy = new int[10];
+	/** rules which objects are rendering or updating*/
+	private int state;
+	/** rules which text should be shown in the TextBox*/
+	private int setText;
 	
-	public int mittex;
+	/** counter which rules how long trainer has to need for sliding*/
+	private long counter_1;
+	/** counter which rules how long trainer has to need for contraction*/
+	private long counter_2;
 	
-	public long counter;
-	public long counter1;
+	/** true if something is sliding*/
+	private boolean sliding;
 	
-	Input input;
+	/** true if music should start*/
+	private boolean musicStart;
+	/** true if glurak has to bawl*/
+	private boolean glurakSound;
 	
-	public boolean sliding;
 	
-	public boolean musicStart;
-	public boolean glurakSound;
-	
-	public int i;
 	public IntroState(int id){
 		ID = id;
 	}
@@ -76,365 +93,305 @@ public class IntroState extends BasicGameState{
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		
-		menu = new NameMenu(gc, game, "FRANZ", "TONI", "SEPP");
-		menu2 = new NameMenu (gc, game, "Sirgo", "Svenni", "Olaf");
+		menu_1 = new NameMenu(gc, game, "FRANZ", "TONI", "SEPP");
+		menu_2 = new NameMenu (gc, game, "Sirgo", "Svenni", "Olaf");
 		
 		musicStart = true;
 		glurakSound = true;
 		
-		textBox1 = new TextBox("Servus! Herzli Wuikomma in da Wäid vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
+		textBox = new TextBox("Servus! Herzli Wuikomma in da Wäid vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
 		
-		text = 1;
+		state = 1;
 		setText = 1;
 		
-		deubler = new Image("res/Intro/lind.png");
-		pokemon = new Image("res/Intro/Glurak2.png");
-		pokemon2 = new Image("res/Intro/Glurak3.png");
-		enkel = new Image("res/Intro/Enkel.png");
+		prof = new Image("res/Intro/lind.png");
+		pokemon_1 = new Image("res/Intro/Glurak2.png");
+		pokemon_2 = new Image("res/Intro/Glurak3.png");
+		grandson = new Image("res/Intro/Enkel.png");
 		trainer = new Image("res/Intro/trainer1.png");
-		trainerSpiel = new Image("res/Intro/Player.png");
+		trainerGame = new Image("res/Intro/Player.png");
 		
-		deublerx = (gc.getWidth() - deubler.getWidth())/2;
-		deublery = gc.getHeight()/4;
-		deltaDeublerTransparence = 0;
-		aWildDeublerAppearse = true;
+		profX = (gc.getWidth() - prof.getWidth())/2;
+		profY = gc.getHeight()/4;
+		deltaProfTransparency = 0;
+		aWildDeublerAppears = true;
 		
-		pokemonx = gc.getWidth() + 30;
-		pokemony = gc.getHeight()/6;
-		pokemonXEnd = (gc.getWidth() - pokemon.getWidth())/2;
+		pokemonX = gc.getWidth() + 30;
+		pokemonY = gc.getHeight()/6;
+		pokemonXEnd = (gc.getWidth() - pokemon_1.getWidth())/2;
 		
-		enkelx = gc.getWidth() + 20;
-		enkely = gc.getHeight()/5;
-		enkelXEnd = (gc.getWidth() - enkel.getWidth())/2;
+		grandsonX = gc.getWidth() + 20;
+		grandsonY = gc.getHeight()/5;
+		grandsonXEnd = (gc.getWidth() - grandson.getWidth())/2;
 		
-		trainerx = gc.getWidth() + 20;
-		trainery = gc.getHeight()/5;
+		trainerX = gc.getWidth() + 20;
+		trainerY = gc.getHeight()/5;
 		trainerXEnd = (gc.getWidth() - trainer.getWidth())/2;
 		trainerWidth = trainer.getWidth();
 		trainerHeight = trainer.getHeight();
-		trainerYEnd = trainery + 80;
+		trainerYEnd = trainerY + 80;
 		
-		rectwidth = gc.getWidth()/2;
-		rectheight = gc.getHeight()/5;
-		rectx = (gc.getWidth() - rectwidth)/2;
-		recty = deublery + deubler.getHeight() + 50;
-		
-		stringy[0] = recty + 10;
-		stringx[0] = rectx + 10;
-		for(int i=1; i<stringy.length; i++){
-			stringy[i] = stringy[i-1] + 20;
-		}
-		for(int i=1; i<stringx.length; i++){
-			stringx[i] = stringx[0];
-		}
-		
-		mittex = (gc.getWidth() - gc.getGraphics().getFont().getWidth("[Enter drücken]"))/2;
-	
 		sliding = true; 
 		
-		counter = 0;
-		counter1 = 0;
-		
-		i = 1;
-		
+		counter_1 = 0;
+		counter_2 = 0;
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g)
 			throws SlickException {
-		Input input = gc.getInput();
 		
-		if(text == 1){
-		g.drawImage(deubler, deublerx, deublery);
-		if(aWildDeublerAppearse == false){ //Ansicht 1
-			textBox1.render(g);
-			/*if(text == 1 && aWildDeublerAppearse == false && textBox1.textBox == 1){
-				text = 2;
-				}*/
+		if(state == 1){
+		g.drawImage(prof, profX, profY);
+		if(aWildDeublerAppears == false){ //Ansicht 1
+			textBox.render(g);
 			}
 		}
 		
-		else if(text == 2){ //Ansicht 2
-			g.drawImage(pokemon, pokemonx, pokemony);
-			textBox1.render(g);
-			
-			//textBox2.render(g);
-			/*if(textBox1.textBox == 2){
-				text = 3;
-			}*/
+		else if(state == 2){ //Ansicht 2
+			g.drawImage(pokemon_1, pokemonX, pokemonY);
+			textBox.render(g);
 		}
 		
-		else if(text == 3){ //Ansicht 5
-			g.drawImage(pokemon2, pokemonx, pokemony);
+		else if(state == 3){ //Ansicht 5
+			g.drawImage(pokemon_2, pokemonX, pokemonY);
 		}
-		else if(text == 4){ //Ansicht 6
-			g.drawImage(trainer, trainerx, trainery);
-			textBox1.render(g);
-			/*if(textBox3.textBox == 1 && sliding == false){
-				menu.showMenu = true; //NameMenu aufrufen
-				}*/
+		else if(state == 4){ //Ansicht 6
+			g.drawImage(trainer, trainerX, trainerY);
+			textBox.render(g);
 		}
-		else if(text == 5){ //Ansicht 7
-			g.drawImage(trainer, trainerx, trainery);
-			textBox1.render(g);
-			/*if(textBox4.textBox == 1){
-				text = 6;
-			}*/
+		else if(state == 5){ //Ansicht 7
+			g.drawImage(trainer, trainerX, trainerY);
+			textBox.render(g);
 		}
-		else if(text == 6){
-			g.drawImage(enkel, enkelx, enkely);
-			textBox1.render(g);
-			/*if(textBox5.textBox == 1 && sliding == false){
-				menu2.showMenu = true; //NameMenu aufrufen
-				}*/
+		else if(state == 6){
+			g.drawImage(grandson, grandsonX, grandsonY);
+			textBox.render(g);
 			}
-		else if(text == 7){
-			g.drawImage(enkel, enkelx, enkely);
-			textBox1.render(g);
-			/*if(textBox6.textBox == 1){
-				text = 8;
-			}*/
+		else if(state == 7){
+			g.drawImage(grandson, grandsonX, grandsonY);
+			textBox.render(g);
 		}
-		else if(text == 8){
-			g.drawImage(trainer, trainerx, trainery);
-			textBox1.render(g);
-			/*if(textBox7.textBox == 1){
-				text = 9;
-			}*/
+		else if(state == 8){
+			g.drawImage(trainer, trainerX, trainerY);
+			textBox.render(g);
 		}
-		else if(text == 9){
-			trainer.draw(trainerx, trainery, trainerWidth, trainerHeight);		
-			/*if (counter1 >= 1000){
-			text = 10;
-			}*/
+		else if(state == 9){
+			trainer.draw(trainerX, trainerY, trainerWidth, trainerHeight);		
 		}
-		else if(text == 10){
-			g.drawImage(trainerSpiel, trainerx, trainery); 
-			/*if (counter >= 1000){
-			text= 11;
-			}*/
+		else if(state == 10){
+			g.drawImage(trainerGame, trainerX, trainerY); 
 		}
-		/*else if(text == 11){
-			text = 0;
-			game.enterState(1);
-		}*/
-		if(menu.showMenu && text == 4){
-			menu.render(g);
+		if(menu_1.showMenu && state == 4){
+			menu_1.render(g);
 		}
-		if(menu2.showMenu && text == 6){
-			menu2.render(g);
+		if(menu_2.showMenu && state == 6){
+			menu_2.render(g);
 		}
 	}
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
-		input = gc.getInput();
+		Input input = gc.getInput();
 		
 		if(musicStart){
 			Sound.audioIntro.playAsMusic(1.0f, 1.0f, true);
 			musicStart = false;
 		}
 		
-		if (text == 1){ //Deubler Animation
-			if(deltaDeublerTransparence < 1 && aWildDeublerAppearse == true){
-				deubler.setAlpha(deltaDeublerTransparence);
-				deltaDeublerTransparence += 0.004f;
+		if (state == 1){ //Deubler Animation
+			if(deltaProfTransparency < 1 && aWildDeublerAppears == true){
+				prof.setAlpha(deltaProfTransparency);
+				deltaProfTransparency += 0.004f;
 			}
 			else{
-				aWildDeublerAppearse = false;
-				//System.out.println("blub");
+				aWildDeublerAppears = false;
 			}
-			if(aWildDeublerAppearse == false)
-				textBox1.update(input, delta); 
+			if(aWildDeublerAppears == false)
+				textBox.update(input, delta); 
 			
-			if(aWildDeublerAppearse == false && textBox1.textBox == 1){ //ändert die Textbox
-				text = 2;
+			if(aWildDeublerAppears == false && textBox.textBox == 1){ //ändert die Textbox
+				state = 2;
 				}
 		}
 		
-		if (text == 2){ //Glurak Animation
+		if (state == 2){ //Glurak Animation
 			if(setText == 1){
-				textBox1.setText("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.");
+				textBox.setText("De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a Kämpfe mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.");
 				setText = 2;
 			}
 			sliding = true;
-			if(pokemonx > pokemonXEnd && sliding == true){
-				pokemonx -= 8;
+			if(pokemonX > pokemonXEnd && sliding == true){
+				pokemonX -= 8;
 			}
 			else{
 				sliding = false;
 			}
 			//animation(pokemonx, pokemonXEnd);
-			//textBox2.update(input, delta);
 			if(sliding == false)
-			textBox1.update(input, delta);
+			textBox.update(input, delta);
 			
-			if(textBox1.textBox == 2){
-				text = 3;
+			if(textBox.textBox == 2){
+				state = 3;
 			}
 		}
 		
-		if(text == 3){ //ändert die Textbox
+		if(state == 3){ //ändert die Textbox
 			if(glurakSound == true){
 				Sound.audioGlurak.playAsSoundEffect(1.0f, 3.0f, false);
 				glurakSound = false;
 			}
 			if(Sound.audioGlurak.isPlaying() == false){ //input.isKeyPressed(Input.KEY_ENTER) && 
-				text = 4;
+				state = 4;
 				}
 		}
 		
-		if (text == 4){ //Trainer Animation
+		if (state == 4){ //Trainer Animation
 			sliding = true;
-			if(trainerx > trainerXEnd && sliding == true){
-				trainerx -= 8;
+			if(trainerX > trainerXEnd && sliding == true){
+				trainerX -= 8;
 			}
 			else{
 				sliding = false;
 			}
-			if(!menu.showMenu){ // Wenn das Menü nicht angezeigt wird, soll die TextBox upgedatet werden
+			if(!menu_1.showMenu){ // Wenn das Menü nicht angezeigt wird, soll die TextBox upgedatet werden
 				if(setText == 2){
-				textBox1.setText("Wia hoaßtn du glei wieda?");
+				textBox.setText("Wia hoaßtn du glei wieda?");
 				setText = 3;
 				}
 				if(sliding == false)
-				textBox1.update(input, delta);
+				textBox.update(input, delta);
 			}
-			else if(menu.showMenu && sliding == false){
-				textBox1.update = false;
-				textBox1.showDreieck = false;
-				menu.update(input, delta);
-				if(menu.showTextField == true){
-					menu.update = false;
+			else if(menu_1.showMenu && sliding == false){
+				textBox.update = false;
+				textBox.showTriangle = false;
+				menu_1.update(input, delta);
+				if(menu_1.showTextField == true){
+					menu_1.update = false;
 				}
 			}
-			if(menu.name != null){
-				menu.showMenu = false;
-				text = 5;
+			if(menu_1.name != null){
+				menu_1.showMenu = false;
+				state = 5;
 			}
 			//animation(trainerx, trainerXEnd);
-			if(textBox1.textBox == 3 && sliding == false){
-				menu.showMenu = true; //NameMenu aufrufen
+			if(textBox.textBox == 3 && sliding == false){
+				menu_1.showMenu = true; //NameMenu aufrufen
 				}
 		}
 		
-		if(text == 5) {
-			textBox1.update(input, delta);
+		if(state == 5) {
+			textBox.update(input, delta);
 			
 			if(setText == 3){
-				textBox1.setText("Stimmt ja, du warst da " + menu.name + "!");
+				textBox.setText("Stimmt ja, du warst da " + menu_1.name + "!");
 				setText = 4;
 			}
-			//textBox4 = new TextBox("Stimmt ja, du warst da " + menu.name + "!", Color.black, Color.white, gc); // update Fehler, weils nicht oben erzeugt wird
 			
-			if(textBox1.textBox == 4){ // ändert die TextBox
-				text = 6;
+			if(textBox.textBox == 4){ // ändert die TextBox
+				state = 6;
 			}
 		}
 		
-		if (text== 6){ //Enkel Animation
+		if (state== 6){ //Enkel Animation
 			sliding = true;
-			if(enkelx > enkelXEnd && sliding == true){
-				enkelx -= 8;
+			if(grandsonX > grandsonXEnd && sliding == true){
+				grandsonX -= 8;
 			}
 			else{
 				sliding = false;
 			}
 			
-			if(!menu2.showMenu){ // Wenn das Menü nicht angezeigt wird, soll die TextBox upgedatet werden
+			if(!menu_2.showMenu){ // Wenn das Menü nicht angezeigt wird, soll die TextBox upgedatet werden
 			if(setText == 4){
-				textBox1.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaßtn der jetz scho wieda?");
+				textBox.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaßtn der jetz scho wieda?");
 				setText = 5;
 			}
-			//kopiert!!!
 			if(sliding == false)
-				textBox1.update(input, delta);
+				textBox.update(input, delta);
 			}
-			else if(menu2.showMenu && sliding == false){
-				textBox1.update = false;
-				textBox1.showDreieck = false;
-				menu2.update(input, delta);
-				if(menu2.showTextField == true){
-					menu2.update = false;
+			else if(menu_2.showMenu && sliding == false){
+				textBox.update = false;
+				textBox.showTriangle = false;
+				menu_2.update(input, delta);
+				if(menu_2.showTextField == true){
+					menu_2.update = false;
 				}
 			}
-			//kopiert
-			
-			if(menu2.name != null){
-				menu2.showMenu = false;
-				text = 7;
+			if(menu_2.name != null){
+				menu_2.showMenu = false;
+				state = 7;
 			}
 			
-			if(textBox1.textBox == 5 && sliding == false){
-				menu2.showMenu = true; //NameMenu aufrufen
+			if(textBox.textBox == 5 && sliding == false){
+				menu_2.showMenu = true; //NameMenu aufrufen
 				}
 		}
 		
-		if(text == 7){
+		if(state == 7){
 			if(setText == 5){
-				textBox1.setText(menu2.name + "! Stimmt! Grod hob i's no gwusst!");
+				textBox.setText(menu_2.name + "! Stimmt! Grod hob i's no gwusst!");
 				setText = 6;
 			}
-			//textBox6 = new TextBox(menu2.name + "! Stimmt! Grod hob i's no gwusst!", Color.black, Color.white, gc);
 			
-			textBox1.update(input, delta);
+			textBox.update(input, delta);
 			
-			if(textBox1.textBox == 6){// ändert die TextBox
-				text = 8;
+			if(textBox.textBox == 6){// ändert die TextBox
+				state = 8;
 			}
 		}
 		
-		if(text == 8){
+		if(state == 8){
 			if(setText == 6){
-				textBox1.setText(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwart Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!");
+				textBox.setText(menu_1.name + "! A unglaubliche Reise in de Wäid da Pokemon erwart Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!");
 				setText = 7;
 			}
 			
-			if(textBox1.textBox == 6) 
-			textBox1.update(input, delta);
+			if(textBox.textBox == 6) 
+			textBox.update(input, delta);
 			
 			sliding = true;
 			
-			if(textBox1.textBox == 7){
-			if(trainery < trainerYEnd && sliding == true){
-				trainery += 1;
+			if(textBox.textBox == 7){
+			if(trainerY < trainerYEnd && sliding == true){
+				trainerY += 1;
 			}else{
 				sliding = false;
 			}
 			if(sliding == false){
-				text = 9;
+				state = 9;
 			}
 			}
 		}
 		
-		if (text == 9){ //trainer Animation Übergang + counter start
+		if (state == 9){ //trainer Animation Übergang + counter start
 
-			if(counter1 <= 1000 && sliding == false){
-				counter1 += delta;
+			if(counter_2 <= 1000 && sliding == false){
+				counter_2 += delta;
 			}
 			if(trainerHeight > 20){
 				trainerWidth -= trainerWidth/40;
 				trainerHeight -= trainerHeight/40;
-				trainerx = (gc.getWidth() - trainerWidth)/2;
-				trainery = (gc.getHeight() - trainerHeight)/2;
+				trainerX = (gc.getWidth() - trainerWidth)/2;
+				trainerY = (gc.getHeight() - trainerHeight)/2;
 			}
-			if (counter1 >= 1000){
-				text = 10;
+			if (counter_2 >= 1000){
+				state = 10;
 				}
 		}
 		
-		if(text == 10){
-			if (counter <= 1000){
-			counter += delta;
+		if(state == 10){
+			if (counter_1 <= 1000){
+			counter_1 += delta;
 			}
-			if (counter >= 1000){
-				text= 11;
+			if (counter_1 >= 1000){
+				state= 11;
 				}
 		}
 		
-		if(text == 11){
-			text = 0;
+		if(state == 11){
+			state = 0;
 			game.enterState(1);
 			Sound.audioIntro.stop();
 		}
@@ -443,7 +400,6 @@ public class IntroState extends BasicGameState{
 	
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
 		return ID;
 	}
 	

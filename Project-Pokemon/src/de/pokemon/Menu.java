@@ -7,51 +7,83 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 public class Menu extends BasicGameState{
+	
+	/** ID of the IntroState */
 	public static int ID;
 	
-	Image logo;
-	Image pokemon;
-	Image bild;
+	/** bavarian flag which you see in the Menu */
+	private Image logo;
+	/** writing in the Menu*/
+	private Image pokemon;
+	/** image in the right bottom corner of the Menu*/
+	private Image imagePokemon;
 	
-	boolean sliding;
+	/** true if logo is sliding*/
+	private boolean sliding;
+	/** */
+	private int logoX;
+	/** */
+	private int logoY;
+	/** */
+	private int logoXEnd;
 	
-	public int imagex;
-	public int imagey;
+	/** x-coordinate of pokemon*/
+	private int pokemonX;
+	/** y-coordinate of pokemon*/
+	private int pokemonY;
 	
-	public int imagebildx;
-	public int imagebildy;
+	/** x-coordinate of imagePokemon*/
+	private int imagePokemonX;
+	/** y-coordinate of imagePokemon*/
+	private int imagePokemonY;
 	
-	public int logoX;
-	public int logoY;
-	public int logoXEnd;
+	/** x-coordinate of the frame which contains the menu items*/
+	private int rectX;
+	/** y-coordinate of the frame which contains the menu items*/
+	private int rectY;
+	/** width of the frame which contains the menu items*/
+	private int rectWidth;
+	/** height of the frame which contains the menu items */
+	private int rectHeight;
 	
-	public int rectx;
-	public int recty;
-	public int rectbreite;
-	public int recthöhe;
-	
-	public int pointx;
-	public int pointy;
-	
-	public int menüx;
-	public int menüy;
-	
-	public int neuesspielx;
-	public int neuesspiely;
-	
-	public int spielladenx;
-	public int spielladeny;
-	
-	public int spielfortsetzenx;
-	public int spielfortsetzeny;
-	
-	public int spielbeendenx;
-	public int spielbeendeny;
-	
-	public boolean musicStart;
-	
+	/** */
 	private Polygon cursor;
+	/** */
+	private int cursorX;
+	/** */
+	private int cursorY;
+	/** */
 	private final float[] cursorPoints = new float[]{0,0,6,6,0,12};
+	
+	/** */
+	private int menuX;
+	/** */
+	private int menuY;
+	
+	/** */
+	private int newGameX;
+	/** */
+	private int newGameY;
+	
+	/** */
+	private int loadGameX;
+	/** */
+	private int loadGameY;
+	
+	/** */
+	private int continueX;
+	/** */
+	private int continueY;
+	
+	/** */
+	private int quitX;
+	/** */
+	private int quitY;
+	
+	/** */
+	private boolean musicStart;
+	
+	
 	
 	public Menu(int state){
 		ID = state;
@@ -66,44 +98,44 @@ public class Menu extends BasicGameState{
 		logo = new Image("res/Intro/BayrischLogo.png");
 		pokemon = new Image("res/Intro/Pokemon-Logo.png");
 		cursor = new Polygon(cursorPoints); 
-		bild = new Image("res/Intro/Pokemon-Bild.jpg");
+		imagePokemon = new Image("res/Intro/Pokemon-Bild.jpg");
 		
 		sliding = true;
 		
-		imagex = (gc.getWidth() - pokemon.getWidth())/2;
-		imagey = 0;
+		pokemonX = (gc.getWidth() - pokemon.getWidth())/2;
+		pokemonY = 0;
 		
-		imagebildx = gc.getWidth() - bild.getWidth();
-		imagebildy = gc.getHeight() - bild.getHeight();
+		imagePokemonX = gc.getWidth() - imagePokemon.getWidth();
+		imagePokemonY = gc.getHeight() - imagePokemon.getHeight();
 		
 		logoX = gc.getWidth() + 50;
-		logoY = imagey + 90;
-		logoXEnd = imagex + bild.getWidth() - 190;
+		logoY = pokemonY + 90;
+		logoXEnd = pokemonX + imagePokemon.getWidth() - 190;
 		
-		menüx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Menu"))/2;
-		menüy = pokemon.getHeight() + 5;
+		menuX = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Menu"))/2;
+		menuY = pokemon.getHeight() + 5;
 		
-		rectbreite = 150;
-		recthöhe = gc.getHeight()/3;
-		rectx = (gc.getWidth() - rectbreite)/2;
-		recty = pokemon.getHeight() + 30;
+		rectWidth = 150;
+		rectHeight = gc.getHeight()/3;
+		rectX = (gc.getWidth() - rectWidth)/2;
+		rectY = pokemon.getHeight() + 30;
 		
-		spielfortsetzenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Weida"))/2;
-		spielfortsetzeny = recty + 10;
+		continueX = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Weida"))/2;
+		continueY = rectY + 10;
 		
-		neuesspielx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Neis Spui"))/2;
-		neuesspiely = spielfortsetzeny + 40;
+		newGameX = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Neis Spui"))/2;
+		newGameY = continueY + 40;
 		
-		pointx = spielfortsetzenx - 45;
-		pointy = spielfortsetzeny + 4;
+		cursorX = continueX - 45;
+		cursorY = continueY + 4;
 		
-		cursor.setLocation(pointx, pointy);
+		cursor.setLocation(cursorX, cursorY);
 		
-		spielladenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Lon"))/2;
-		spielladeny = neuesspiely + 40;
+		loadGameX = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Lon"))/2;
+		loadGameY = newGameY + 40;
 		
-		spielbeendenx = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Servus!"))/2;;
-		spielbeendeny = spielladeny + 40;
+		quitX = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Servus!"))/2;;
+		quitY = loadGameY + 40;
 		
 		musicStart = true;
 	}
@@ -111,15 +143,15 @@ public class Menu extends BasicGameState{
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		g.setColor(Color.white);
-		g.drawImage(bild, imagebildx, imagebildy);
-		g.drawString("Menu", menüx, menüy);
-		g.drawString("Weida", spielfortsetzenx, spielfortsetzeny);
-		g.drawString("Neis Spui", neuesspielx, neuesspiely);
-		g.drawString("Lon", spielladenx, spielladeny);
-		g.drawString("Servus!", spielbeendenx, spielbeendeny);
+		g.drawImage(imagePokemon, imagePokemonX, imagePokemonY);
+		g.drawString("Menu", menuX, menuY);
+		g.drawString("Weida", continueX, continueY);
+		g.drawString("Neis Spui", newGameX, newGameY);
+		g.drawString("Lon", loadGameX, loadGameY);
+		g.drawString("Servus!", quitX, quitY);
 		g.fill(cursor);
-		g.drawRect(rectx, recty, rectbreite, recthöhe); //x,y, breite, höhe
-		g.drawImage(pokemon, imagex, imagey);
+		g.drawRect(rectX, rectY, rectWidth, rectHeight); //x,y, breite, höhe
+		g.drawImage(pokemon, pokemonX, pokemonY);
 		g.drawImage(logo, logoX, logoY);
 		
 	}
@@ -143,47 +175,44 @@ public class Menu extends BasicGameState{
 		
 		if(sliding == false){
 		if(input.isKeyPressed(Input.KEY_S)){
-			if(pointy == spielbeendeny + 4){
-				pointy = spielfortsetzeny - 36;
+			if(cursorY == quitY + 4){
+				cursorY = continueY - 36;
 			}
-			if(pointy < spielbeendeny + 4){
-				pointy += 40;
+			if(cursorY < quitY + 4){
+				cursorY += 40;
 			}
 		}
 		
 		if(input.isKeyPressed(Input.KEY_W)){
-			if(pointy == spielfortsetzeny + 4){
-				pointy = spielbeendeny + 44;
+			if(cursorY == continueY + 4){
+				cursorY = quitY + 44;
 			}
-			if(pointy > spielfortsetzeny + 4){
-				pointy -= 40; 
+			if(cursorY > continueY + 4){
+				cursorY -= 40; 
 			}
 		}
 		
-		cursor.setLocation(pointx, pointy);
+		cursor.setLocation(cursorX, cursorY);
 		
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 			Sound.audioMenu.stop();
-			if(pointy == spielfortsetzeny + 4){ //Spiel fortsetzen
+			if(cursorY == continueY + 4){ //Spiel fortsetzen
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);	
 				sbg.enterState(Core.play);
 				}
 
-			else if(pointy == neuesspiely + 4){ // neues Spiel
+			else if(cursorY == newGameY + 4){ // neues Spiel
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					sbg.getState(Core.intro).init(gc, sbg);
 					sbg.enterState(Core.intro);
-					
-					/*sbg.getState(Core.play).init(gc, sbg); // init state to create a new game
-					sbg.enterState(Core.play);	*/
 				}
 			
-			else if(pointy == spielladeny + 4){ //Spiel laden
+			else if(cursorY == loadGameY + 4){ //Spiel laden
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					//TODO
 			}
 	
-			else if(pointy == spielbeendeny + 4){ //Spiel beenden
+			else if(cursorY == quitY + 4){ //Spiel beenden
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					System.exit(0);
 			}
