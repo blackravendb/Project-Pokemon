@@ -46,44 +46,42 @@ public class Menu extends BasicGameState{
 	/** height of the frame which contains the menu items */
 	private int rectHeight;
 	
-	/** */
+	/** triangle in the menu*/
 	private Polygon cursor;
-	/** */
+	/** x-coordinate of cursor*/
 	private int cursorX;
-	/** */
+	/** y-coordinate of cursor*/
 	private int cursorY;
-	/** */
+	/** the points for the triangle in x,y order*/
 	private final float[] cursorPoints = new float[]{0,0,6,6,0,12};
 	
-	/** */
+	/** x-coordinate of the string menu*/
 	private int menuX;
-	/** */
+	/** y-coordinate of the string menu*/
 	private int menuY;
 	
-	/** */
-	private int newGameX;
-	/** */
-	private int newGameY;
-	
-	/** */
-	private int loadGameX;
-	/** */
-	private int loadGameY;
-	
-	/** */
+	/** x-coordinate of the string "Weida"*/
 	private int continueX;
-	/** */
+	/** y-coordinate of the string "Weida"*/
 	private int continueY;
 	
-	/** */
+	/** x-coordinate of the string "Neis Spui"*/
+	private int newGameX;
+	/** y-coordinate of the string "Neis Spui"*/
+	private int newGameY;
+	
+	/** x-coordinate of the string "Lon"*/
+	private int loadGameX;
+	/** y-coordinate of the string "Lon"*/
+	private int loadGameY;
+	
+	/** x-coordinate of the string "Servus!"*/
 	private int quitX;
-	/** */
+	/** y-coordinate of the string "Servus!"*/
 	private int quitY;
 	
-	/** */
+	/** true if music should start*/
 	private boolean musicStart;
-	
-	
 	
 	public Menu(int state){
 		ID = state;
