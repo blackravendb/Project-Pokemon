@@ -19,7 +19,8 @@ public class Core extends StateBasedGame {
 	public static final int width = 640;
 	/** height of the game canvas*/
 	public static final int height = 480;
-	
+	/** path to the 16x16 and 32x32 icons*/
+	public static final String[] icons = {"res/icons/16.png", "res/icons/32.png"};
 	/**
 	 * 
 	 * @param name
@@ -39,7 +40,7 @@ public class Core extends StateBasedGame {
 		container.setDisplayMode(width, height, false);
 		container.setTargetFrameRate(60);
 		container.setShowFPS(false);
-		//TODO set the app icon!
+		container.setIcons(Core.icons);
 		container.start();	
 	}
 
