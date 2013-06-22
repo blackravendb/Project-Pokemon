@@ -11,7 +11,7 @@ import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 
 
-public class Name extends BasicGame implements ComponentListener {
+public class Name implements ComponentListener {
 
 	/** The text field */
 	private TextField field;
@@ -19,7 +19,7 @@ public class Name extends BasicGame implements ComponentListener {
 	public boolean stringFilled;
 	
 	public Name() {
-		super("Name");
+		
 	}
 
 	/**
@@ -31,7 +31,6 @@ public class Name extends BasicGame implements ComponentListener {
 		field.setBackgroundColor(Color.white);
 		field.setTextColor(Color.black);
 		field.setMaxLength(8);
-		
 		stringFilled = false;
 	}
 
@@ -57,10 +56,6 @@ public class Name extends BasicGame implements ComponentListener {
 	public void componentActivated(AbstractComponent source) {
 		string = field.getText(); //funktioniert!
 		stringFilled = true;
-	}
-	
-	public String getName(){
-		return string;
 	}
 
 }

@@ -127,9 +127,7 @@ public class NameMenu {
 			if(cursor.getCenterY() == 86){ //neuer Name
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				showTextField = true;
-				sub = 1;
 				resetCursor();
-				//update = false;
 			}else if(cursor.getCenterY() == 118){ //Rot
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[2];

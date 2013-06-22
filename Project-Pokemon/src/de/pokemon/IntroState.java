@@ -342,7 +342,7 @@ public class IntroState extends BasicGameState{
 				sliding = false;
 			}
 			
-			if(!menu2.showMenu){
+			if(!menu2.showMenu){ // Wenn das Menü nicht angezeigt wird, soll die TextBox upgedatet werden
 			if(setText == 4){
 				textBox1.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaßtn der jetz scho wieda?");
 				setText = 5;
@@ -361,31 +361,14 @@ public class IntroState extends BasicGameState{
 			}
 			//kopiert
 			
-		
-			//animation(enkelx, enkelXEnd);
-			/*if(!menu2.showMenu && sliding == false){
-				textBox1.update(input, delta);
-			}
-			else if(menu2.showMenu && sliding == false){
-				textBox1.update = false;
-				textBox1.showDreieck = false;
-				menu2.update(input, delta);
-				if(menu2.showTextField == true){
-					menu.update = false;
-				}
-			}
 			if(menu2.name != null){
 				menu2.showMenu = false;
 				text = 7;
-			}*/
+			}
+			
 			if(textBox1.textBox == 5 && sliding == false){
 				menu2.showMenu = true; //NameMenu aufrufen
 				}
-			
-			if(menu2.name != null){
-				menu2.showMenu = false;
-				text = 7;
-			}
 		}
 		
 		if(text == 7){
@@ -404,12 +387,11 @@ public class IntroState extends BasicGameState{
 		
 		if(text == 8){
 			if(setText == 6){
-				textBox1.setText(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!");
+				textBox1.setText(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwart Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!");
 				setText = 7;
 			}
-			//textBox7 = new TextBox(menu.name + "! A unglaubliche Reise in de Wäid da Pokemon erwartet Di! A Wäid voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", Color.black, Color.white, gc);
 			
-			if(textBox1.textBox == 6)
+			if(textBox1.textBox == 6) 
 			textBox1.update(input, delta);
 			
 			sliding = true;
