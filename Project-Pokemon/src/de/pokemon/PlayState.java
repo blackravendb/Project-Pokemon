@@ -93,8 +93,7 @@ public class PlayState extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
-		
-		
+
 		//if menu is not open and not sliding in or out process normal input 
 		if(!menu.showMenu && !menu.sliding){
 			player.updatePlayer(input);			
