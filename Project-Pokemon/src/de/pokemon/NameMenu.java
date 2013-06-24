@@ -50,10 +50,15 @@ public class NameMenu {
 	/** different names and title of the NameMenu*/
 	private String[] mainItems = new String[5];
 	
+	/**Constructor of the NameMenu
+	 * 
+	 * @param gc the container holding the game
+	 * @param game the game 
+	 * @param name1, name2, name3 different names for the character
+	 * @param colorFont the color of the font
+	 */
 	public NameMenu(GameContainer gc,StateBasedGame game, String name1, String name2, String name3){
-		//super("Pokemon");
 		this.gc = gc;
-		//this.sbg = game;
 		backgroundX = gc.getWidth()/8;
 		backgroundY = gc.getHeight()/7;
 		backgroundWidth = gc.getWidth()/4;
@@ -65,7 +70,7 @@ public class NameMenu {
 		showMenu = false;
 		showTextField = false;
 		update = true;
-		namePlayer = new Name();
+		namePlayer = new Name(); 
 		mainItems[0] = "NAME";
 		mainItems[1] = "NEUER NAME";
 		mainItems[2] = name1;
@@ -76,6 +81,12 @@ public class NameMenu {
 		
 	}
 	
+	/** Updates the NameMenu, e.g. processes Input
+	 * 
+	 * @param input Input of the IntroState
+	 * @param delta the number of milliseconds between frames
+	 * 
+	 */
 	public void update(Input input, int delta) throws SlickException {
 		
 		if(namePlayer.stringFilled == true){
@@ -88,14 +99,14 @@ public class NameMenu {
 		if(showMenu){
 			background.setHeight(mainItems.length*32);
 		}
-		if(input.isKeyPressed(Input.KEY_W)){ // nach oben
+		if(input.isKeyPressed(Input.KEY_W)){ //cursor up
 			if(cursor.getCenterY() > 86){
 				cursor.setY(cursor.getY() - 32);
 			}
 			else{
 				cursor.setCenterY(182);
 			}
-		}else if(input.isKeyPressed(Input.KEY_S)){ // nach unten
+		}else if(input.isKeyPressed(Input.KEY_S)){ // cursor down
 			if(cursor.getCenterY() < background.getMaxY()- 64){
 				cursor.setY(cursor.getY() + 32);
 			}
@@ -106,19 +117,19 @@ public class NameMenu {
 		
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 		if(showMenu){
-			if(cursor.getCenterY() == 86){ //neuer Name
+			if(cursor.getCenterY() == 86){ //new name
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				showTextField = true;
 				resetCursor();
-			}else if(cursor.getCenterY() == 118){ //Rot
+			}else if(cursor.getCenterY() == 118){ //FRANZ
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[2];
 				resetCursor();
-			}else if(cursor.getCenterY() == 150){ //Ash
+			}else if(cursor.getCenterY() == 150){ //TONI
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[3];
 				resetCursor();
-			}else if(cursor.getCenterY() == 182){ //Jack
+			}else if(cursor.getCenterY() == 182){ //SEPP
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[4];
 				resetCursor();
@@ -127,19 +138,23 @@ public class NameMenu {
 	}
 		
 		if(showTextField){
-			namePlayer.init(gc);
+			namePlayer.init(gc); 
 			namePlayer.update(gc, delta);
 		}
-		
 	}
 	}
+	
+	/** Renders the NameMenu
+	 * 
+	 * @param g the current graphics context
+	 */
 	
 	public void render(Graphics g) {
 	
 		if(showMenu){
 			g.setColor(Color.white);
 			g.drawRect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
-			for(int i = 0, j = backgroundY - 15; i < mainItems.length; i++, j += 32){
+			for(int i = 0, j = backgroundY - 15; i < mainItems.length; i++, j += 32){// renders the different names at the right position
 				g.drawString(mainItems[i], background.getCenterX()-g.getFont().getWidth(mainItems[i])/2, j-g.getFont().getHeight(mainItems[i])/2);
 			}
 		}
@@ -150,7 +165,9 @@ public class NameMenu {
 		g.fill(cursor);
 	}
 
-	
+	/**resets the cursor in the GameMenu to the first item
+	 * 
+	 */
 private void resetCursor(){
 	cursor.setLocation(backgroundX+16, 80);
 	}

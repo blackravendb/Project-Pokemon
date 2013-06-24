@@ -1,10 +1,9 @@
 package de.pokemon;
 
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -14,16 +13,23 @@ import org.newdawn.slick.gui.TextField;
 public class Name implements ComponentListener {
 
 	/** The text field */
-	private TextField field;
+	public TextField field;
 	/** the name of the player*/
 	public String string;
 	/** true if the player chose his name*/
 	public boolean stringFilled;
 	
+	/**Constructor of the NameMenu
+	 *
+	 */
 	public Name() {
-		
 	}
 
+	/**Initialises Name
+	 * 
+	 * @param container the container holding the game
+	 * 
+	 */
 	public void init(GameContainer container) throws SlickException {
 		field = new TextField(container, container.getDefaultFont(), 250, 80, 100, 20);
 		field.addListener(this);
@@ -33,19 +39,35 @@ public class Name implements ComponentListener {
 		stringFilled = false;
 	}
 
+	/** Renders Name
+	 * 
+	 * @param container the container holding the game
+	 * @param g the current graphics context
+	 */
 	public void render(GameContainer container, Graphics g) {
 		
 			field.render(container, g);
 	}
 
+	/** Updates Name
+	 * 
+	 * @param container the container holding the game
+	 * @param delta the number of milliseconds between frames
+	 * 
+	 */
 	public void update(GameContainer container, int delta) {
 		
 	}
 
 	
+	
+	/**is called when the Enter_Key is pressed and saves the input of the Textfield
+	 *
+	 * @param source
+	 */
 	@Override
-	public void componentActivated(AbstractComponent source) {
-		string = field.getText(); //funktioniert!
+	public void componentActivated(AbstractComponent source) { 
+		string = field.getText(); 
 		stringFilled = true;
 	}
 

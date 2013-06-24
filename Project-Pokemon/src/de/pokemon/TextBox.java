@@ -27,9 +27,9 @@ public class TextBox {
 	private int mem;
 	
 	/** length of the string*/
-	private int length;  // Länge des übergebenen Strings
+	private int length;  
 	/** maximum length from one part of the string*/
-	private float maxLength; // maximallänge eines Teilstrings
+	private float maxLength;
 	
 	/** counter which counts the changes of the divided string*/
 	private int changeStrings;
@@ -37,14 +37,14 @@ public class TextBox {
 	private boolean textBoxInc;
 	
 	/** divided strings */
-	private String[] string; // geteilte Strings
+	private String[] string; 
 	/** committed string */
-	private String text; //übergebener String
+	private String text; 
 	
 	/** x-coordinate of the string in the TextBox */
 	private int stringx;
 	/** different y-coordinates of the divided string in the TextBox */
-	private int[] stringY; //y-Koordinaten der Strings
+	private int[] stringY; 
 	
 	/** background color of the textBox */
 	private Color colorBackground;
@@ -63,9 +63,16 @@ public class TextBox {
 	/** rules if the triangle is shown or not */
 	private long counter;
 	
+	/**Initialises the TextBox
+	 * 
+	 * @param text committed String
+	 * @param colorBackground the color of the background
+	 * @param colorFont the color of the font
+	 * @param gc the container holding the game
+	 */
 	public TextBox(String text, Color colorBackground, Color colorFont, GameContainer gc){
 		
-		this.text = text; // übergebener Text
+		this.text = text; 
 		
 		this.colorBackground = colorBackground;
 		this.colorFont = colorFont;
@@ -73,18 +80,18 @@ public class TextBox {
 		update = true;
 		
 		rectWidth = gc.getWidth()/2;
-		rectHeight = gc.getHeight()/6; // noch auf 3 Zeilen anpassen!
+		rectHeight = gc.getHeight()/6; 
 		rectX = (gc.getWidth() - rectWidth)/2; 
 		rectY = (gc.getHeight() - rectHeight) - 50;
 		
 		background = new Rectangle(rectX, rectY, rectWidth, rectHeight);
-		length = text.length() * 8; // *6 && ändern, wenn Font eingeblendet wird!
+		length = text.length() * 8; 
 		maxLength = rectWidth - 80;
 	
 		changeStrings = 0;
 		textBoxInc = true;
 		
-		stringx =  rectX + 10; // x bleibt immer gleich
+		stringx =  rectX + 10; 
 		stringY = new int[3];
 		stringY[0] = rectY + 10;
 		for(int i=1; i <= 2; i++){
@@ -99,37 +106,40 @@ public class TextBox {
 		
 		splitText(text);
 		
-	} // wird erzeugt!
+	} 
 	
-	private void splitText (String text){ // Teilt den String in die verschiedenen Teile auf
-		string = new String[(int) (Math.ceil(length/maxLength))]; // rundet automatisch immer auf
-		System.out.println("länge string: " + length);
-		System.out.println("maximale Länge: " + maxLength);
-		System.out.println("string array länge: " + string.length);
+	/**splits the committed string and buffers it in an array of strings
+	 *
+	 * @param text committed string
+	 * 
+	 */
+	private void splitText (String text){
+		string = new String[(int) (Math.ceil(length/maxLength))]; //the length of the array depends on the length of the commited string
 		
 		StringBuffer buffer;
 		StringTokenizer tokenizer = new StringTokenizer(text);
 		
-			for(int i = 0; i < string.length; i++){ 
+			for(int i = 0; i < string.length; i++){ //loops through the stringarray
 				buffer = new StringBuffer();
 				while(((buffer.toString().length()) * 9)  < maxLength && tokenizer.hasMoreTokens()){
-					buffer.append((tokenizer.nextToken() + " ")); //speichert jeden Token in den buffer
+					buffer.append((tokenizer.nextToken() + " ")); //saves every token in a buffer
 					}
-				string[i] = buffer.toString();
-				System.out.println("string[i]: " + string[i]);
-				System.out.println("maxLength: " + maxLength);
-				System.out.println("buffer länge: " + buffer.toString().length()); //buffer Länge stimmt nicht; jetzt *9
-				System.out.println("string.length: " + string.length);
+				string[i] = buffer.toString(); // saves the part of the string in a stringarray
 			}
 	}
 	
+	/**changes the text which is shown in the TextBox
+	 *
+	 * @param p string which should be shown in the TextBox
+	 * 
+	 */
 	public void setText (String p){
 		
 		
 		text = p;
 		update = true;
 		
-		length = p.length() * 8; // *6 && ändern, wenn Font eingeblendet wird!
+		length = p.length() * 8; 
 		
 		changeStrings = 0;
 		
@@ -144,23 +154,29 @@ public class TextBox {
 		
 	}
 	
+	/**Updates the TextBox, e.g. cursor position, processes Input
+	 *
+	 * @param input input of the IntroState
+	 * @param delta delta of the IntroState
+	 */
+	
 	public void update(Input input, int delta){
 
 		if(update == true){
 			
-		if(string.length == 1 && changeStrings == 1 && textBoxInc == true){ //ändert die TextBox bei Länge 1
+		if(string.length == 1 && changeStrings == 1 && textBoxInc == true){ //changes TextBox if the length of the stringarray == 1
 			textBox += 1;
 			textBoxInc = false;
 			}
 		
-		else if(string.length == 2 && changeStrings == 1){ //ändert die TextBox bei Länge 2
+		else if(string.length == 2 && changeStrings == 1){//changes TextBox if the length of the stringarray == 2
 			if(textBoxInc == true){
 				textBox += 1;
 				textBoxInc = false;
 			}
 		}
 		
-		for(int k = 0; k <= 2; k++){ // ändert die TextBox bei Länge > 2
+		for(int k = 0; k <= 2; k++){ // //changes TextBox if the length of the stringarray > 2
 			if(string.length >= 3 && changeStrings > string.length - 3 && textBoxInc == true){
 				textBox += 1;
 				System.out.println("textBox: " + textBox);
@@ -168,7 +184,7 @@ public class TextBox {
 				}
 			}
 		
-		 // counter regelt, dass "weiter" nur jede Sekunde angezeigt wird
+		 // counter rules that next is shown every second
 			if (counter <= 1000){
 			counter += delta;
 			}else{
@@ -180,9 +196,9 @@ public class TextBox {
 				showTriangle = false;
 			}
 		
-		next.setLocation(rectX + rectWidth - 10, stringY[2] + 5); //setzt das Dreieck nach rechts unten
+		next.setLocation(rectX + rectWidth - 10, stringY[2] + 5); //sets the location of the triangle
 		
-		if(input.isKeyPressed(Input.KEY_ENTER)){ //beim drücken von Enter werden die Strings nach oben verschoben
+		if(input.isKeyPressed(Input.KEY_ENTER)){ //if you press Enter the strings are scrolling up
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				changeStrings++;
 				System.out.println("changeStrings: " + changeStrings);
@@ -191,6 +207,10 @@ public class TextBox {
 		}
 	}
 	
+	/** Renders the Textbox
+	 * 
+	 * @param g the current graphis context
+	 */
 	public void render(Graphics g){
 		g.setColor(colorBackground);
 		g.fill(background);
@@ -209,7 +229,7 @@ public class TextBox {
 		
 		else if(string.length > 2){
 			
-		for(int k = 0; k <= 2; k++){ // ändert die Position der Strings
+		for(int k = 0; k <= 2; k++){ //changes the position of the strings
 			if(string.length == 3){
 				g.drawString(string[k], stringx, stringY[k]);
 			}else if(changeStrings <= string.length - 3){

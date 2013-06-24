@@ -87,6 +87,13 @@ public class Menu extends BasicGameState{
 		ID = state;
 	}
 	
+	
+	/**Initialises the Menu
+	 * 
+	 * @param gc the container holding the game
+	 * @param sbg the game
+	 * 
+	 */
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		Sound.init();
@@ -138,6 +145,12 @@ public class Menu extends BasicGameState{
 		musicStart = true;
 	}
 	
+
+	/** Renders the Menu
+	 * @param gc the container holding the game
+	 * @param sbg the game
+	 * @param g the current graphics context
+	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException{
 		g.setColor(Color.white);
@@ -148,12 +161,20 @@ public class Menu extends BasicGameState{
 		g.drawString("Lon", loadGameX, loadGameY);
 		g.drawString("Servus!", quitX, quitY);
 		g.fill(cursor);
-		g.drawRect(rectX, rectY, rectWidth, rectHeight); //x,y, breite, höhe
+		g.drawRect(rectX, rectY, rectWidth, rectHeight); 
 		g.drawImage(pokemon, pokemonX, pokemonY);
 		g.drawImage(logo, logoX, logoY);
 		
 	}
 	
+	
+	/** Updates the Menu, e.g. processes Input, animation
+	 * 
+	 * @param gc the container holding the game
+	 * @param sbg the game
+	 * @param delta the number of milliseconds between frames
+	 * 
+	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException{
 		
@@ -164,7 +185,7 @@ public class Menu extends BasicGameState{
 			musicStart = false;
 		}
 		
-		if(logoX > logoXEnd && sliding == true){ // Logo Animation
+		if(logoX > logoXEnd && sliding == true){ // animation of the logo
 			logoX -= 4;
 		}
 		else{
@@ -194,23 +215,23 @@ public class Menu extends BasicGameState{
 		
 		if(input.isKeyPressed(Input.KEY_ENTER)){
 			Sound.audioMenu.stop();
-			if(cursorY == continueY + 4){ //Spiel fortsetzen
+			if(cursorY == continueY + 4){ //continue game
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);	
 				sbg.enterState(Core.play);
 				}
 
-			else if(cursorY == newGameY + 4){ // neues Spiel
+			else if(cursorY == newGameY + 4){ // new game
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					sbg.getState(Core.intro).init(gc, sbg);
 					sbg.enterState(Core.intro);
 				}
 			
-			else if(cursorY == loadGameY + 4){ //Spiel laden
+			else if(cursorY == loadGameY + 4){ //load game
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					//TODO
 			}
 	
-			else if(cursorY == quitY + 4){ //Spiel beenden
+			else if(cursorY == quitY + 4){ //quit game
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					System.exit(0);
 			}
@@ -219,6 +240,10 @@ public class Menu extends BasicGameState{
 	}
 }
 	
+	/**Sets the ID of this state
+	 * 
+	 * @param id
+	 */
 	public int getID(){
 		return ID;
 	}
