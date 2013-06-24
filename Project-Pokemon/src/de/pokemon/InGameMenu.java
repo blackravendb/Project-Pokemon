@@ -128,11 +128,11 @@ public class InGameMenu {
 						showDebug = true;
 					}else if(cursor.getCenterY() == 112){ //Musi
 						if(gc.isSoundOn()){
-							//gc.setMusicOn(false);   //weird behaviour current audio is saved and gets relooped
+							gc.setMusicOn(false);   //weird behaviour current audio is saved and gets relooped
 							gc.setSoundOn(false);
 							mainItems.set(3, "Musi: Aus");
 						}else{
-							//gc.setMusicOn(true);
+							gc.setMusicOn(true);
 							gc.setSoundOn(true);
 							mainItems.set(3, "Musi: O");
 						}	
