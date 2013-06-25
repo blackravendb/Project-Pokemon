@@ -1,6 +1,8 @@
 package de.pokemon;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.regex.Pattern;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.tiled.GroupObject;
@@ -9,12 +11,11 @@ public class EventManager {
 	
 	PlayState playState;
 	Player player;
+	String dialog;
+	String npcName;
 	
 	ArrayList<EventStruct> events;
-	
-	
-	
-	
+
 	EventManager(PlayState playState){
 		this.playState = playState;
 		events = new ArrayList<EventStruct>();
@@ -40,8 +41,23 @@ public class EventManager {
 		
 		for(EventStruct entries : events){
 			if( entries.isOnPosition(tileX, tileY)){
-				//Starte Event
-				System.out. println("blub");
+				dialog = entries.getCurrentDialog();
+					
+				if(dialog.endsWith("[setStage]")){
+				//	npcName = dialog.split("|")[0]
+					npcName= dialog.split(Pattern.quote("|"))[1];
+					dialog = dialog.split(Pattern.quote("|"))[0];
+					if(npcName != null)
+						System.out.println("NPC Name: " + npcName);
+				//	dialog=dialog.substring(npcName.length()+1, dialog.length()-npcName.length()-9);
+					for(EventStruct npc : events){
+						if(npc.getName().equals(npcName)){
+							npc.increaseStage();
+							break;
+						}						
+					}
+				}
+				System.out. println(entries.getCurrentDialog());
 			}
 		}
 	}
@@ -88,11 +104,4 @@ public class EventManager {
 			//blub
 		}
 	}
-	
-	
-	//wird benötigt?
-	public void initPlayState(){
-		
-	}
-
 }

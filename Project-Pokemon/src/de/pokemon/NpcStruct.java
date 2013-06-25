@@ -4,6 +4,7 @@ public class NpcStruct {
 	private String name;
 	private String imagePath;
 	private int[][] route;
+	private Event event;
 	/**
 	 * @param route
 	 *            (int[][]) Laufroute des Npc's: erstes Array Art der Bewegung
@@ -16,10 +17,11 @@ public class NpcStruct {
 	 * @param imagePath
 	 *            (String) Pfad zum Animationsbild
 	 */
-	NpcStruct(String name, String imagePath, int[][] route) {
+	NpcStruct(String name, String imagePath, int[][] route, Event event) {
 		this.name = name;
 		this.imagePath = imagePath;
 		this.route = route;
+		this.event = event;
 	}
 
 	public String getName() {
@@ -32,5 +34,13 @@ public class NpcStruct {
 
 	public int[][] getNpcRoute() {
 		return route;
+	}
+	
+	public String[] getDialog(){
+		return event.getText();
+	}
+	
+	public String[] getModifyStage (){
+		return event.getModifyStage();
 	}
 }
