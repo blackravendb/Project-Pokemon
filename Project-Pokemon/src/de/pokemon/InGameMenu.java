@@ -31,7 +31,7 @@ public class InGameMenu {
 	private int y;
 	/** width of the menu, is 1/4 of the game canvas*/
 	private int width;
-	/**	true if Debug Menu is open*/
+	/**	true if Debugn Menu is open*/
 	private boolean showDebug;
 	/** true if Main Menu is open*/
 	private boolean showMain;
@@ -46,11 +46,11 @@ public class InGameMenu {
 	/** the triangle cursor*/
 	private Polygon cursor;
 	/** the main menu items */
-	private final List<String> mainItems  = Arrays.asList("Menu", "Resume", "Debug", "Save", "Exit");
-	//private final String[] mainItems = {"Menu", "Resume", "Debug", "Save", "Exit"};
+	private final List<String> mainItems  = Arrays.asList("Menu", "Weidaspuin", "Debugn", "Musi: O", "Beendn");
+	//private final String[] mainItems = {"Menu", "Weidaspuin", "Debugn", "Musi", "Beendn"};
 	/** the debug submenu items */
-	private final List<String> debugItems  = Arrays.asList("Debug", "FPS", "Grid", "Blocked", "Position", "Back");
-	//private final String[] debugItems = {"Debug", "FPS", "Grid", "Blocked", "Position", "Back"};
+	private final List<String> debugItems  = Arrays.asList("Debugn", "FPS", "Grid", "Blocked", "Position", "Zruck");
+	//private final String[] debugItems = {"Debugn", "FPS", "Grid", "Blocked", "Position", "Zruck"};
 	/** the points for the triangle in x,y order*/
 	private final float[] cursorPoints = new float[]{0,0,8,8,0,16};
 	/** height of one item in the menu*/
@@ -107,7 +107,7 @@ public class InGameMenu {
 			if(input.isKeyPressed(Input.KEY_W)){
 				if(cursor.getCenterY() > 48){
 					cursor.setY(cursor.getY() - itemHeight);
-				}else{  //jump to exit
+				}else{  //jump to Beendn
 					cursor.setCenterY(background.getMaxY()-16);
 				}
 			}else if(input.isKeyPressed(Input.KEY_S)){
@@ -120,15 +120,23 @@ public class InGameMenu {
 
 			if(input.isKeyPressed(Input.KEY_ENTER)){
 				if(showMain){
-					if(cursor.getCenterY() == 48){ //RESUME
+					if(cursor.getCenterY() == 48){ //Weidaspuin
 						sliding = true;
 					}else if(cursor.getCenterY() == 80){ //DEBUG
 						showMain = false;
 						resetCursor();
 						showDebug = true;
-					}else if(cursor.getCenterY() == 112){ //SAVE
-						//TODO Saving the game
-					}else if(cursor.getCenterY() == 144){ //EXIT
+					}else if(cursor.getCenterY() == 112){ //Musi
+						if(gc.isSoundOn()){
+							gc.setMusicOn(false);   //weird behaviour current audio is saved and gets relooped
+							gc.setSoundOn(false);
+							mainItems.set(3, "Musi: Aus");
+						}else{
+							gc.setMusicOn(true);
+							gc.setSoundOn(true);
+							mainItems.set(3, "Musi: O");
+						}	
+					}else if(cursor.getCenterY() == 144){ //Beendn
 						resetCursor();
 						showMenu = false;
 						showMain = false;
@@ -165,7 +173,7 @@ public class InGameMenu {
 					}else if(cursor.getCenterY() == 176){ // BACK
 						showDebug = false;
 						showMain = true;
-						cursor.setCenterY(mainItems.indexOf("Debug")*itemHeight+16);
+						cursor.setCenterY(mainItems.indexOf("Debugn")*itemHeight+16);
 					}
 				}
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
@@ -177,7 +185,7 @@ public class InGameMenu {
 				}else if(showDebug){
 					showDebug = false;
 					showMain = true;
-					cursor.setCenterY(mainItems.indexOf("Debug")*itemHeight+16);
+					cursor.setCenterY(mainItems.indexOf("Debugn")*itemHeight+16);
 				}
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				

@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 
 
@@ -37,7 +38,7 @@ public class PlayState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
-		
+
 		ResourceManager.init();
 		event = new EventManager(this);
 		map = new Map("House", event);
@@ -87,14 +88,13 @@ public class PlayState extends BasicGameState {
 		if(menu.showMenu || menu.sliding){
 			menu.render(g);
 		}
-		
+
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
-		
-		
+
 		//if menu is not open and not sliding in or out process normal input 
 		if(!menu.showMenu && !menu.sliding){
 			player.updatePlayer(input);			
@@ -103,7 +103,7 @@ public class PlayState extends BasicGameState {
 				camera = new Camera(gc, map);
 			}
 			camera.centerOn(player);
-			
+
 			if(player.isStanding){
 				if(input.isKeyPressed(Input.KEY_ESCAPE)){
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
@@ -123,4 +123,14 @@ public class PlayState extends BasicGameState {
 		return ID;
 	}
 
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		Log.info("play is called");
+		if(!Sound.audioInGame.playing()){
+			Sound.audioInGame.loop();
+		}
+	}
+	
+	public void leave(GameContainer container, StateBasedGame game) throws SlickException {
+		Sound.audioInGame.stop();
+	}
 }
