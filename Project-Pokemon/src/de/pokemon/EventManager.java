@@ -1,10 +1,10 @@
 package de.pokemon;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.tiled.GroupObject;
+
 
 public class EventManager {
 	
@@ -53,7 +53,22 @@ public class EventManager {
 						}
 					}
 				}
-					
+				if(currentView == Input.KEY_A){
+					System.out.println("blub");
+					entries.getReference().setLastDir(Input.KEY_D);
+				}
+				else if(currentView == Input.KEY_W){
+					System.out.println("blub2");
+					entries.getReference().setLastDir(Input.KEY_S);
+				}
+				else if(currentView == Input.KEY_D){
+					System.out.println("blub3");
+					entries.getReference().setLastDir(Input.KEY_A);
+				}
+				else if(currentView == Input.KEY_S){
+					System.out.println("blub4");
+					entries.getReference().setLastDir(Input.KEY_W);
+				}
 				playState.setDialogString(dialog);
 //				if(dialog.endsWith("[setStage]")){
 //				//	npcName = dialog.split("|")[0]

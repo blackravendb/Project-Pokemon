@@ -18,7 +18,7 @@ public class Entity {
 	protected EventManager event;
 	
 	/** Enum Feld für die vier Bewegungsrichtungen */
-	protected enum Direction {
+	private enum Direction {
 		DOWN, LEFT, UP, RIGHT, NULL
 	};
 
@@ -322,6 +322,21 @@ public class Entity {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	public void setLastDir(int input){
+		if(input == Input.KEY_A){
+			lastDir=Direction.LEFT;
+		}
+		else if (input == Input.KEY_S){
+			lastDir=Direction.RIGHT;
+		}
+		else if(input == Input.KEY_W){
+			lastDir=Direction.UP;
+		}
+		else if(input == Input.KEY_S){
+			lastDir = Direction.DOWN;
+		}
 	}
 
 	public int getWidth() {
