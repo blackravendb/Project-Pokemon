@@ -1,6 +1,7 @@
 package de.pokemon;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -11,7 +12,9 @@ import java.util.StringTokenizer;
 public class TextBox {
 	/** set to true if TextBox should update*/
 	boolean update;
-
+	
+	Font font;
+	
 	/** x-coordinate of the frame*/
 	private int rectX;
 	/** y-coordinate of the frame */
@@ -89,7 +92,9 @@ public class TextBox {
 		background = new Rectangle(rectX, rectY, rectWidth, rectHeight);
 		length = (gc.getDefaultFont().getWidth(text)); //text.length() * 8; 
 		maxLength = rectWidth - 80;
-
+	
+		font = gc.getDefaultFont();
+		
 		changeStrings = 0;
 		textBoxInc = true;
 
@@ -124,7 +129,7 @@ public class TextBox {
 
 		for(int i = 0; i < string.length; i++){ //loops through the stringarray
 			buffer = new StringBuffer();
-			while(((buffer.toString().length()) * 9)  < maxLength && tokenizer.hasMoreTokens()){
+			while((font.getWidth(buffer.toString())) < maxLength && tokenizer.hasMoreTokens()){ //*9 ändern!
 				buffer.append((tokenizer.nextToken() + " ")); //saves every token in a buffer
 			}
 			string[i] = buffer.toString(); // saves the part of the string in a stringarray
