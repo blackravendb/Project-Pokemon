@@ -23,6 +23,8 @@ public class TextBox {
 
 	/** counter which ruels, the changes of the TextBox*/
 	public int textBox;
+	/** true => End of the Textbox */
+	boolean end;
 	/** remembers the last value of changeStrings if changeStrings > string.length - 3*/
 	private int mem;
 
@@ -103,7 +105,8 @@ public class TextBox {
 		counter = 0;
 
 		textBox = 0;
-
+		end = false;
+		
 		splitText(text);
 
 	} 
@@ -166,12 +169,14 @@ public class TextBox {
 
 			if(string.length == 1 && changeStrings == 1 && textBoxInc == true){ //changes TextBox if the length of the stringarray == 1
 				textBox += 1;
+				end = true;
 				textBoxInc = false;
 			}
 
 			else if(string.length == 2 && changeStrings == 1){//changes TextBox if the length of the stringarray == 2
 				if(textBoxInc == true){
 					textBox += 1;
+					end = true;
 					textBoxInc = false;
 				}
 			}
@@ -179,6 +184,7 @@ public class TextBox {
 			for(int k = 0; k <= 2; k++){ // //changes TextBox if the length of the stringarray > 2
 				if(string.length >= 3 && changeStrings > string.length - 3 && textBoxInc == true){
 					textBox += 1;
+					end = true;
 					System.out.println("textBox: " + textBox);
 					textBoxInc = false;
 				}
@@ -247,7 +253,14 @@ public class TextBox {
 			g.fill(next);
 		}
 	}
-}
 
+	public boolean end(){
+		if(end == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
 
 
