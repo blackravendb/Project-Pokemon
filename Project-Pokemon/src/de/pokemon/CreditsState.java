@@ -31,7 +31,7 @@ public class CreditsState extends BasicGameState {
 	
 	private Animation animation;
 	
-	private String area[] = new String[15];
+	private String area[] = new String[13];
 	private String name[] = new String[5];
 	private int textX;
 	private int textY;
@@ -63,21 +63,19 @@ public class CreditsState extends BasicGameState {
 		animation = new Animation(trainer, 100, true);
 		animation.setAutoUpdate(true);
 		
-		area[0] = "Blabla"; //Director
-		area[1] = "Intro";
-		area[2] = "Mapdesigner";
-		area[3] = "Graphic Artist";
-		area[4] = "Debugfunctions";
-		area[5] = "Mapprogramming";
-		area[6] = "Mapmovement";
-		area[7] = "Actionfields";
-		area[8] = "Startmenu";
-		area[9] = "Talkings";
-		area[10] = "Movement";
-		area[11] = "Credits";
-		area[12] = "NPCs";
-		area[13] = "Deserteur";
-		
+		area[0] = "Intro";
+		area[1] = "Mapdesigner";
+		area[2] = "Debugfunctions";
+		area[3] = "Mapprogramming";
+		area[4] = "Mapmovement";
+		area[5] = "Actionfields";
+		area[6] = "Startmenu";
+		area[7] = "Talkings";
+		area[8] = "Movement";
+		area[9] = "Credits";
+		area[10] = "NPCs";
+		area[11] = "Deserteur";
+		area[12] = "ENDE";
 		
 		name[0] = "Dennis Brandmüller";
 		name[1] = "Oliver Alraun";
@@ -108,19 +106,20 @@ public class CreditsState extends BasicGameState {
 		if(state == 1){
 			sliding = true;
 			g.drawString(area[0], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(name[1], textX, nameY[0]);
 		}
 		
 		else if(state == 2){
 			sliding = true;
 			g.drawString(area[1], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
+			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(name[2], textX, nameY[1]);
 		}
 		
 		else if(state == 3){
 			sliding = true;
 			g.drawString(area[2], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(name[1], textX, nameY[0]);
 			g.drawString(name[2], textX, nameY[1]);
 		}
 		else if(state == 4){
@@ -132,30 +131,29 @@ public class CreditsState extends BasicGameState {
 		else if(state == 5){
 			sliding = true;
 			g.drawString(area[4], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
+			g.drawString(name[0], textX, nameY[0]);
 			g.drawString(name[2], textX, nameY[1]);
 		}
 		else if(state == 6){
 			sliding = true;
 			g.drawString(area[5], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
-			g.drawString(name[2], textX, nameY[1]);
+			g.drawString(name[2], textX, nameY[0]);
 		}
 		else if(state == 7){
 			sliding = true;
 			g.drawString(area[6], textX, textY);
-			g.drawString(name[2], textX, nameY[0]);
+			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(name[2], textX, nameY[1]);
 		}
 		else if(state == 8){
 			sliding = true;
 			g.drawString(area[7], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
-			g.drawString(name[2], textX, nameY[1]);
+			g.drawString(name[1], textX, nameY[0]);
 		}
 		else if(state == 9){
 			sliding = true;
 			g.drawString(area[8], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
+			g.drawString(name[0], textX, nameY[0]);
 		}
 		else if(state == 10){
 			sliding = true;
@@ -165,22 +163,20 @@ public class CreditsState extends BasicGameState {
 		else if(state == 11){
 			sliding = true;
 			g.drawString(area[10], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(name[1], textX, nameY[0]);
 		}
 		else if(state == 12){
 			sliding = true;
 			g.drawString(area[11], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
+			g.drawString(name[0], textX, nameY[0]);
 		}
 		else if(state == 13){
 			sliding = true;
 			g.drawString(area[12], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
 		}
 		else if(state == 14){
 			sliding = true;
-			g.drawString(area[13], textX, textY);
-			g.drawString(name[3], textX, nameY[0]);
+			//TODO ENDE
 		}
 	}
 	
@@ -217,6 +213,9 @@ public class CreditsState extends BasicGameState {
 		if (!isPlayingMusic) {
 			Sound.audioCredits.loop();
 			isPlayingMusic = true;
+		}
+		if(state == 13 && input.isKeyPressed(input.KEY_ENTER)){
+			System.exit(0);
 		}
 		}
 		

@@ -87,7 +87,7 @@ public class TextBox {
 		rectY = (gc.getHeight() - rectHeight) - 50;
 
 		background = new Rectangle(rectX, rectY, rectWidth, rectHeight);
-		length = text.length() * 8; 
+		length = (gc.getDefaultFont().getWidth(text)); //text.length() * 8; 
 		maxLength = rectWidth - 80;
 
 		changeStrings = 0;
