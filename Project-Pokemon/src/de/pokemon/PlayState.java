@@ -159,7 +159,6 @@ public class PlayState extends BasicGameState {
 	}
 	
 	public void setDialogString(String text){
-		map.updateNpcs(0, true);
 		textBox.setText(text);
 		showTextBox = true;
 	}
