@@ -13,6 +13,8 @@ public class Core extends StateBasedGame {
 	public static final int play = 1;
 	/** ID of the intro state */
 	public static final int intro = 2;
+	/** ID of the credit state */
+	public static final int credits = 3;
 	/** size of a single tile */
 	public static final int tileSize = 32;
 	/** width of the game canvas*/
@@ -45,9 +47,10 @@ public class Core extends StateBasedGame {
 	}
 
 	public void initStatesList(GameContainer gc) throws SlickException { 
-		this.addState(new Menu(menu)); // init() is also called when adding a state
+		this.addState(new MenuState(menu)); // init() is also called when adding a state
 		this.addState(new PlayState(play));
 		this.addState(new IntroState(intro));
+		this.addState(new CreditsState(credits));
 		this.enterState(menu);
 	}
 
