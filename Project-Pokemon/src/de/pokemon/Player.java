@@ -273,6 +273,7 @@ public class Player extends Entity {
 	 * @return void
 	 */
 	public void updatePlayer(Input input) {
+		System.out.println("blub");
 		// Wert aus input auslesen
 		keyInput = getKeyValue(input);
 
