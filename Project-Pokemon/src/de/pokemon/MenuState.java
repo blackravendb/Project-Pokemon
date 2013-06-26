@@ -248,7 +248,8 @@ public class MenuState extends BasicGameState {
 				else if (cursorY == creditsY + 4){ //Credits
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					isPlayingMusic = false;
-					sbg.getState(Core.credits).init(gc,  sbg);
+					Sound.audioMenu.stop();
+					sbg.getState(Core.credits).init(gc, sbg);
 					sbg.enterState(Core.credits);
 				}
 

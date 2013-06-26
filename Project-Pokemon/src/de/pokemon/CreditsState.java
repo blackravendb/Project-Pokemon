@@ -27,8 +27,7 @@ public class CreditsState extends BasicGameState {
 	private boolean sliding;
 	
 	/** counter which rules how long trainer has to need for sliding*/
-	private long counter_1;
-	private long counter_2;
+	private long counter;
 	
 	private Animation animation;
 	
@@ -38,6 +37,7 @@ public class CreditsState extends BasicGameState {
 	private int textY;
 	private int[] nameY = new int[4];
 	
+	private boolean isPlayingMusic;
 	
 	/**Sets the ID of this state
 	 * 
@@ -92,8 +92,9 @@ public class CreditsState extends BasicGameState {
 			nameY[x] = nameY[x-1] + 20; 
 		}
 		
-		counter_1 = 0;
-		counter_2 = 0;
+		counter = 0;
+		
+		isPlayingMusic = false;
 	}
 	
 	@Override
@@ -188,18 +189,18 @@ public class CreditsState extends BasicGameState {
 			throws SlickException {
 		Input input = gc.getInput();
 		
-		if(sliding == true && textX > (gc.getWidth() - gc.getGraphics().getFont().getWidth(area[k])) / 2){ //animation of the text (Position anpassen!)
+		if(sliding == true && textX > (gc.getWidth() - gc.getGraphics().getFont().getWidth(area[k])) / 2){ //animation of the text
 			textX -= 8;
 		}
 		else{
 			sliding = false;
-			if(counter_2 <= 3000){
-				counter_2 += delta;
+			if(counter <= 3000){
+				counter += delta;
 			}else{
 				if(textX > -200){
 					textX -= 8;
 				}else{
-				counter_2 = 0;
+				counter = 0;
 				textX = 660;
 				state += state;
 				k += k;
@@ -207,15 +208,15 @@ public class CreditsState extends BasicGameState {
 			}
 		}
 		
-		if(counter_1 <= 4000){
-			counter_1 += delta;
-		}
-		else { 
-			counter_1 = 0;
-		}
-		
 		if(input.isKeyPressed(input.KEY_ESCAPE)){
+			isPlayingMusic = false;
+			Sound.audioCredits.stop();
 			game.enterState(Core.menu);
+			
+		}
+		if (!isPlayingMusic) {
+			Sound.audioCredits.loop();
+			isPlayingMusic = true;
 		}
 		}
 		
