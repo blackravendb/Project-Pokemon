@@ -1,5 +1,6 @@
 package de.pokemon;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -28,6 +29,9 @@ public class PlayState extends BasicGameState {
 	private EventManager event;
 	/** used to sum up delta times and to run the game stable at FPS != 60 */
 	private int sum = 0;
+	private TextBox textBox;
+	private boolean showTextBox = false;
+
 	/**Sets the ID of this state
 	 * 
 	 * @param id
@@ -48,6 +52,7 @@ public class PlayState extends BasicGameState {
 		camera = new Camera(gc, map);
 		camera.centerOn(player);
 		menu = new InGameMenu(gc,game);
+		textBox = new TextBox("",Color.white,Color.black,gc);
 		input = gc.getInput();
 	}
 
@@ -89,6 +94,9 @@ public class PlayState extends BasicGameState {
 		if(menu.showMenu || menu.sliding){
 			menu.render(g);
 		}
+		if(showTextBox){ //TODO
+			textBox.render(g);
+		}
 
 	}
 
@@ -96,26 +104,32 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 		if(nextUpdate(delta)){
-			//if menu is not open and not sliding in or out process normal input 
-			if(!menu.showMenu && !menu.sliding){
-				player.updatePlayer(input);			
-				map = map.update(player,event);
-				if (map != camera.map) {
-					camera = new Camera(gc, map);
-				}
-				camera.centerOn(player);
+			//if menu is not open and not sliding in or out process normal input
+			if(!showTextBox){//TODO
+				if(!menu.showMenu && !menu.sliding){
+					player.updatePlayer(input);			
+					map = map.update(player,event);
+					if (map != camera.map) {
+						camera = new Camera(gc, map);
+					}
+					camera.centerOn(player);
 
-				if(player.isStanding){
-					if(input.isKeyPressed(Input.KEY_ESCAPE)){
-						Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
-						menu.sliding = true;
+					if(player.isStanding){
+						if(input.isKeyPressed(Input.KEY_ESCAPE)){
+							Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
+							menu.sliding = true;
+						}
 					}
 				}
+				map.updateNpcs(delta,!menu.showMenu && !menu.sliding);
+
+				menu.update(input);
+			} else {
+				textBox.update(input, delta);
+				if(textBox.end()){
+					showTextBox = false;
+				}
 			}
-			map.updateNpcs(delta,!menu.showMenu && !menu.sliding);
-
-			menu.update(input);
-
 			input.clearKeyPressedRecord();	
 		}
 	}
@@ -143,5 +157,10 @@ public class PlayState extends BasicGameState {
 			return true;
 		}
 		return false;
+	}
+	
+	public void setDialogString(String text){
+		textBox.setText(text);
+		showTextBox = true;
 	}
 }
