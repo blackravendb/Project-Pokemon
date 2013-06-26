@@ -154,6 +154,8 @@ public class TextBox {
 		textBoxInc = true;
 
 		splitText(p);
+		
+		end = false;
 
 	}
 
