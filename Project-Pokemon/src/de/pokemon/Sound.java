@@ -14,7 +14,7 @@ public class Sound {
 	public static Audio audioGlurak;
 	public static Audio audioTextBox;
 	public static Music audioMenu;
-	
+	public static Music audioInGame;
 	private static Audio currentAudio;
 	
 	private boolean isPlaying = false;
@@ -28,7 +28,7 @@ public class Sound {
 			audioTextBox = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/sounds/TextBox.wav"));
 			//audioMenu = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/Intro/MenüMusik.wav"));
 			audioMenu = new Music("res/Intro/MenüMusik.wav");
-			
+			audioInGame = new Music("res/sounds/Home-theme.ogg");
 		} catch (IOException | SlickException e) {
 			System.err.println("fail, while loading sound files");
 			e.printStackTrace();

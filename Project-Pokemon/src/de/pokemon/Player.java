@@ -63,7 +63,7 @@ public class Player extends Entity {
 
 	/**
 	 * Player Objekt Hauptfigur im Spiel. Wird über Key Eingaben gesteuert.
-	 * Übergabeparameter werden an Entity weitergegeben
+	 * Übergabeparameter werden an Entity weitergegeben.
 	 * 
 	 * @param posX
 	 *            (int) X-Position, wo der Player gerendert wird

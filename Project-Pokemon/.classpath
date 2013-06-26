@@ -12,5 +12,7 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Project-Pokemon/lib/jars/Slick/javadoc.zip!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/jars/Slick/lib/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/jars/Slick/lib/jorbis-0.0.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

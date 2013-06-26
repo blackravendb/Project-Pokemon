@@ -194,10 +194,9 @@ public class Menu extends BasicGameState {
 
 		Input input = gc.getInput();
 
-		if (!isPlayingMusic) {
+		if (!Sound.audioMenu.playing()) {
 			//Sound.audioMenu.playAsMusic(1.0f, 1.0f, true);
 			Sound.audioMenu.loop();
-			isPlayingMusic = true;
 		}
 
 		if (logoX > logoXEnd && sliding == true) { // animation of the logo
@@ -230,14 +229,14 @@ public class Menu extends BasicGameState {
 			if (input.isKeyPressed(Input.KEY_ENTER)) {
 				if (cursorY == continueY + 4) { // continue game
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
-					isPlayingMusic = false;
+					//isPlayingMusic = false;
 					Sound.audioMenu.stop();
 					sbg.enterState(Core.play);
 				}
 
 				else if (cursorY == newGameY + 4) { // new game
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
-					isPlayingMusic = false;
+					//isPlayingMusic = false;
 					Sound.audioMenu.stop();
 					sbg.getState(Core.intro).init(gc, sbg);
 					sbg.enterState(Core.intro);

@@ -4,21 +4,21 @@ public class EventStruct {
 	private int tileX;
 	private int tileY;
 	private String name;
-	private Entity reference;
+	private Entity entityReference;
 	
-	//Eventlevel
+	//Dialog Level
 	private int stage = 0;
 	
-	//Verschiedene Sprachsätze
-	private String[] text;
+	//Variable zum laden der Events
+	private String[] dialog;
 	
 	
-	EventStruct(Entity reference, String name, int tileX, int tileY){
-		this.reference = reference;
+	EventStruct(Entity entityReference, String name, int tileX, int tileY){
+		this.entityReference = entityReference;
 		this.name = name;
 		this.tileX = tileX;
 		this.tileY = tileY;
-		
+		dialog = ResourceManager.getDialog(name);
 	}
 	
 	public int getTileX(){
@@ -30,11 +30,7 @@ public class EventStruct {
 	}
 	
 	public Entity getReference(){
-		return reference;
-	}
-	
-	public String getText(int stage){
-		return text[stage];
+		return entityReference;
 	}
 	
 	public int getStage(){
@@ -53,12 +49,17 @@ public class EventStruct {
 		this.tileY = tileY;
 	}
 	
-	public void setStage(int stage){
-		this.stage = stage;
+	public void increaseStage(){
+		stage++;
+	}
+	
+	
+	public String getCurrentDialog(){
+		return dialog[stage];
 	}
 	
 	public void setReference (Entity reference){
-		this.reference = reference;
+		this.entityReference = reference;
 	}
 	
 	public boolean isOnPosition(int tileX, int tileY){
