@@ -12,6 +12,8 @@ public class EventStruct {
 	//Variable zum laden der Events
 	private String[] dialog;
 	
+	private String[] modifyStage;
+	
 	
 	EventStruct(Entity entityReference, String name, int tileX, int tileY){
 		this.entityReference = entityReference;
@@ -19,6 +21,7 @@ public class EventStruct {
 		this.tileX = tileX;
 		this.tileY = tileY;
 		dialog = ResourceManager.getDialog(name);
+		modifyStage = ResourceManager.getModifyStage(name);
 	}
 	
 	public int getTileX(){
@@ -39,6 +42,15 @@ public class EventStruct {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public String getModifyStage(){
+		if(modifyStage[stage] != null){
+			String temp = modifyStage[stage];
+			modifyStage[stage] = null;
+			return temp;
+		}
+		return null;	
 	}
 	
 	public void setTileX(int tileX){

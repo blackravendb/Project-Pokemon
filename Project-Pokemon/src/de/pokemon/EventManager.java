@@ -1,7 +1,6 @@
 package de.pokemon;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 import org.newdawn.slick.Input;
@@ -41,23 +40,38 @@ public class EventManager {
 		
 		for(EventStruct entries : events){
 			if( entries.isOnPosition(tileX, tileY)){
+				String modifyEntryName = entries.getModifyStage();
 				dialog = entries.getCurrentDialog();
+				
+				if(modifyEntryName != null){
 					
-				if(dialog.endsWith("[setStage]")){
-				//	npcName = dialog.split("|")[0]
-					npcName= dialog.split(Pattern.quote("|"))[1];
-					dialog = dialog.split(Pattern.quote("|"))[0];
-					if(npcName != null)
-						System.out.println("NPC Name: " + npcName);
-				//	dialog=dialog.substring(npcName.length()+1, dialog.length()-npcName.length()-9);
-					for(EventStruct npc : events){
-						if(npc.getName().equals(npcName)){
-							npc.increaseStage();
+					for(EventStruct modifyEntry: events){
+						if(modifyEntry.getName().equals(modifyEntryName)){
+							modifyEntry.increaseStage();
+							//Verlassen der for-Schleife (modify NPC gefunden)
 							break;
-						}						
+						}
 					}
 				}
-				System.out. println(entries.getCurrentDialog());
+					
+				playState.setDialogString(dialog);
+//				if(dialog.endsWith("[setStage]")){
+//				//	npcName = dialog.split("|")[0]
+//					npcName= dialog.split(Pattern.quote("|"))[1];
+//					dialog = dialog.split(Pattern.quote("|"))[0];
+//					if(npcName != null)
+//						System.out.println("NPC Name: " + npcName);
+//				//	dialog=dialog.substring(npcName.length()+1, dialog.length()-npcName.length()-9);
+//					for(EventStruct npc : events){
+//						if(npc.getName().equals(npcName)){
+//							npc.increaseStage();
+//							break;
+//						}						
+//					}
+//				}
+			//	System.out.println(entries.getCurrentDialog());
+				//Verlassen der for Schleife (NPC gefunden)
+				break;
 			}
 		}
 	}

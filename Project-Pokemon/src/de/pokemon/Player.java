@@ -231,7 +231,7 @@ public class Player extends Entity {
 			return Input.KEY_D;
 		else if (input.isKeyDown(Input.KEY_S))
 			return Input.KEY_S;
-		else if (input.isKeyDown(Input.KEY_ENTER))
+		else if (input.isKeyPressed(Input.KEY_ENTER))
 			return Input.KEY_ENTER;
 		else
 			return 0;
