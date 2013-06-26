@@ -159,7 +159,7 @@ public class PlayState extends BasicGameState {
 		return false;
 	}
 	
-	public void getDialogString(String text){
+	public void setDialogString(String text){
 		textBox.setText(text);
 		showTextBox = true;
 	}
