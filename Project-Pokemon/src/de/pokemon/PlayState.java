@@ -26,7 +26,8 @@ public class PlayState extends BasicGameState {
 	private Input input;
 	/** eventmanager reference*/
 	private EventManager event;
-
+	/** used to sum up delta times and to run the game stable at FPS != 60 */
+	private int sum = 0;
 	/**Sets the ID of this state
 	 * 
 	 * @param id
@@ -94,28 +95,29 @@ public class PlayState extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
+		if(nextUpdate(delta)){
+			//if menu is not open and not sliding in or out process normal input 
+			if(!menu.showMenu && !menu.sliding){
+				player.updatePlayer(input);			
+				map = map.update(player,event);
+				if (map != camera.map) {
+					camera = new Camera(gc, map);
+				}
+				camera.centerOn(player);
 
-		//if menu is not open and not sliding in or out process normal input 
-		if(!menu.showMenu && !menu.sliding){
-			player.updatePlayer(input);			
-			map = map.update(player,event);
-			if (map != camera.map) {
-				camera = new Camera(gc, map);
-			}
-			camera.centerOn(player);
-
-			if(player.isStanding){
-				if(input.isKeyPressed(Input.KEY_ESCAPE)){
-					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
-					menu.sliding = true;
+				if(player.isStanding){
+					if(input.isKeyPressed(Input.KEY_ESCAPE)){
+						Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
+						menu.sliding = true;
+					}
 				}
 			}
+			map.updateNpcs(delta,!menu.showMenu && !menu.sliding);
+
+			menu.update(input);
+
+			input.clearKeyPressedRecord();	
 		}
-		map.updateNpcs(delta,!menu.showMenu && !menu.sliding);
-
-		menu.update(input);
-
-		input.clearKeyPressedRecord();	
 	}
 
 	@Override
@@ -129,8 +131,17 @@ public class PlayState extends BasicGameState {
 			Sound.audioInGame.loop();
 		}
 	}
-	
+
 	public void leave(GameContainer container, StateBasedGame game) throws SlickException {
 		Sound.audioInGame.stop();
+	}
+
+	private boolean nextUpdate(int delta){
+		sum += delta;
+		if(sum > 15){
+			sum = 0;
+			return true;
+		}
+		return false;
 	}
 }
