@@ -52,7 +52,7 @@ public class ResourceManager {
 						new int[][] { { moveSequence.turnRight.ordinal(), 0 },
 								{ moveSequence.wait.ordinal(), 3000 },
 								{ moveSequence.turnUp.ordinal(), 0 },
-								{ moveSequence.wait.ordinal(), 3000 } }, null));
+								{ moveSequence.wait.ordinal(), 3000 } }, new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
 		/*
 		 * npcDatabase.put("biker", new NpcStruct("biker", imagePath +
 		 * "biker.png", null));
@@ -61,7 +61,7 @@ public class ResourceManager {
 				new NpcStruct("captain", imagePath + "captain.png",
 						new int[][] { { moveSequence.turnRight.ordinal(), 0 },
 								{ moveSequence.wait.ordinal(), 2147483647 } },
-						null));
+								new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
 		npcDatabase.put("deubler1",
 				new NpcStruct("deubler1", imagePath + "deubler.png",
 						new int[][] { { moveSequence.turnLeft.ordinal(), 0 },
@@ -71,13 +71,13 @@ public class ResourceManager {
 								{ moveSequence.turnRight.ordinal(), 0 },
 								{ moveSequence.wait.ordinal(), 1000 },
 								{ moveSequence.turnDown.ordinal(), 0 },
-								{ moveSequence.wait.ordinal(), 1000 } }, null));
+								{ moveSequence.wait.ordinal(), 1000 } }, new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
 		npcDatabase
 				.put("holzerarmee",
 						new NpcStruct("holzerarmee", imagePath
 								+ "holzerarmee.png", new int[][] { {
 								moveSequence.wait.ordinal(), 2147483647 } },
-								null));
+								new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
 
 		npcDatabase
 				.put("skateboader", new NpcStruct("skateboader", imagePath
@@ -85,19 +85,19 @@ public class ResourceManager {
 						{ moveSequence.moveUp.ordinal(), 3 },
 						{ moveSequence.moveLeft.ordinal(), 4 },
 						{ moveSequence.moveDown.ordinal(), 3 },
-						{ moveSequence.moveRight.ordinal(), 4 } }, null));
+						{ moveSequence.moveRight.ordinal(), 4 } }, new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
 
 		npcDatabase.put("student1",
 				new NpcStruct("student1", imagePath + "student1.png",
 						new int[][] { { moveSequence.turnLeft.ordinal(), 3 },
 								{ moveSequence.wait.ordinal(), 2147483647 } },
-						null));
+								new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
 
 		npcDatabase.put("student2",
 				new NpcStruct("student2", imagePath + "student2.png",
 						new int[][] { { moveSequence.turnRight.ordinal(), 3 },
 								{ moveSequence.wait.ordinal(), 2147483647 } },
-						null));
+								new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
 
 	}
 
