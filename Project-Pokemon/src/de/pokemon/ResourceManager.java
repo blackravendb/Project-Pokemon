@@ -4,7 +4,6 @@
 package de.pokemon;
 
 import java.util.HashMap;
-
 import de.pokemon.MoveSequence.moveSequence;
 
 /**
@@ -46,7 +45,7 @@ public class ResourceManager {
 										{ moveSequence.turnUp.ordinal(), 0 },
 										{ moveSequence.wait.ordinal(),
 												2147483647 } },
-								new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
+								new Event(new String[] { "Servus, du, dei Mutter is heid ganz auﬂer sich. Sie hat irgendwas vo Projekt und FH gsagt. Ich glaub du solltest moi mit ihr reddn." },new String[]{"mom"})));
 		npcDatabase.put("supervisor",
 				new NpcStruct("supervisor", imagePath + "supervisor.png",
 						new int[][] { { moveSequence.turnRight.ordinal(), 0 },
