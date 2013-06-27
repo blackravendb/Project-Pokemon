@@ -52,7 +52,7 @@ public class ResourceManager {
 						new int[][] { { moveSequence.turnRight.ordinal(), 0 },
 								{ moveSequence.wait.ordinal(), 3000 },
 								{ moveSequence.turnUp.ordinal(), 0 },
-								{ moveSequence.wait.ordinal(), 3000 } }, new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
+								{ moveSequence.wait.ordinal(), 3000 } }, new Event(new String[] { "Du kommst hier nicht rein. Durch das Hochwasser letzten Monats ist der komplette Berg abgerutscht und hat den Höhleneingang verschüttet." },new String[]{"mom"})));
 		/*
 		 * npcDatabase.put("biker", new NpcStruct("biker", imagePath +
 		 * "biker.png", null));
@@ -61,7 +61,7 @@ public class ResourceManager {
 				new NpcStruct("captain", imagePath + "captain.png",
 						new int[][] { { moveSequence.turnRight.ordinal(), 0 },
 								{ moveSequence.wait.ordinal(), 2147483647 } },
-								new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
+								new Event(new String[] { "Arrr, das Meer ist so ruhig heute. Ist denn schon wieder Weihnachten?" },new String[]{"skateboader"})));
 		npcDatabase.put("deubler1",
 				new NpcStruct("deubler1", imagePath + "deubler.png",
 						new int[][] { { moveSequence.turnLeft.ordinal(), 0 },
@@ -77,7 +77,7 @@ public class ResourceManager {
 						new NpcStruct("holzerarmee", imagePath
 								+ "holzerarmee.png", new int[][] { {
 								moveSequence.wait.ordinal(), 2147483647 } },
-								new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
+								new Event(new String[] { "" },new String[]{""})));
 
 		npcDatabase
 				.put("skateboader", new NpcStruct("skateboader", imagePath
@@ -85,7 +85,7 @@ public class ResourceManager {
 						{ moveSequence.moveUp.ordinal(), 3 },
 						{ moveSequence.moveLeft.ordinal(), 4 },
 						{ moveSequence.moveDown.ordinal(), 3 },
-						{ moveSequence.moveRight.ordinal(), 4 } }, new Event(new String[] { "Ja, mein Sohn, hast du schon mit deiner Mutter gesprochen?" },new String[]{"mom"})));
+						{ moveSequence.moveRight.ordinal(), 4 } }, new Event(new String[] { "Siehst du den alten Penner rechts? der redet nur komisches zeug", "Hab ichs dir nicht gesagt?" })));
 
 		npcDatabase.put("student1",
 				new NpcStruct("student1", imagePath + "student1.png",

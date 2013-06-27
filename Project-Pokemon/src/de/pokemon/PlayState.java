@@ -121,8 +121,6 @@ public class PlayState extends BasicGameState {
 						}
 					}
 				}
-				map.updateNpcs(delta,!menu.showMenu && !menu.sliding);
-
 				menu.update(input);
 			} else {
 				textBox.update(input, delta);
@@ -130,6 +128,7 @@ public class PlayState extends BasicGameState {
 					showTextBox = false;
 				}
 			}
+			map.updateNpcs(delta,!menu.showMenu && !menu.sliding && !showTextBox);
 			input.clearKeyPressedRecord();	
 		}
 	}
