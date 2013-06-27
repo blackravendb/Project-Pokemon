@@ -17,9 +17,21 @@ public class CreditsState extends BasicGameState {
 	
 	private int k;
 	
+	Image ende;
+	private int endeX;
+	private int endeY;
+	private int endeHeight;
+	private int endeWidth;
+	
+	private float deltaEndeTransparency;
+	private boolean endeAppearse;
+	
 	Image title;
 	private int titleX;
 	private int titleY;
+	
+	private float deltaTitleTransparency;
+	private boolean titleAppearse;
 	
 	private int state;
 	
@@ -31,7 +43,7 @@ public class CreditsState extends BasicGameState {
 	
 	private Animation animation;
 	
-	private String area[] = new String[13];
+	private String area[] = new String[14];
 	private String name[] = new String[5];
 	private int textX;
 	private int textY;
@@ -51,9 +63,21 @@ public class CreditsState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		
+		ende = new Image("res/CreditsState/Ende.png");
+		endeX = (gc.getWidth() - ende.getWidth())/2;
+		endeY = (gc.getHeight() - ende.getHeight())/2;
+		endeHeight = ende.getHeight();
+		endeWidth = ende.getWidth();
+		
+		deltaEndeTransparency = 0;
+		endeAppearse = false;
+		
 		title = new Image("res/CreditsState/Obspann.png");
 		titleX = (gc.getWidth() - title.getWidth()) / 2;
 		titleY = 0;
+		
+		titleAppearse = true;
+		deltaTitleTransparency = 0;
 		
 		state = 1;
 		
@@ -75,7 +99,7 @@ public class CreditsState extends BasicGameState {
 		area[9] = "Credits";
 		area[10] = "NPCs";
 		area[11] = "Deserteur";
-		area[12] = "ENDE";
+		area[12] = "Informatik 2";
 		
 		name[0] = "Dennis Brandmüller";
 		name[1] = "Oliver Alraun";
@@ -85,7 +109,7 @@ public class CreditsState extends BasicGameState {
 		textX = 660;
 		textY = gc.getHeight()/2;
 		
-		nameY[0] = textY + 20;
+		nameY[0] = textY + 30;
 		for(int x = 1; x <= 3; x++){
 			nameY[x] = nameY[x-1] + 20; 
 		}
@@ -99,84 +123,90 @@ public class CreditsState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame game, Graphics g)
 			throws SlickException {
 		
-		g.drawImage(title, titleX, titleY);
+		if(state != 14){
+			g.drawImage(title, titleX, titleY);
+			if(titleAppearse == false){
 		g.drawAnimation(animation, gc.getWidth()/2, gc.getHeight()/2 - 80);
+			}
+		}
 		
 		g.setColor(Color.yellow);
 		if(state == 1){
 			sliding = true;
-			g.drawString(area[0], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
+			g.drawString(area[0], textX, textY); //Intro
+			g.drawString(name[1], textX, nameY[0]); // Oliver Alraun
 		}
 		
 		else if(state == 2){
 			sliding = true;
-			g.drawString(area[1], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
-			g.drawString(name[2], textX, nameY[1]);
+			g.drawString(area[1], textX, textY); //Mapdesigner
+			g.drawString(name[0], textX, nameY[0]);// Dennis Brandmüller
+			g.drawString(name[2], textX, nameY[1]);//Lukas Schmitt
 		}
 		
 		else if(state == 3){
 			sliding = true;
-			g.drawString(area[2], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
-			g.drawString(name[2], textX, nameY[1]);
+			g.drawString(area[2], textX, textY);//Debugfunctions
+			g.drawString(name[1], textX, nameY[0]);//Oliver Alraun
+			g.drawString(name[2], textX, nameY[1]);//Lukas Schmitt
 		}
 		else if(state == 4){
 			sliding = true;
-			g.drawString(area[3], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
-			g.drawString(name[2], textX, nameY[1]);
+			g.drawString(area[3], textX, textY);//Mapprogramming
+			g.drawString(name[2], textX, nameY[0]);//Lukas Schmitt
 		}
 		else if(state == 5){
 			sliding = true;
-			g.drawString(area[4], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
-			g.drawString(name[2], textX, nameY[1]);
+			g.drawString(area[4], textX, textY);//Mapmovement
+			g.drawString(name[0], textX, nameY[0]);//Dennis Brandmüller
+			g.drawString(name[2], textX, nameY[1]);//Lukas Schmitt
 		}
 		else if(state == 6){
 			sliding = true;
-			g.drawString(area[5], textX, textY);
-			g.drawString(name[2], textX, nameY[0]);
+			g.drawString(area[5], textX, textY);//Actionfields
+			g.drawString(name[2], textX, nameY[0]);//Lukas Schmitt
 		}
 		else if(state == 7){
 			sliding = true;
-			g.drawString(area[6], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
-			g.drawString(name[2], textX, nameY[1]);
+			g.drawString(area[6], textX, textY);//Startmenu
+			g.drawString(name[1], textX, nameY[0]);//Oliver Alraun
 		}
 		else if(state == 8){
 			sliding = true;
-			g.drawString(area[7], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
+			g.drawString(area[7], textX, textY);//Talkings
+			g.drawString(name[1], textX, nameY[0]);//Oliver Alraun
+			g.drawString(name[0], textX, nameY[1]);//Dennis Brandmüller
 		}
 		else if(state == 9){
 			sliding = true;
-			g.drawString(area[8], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(area[8], textX, textY); //Movement
+			g.drawString(name[0], textX, nameY[0]);//Dennis Brandmüller
 		}
 		else if(state == 10){
 			sliding = true;
-			g.drawString(area[9], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(area[9], textX, textY);//Credits
+			g.drawString(name[1], textX, nameY[0]);//Oliver Alraun
 		}
 		else if(state == 11){
 			sliding = true;
-			g.drawString(area[10], textX, textY);
-			g.drawString(name[1], textX, nameY[0]);
+			g.drawString(area[10], textX, textY);//NPCs
+			g.drawString(name[0], textX, nameY[0]);//Dennis Brandmüller
 		}
 		else if(state == 12){
 			sliding = true;
-			g.drawString(area[11], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(area[11], textX, textY);//Deserteur
+			g.drawString(name[3], textX, nameY[0]);//Thomas Wenzel
 		}
 		else if(state == 13){
 			sliding = true;
 			g.drawString(area[12], textX, textY);
+			g.drawString(name[0], textX, nameY[0]);
+			g.drawString(name[1], textX, nameY[1]);
+			g.drawString(name[2], textX, nameY[2]);
 		}
 		else if(state == 14){
-			sliding = true;
-			//TODO ENDE
+			sliding = false;
+			g.drawImage(ende, endeX, endeY);
 		}
 	}
 	
@@ -185,6 +215,15 @@ public class CreditsState extends BasicGameState {
 			throws SlickException {
 		Input input = gc.getInput();
 		
+		if(deltaTitleTransparency < 1 && titleAppearse == true){
+			title.setAlpha(deltaTitleTransparency);
+			deltaTitleTransparency += 0.004f;
+		}
+		else{
+			titleAppearse = false;
+		}
+		
+		if(titleAppearse == false && endeAppearse == false){
 		if(sliding == true && textX > (gc.getWidth() - gc.getGraphics().getFont().getWidth(area[k])) / 2){ //animation of the text
 			textX -= 8;
 		}
@@ -193,14 +232,19 @@ public class CreditsState extends BasicGameState {
 			if(counter <= 3000){
 				counter += delta;
 			}else{
-				if(textX > -200){
+				if(textX > -300){
 					textX -= 8;
 				}else{
 				counter = 0;
 				textX = 660;
-				state += state;
-				k += k;
+				if(state < 14){
+				state = state + 1;
+				k = k  + 1;
 				}
+				System.out.println(state);
+				System.out.println(k);
+				}
+			}
 			}
 		}
 		
@@ -214,8 +258,28 @@ public class CreditsState extends BasicGameState {
 			Sound.audioCredits.loop();
 			isPlayingMusic = true;
 		}
-		if(state == 13 && input.isKeyPressed(input.KEY_ENTER)){
+		
+		if(state == 13){
+			
+			name[0] = "Programmieren 2";
+			name[1] = "bei Prof. Dr. Martin Deubler";
+			name[2] = "Projekt 2013";
+			
+		}
+		
+		if(state == 14){
+			endeAppearse = true;
+			if(deltaEndeTransparency < 1 && endeAppearse == true){
+				ende.setAlpha(deltaEndeTransparency);
+				deltaEndeTransparency += 0.004f;
+			}
+			else{
+				endeAppearse = false;
+			}
+			if(endeAppearse == false && input.isKeyPressed(input.KEY_ENTER) && sliding == false){
+			Sound.audioCredits.stop();
 			System.exit(0);
+			}
 		}
 		}
 		

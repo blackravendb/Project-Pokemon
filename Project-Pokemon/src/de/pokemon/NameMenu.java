@@ -18,6 +18,7 @@ public class NameMenu {
 	/** true if NameMenu should update*/
 	public boolean update;
 	
+	private boolean newName;
 	/** creates an object with which you can choose any name*/
 	private Name namePlayer;
 	
@@ -48,7 +49,7 @@ public class NameMenu {
 	private Rectangle background;
 	
 	/** different names and title of the NameMenu*/
-	private String[] mainItems = new String[5];
+	private String[] mainItems;
 	
 	/**Constructor of the NameMenu
 	 * 
@@ -57,7 +58,7 @@ public class NameMenu {
 	 * @param name1, name2, name3 different names for the character
 	 * @param colorFont the color of the font
 	 */
-	public NameMenu(GameContainer gc,StateBasedGame game, String name1, String name2, String name3){
+	public NameMenu(GameContainer gc,StateBasedGame game, boolean newName, String name1, String name2, String name3){
 		this.gc = gc;
 		backgroundX = gc.getWidth()/8;
 		backgroundY = gc.getHeight()/7;
@@ -70,12 +71,24 @@ public class NameMenu {
 		showMenu = false;
 		showTextField = false;
 		update = true;
+		
+		this.newName = newName;
+		if(newName == true){
 		namePlayer = new Name(); 
-		mainItems[0] = "NAME";
+		}
+		if(newName == true){
+		mainItems =	new String[5];
 		mainItems[1] = "NEUER NAME";
 		mainItems[2] = name1;
 		mainItems[3] = name2;
 		mainItems[4] = name3;
+		}else{
+			mainItems = new String[4];
+			mainItems[1] = name1;
+			mainItems[2] = name2;
+			mainItems[3] = name3;
+		}
+		mainItems[0] = "NAME";
 		background = new Rectangle(backgroundX,backgroundY,backgroundWidth,mainItems.length*32);
 		name = null;
 		
@@ -89,7 +102,7 @@ public class NameMenu {
 	 */
 	public void update(Input input, int delta) throws SlickException {
 		
-		if(namePlayer.stringFilled == true){
+		if(newName == true && namePlayer.stringFilled == true){
 			name = namePlayer.string;
 			input.clearKeyPressedRecord();
 			System.out.println(name);
@@ -104,7 +117,11 @@ public class NameMenu {
 				cursor.setY(cursor.getY() - 32);
 			}
 			else{
-				cursor.setCenterY(182);
+				if(newName == true){
+					cursor.setCenterY(182);
+				}else{
+					cursor.setCenterY(182 - 32);
+				}
 			}
 		}else if(input.isKeyPressed(Input.KEY_S)){ // cursor down
 			if(cursor.getCenterY() < background.getMaxY()- 64){
@@ -119,17 +136,21 @@ public class NameMenu {
 		if(showMenu){
 			if(cursor.getCenterY() == 86){ //new name
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
+				if(newName == true){
 				showTextField = true;
+				}else{
+					name = mainItems[1];
+				}
 				resetCursor();
-			}else if(cursor.getCenterY() == 118){ //FRANZ
+			}else if(cursor.getCenterY() == 118){ //name1
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[2];
 				resetCursor();
-			}else if(cursor.getCenterY() == 150){ //TONI
+			}else if(cursor.getCenterY() == 150){ //name2
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[3];
 				resetCursor();
-			}else if(cursor.getCenterY() == 182){ //SEPP
+			}else if(cursor.getCenterY() == 182 && newName == true){ //name3
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				name = mainItems[4];
 				resetCursor();
@@ -142,6 +163,11 @@ public class NameMenu {
 			namePlayer.update(gc, delta);
 		}
 	}
+		if(input.isKeyPressed(Input.KEY_ESCAPE) && namePlayer.showTextField == true){
+			showTextField = false;
+			update = true;
+			
+		}
 	}
 	
 	/** Renders the NameMenu

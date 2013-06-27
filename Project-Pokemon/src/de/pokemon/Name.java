@@ -18,11 +18,12 @@ public class Name implements ComponentListener {
 	public String string;
 	/** true if the player chose his name*/
 	public boolean stringFilled;
-	
+	public boolean showTextField;
 	/**Constructor of the NameMenu
 	 *
 	 */
 	public Name() {
+		
 	}
 
 	/**Initialises Name
@@ -32,11 +33,12 @@ public class Name implements ComponentListener {
 	 */
 	public void init(GameContainer container) throws SlickException {
 		field = new TextField(container, container.getDefaultFont(), 250, 80, 100, 20);
-		field.addListener(this);
+		field.addListener(this); //Was ist das this?
 		field.setBackgroundColor(Color.white);
 		field.setTextColor(Color.black);
 		field.setMaxLength(8);
 		stringFilled = false;
+		showTextField = true;
 	}
 
 	/** Renders Name
@@ -56,6 +58,10 @@ public class Name implements ComponentListener {
 	 * 
 	 */
 	public void update(GameContainer container, int delta) {
+		Input input = container.getInput();
+		if(input.isKeyPressed(Input.KEY_ESCAPE)){
+			showTextField = false;
+		}
 		
 	}
 
@@ -67,8 +73,10 @@ public class Name implements ComponentListener {
 	 */
 	@Override
 	public void componentActivated(AbstractComponent source) { 
+		if(showTextField == true){
 		string = field.getText(); 
 		stringFilled = true;
+		}
 	}
 
 }

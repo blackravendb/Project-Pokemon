@@ -103,8 +103,8 @@ public class IntroState extends BasicGameState{
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		
-		menu_1 = new NameMenu(gc, game, "FRANZ", "TONI", "SEPP");
-		menu_2 = new NameMenu (gc, game, "Sirgo", "Svenni", "Olaf");
+		menu_1 = new NameMenu(gc, game, true, "FRANZ", "TONI", "SEPP");
+		menu_2 = new NameMenu (gc, game, false, "Sirgo", "Svenni", "Olaf");
 		
 		musicStart = true;
 		glurakSound = true;
