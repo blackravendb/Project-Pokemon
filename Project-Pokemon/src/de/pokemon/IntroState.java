@@ -8,15 +8,15 @@ import org.newdawn.slick.state.StateBasedGame;
 public class IntroState extends BasicGameState{
 	/** ID of the IntroState */
 	public static int ID;
-	
+
 	/** NameMenu for the player */
 	private NameMenu menu_1;
 	/** NameMenu for the grandson*/
 	private NameMenu menu_2;
-	
+
 	/** TextBox of the Intro*/
 	private TextBox textBox;
-	
+
 	/** image of the professor*/
 	private Image prof;
 	/** image of Glurak*/
@@ -29,7 +29,7 @@ public class IntroState extends BasicGameState{
 	private Image grandson;
 	/** image of the trainer how he looks in the game*/
 	private Image trainerGame;
-	
+
 	/** x-coordinate of the professor*/
 	private int profX;
 	/** y-coordinate of the professor*/
@@ -38,14 +38,14 @@ public class IntroState extends BasicGameState{
 	private float deltaProfTransparency = 0;
 	/** true if the professor appears*/
 	private boolean aWildDeublerAppears = true;
-	
+
 	/** x-coordinate of pokemon_1 and pokemon_2*/
 	private int pokemonX;
 	/** y-coordinate of pokemon_1 and pokemon_2*/
 	private int pokemonY;
 	/** x-coordinate where pokemon_1 and pokemon_2 stops sliding*/
 	private int pokemonXEnd;
-	
+
 	/** x-coordinate of the trainer*/
 	private int trainerX;
 	/** y-coordinate of the trainer*/
@@ -58,32 +58,32 @@ public class IntroState extends BasicGameState{
 	private int trainerHeight;
 	/** y-coordinate where trainer stops sliding*/
 	private int trainerYEnd;
-	
+
 	/** x-coordinate of grandson*/
 	private int grandsonX;
 	/** y-coordinate of grandson*/
 	private int grandsonY;
 	/** x-coordinate where grandson stops sliding*/
 	private int grandsonXEnd;
-	
+
 	/** rules which objects are rendering or updating*/
 	private int state;
 	/** rules which text should be shown in the TextBox*/
 	private int setText;
-	
+
 	/** counter which rules how long trainer has to need for sliding*/
 	private long counter_1;
 	/** counter which rules how long trainer has to need for contraction*/
 	private long counter_2;
-	
+
 	/** true if something is sliding*/
 	private boolean sliding;
-	
+
 	/** true if music should start*/
 	private boolean musicStart;
 	/** true if glurak has to bawl*/
 	private boolean glurakSound;
-	
+
 	/**Sets the ID of this state
 	 * 
 	 * @param id
@@ -91,8 +91,8 @@ public class IntroState extends BasicGameState{
 	public IntroState(int id){
 		ID = id;
 	}
-	
-	
+
+
 	/**Initialises the IntroState
 	 * 
 	 * @param gc the container holding the game
@@ -102,52 +102,52 @@ public class IntroState extends BasicGameState{
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
-		
+
 		menu_1 = new NameMenu(gc, game, true, "FRANZ", "TONI", "SEPP");
 		menu_2 = new NameMenu (gc, game, false, "Sirgo", "Svenni", "Olaf");
-		
+
 		musicStart = true;
 		glurakSound = true;
-		
+
 		textBox = new TextBox("Servus! Herzli Wuikomma in da W‰id vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
-		
+
 		state = 1;
 		setText = 1;
-		
+
 		prof = new Image("res/Intro/lind.png");
 		pokemon_1 = new Image("res/Intro/Glurak2.png");
 		pokemon_2 = new Image("res/Intro/Glurak3.png");
 		grandson = new Image("res/Intro/Enkel.png");
 		trainer = new Image("res/Intro/trainer1.png");
 		trainerGame = new Image("res/Intro/Player.png");
-		
+
 		profX = (gc.getWidth() - prof.getWidth())/2;
 		profY = gc.getHeight()/4;
 		deltaProfTransparency = 0;
 		aWildDeublerAppears = true;
-		
+
 		pokemonX = gc.getWidth() + 30;
 		pokemonY = gc.getHeight()/6;
 		pokemonXEnd = (gc.getWidth() - pokemon_1.getWidth())/2;
-		
+
 		grandsonX = gc.getWidth() + 20;
 		grandsonY = gc.getHeight()/5;
 		grandsonXEnd = (gc.getWidth() - grandson.getWidth())/2;
-		
+
 		trainerX = gc.getWidth() + 20;
 		trainerY = gc.getHeight()/5;
 		trainerXEnd = (gc.getWidth() - trainer.getWidth())/2;
 		trainerWidth = trainer.getWidth();
 		trainerHeight = trainer.getHeight();
 		trainerYEnd = trainerY + 80;
-		
+
 		sliding = true; 
-		
+
 		counter_1 = 0;
 		counter_2 = 0;
 	}
 
-	
+
 	/** Renders the IntroState
 	 * @param gc the container holding the game
 	 * @param game the game
@@ -156,19 +156,19 @@ public class IntroState extends BasicGameState{
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g)
 			throws SlickException {
-		
+
 		if(state == 1){//renders state 1
-		g.drawImage(prof, profX, profY);
-		if(aWildDeublerAppears == false){ 
-			textBox.render(g);
+			g.drawImage(prof, profX, profY);
+			if(aWildDeublerAppears == false){ 
+				textBox.render(g);
 			}
 		}
-		
+
 		else if(state == 2){ //renders state 2
 			g.drawImage(pokemon_1, pokemonX, pokemonY);
 			textBox.render(g);
 		}
-		
+
 		else if(state == 3){ //renders state 3
 			g.drawImage(pokemon_2, pokemonX, pokemonY);
 		}
@@ -183,7 +183,7 @@ public class IntroState extends BasicGameState{
 		else if(state == 6){//renders state 6
 			g.drawImage(grandson, grandsonX, grandsonY);
 			textBox.render(g);
-			}
+		}
 		else if(state == 7){//renders state 7
 			g.drawImage(grandson, grandsonX, grandsonY);
 			textBox.render(g);
@@ -205,8 +205,8 @@ public class IntroState extends BasicGameState{
 			menu_2.render(g);
 		}
 	}
-	
-	
+
+
 	/** Updates the IntroState, e.g. TextBox, processes Input, animations
 	 * 
 	 * @param gc the container holding the game
@@ -218,12 +218,12 @@ public class IntroState extends BasicGameState{
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 		Input input = gc.getInput();
-		
+
 		if(musicStart){
 			Sound.audioIntro.playAsMusic(1.0f, 1.0f, true);
 			musicStart = false;
 		}
-		
+
 		if (state == 1){ //animation of the professor
 			if(deltaProfTransparency < 1 && aWildDeublerAppears == true){
 				prof.setAlpha(deltaProfTransparency);
@@ -235,14 +235,17 @@ public class IntroState extends BasicGameState{
 			if(aWildDeublerAppears == false)
 				textBox.update(input, delta); 
 			
+			System.out.println("textBox: " + textBox.textBox);
+			
 			if(aWildDeublerAppears == false && textBox.textBox == 1){ //changes the content of the TextBox
 				state = 2;
-				}
+			}
 		}
-		
+
 		if (state == 2){ //animation of Glurak
 			if(setText == 1){
-				textBox.setText("De W‰id werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a K‰mpfe mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.");
+				System.out.println("setText = 1");
+				textBox.setText("De W‰id werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a K‰mpfe mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", gc);
 				setText = 2;
 			}
 			sliding = true;
@@ -254,13 +257,13 @@ public class IntroState extends BasicGameState{
 			}
 			//animation(pokemonx, pokemonXEnd);
 			if(sliding == false)
-			textBox.update(input, delta);
-			
+				textBox.update(input, delta);
+
 			if(textBox.textBox == 2){
 				state = 3;
 			}
 		}
-		
+
 		if(state == 3){ //changes the content of the TextBox
 			if(glurakSound == true){
 				Sound.audioGlurak.playAsSoundEffect(1.0f, 3.0f, false);
@@ -268,9 +271,9 @@ public class IntroState extends BasicGameState{
 			}
 			if(Sound.audioGlurak.isPlaying() == false){ 
 				state = 4;
-				}
+			}
 		}
-		
+
 		if (state == 4){ //animation of the trainer
 			sliding = true;
 			if(trainerX > trainerXEnd && sliding == true){
@@ -281,11 +284,11 @@ public class IntroState extends BasicGameState{
 			}
 			if(!menu_1.showMenu){ 
 				if(setText == 2){
-				textBox.setText("Wia hoaﬂtn du glei wieda?");
-				setText = 3;
+					textBox.setText("Wia hoaﬂtn du glei wieda?", gc);
+					setText = 3;
 				}
 				if(sliding == false)
-				textBox.update(input, delta);
+					textBox.update(input, delta);
 			}
 			else if(menu_1.showMenu && sliding == false){
 				textBox.update = false;
@@ -302,22 +305,22 @@ public class IntroState extends BasicGameState{
 			//animation(trainerx, trainerXEnd);
 			if(textBox.textBox == 3 && sliding == false){
 				menu_1.showMenu = true; //opens the NameMenu
-				}
+			}
 		}
-		
+
 		if(state == 5) {
 			textBox.update(input, delta);
-			
+
 			if(setText == 3){
-				textBox.setText("Stimmt ja, du warst da " + menu_1.name + "!");
+				textBox.setText("Stimmt ja, du warst da " + menu_1.name + "!", gc);
 				setText = 4;
 			}
-			
+
 			if(textBox.textBox == 4){ // changes the content of the TextBox
 				state = 6;
 			}
 		}
-		
+
 		if (state== 6){ //animation of the grandson
 			sliding = true;
 			if(grandsonX > grandsonXEnd && sliding == true){
@@ -326,14 +329,14 @@ public class IntroState extends BasicGameState{
 			else{
 				sliding = false;
 			}
-			
+
 			if(!menu_2.showMenu){ 
-			if(setText == 4){
-				textBox.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaﬂtn der jetz scho wieda?");
-				setText = 5;
-			}
-			if(sliding == false)
-				textBox.update(input, delta);
+				if(setText == 4){
+					textBox.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaﬂtn der jetz scho wieda?", gc);
+					setText = 5;
+				}
+				if(sliding == false)
+					textBox.update(input, delta);
 			}
 			else if(menu_2.showMenu && sliding == false){
 				textBox.update = false;
@@ -347,48 +350,48 @@ public class IntroState extends BasicGameState{
 				menu_2.showMenu = false;
 				state = 7;
 			}
-			
+
 			if(textBox.textBox == 5 && sliding == false){
 				menu_2.showMenu = true; //opens the NameMenu
-				}
+			}
 		}
-		
+
 		if(state == 7){
 			if(setText == 5){
-				textBox.setText(menu_2.name + "! Stimmt! Grod hob i's no gwusst!");
+				textBox.setText(menu_2.name + "! Stimmt! Grod hob i's no gwusst!", gc);
 				setText = 6;
 			}
-			
+
 			textBox.update(input, delta);
-			
+
 			if(textBox.textBox == 6){// changes the TextBox
 				state = 8;
 			}
 		}
-		
+
 		if(state == 8){
 			if(setText == 6){
-				textBox.setText(menu_1.name + "! A unglaubliche Reise in de W‰id da Pokemon erwart Di! A W‰id voia Wunda, Obnteia und Geheimnisse! Des is a Draum!");
+				textBox.setText(menu_1.name + "! A unglaubliche Reise in de W‰id da Pokemon erwart Di! A W‰id voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", gc);
 				setText = 7;
 			}
-			
+
 			if(textBox.textBox == 6) 
-			textBox.update(input, delta);
-			
+				textBox.update(input, delta);
+
 			sliding = true;
-			
+
 			if(textBox.textBox == 7){
-			if(trainerY < trainerYEnd && sliding == true){
-				trainerY += 1;
-			}else{
-				sliding = false;
-			}
-			if(sliding == false){
-				state = 9;
-			}
+				if(trainerY < trainerYEnd && sliding == true){
+					trainerY += 1;
+				}else{
+					sliding = false;
+				}
+				if(sliding == false){
+					state = 9;
+				}
 			}
 		}
-		
+
 		if (state == 9){ //animation of the trainer and counter starts 
 
 			if(counter_2 <= 1000 && sliding == false){
@@ -402,27 +405,27 @@ public class IntroState extends BasicGameState{
 			}
 			if (counter_2 >= 1000){
 				state = 10;
-				}
+			}
 		}
-		
+
 		if(state == 10){
 			if (counter_1 <= 1000){
-			counter_1 += delta;
+				counter_1 += delta;
 			}
 			if (counter_1 >= 1000){
 				state= 11;
-				}
+			}
 		}
-		
+
 		if(state == 11){
 			state = 0;
 			game.enterState(1);
 			Sound.audioIntro.stop();
 		}
-			
+
 	}
-	
-	
+
+
 	/**Sets the ID of this state
 	 * 
 	 * @param id
@@ -431,7 +434,7 @@ public class IntroState extends BasicGameState{
 	public int getID() {
 		return ID;
 	}
-	
+
 	/*
 	public void animation(int koordinateX, int ende){
 		if(koordinateX > ende && sliding == true){
@@ -441,7 +444,7 @@ public class IntroState extends BasicGameState{
 			sliding = false;
 		}
 	}
-	*/
+	 */
 
 }
 

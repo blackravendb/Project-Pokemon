@@ -12,9 +12,11 @@ import java.util.StringTokenizer;
 public class TextBox {
 	/** set to true if TextBox should update*/
 	boolean update;
+
+	boolean lastWord;
 	
 	Font font;
-	
+
 	/** x-coordinate of the frame*/
 	private int rectX;
 	/** y-coordinate of the frame */
@@ -42,8 +44,9 @@ public class TextBox {
 	private boolean textBoxInc;
 
 	/** divided strings */
-	private String[] string; 
+	private String[] textArray; 
 	/** committed string */
+	private String[] textArray2;
 	private String text; 
 
 	/** x-coordinate of the string in the TextBox */
@@ -83,18 +86,20 @@ public class TextBox {
 		this.colorFont = colorFont;
 
 		update = true;
-
+		
 		rectWidth = gc.getWidth()/2;
 		rectHeight = gc.getHeight()/6; 
 		rectX = (gc.getWidth() - rectWidth)/2; 
 		rectY = (gc.getHeight() - rectHeight) - 50;
 
 		background = new Rectangle(rectX, rectY, rectWidth, rectHeight);
-		length = (gc.getDefaultFont().getWidth(text)); //text.length() * 8; 
-		maxLength = rectWidth - 80;
-	
-		font = gc.getDefaultFont();
+		length = (gc.getDefaultFont().getWidth(text)); 
+		System.out.println("length: " + length);
+		maxLength = rectWidth - 15;
+		System.out.println("maxLength: " + maxLength);
 		
+		font = gc.getDefaultFont();
+
 		changeStrings = 0;
 		textBoxInc = true;
 
@@ -111,7 +116,7 @@ public class TextBox {
 
 		textBox = 0;
 		end = false;
-		
+
 		splitText(text);
 
 	} 
@@ -122,18 +127,74 @@ public class TextBox {
 	 * 
 	 */
 	private void splitText (String text){
-		string = new String[(int) (Math.ceil(length/maxLength))]; //the length of the array depends on the length of the commited string
-
+		textArray2 = new String[30]; //the length of the array depends on the length of the commited string
+		System.out.println("LängetextArray: "+ textArray2.length);
+		int counterArray = 0;
+		
+		//System.out.println("Feldanzahl: " + ((int) (Math.ceil(length/maxLength))));
 		StringBuffer buffer;
-		StringTokenizer tokenizer = new StringTokenizer(text);
-
-		for(int i = 0; i < string.length; i++){ //loops through the stringarray
+		StringBuffer buffer2;
+		StringTokenizer tokenizer_1 = new StringTokenizer(text);
+		StringTokenizer tokenizer_2 = new StringTokenizer(text);
+		String rem2 = "";
+		//System.out.println(font.getWidth(buffer.append(tokenizer_1.nextToken() + " ")));
+		
+		
+		for(int i = 0; i < textArray2.length; i++){ //loops through the stringarray
+			counterArray = counterArray + 1;
 			buffer = new StringBuffer();
-			while((font.getWidth(buffer.toString())) < maxLength && tokenizer.hasMoreTokens()){ //*9 ändern!
-				buffer.append((tokenizer.nextToken() + " ")); //saves every token in a buffer
+			//buffer2 = new StringBuffer();
+			String rem = "";
+			
+			if(rem2 != ""){
+			buffer.append(rem2 + " ");
 			}
-			string[i] = buffer.toString(); // saves the part of the string in a stringarray
+			
+			/*
+			 * De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid
+			 */
+			
+			while(tokenizer_1.hasMoreTokens() && font.getWidth(buffer.toString()) < maxLength){
+			rem = buffer.toString();
+			System.out.println("rem: " + rem);
+			rem2 = tokenizer_1.nextToken();
+			buffer.append(rem2 + " ");
+			}
+			
+			//System.out.println("lastWord: " + lastWord);
+			
+			if(tokenizer_1.hasMoreTokens() == false && font.getWidth(buffer.toString()) < maxLength){
+					rem = buffer.toString();
+					}
+			/*
+			while(tokenizer_1.hasMoreTokens() && font.getWidth(buffer.append(tokenizer_1.nextToken() + " ").toString()) < maxLength){ 
+				buffer2.append(tokenizer_2.nextToken() + " "); //saves every token in a buffer
+			}*/
+			textArray2[i] = rem; // saves the part of the string in a stringarray
+			if(tokenizer_1.hasMoreTokens() == false){
+				System.out.println("BREAK!");
+				if(font.getWidth(buffer.toString()) >= maxLength){
+					textArray2[i+1] = rem2;
+					counterArray += 1; 
+				}
+				break;
+			}
+	}
+		
+		
+		if(counterArray < 3){ //TODO
+			textArray = new String[counterArray];
+		}else{
+		textArray = new String[counterArray + 1];
 		}
+		System.out.println("counter: " + counterArray);
+		
+		for(int i = 0; i < counterArray; i++){ 
+			textArray[i] = textArray2[i];
+			System.out.println("textArray: " + textArray[i]);
+		}
+		
+		System.out.println("ENDE_SPLIT");
 	}
 
 	/**changes the text which is shown in the TextBox
@@ -141,17 +202,18 @@ public class TextBox {
 	 * @param p string which should be shown in the TextBox
 	 * 
 	 */
-	public void setText (String p){
+	public void setText (String p, GameContainer gc){ //28.06 gc
 
-
-		text = p;
+		System.out.println("ANFANG");
+		//text = p;
 		update = true;
 
-		length = p.length() * 8; 
-
+		length = (gc.getDefaultFont().getWidth(p));                                                 //p.length() * 8; 
+		System.out.println("length2: " + length);
+		
 		changeStrings = 0;
 
-		string = new String[(int) (Math.ceil(length/maxLength))];
+		textArray = new String[(int) (Math.ceil(length/maxLength))];
 
 		showTriangle = true;
 		counter = 0;
@@ -159,8 +221,9 @@ public class TextBox {
 		textBoxInc = true;
 
 		splitText(p);
-		
+
 		end = false;
+		System.out.println("ENDE");
 
 	}
 
@@ -171,16 +234,23 @@ public class TextBox {
 	 */
 
 	public void update(Input input, int delta){
-
+		
+		System.out.println("UPDATE!");
+		System.out.println("textArray.length: " + textArray.length);
+		System.out.println("textBoxInc: " + textBoxInc);
+		System.out.println("update: " + update);
+		
 		if(update == true){
 
-			if(string.length == 1 && changeStrings == 1 && textBoxInc == true){ //changes TextBox if the length of the stringarray == 1
+			
+			
+			if(textArray.length == 1 && changeStrings == 1 && textBoxInc == true){ //changes TextBox if the length of the stringarray == 1
 				textBox += 1;
 				end = true;
 				textBoxInc = false;
 			}
 
-			else if(string.length == 2 && changeStrings == 1){//changes TextBox if the length of the stringarray == 2
+			else if(textArray.length == 2 && changeStrings == 1){//changes TextBox if the length of the stringarray == 2
 				if(textBoxInc == true){
 					textBox += 1;
 					end = true;
@@ -189,7 +259,8 @@ public class TextBox {
 			}
 
 			for(int k = 0; k <= 2; k++){ // //changes TextBox if the length of the stringarray > 2
-				if(string.length >= 3 && changeStrings > string.length - 3 && textBoxInc == true){
+				if(textArray.length >= 3 && changeStrings > textArray.length - 4 && textBoxInc == true){
+					
 					textBox += 1;
 					end = true;
 					System.out.println("textBox: " + textBox);
@@ -230,29 +301,30 @@ public class TextBox {
 		g.setColor(colorFont);
 		g.drawRect(rectX, rectY, rectWidth, rectHeight);
 
-		if(string.length == 1){
-			g.drawString(string[0], stringx, stringY[0]);
+		if(textArray.length == 1){
+			g.drawString(textArray[0], stringx, stringY[0]);
 		}
 
-		else if(string.length == 2){
+		else if(textArray.length == 2){
 			for(int q = 0; q <= 1; q++){
-				g.drawString(string[q], stringx, stringY[q]);
+				
+				System.out.println("textArray bei 2: " + textArray[q]);
+				g.drawString(textArray[q], stringx, stringY[q]);
 			}
 		}
 
-		else if(string.length > 2){
+		else if(textArray.length > 2){
 
 			for(int k = 0; k <= 2; k++){ //changes the position of the strings
-				if(string.length == 3){
-					g.drawString(string[k], stringx, stringY[k]);
-				}else if(changeStrings <= string.length - 3){
-					g.drawString(string[k + changeStrings], stringx, stringY[k]); 
+				if(textArray.length == 3){
+					g.drawString(textArray[k], stringx, stringY[k]);
+				}else if(changeStrings <= textArray.length - 4){ // war - 3
+					g.drawString(textArray[k + changeStrings], stringx, stringY[k]); 
 				}else{
 					mem = changeStrings - 1;
 				}
-				if(changeStrings > string.length - 3){
-
-					g.drawString(string[k + mem], stringx, stringY[k]);
+				if(changeStrings > textArray.length - 4){// war - 3
+					g.drawString(textArray[k + mem], stringx, stringY[k]);
 				}
 			}
 		}

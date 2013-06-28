@@ -23,7 +23,7 @@ public class Name implements ComponentListener {
 	 *
 	 */
 	public Name() {
-		
+
 	}
 
 	/**Initialises Name
@@ -47,8 +47,8 @@ public class Name implements ComponentListener {
 	 * @param g the current graphics context
 	 */
 	public void render(GameContainer container, Graphics g) {
-		
-			field.render(container, g);
+
+		field.render(container, g);
 	}
 
 	/** Updates Name
@@ -62,11 +62,11 @@ public class Name implements ComponentListener {
 		if(input.isKeyPressed(Input.KEY_ESCAPE)){
 			showTextField = false;
 		}
-		
+
 	}
 
-	
-	
+
+
 	/**is called when the Enter_Key is pressed and saves the input of the Textfield
 	 *
 	 * @param source
@@ -74,8 +74,8 @@ public class Name implements ComponentListener {
 	@Override
 	public void componentActivated(AbstractComponent source) { 
 		if(showTextField == true){
-		string = field.getText(); 
-		stringFilled = true;
+			string = field.getText(); 
+			stringFilled = true;
 		}
 	}
 

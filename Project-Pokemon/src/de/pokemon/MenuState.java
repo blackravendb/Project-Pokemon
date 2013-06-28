@@ -73,7 +73,7 @@ public class MenuState extends BasicGameState {
 	private int creditsX;
 	/** y-coordinate of the string "de hams gmacht" */
 	private int creditsY;
-	
+
 	/** x-coordinate of the string "Servus!" */
 	private int quitX;
 	/** y-coordinate of the string "Servus!" */
@@ -145,10 +145,10 @@ public class MenuState extends BasicGameState {
 
 		creditsX = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Obspann")) / 2;
 		creditsY = newGameY + 40;
-		
+
 		quitX = (gc.getWidth() - gc.getGraphics().getFont().getWidth("Servus!")) / 2;
 		quitY =  creditsY + 40;
-		
+
 		isPlayingMusic = false;
 	}
 
@@ -244,7 +244,7 @@ public class MenuState extends BasicGameState {
 					sbg.getState(Core.intro).init(gc, sbg);
 					sbg.enterState(Core.intro);
 				}
-				
+
 				else if (cursorY == creditsY + 4){ //Credits
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					isPlayingMusic = false;
@@ -257,10 +257,10 @@ public class MenuState extends BasicGameState {
 					Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 					System.exit(0);
 				}
-				
+
 			}
-			input.clearKeyPressedRecord();
 		}
+		input.clearKeyPressedRecord();
 	}
 
 	/**
