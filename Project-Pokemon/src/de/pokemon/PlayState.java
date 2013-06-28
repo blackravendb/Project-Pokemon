@@ -12,7 +12,8 @@ import org.newdawn.slick.util.Log;
 
 
 public class PlayState extends BasicGameState {
-
+	
+	private GameContainer gc;
 	/** ID of the state*/
 	public static int ID; 
 	/** reference for the map*/
@@ -29,8 +30,11 @@ public class PlayState extends BasicGameState {
 	private EventManager event;
 	/** used to sum up delta times and to run the game stable at FPS != 60 */
 	private int sum = 0;
+	/** the textbox used for dialogues*/
 	private TextBox textBox;
+	/** if the textbox is currently displayed */
 	private boolean showTextBox = false;
+
 
 	/**Sets the ID of this state
 	 * 
@@ -43,12 +47,12 @@ public class PlayState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
-
+		this.gc = gc;
 		ResourceManager.init();
 		event = new EventManager(this);
 		map = new Map("House", event);
 		player = new Player(map.getSpawn("player").x, map.getSpawn("player").y, event);
-
+		
 		camera = new Camera(gc, map);
 		camera.centerOn(player);
 		menu = new InGameMenu(gc,game);
@@ -148,7 +152,12 @@ public class PlayState extends BasicGameState {
 	public void leave(GameContainer container, StateBasedGame game) throws SlickException {
 		Sound.audioInGame.stop();
 	}
-
+	
+	/**This method ensures that the game runs correct even when fps != 60
+	 * 
+	 * @param delta
+	 * @return true, if the game should update
+	 */
 	private boolean nextUpdate(int delta){
 		sum += delta;
 		if(sum > 15){
@@ -158,8 +167,12 @@ public class PlayState extends BasicGameState {
 		return false;
 	}
 	
+	/**updates the textbox with new text 
+	 * 
+	 * @param text used for the textbox
+	 */
 	public void setDialogString(String text){
-		textBox.setText(text);
+		textBox.setText(text,gc);
 		showTextBox = true;
 	}
 }
