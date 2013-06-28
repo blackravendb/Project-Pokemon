@@ -13,14 +13,19 @@ public class Map extends TiledMapPlus{
 
 	/** 2D boolean array, true if Tile is blocked*/
 	private static boolean[][] blocked;
+	
 	/** size of a quadratic tile*/
 	private int tileSize;
+	
 	/** name of the map*/
 	private String name;
+	
 	/** Array of Animation holding the */
-	private Animation[] water = null;
+	private Animation[] waterAnimation = null;
+	
 	/** indicates if the current map has water to render*/
-	public boolean hasWater;
+	private boolean water;
+	
 	/** contains the npcs of the current map*/
 	private ArrayList<Npc> npcs = new ArrayList<Npc>();
 
@@ -34,7 +39,7 @@ public class Map extends TiledMapPlus{
 		name = getMapProperty("name", "unknown name");
 		buildCollisionMap();
 		tileSize = getTileWidth(); // since our tiles are quadratic we just use getTileWidth() to determine the tileSize.
-		hasWater = createWater();
+		water = createWater();
 		createNpcs(event);
 	}
 
@@ -44,7 +49,6 @@ public class Map extends TiledMapPlus{
 	 *
 	 */
 	private void buildCollisionMap() {
-
 		blocked = new boolean[getWidth()][getHeight()];
 		int layerIndex = getLayerIndex("collision");
 
@@ -54,7 +58,6 @@ public class Map extends TiledMapPlus{
 				blocked[x][y] = getTileProperty(tileID, "blocked", "false").equals("true");
 			}
 		}
-
 	}
 
 	/**Checks if the tile specified by the x and y coordinate is blocked on the current map.
@@ -123,8 +126,9 @@ public class Map extends TiledMapPlus{
 //				}
 //				g.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
 //			}
+		
 		//cleaner way without double values, but rendering an extra row/coloumn to avoid clipping problems
-		//and using an extra method to avoid out of bounds 
+		//and using an extra method isBlocked() to avoid out of bounds 
 		int startX = (int)(Camera.cameraX / tileSize);
 		int endX = (int)(Camera.cameraX+Core.width)/tileSize + 1;
 		int startY = (int) (Camera.cameraY / tileSize);
@@ -194,7 +198,7 @@ public class Map extends TiledMapPlus{
 
 		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("water").iterator();
 
-		water = new Animation[getObjectGroup("object layer").getObjectsOfType("water").size()];
+		waterAnimation = new Animation[getObjectGroup("object layer").getObjectsOfType("water").size()];
 		int counter = 0;
 		while(itr.hasNext()){
 			GroupObject element = itr.next();
@@ -204,7 +208,7 @@ public class Map extends TiledMapPlus{
 			//				int y = ((element.gid - 1 + i) / (getTileSetByGID(1).tiles.getHeight()/32))* 32;
 			//				water[counter].addFrame(getTileSet(0).tiles.getSubImage(x, y, 32,32), 1000);
 			//			}
-			water[counter] = new Animation(getTileSet(0).tiles,
+			waterAnimation[counter] = new Animation(getTileSet(0).tiles,
 					((element.gid - 1 ) % (getTileSetByGID(1).tiles.getWidth()/32)), //start row
 					((element.gid - 1 ) / (getTileSetByGID(1).tiles.getHeight()/32)), //start coloumn
 					((element.gid) % (getTileSetByGID(1).tiles.getWidth()/32)), //end row 
@@ -222,12 +226,11 @@ public class Map extends TiledMapPlus{
 	 * renders the water animations for the map
 	 */
 	public void renderWater(){
-
 		Iterator<GroupObject> itr = getObjectGroup("object layer").getObjectsOfType("water").iterator();
 		while(itr.hasNext()){
 			GroupObject element = itr.next();
-			for(int i = 0; i < water.length; i++){
-				water[i].draw(element.x, element.y-element.height); // subtract element.height because image objects have their anchorpoints on the bottom left
+			for(int i = 0; i < waterAnimation.length; i++){
+				waterAnimation[i].draw(element.x, element.y-element.height); // subtract element.height because image objects have their anchorpoints on the bottom left
 			}
 		}
 	}
@@ -262,7 +265,7 @@ public class Map extends TiledMapPlus{
 	public void updateNpcs(int delta, boolean update) {
 		for (Npc npc : npcs) {
 			if (update) {
-				npc.currentAnimationBody.setAutoUpdate(true); 
+				npc.currentAnimationBody.setAutoUpdate(true); // using update as an argument seems not to work properly
 				npc.currentAnimationHead.setAutoUpdate(true);
 				npc.updateNpc(delta);
 			} else {
@@ -353,4 +356,11 @@ public class Map extends TiledMapPlus{
 		return name;
 	}
 
+	/**
+	 * 
+	 * @return if there is water on the map
+	 */
+	public boolean hasWater(){
+		return water;
+	}
 }
