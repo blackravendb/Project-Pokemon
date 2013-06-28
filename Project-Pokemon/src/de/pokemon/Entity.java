@@ -5,39 +5,70 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+/**
+ * Entity Klasse. Wird auf Npc und Player vererbt. Bietet grundsätzliche
+ * Methoden für Laufanimationen und Rendermöglichkeiten
+ * 
+ * @author Dennis
+ */
 public class Entity {
+	/** X-Position (Pixelgenau) */
 	private int posX;
+	/** Y-Position (Pixelgenau) */
 	private int posY;
+	/** Breite der Entität */
 	private int width;
+	/** Höhe der Entität */
 	private int height;
+	/** X-Position (tilegenau) */
 	private int tileX;
+	/** Y-Position (tilegenau) */
 	private int tileY;
+	/** Bewegungsgeschwindigkeit (Pixel pro Durchlauf) */
 	private int moveSpeed = 2;
-	
-	/**Referenz auf die PlayState um deren Methoden aufzurufen*/
+
+	/** Referenz auf den EventManager um dessen Methoden aufzurufen */
 	protected EventManager event;
-	
+
 	/** Enum Feld für die vier Bewegungsrichtungen */
 	private enum Direction {
 		DOWN, LEFT, UP, RIGHT, NULL
 	};
 
+	/** Speicher für Tastatureingabe, um korrekte Bewegung zu rendern */
 	protected Direction lastDir = Direction.DOWN;
+	/** Speicher für letzte Bewegungsrichtung, um korrektes Standbild zu rendern */
 	protected Direction standDir; // Variable für Standanimation letzte
 									// bewegungsrichtung
-
+	/**
+	 * Komplette Bewegungsbilder. Werden im Kontruktor auf einzelne
+	 * Animationsvariablen aufgeteilt
+	 */
 	private Image image;
 
+	/** Boolean-Wert, ob gerade eine Bewegungsanimation gerendert wird */
 	protected boolean isRunning = false;
-	protected boolean isStanding = true; // protected, da Player und PlayState
-											// darauf zugreifen müssen
-	private boolean standAnimation = false; // Boolean ob Standanimation
-											// ausgeführt werden soll
+	/**
+	 * Boolean-Wert, ob Entität gerade an Position stehen bleibt (Protected,
+	 * sodass Player und PlayState darauf zugreifen können)
+	 */
+	protected boolean isStanding = true;
 
+	/**
+	 * Image-Array für Laufanimationen, wobei erste Dimension für Animation und
+	 * zweite Dimension für die Bilder steht. Die ersten 4 Zeilen sind für
+	 * Kopfanimationen die letzten 4 für Körperanimationen
+	 */
 	private Image charImages[][] = new Image[8][4];
+
+	/** Animationsvariablen für Bewegungsanimationen */
 	private Animation aniMoveLeftHead, aniMoveUpHead, aniMoveRightHead,
 			aniMoveDownHead, aniMoveLeftBody, aniMoveUpBody, aniMoveRightBody,
 			aniMoveDownBody;
+	/**
+	 * Wert, wie viele ms ein Animationsbild angezeigt werden soll, bei
+	 * Bewegungsanimation
+	 */
 	private int aniDelta = 150;
 	private Animation aniTurnLeftHead = new Animation();
 	private Animation aniTurnUpHead = new Animation();
@@ -57,14 +88,14 @@ public class Entity {
 	private Animation aniStandUpBody = new Animation();
 	private Animation aniStandDownBody = new Animation();
 
+	/**
+	 * Wert, wie viele ms ein Animationsbild angezeigt werden soll, bei
+	 * Standanimation
+	 */
 	private int standAniDelta = 200; // Dauer der Standanimation
 
-	// Temp Variablen für Render Methode
-	private Animation aniTemp;
-
-	// Neue Temp Variable für Render/Update Methode
 	/**
-	 * Animation Variable, welche Animation im aktuellem Loop Gerendert werden
+	 * Animation Variable, welche Animation im aktuellem Loop gerendert werden
 	 * soll. Tile Head
 	 */
 	protected Animation currentAnimationHead;
@@ -90,15 +121,28 @@ public class Entity {
 
 	/**
 	 * Variable zum Abspeichern, welcher Frame beim letzten Durchlauf, bei
-	 * Bewegung gegen einen Soliden block abgespielt wurde. Wird in renderTick()
+	 * Bewegung gegen einen Soliden Block abgespielt wurde. Wird in renderTick()
 	 * verwendet um moveAgainstSolid animation abzubrechen. Initialisierungswert
 	 * ist erster Frame
 	 */
 	private int lastSolidFrame = 0;
 
-	private boolean blockedDelta = true;
-
-	Entity(int posX, int posY, int width, int height, String imagePath, EventManager event) {
+	/**
+	 * Entität Konstruktor
+	 * 
+	 * @param posX
+	 *            (int) Pixelgenaue X-Position
+	 * @param posY
+	 *            (int) Pixelgenaue Y-Position
+	 * @param width
+	 *            (int) Breite der Entität
+	 * @param height
+	 *            (int) Höhe der Entität
+	 * @param imagePath
+	 *            (String) Pfad zur Biddatei de Entität
+	 */
+	Entity(int posX, int posY, int width, int height, String imagePath,
+			EventManager event) {
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
@@ -109,7 +153,7 @@ public class Entity {
 		try {
 			image = new Image(imagePath);
 		} catch (SlickException e) {
-			System.err.println("Error while loading character images");
+			System.err.println("Error while loading character image");
 			e.printStackTrace();
 		}
 
@@ -260,16 +304,8 @@ public class Entity {
 		aniStandUpBody.addFrame(charImages[6][1], standAniDelta);
 		aniStandDownBody.addFrame(charImages[4][1], standAniDelta);
 
-		// aniStandLeftHead.setLooping(false);
-		// aniStandRightHead.setLooping(false);
-		// aniStandUpHead.setLooping(false);
-		// aniStandDownHead.setLooping(false);
-		// aniStandLeftBody.setLooping(false);
-		// aniStandRightBody.setLooping(false);
-		// aniStandUpBody.setLooping(false);
-		// aniStandLeftBody.setLooping(false);
-
-		// currentAnimation vorbelegen
+		// Startanimatin renderStand() aufrufen, sodass Entität auf Bildschirm
+		// gerendert wird
 		renderStand();
 
 	}
@@ -286,7 +322,7 @@ public class Entity {
 		isRunning = false;
 		this.posX = posX;
 		Map.setBlocked(tileX, tileY, false); // alte Position freigeben
-		calcTilePosition(posX, true);
+		calcTileX(posX);
 		Map.setBlocked(tileX, tileY, true);
 	}
 
@@ -294,15 +330,16 @@ public class Entity {
 		isRunning = false;
 		this.posY = posY;
 		Map.setBlocked(tileX, tileY, false); // alte Position freigeben
-		calcTilePosition(posY, false);
+		calcTileY(posY);
 		Map.setBlocked(tileX, tileY, true);
 	}
 
 	public void setPosition(int posX, int posY) {
 		isRunning = false;
 		isStanding = true;
-		calcTilePosition(posX, true);
-		calcTilePosition(posY, false);
+		Map.setBlocked(tileX, tileY, false); // alte Position freigeben
+		calcTileX(posX);
+		calcTileY(posY);
 		this.posX = posX;
 		this.posY = posY;
 		Map.setBlocked(tileX, tileY, true);
@@ -323,18 +360,15 @@ public class Entity {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
-	public void setLastDir(int input){
-		if(input == Input.KEY_A){
-			lastDir=Direction.LEFT;
-		}
-		else if (input == Input.KEY_S){
-			lastDir=Direction.RIGHT;
-		}
-		else if(input == Input.KEY_W){
-			lastDir=Direction.UP;
-		}
-		else if(input == Input.KEY_S){
+
+	public void setLastDir(int input) {
+		if (input == Input.KEY_A) {
+			lastDir = Direction.LEFT;
+		} else if (input == Input.KEY_S) {
+			lastDir = Direction.RIGHT;
+		} else if (input == Input.KEY_W) {
+			lastDir = Direction.UP;
+		} else if (input == Input.KEY_S) {
 			lastDir = Direction.DOWN;
 		}
 	}
@@ -347,19 +381,24 @@ public class Entity {
 		return height;
 	}
 
-	private void calcTilePosition(int posPixel, boolean direction) {
-		// direction == true (X) direction == false (Y)
-		if (direction)
-			tileX = posPixel / Core.tileSize;
-		else
-			this.tileY = (posPixel / Core.tileSize + 1);
-
-	}
-
+	/**
+	 * X Tile Position aus Pixel Koordinaten berechnen
+	 * 
+	 * @param posX
+	 *            (int) X Koordinate der Entität
+	 * @return void
+	 */
 	private void calcTileX(int posX) {
 		tileX = posX / Core.tileSize;
 	}
 
+	/**
+	 * Y Tile Position aus Pixel Koordinaten berechnen
+	 * 
+	 * @param posY
+	 *            (int) Y Koordinate der Entität
+	 * @return void
+	 */
 	private void calcTileY(int posY) {
 		tileY = posY / Core.tileSize + 1;
 	}
@@ -375,44 +414,6 @@ public class Entity {
 	 */
 	public void moveX(int tileX) {
 		posX += tileX * moveSpeed;
-
-		/* Alter Quellcode *//*
-							 * // Überprüft, ob Player bereits in Bewegung ist.
-							 * Wenn ja wird Bewegung // bis zum nächsten Tile
-							 * vortgesetzt if (isRunning) { if (posX %
-							 * Core.tileSize == 0) { isRunning = false;
-							 * Map.setBlocked(this.tileX, tileY, false);
-							 * this.tileX = (tileX < 0) ? this.tileX - 1 :
-							 * this.tileX + 1; } else { posX = (tileX < 0) ?
-							 * posX - moveSpeed : posX + moveSpeed; } } //
-							 * Player noch nicht in Bewegung, soll aber Schritte
-							 * machen else if (tileX != 0) { // Überprüfen ob
-							 * nächster Tile blocked ist if
-							 * (!Map.isBlocked(this.tileX + tileX, tileY)) {
-							 * Map.setBlocked(this.tileX + tileX, tileY, true);
-							 * lastDir = (tileX < 0) ? Direction.LEFT :
-							 * Direction.RIGHT; isRunning = true; isStanding =
-							 * false; posX = (tileX < 0) ? posX - moveSpeed :
-							 * posX + moveSpeed; } // Entity will gegen einen
-							 * Soliden Block laufen else { lastDir = (tileX < 0)
-							 * ? Direction.LEFT : Direction.RIGHT; isStanding =
-							 * false;
-							 * 
-							 * // blockedDelta = aniMoveLeftHead.getFrame() == 1
-							 * // || aniMoveRightHead.getFrame() == 1; // if
-							 * (blockedDelta && (aniMoveLeftHead.getFrame() == 0
-							 * || aniMoveRightHead .getFrame() == 0)) {
-							 * Sound.audioSolid.playAsSoundEffect(1.0f, 1.0f,
-							 * false); blockedDelta = false; if
-							 * (aniMoveLeftHead.getFrame() == 1 ||
-							 * aniMoveRightHead.getFrame() == 1) { blockedDelta
-							 * = true; } // if(aniMoveLeftHead.getFrame() == 2
-							 * && blockedDelta == // true || //
-							 * aniMoveRightHead.getFrame() == 2 && blockedDelta
-							 * == // true){ } } } // Standanimation else {
-							 * aniMoveLeftHead.restart();
-							 * aniMoveRightHead.restart(); isStanding = true; }
-							 */
 	}
 
 	/**
@@ -426,185 +427,10 @@ public class Entity {
 	 */
 	public void moveY(int tileY) {
 		posY += tileY * moveSpeed;
-
-		/* Alter Quellcode *//*
-							 * // Überprüft, ob Player bereits in Bewegung ist.
-							 * Wenn ja wird Bewegung // bis zum nächsten Tile
-							 * vortgesetzt if (isRunning) { if (posY %
-							 * Core.tileSize == 0) { isRunning = false;
-							 * Map.setBlocked(tileX, this.tileY, false);
-							 * this.tileY = (tileY < 0) ? this.tileY - 1 :
-							 * this.tileY + 1; } else { posY = (tileY < 0) ?
-							 * posY - moveSpeed : posY + moveSpeed; } } //
-							 * Entity noch nicht in Bewegung, soll aber Schritte
-							 * machen else if (tileY != 0) { // Überprüfen ob
-							 * nächster Tile blocked ist if
-							 * (!Map.isBlocked(tileX, this.tileY + tileY)) {
-							 * Map.setBlocked(tileX, tileY + this.tileY, true);
-							 * lastDir = (tileY < 0) ? Direction.UP :
-							 * Direction.DOWN; isRunning = true; isStanding =
-							 * false; posY = (tileY < 0) ? posY - moveSpeed :
-							 * posY + moveSpeed; } // Entity will gegen einen
-							 * Soliden Block laufen else { lastDir = (tileY < 0)
-							 * ? Direction.UP : Direction.DOWN; isStanding =
-							 * false;
-							 * 
-							 * if (aniMoveDownHead.getFrame() == 1 ||
-							 * aniMoveUpHead.getFrame() == 1) { blockedDelta =
-							 * true; } if (aniMoveDownHead.getFrame() == 2 &&
-							 * blockedDelta == true || aniMoveUpHead.getFrame()
-							 * == 2 && blockedDelta == true) {
-							 * Sound.audioSolid.playAsSoundEffect(1.0f, 1.0f,
-							 * false); blockedDelta = false; }
-							 * 
-							 * } } // Standanimation else {
-							 * aniMoveLeftHead.restart();
-							 * aniMoveRightHead.restart(); isStanding = true; }
-							 */
-	}
-
-	private boolean isBlocked(int tileX, int tileY) {
-		return false;
-	}
-
-	public boolean collideWith(Entity me, Entity him) { // Fraglich ob benoetigt
-		// TODO
-		return false;
-	}
-
-	/** Wo kann ich die Methode nutzen -.- */
-	// TODO
-	private int getDirection(Input input) {
-		if (input.isKeyPressed(Input.KEY_A))
-			return 30;
-		if (input.isKeyPressed(Input.KEY_W))
-			return 17;
-		if (input.isKeyPressed(Input.KEY_D))
-			return 32;
-		if (input.isKeyPressed(Input.KEY_S))
-			return 31;
-		return 0;
 	}
 
 	protected void renderEntityHead() {
-		// Sollte currentAnimationHead == null sein wird Standbild von aktueller
-		// Blickrichtung gerendert
-		// if (currentAnimationHead == null)
-		// renderStand();
 		renderEntity(posX, posY, true);
-		/*
-		 * if (standAnimation) { if (standDir == Direction.UP &&
-		 * aniTurnUpHead.isStopped() || standDir == Direction.DOWN &&
-		 * aniTurnDownHead.isStopped() || standDir == Direction.LEFT &&
-		 * aniTurnLeftHead.isStopped() || standDir == Direction.RIGHT &&
-		 * aniTurnRightHead.isStopped()) { standAnimation = false;
-		 * aniTurnUpHead.restart(); aniTurnDownHead.restart();
-		 * aniTurnRightHead.restart(); aniTurnLeftHead.restart(); } }
-		 */
-	}
-
-	/*
-	 * 
-	 * if (!isStanding) { // Bewegungsanimation if (lastDir == LastDir.LEFT) {
-	 * aniMoveLeftHead.draw(posX, posY); } else if (lastDir == LastDir.UP) {
-	 * aniMoveUpHead.draw(posX, posY);
-	 * 
-	 * } else if (lastDir == LastDir.RIGHT) { aniMoveRightHead.draw(posX, posY);
-	 * 
-	 * } else if (lastDir == LastDir.DOWN) { aniMoveDownHead.draw(posX, posY);
-	 * 
-	 * } } else if (standAnimation) { if (standDir == LastDir.LEFT)
-	 * aniTurnLeftHead.draw(posX, posY); else if (standDir == LastDir.UP)
-	 * aniTurnUpHead.draw(posX, posY); else if (standDir == LastDir.RIGHT)
-	 * aniTurnRightHead.draw(posX, posY); else if (standDir == LastDir.DOWN)
-	 * aniTurnDownHead.draw(posX, posY);
-	 * 
-	 * if (standDir == LastDir.UP && aniTurnUpHead.isStopped() || standDir ==
-	 * LastDir.DOWN && aniTurnDownHead.isStopped() || standDir == LastDir.LEFT
-	 * && aniTurnLeftHead.isStopped() || standDir == LastDir.RIGHT &&
-	 * aniTurnRightHead.isStopped()) { standAnimation = false;
-	 * aniTurnUpHead.restart(); aniTurnDownHead.restart();
-	 * aniTurnRightHead.restart(); aniTurnLeftHead.restart(); } } else { //
-	 * Stehbild if (lastDir.equals(LastDir.LEFT)) { image.getSubImage(0, 2 *
-	 * height, width, height) .draw(posX, posY); } else if
-	 * (lastDir.equals(LastDir.UP)) { image.getSubImage(0, 0, width,
-	 * height).draw(posX, posY); } else if (lastDir.equals(LastDir.RIGHT)) {
-	 * image.getSubImage(1 * width, 0, width, height).draw(posX, posY); } else
-	 * if (lastDir.equals(LastDir.DOWN)) { image.getSubImage(2 * width, 1 *
-	 * height, width, height).draw( posX, posY); } } }
-	 */
-
-	private Animation getAnimation(Boolean headBody) {
-		if (!headBody) {
-			if (!isStanding) {
-				// Bewegungsanimation
-				if (lastDir == Direction.LEFT)
-					return aniMoveLeftBody;
-				else if (lastDir == Direction.UP)
-					return aniMoveUpBody;
-				else if (lastDir == Direction.RIGHT)
-					return aniMoveRightBody;
-				else if (lastDir == Direction.DOWN)
-					return aniMoveDownBody;
-			}
-			// Drehbewegung
-			else if (standAnimation) {
-				if (standDir == Direction.LEFT)
-					return aniTurnLeftBody;
-				else if (standDir == Direction.UP)
-					return aniTurnUpBody;
-				else if (standDir == Direction.RIGHT)
-					return aniTurnRightBody;
-				else if (standDir == Direction.DOWN)
-					return aniTurnDownBody;
-			} else {
-				// Stehbild
-				if (lastDir.equals(Direction.LEFT)) {
-					return aniStandLeftBody;
-				} else if (lastDir.equals(Direction.UP)) {
-					return aniStandUpBody;
-				} else if (lastDir.equals(Direction.RIGHT)) {
-					return aniStandRightBody;
-				} else if (lastDir.equals(Direction.DOWN)) {
-					return aniStandDownBody;
-				}
-			}
-		} else {
-			if (!isStanding) {
-				// Bewegungsanimation
-				if (lastDir == Direction.LEFT)
-					return aniMoveLeftHead;
-				else if (lastDir == Direction.UP)
-					return aniMoveUpHead;
-				else if (lastDir == Direction.RIGHT)
-					return aniMoveRightHead;
-				else if (lastDir == Direction.DOWN)
-					return aniMoveDownHead;
-			}
-			// Stehbild
-			else if (standAnimation) {
-				if (standDir == Direction.LEFT)
-					return aniTurnLeftHead;
-				else if (standDir == Direction.UP)
-					return aniTurnUpHead;
-				else if (standDir == Direction.RIGHT)
-					return aniTurnRightHead;
-				else if (standDir == Direction.DOWN)
-					return aniTurnDownHead;
-			} else {
-				// Stehbild
-				if (lastDir.equals(Direction.LEFT)) {
-					return aniStandLeftHead;
-				} else if (lastDir.equals(Direction.DOWN)) {
-					return aniStandDownHead;
-				} else if (lastDir.equals(Direction.UP)) {
-					return aniStandUpHead;
-				} else if (lastDir.equals(Direction.RIGHT)) {
-					return aniStandRightHead;
-				}
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -982,62 +808,6 @@ public class Entity {
 		// if (currentAnimationBody == null)
 		// renderStand();
 		renderEntity(posX, posY + height / 2, false);
-		/* Alter Quellcode */
-		/*
-		 * if (standAnimation) { if (standDir == Direction.UP &&
-		 * aniTurnUpBody.isStopped() || standDir == Direction.DOWN &&
-		 * aniTurnDownBody.isStopped() || standDir == Direction.LEFT &&
-		 * aniTurnLeftBody.isStopped() || standDir == Direction.RIGHT &&
-		 * aniTurnRightBody.isStopped()) { standAnimation = false;
-		 * aniTurnUpBody.restart(); aniTurnDownBody.restart();
-		 * aniTurnRightBody.restart(); aniTurnLeftBody.restart(); } }
-		 */
-	}
-
-	/*
-	 * if (!isStanding) { // Bewegungsanimation if (lastDir == LastDir.LEFT) {
-	 * aniMoveLeftBody.draw(posX, posY+height/2); } else if (lastDir ==
-	 * LastDir.UP) { aniMoveUpBody.draw(posX, posY+height/2);
-	 * 
-	 * } else if (lastDir == LastDir.RIGHT) { aniMoveRightBody.draw(posX,
-	 * posY+height/2);
-	 * 
-	 * } else if (lastDir == LastDir.DOWN) { aniMoveDownBody.draw(posX,
-	 * posY+height/2);
-	 * 
-	 * } } else if (standAnimation) { if (standDir == LastDir.LEFT)
-	 * aniTurnLeftBody.draw(posX, posY+height/2); else if (standDir ==
-	 * LastDir.UP) aniTurnUpBody.draw(posX, posY+height/2); else if (standDir ==
-	 * LastDir.RIGHT) aniTurnRightBody.draw(posX, posY+height/2); else if
-	 * (standDir == LastDir.DOWN) aniTurnDownBody.draw(posX, posY+height/2);
-	 * 
-	 * if (standDir == LastDir.UP && aniTurnUpHead.isStopped() || standDir ==
-	 * LastDir.DOWN && aniTurnDownBody.isStopped() || standDir == LastDir.LEFT
-	 * && aniTurnLeftBody.isStopped() || standDir == LastDir.RIGHT &&
-	 * aniTurnRightBody.isStopped()) { standAnimation = false;
-	 * aniTurnUpBody.restart(); aniTurnDownBody.restart();
-	 * aniTurnRightBody.restart(); aniTurnLeftBody.restart(); } } else { //
-	 * Stehbild if (lastDir.equals(LastDir.LEFT)) { image.getSubImage(0, 2 *
-	 * height, width, height) .draw(posX, posY); } else if
-	 * (lastDir.equals(LastDir.UP)) { image.getSubImage(0, 0, width,
-	 * height).draw(posX, posY); } else if (lastDir.equals(LastDir.RIGHT)) {
-	 * image.getSubImage(1 * width, 0, width, height).draw(posX, posY); } else
-	 * if (lastDir.equals(LastDir.DOWN)) { image.getSubImage(2 * width, 1 *
-	 * height, width, height).draw( posX, posY); } } }
-	 */
-	/*
-	 * public void updateEntity(Input input, boolean standAnimation, int steps)
-	 * { this.standAnimation = standAnimation; if (standDir == LastDir.LEFT)
-	 * lastDir = LastDir.LEFT; else if (standDir == LastDir.RIGHT) lastDir =
-	 * LastDir.RIGHT; else if (standDir == LastDir.UP) lastDir = LastDir.UP;
-	 * else if (standDir == LastDir.DOWN) lastDir = LastDir.DOWN;
-	 * 
-	 * this.updateEntity(input, steps); }
-	 */
-
-	public void updateEntity(int input, boolean standAnimation, int steps) {
-		this.standAnimation = standAnimation;
-		this.updateEntity(input, steps);
 	}
 
 	public void updateEntity(int input, int steps) {
@@ -1077,61 +847,4 @@ public class Entity {
 			aniMoveDownBody.restart();
 		}
 	}
-	/**
-	 * Update Methode des Objektes Entity
-	 * 
-	 * @param input
-	 *            (Input) Key Listener Variable
-	 * 
-	 * @param steps
-	 *            (int) Wie viele Tiles soll die Entity laufen
-	 * 
-	 * @return void
-	 */
-	/*
-	 * public void updateEntity(Input input, int steps) { // Ist Entity bereits
-	 * in bewegung if (isRunning) { if (lastDir == LastDir.LEFT) moveX(-steps);
-	 * else if (lastDir == LastDir.RIGHT) moveX(steps); else if (lastDir ==
-	 * LastDir.DOWN) moveY(steps); else if (lastDir == LastDir.UP)
-	 * moveY(-steps); } // Noch nicht in Bewegung jedoch Key Listener eingabe
-	 * else if (input.isKeyDown(Input.KEY_A)) moveX(-steps); else if
-	 * (input.isKeyDown(Input.KEY_D)) moveX(steps); else if
-	 * (input.isKeyDown(Input.KEY_S)) moveY(steps); else if
-	 * (input.isKeyDown(Input.KEY_W)) moveY(-steps); // Keine Key Listener
-	 * eingabe, Animationen werden zurückgesetzt; // Bewegungszustand auf stehen
-	 * gesetzt else { isRunning = false; isStanding = true;
-	 * aniMoveLeftHead.restart(); aniMoveUpHead.restart();
-	 * aniMoveRightHead.restart(); aniMoveDownHead.restart();
-	 * 
-	 * aniMoveLeftBody.restart(); aniMoveUpBody.restart();
-	 * aniMoveRightBody.restart(); aniMoveDownBody.restart();
-	 * 
-	 * } }
-	 */
-	/*
-	 * //Überprüft, ob Player bereits in Bewegung ist. Wenn ja wird bewegung bis
-	 * zum nächsten Tile vortgesetzt if(isRunning){ if(lastDir == LastDir.DOWN){
-	 * if(posY % Core.tileSize == 0){ isRunning = false; tileY++; } else { posY
-	 * += moveSpeed; } } else if(lastDir == LastDir.UP){ if(posY % Core.tileSize
-	 * == 0){ isRunning = false; tileY--; } else { posY -= moveSpeed; }
-	 * 
-	 * } else if (lastDir == LastDir.LEFT){ if(posX % Core.tileSize == 0){
-	 * isRunning = false; tileX--; } else { posX -= moveSpeed; } } else
-	 * if(lastDir == LastDir.RIGHT){ if(posX % Core.tileSize == 0){ isRunning =
-	 * false; tileX++; } else { posX += moveSpeed; } } } else
-	 * if(input.isKeyDown(Input.KEY_A)){ lastDir = LastDir.LEFT; isRunning =
-	 * true; isStanding = false; posX -= moveSpeed; }
-	 * 
-	 * else if(input.isKeyDown(Input.KEY_W)){ lastDir = LastDir.UP; isRunning =
-	 * true; isStanding = false; posY -= moveSpeed; }
-	 * 
-	 * else if(input.isKeyDown(Input.KEY_D)){ lastDir = LastDir.RIGHT; isRunning
-	 * = true; isStanding = false; posX += moveSpeed; }
-	 * 
-	 * else if(input.isKeyDown(Input.KEY_S)){ lastDir = LastDir.DOWN; isRunning
-	 * = true; isStanding = false; posY += moveSpeed; } else {
-	 * aniMoveLeftHead.restart(); aniMoveUpHead.restart();
-	 * aniMoveRightHead.restart(); aniMoveDownHead.restart(); isStanding = true;
-	 * }
-	 */
 }

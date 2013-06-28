@@ -2,20 +2,39 @@ package de.pokemon;
 
 import org.newdawn.slick.Input;
 
+/**
+ * Klasse zum erstellen von Npc's. Erbt von Entity. Wird durch Map Klasse mit
+ * Npc Namen als Parameter aufgerufen. Daraufhin abfrage an den ResourceManager
+ * nach Rendergrafik und Bewegungsmuster. Bewegungseingaben werden an die Entity
+ * Klasse weitergegeben.
+ * 
+ * @author Dennis
+ */
 public class Npc extends Entity {
+	/**
+	 * Variable zum Speichern der Laufroute. Informtionen aus dem
+	 * ResourceManager werden in dieser abgelegt.
+	 */
 	private int[][] route;
+
+	/**
+	 * Name des Npc's. Wird unter anderem als Indikator im ResourceManager
+	 * verwendet
+	 */
 	private String name;
 
+	/**
+	 * Countervariable wie viel Befehle der Npc in aktueller Bewegungsanimation
+	 * noch abarbeiten muss. Z.B. millisekunden im Wait-Befehl oder
+	 * Schrittanzahl bei Laufbewegung.
+	 */
 	private int counter = 0;
 
+	/**
+	 * Countervariable in welcher Bewegungsanimation sich der Npc im Moment
+	 * befindet
+	 */
 	private int step = 0;
-
-	private int random;
-	private int random2;
-	private int randomCounter = 0;
-	
-	private int lastTileX;
-	private int lastTileY;
 
 	/**
 	 * Konstruktor Npc
@@ -26,31 +45,39 @@ public class Npc extends Entity {
 	 *            (int) Start Y Position des Npc's gemessen Kopf oben links
 	 * @param name
 	 *            (String) Name des Npc's und Referenz für übrige Werte
+	 * @param event
+	 *            (EventManager) Referenz auf EventManager. Wird benötigt um
+	 *            aktuelle Position dem EventManager zu übergeben.
 	 * @return void
 	 */
 	Npc(int posX, int posY, String name, EventManager event) {
 		super(posX, posY, Core.tileSize, Core.tileSize * 2, ResourceManager
 				.getNpcImagePath(name), event);
+		// Laufroute des NPCs ermitteln
 		route = ResourceManager.getNpcRoute(name);
 		this.name = name;
-		
-		//Position und Reference an Events übermitteln
+
+		// Position und Reference an Event übermitteln
 		event.initNpc(this, this.name, getTileX(), getTileY());
-		
-		lastTileX = getTileX();
-		lastTileY = getTileY();
 	}
 
-	/*
-	 * @Override protected void renderTurnAnimation(int input) {
+	/**
+	 * Bewegungsanimation ermitteln und starten
 	 * 
-	 * }
-	 * 
-	 * @Override protected void renderMoveAnimation(int input) {
-	 * 
-	 * }
+	 * @param command
+	 *            (int) Bewegungsbefehl welcher der Npc ausführen soll
+	 *            (0=Warten, 1=Links drehen, 2=Hoch drehen, 3=Rechts drehen,
+	 *            4=Runter drehen, 5=Links laufen, 6=Hoch laufen, 7=Rechts
+	 *            laufen, 8=Runter laufen
+	 * @param duration
+	 *            (int) wie lange der command befehl ausgeführt werden soll
+	 *            (z.B. 3 Schritte laufen, 2000ms warten)
+	 * @param delta
+	 *            (int) Zeit, seit dem letzten update. Wird für wait befehl
+	 *            benötigt.
+	 * @return boolean true=Kommando wurde ausgeführt false=Kommando wird im
+	 *         moment noch ausgeführt
 	 */
-
 	private boolean moveNpc(int command, int duration, int delta) {
 		switch (command) {
 		// Warten
@@ -85,13 +112,14 @@ public class Npc extends Entity {
 			// links laufen
 		case 5:
 			if (counter < duration) {
+				// Kollision abfragen
 				if (Map.isBlocked(getTileX() - 1, getTileY())) {
 					if (currentView != Input.KEY_A)
 						renderTurnAnimation(Input.KEY_A);
 					return false;
 				}
 				renderMoveAnimation(Input.KEY_A);
-				event.setNpcPosX(this, getTileX()-1);
+				event.setNpcPosX(this, getTileX() - 1);
 				counter++;
 				return false;
 			} else {
@@ -108,7 +136,7 @@ public class Npc extends Entity {
 					return false;
 				}
 				renderMoveAnimation(Input.KEY_W);
-				event.setNpcPosY(this, getTileY()-1);
+				event.setNpcPosY(this, getTileY() - 1);
 				counter++;
 				return false;
 			} else {
@@ -125,7 +153,7 @@ public class Npc extends Entity {
 					return false;
 				}
 				renderMoveAnimation(Input.KEY_D);
-				event.setNpcPosX(this, getTileX()+1);
+				event.setNpcPosX(this, getTileX() + 1);
 				counter++;
 				return false;
 			} else {
@@ -142,7 +170,7 @@ public class Npc extends Entity {
 					return false;
 				}
 				renderMoveAnimation(Input.KEY_S);
-				event.setNpcPosY(this, getTileY()+1);
+				event.setNpcPosY(this, getTileY() + 1);
 				counter++;
 				return false;
 			} else {
@@ -153,6 +181,15 @@ public class Npc extends Entity {
 		return true;
 	}
 
+	/**
+	 * Updatemethode der Klasse Npc. Über diese werden die Bewegungsanimationen
+	 * gesteuert
+	 * 
+	 * @param delta
+	 *            (int) Zeit, seit dem letzten update. Wird für wait befehl
+	 *            benötigt.
+	 * @return void
+	 */
 	public void updateNpc(int delta) {
 		if (route != null) {
 			if (step < route.length) {
@@ -165,40 +202,22 @@ public class Npc extends Entity {
 			} else
 				step = 0;
 		}
-		// Zufallsmuster
-	/*	else {
-			if (!isRunning || randomCounter > 3000) {
-				if (isRunning) {
-					super.isRunning = false;
-					counter = 0;
-					Map.setBlocked(lastTileX, lastTileY, false);
-				}
-				if (counter == 0) {
-					random = (int) (Math.random() * (9 + 6) - 6);
-					if (random <= 0) {
-						random = 0;
-						random2 = (int) (Math.random() * (3000 - 500) + 500);
-					} else {
-						random2 = (int) (Math.random() * (4 - 1) + 1);
-
-					}
-					System.out.println("random: " + random + " random2: "
-							+ random2);
-				}
-				moveNpc(random, random2, delta);
-			} else {
-				renderTick(0);
-				randomCounter += delta;
-				lastTileX = getTileX();
-				lastTileY = getTileY();
-			}
-		}*/
 	}
 
+	/**
+	 * Kopf rendern
+	 * 
+	 * @return void
+	 */
 	public void renderNpcHead() {
 		renderEntityHead();
 	}
 
+	/**
+	 * Körper rendern
+	 * 
+	 * @return void
+	 */
 	public void renderNpcBody() {
 		renderEntityBody();
 	}

@@ -75,41 +75,6 @@ public class Player extends Entity {
 		super(posX, posY, Core.tileSize, Core.tileSize * 2, "res/character/player.png", event);
 	}
 
-	/*
-	 * private animationRet getAnimation(Input input) { if
-	 * (input.isKeyDown(Input.KEY_A)) { // Steht der Player bereits in der
-	 * richtigen Richtung? if (super.lastDir == LastDir.LEFT) return
-	 * animationRet.RUN; if (standCounterLeft < standCounterDelta) {
-	 * standCounterLeft++; super.standDir = LastDir.LEFT; return
-	 * animationRet.WAIT; } else { standCounterLeft = 0; return
-	 * animationRet.RUN; } }
-	 * 
-	 * if (input.isKeyDown(Input.KEY_S)) { // Steht der Player bereits in der //
-	 * richtigen Richtung? if (super.lastDir == LastDir.DOWN) return
-	 * animationRet.RUN; if (standCounterDown < standCounterDelta) {
-	 * standCounterDown++; super.standDir = LastDir.DOWN; return
-	 * animationRet.WAIT; } else { standCounterDown = 0; return
-	 * animationRet.RUN; } }
-	 * 
-	 * if (input.isKeyDown(Input.KEY_D)) { // Steht der Player bereits in der //
-	 * richtigen Richtung? if (super.lastDir == LastDir.RIGHT) return
-	 * animationRet.RUN; if (standCounterRight < standCounterDelta) {
-	 * standCounterRight++; super.standDir = LastDir.RIGHT; return
-	 * animationRet.WAIT; } else { standCounterRight = 0; return
-	 * animationRet.RUN; } }
-	 * 
-	 * if (input.isKeyDown(Input.KEY_W)) { // Steht der Player bereits in der //
-	 * richtigen Richtung? if (super.lastDir == LastDir.UP) return
-	 * animationRet.RUN; if (standCounterUp < standCounterDelta) {
-	 * standCounterUp++; super.standDir = LastDir.UP; return animationRet.WAIT;
-	 * } else { standCounterUp = 0; return animationRet.RUN; } } // Überprüfen,
-	 * ob zuvor eine Bewegungstaste gedrückt wurde, oder // Spieler // einfach
-	 * nur Pausiert if (standCounterUp > 0 || standCounterDown > 0 ||
-	 * standCounterLeft > 0 || standCounterRight > 0) { standCounterUp = 0;
-	 * standCounterDown = 0; standCounterLeft = 0; standCounterRight = 0; return
-	 * animationRet.TURN; } return animationRet.WAIT; }
-	 */
-
 	/**
 	 * Methode für Überprüfung ob eine Turn Animation, eine Laufanimation oder
 	 * ein einfaches Standbild gerendert werden muss
@@ -252,17 +217,6 @@ public class Player extends Entity {
 		super.renderEntityBody();
 	}
 
-	/*
-	 * public void updatePlayer(Input input, boolean test) { keyInput =
-	 * getKeyValue(input);
-	 * 
-	 * if (super.isStanding) { move = getAnimation(keyInput); if (move ==
-	 * animationRet.STAND) { super.updateEntity(keyInput, true, 0); } else if
-	 * (move == animationRet.RUN) { super.updateEntity(keyInput, 0); } } //
-	 * Bewegung wird im Moment ausgeführt, Eingabe zu Entity durchschleifen else
-	 * { super.updateEntity(keyInput, 1); } // super.updateEntity(input); }
-	 */
-
 	/**
 	 * Update Methode für Objekt Player In dieser wird überprüft, welche
 	 * Animation gerendert werden muss. Das Ergebnis wird an die Entity Klasse
@@ -275,13 +229,6 @@ public class Player extends Entity {
 	public void updatePlayer(Input input) {
 		// Wert aus input auslesen
 		keyInput = getKeyValue(input);
-
-		// Überprüfen, ob Animation ausgeführt werden muss
-		// System.out.println("isRunning: " + super.isRunning);
-		// System.out.println("isStanding: " + super.isStanding);
-		// System.out.println("currentView: " + super.currentView);
-		// System.out.println("moveAgainstSolid: " + super.moveAgainstSolid);
-		// System.out.println("---------------------------------");
 		if (!super.isRunning) {
 			//Überprüfen ob Aktionstaste gedrückt wurde
 			if(keyInput == Input.KEY_ENTER)
@@ -310,13 +257,3 @@ public class Player extends Entity {
 		}
 	}
 }
-
-/* Alter Quellcode *//*
-					 * if (super.isStanding) { move = getAnimation(keyInput); if
-					 * (move == animationRet.TURN) {
-					 * super.updateEntity(keyInput, true, 0); } else if (move ==
-					 * animationRet.RUN) { super.updateEntity(keyInput, 1); } }
-					 * // Bewegung wird im Moment ausgeführt, Eingabe zu Entity
-					 * durchschleifen else { super.updateEntity(keyInput, 1); }
-					 * // super.updateEntity(input); } }
-					 */
