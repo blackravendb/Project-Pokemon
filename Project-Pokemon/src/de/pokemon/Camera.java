@@ -1,7 +1,7 @@
 package de.pokemon;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.Graphics;
 
 public class Camera {
 
@@ -74,15 +74,13 @@ public class Camera {
 		cameraX = x - gc.getWidth() / 2;
 		cameraY = y - gc.getHeight() / 2;
 
-		// if the camera is at the right or left edge lock it to prevent a black
-		// bar
+		// if the camera is at the right or left edge lock it to prevent a blackbar
 		if (cameraX < 0)
 			cameraX = 0;
 		if (cameraX + gc.getWidth() > mapWidth)
 			cameraX = mapWidth - gc.getWidth();
 
-		// if the camera is at the top or bottom edge lock it to prevent a black
-		// bar
+		// if the camera is at the top or bottom edge lock it to prevent a blackbar
 		if (cameraY < 0)
 			cameraY = 0;
 		if (cameraY + gc.getHeight() > mapHeight)
@@ -144,18 +142,20 @@ public class Camera {
 	}
 
 	/**
-	 * Translates the Graphics-context to the coordinates of the map - now
-	 * everything can be drawn with map coordinates.
+	 * Translates the Graphics-context to the coordinates of the map 
+	 * everything can now be drawn with map coordinates.
+	 * @param g Graphics context
 	 */
-	public void translateGraphics() {
-		gc.getGraphics().translate(-cameraX, -cameraY);
+	public void translateGraphics(Graphics g) {
+		g.translate(-cameraX, -cameraY);
 	}
 
 	/**
 	 * Reverses the Graphics-translation of Camera.translatesGraphics(). Call
-	 * this before drawing Menu and HUD stuff.
+	 * this before drawing Menu and HUD text.
+	 * @param g Graphics context
 	 */
-	public void untranslateGraphics() {
-		gc.getGraphics().translate(cameraX, cameraY);
+	public void untranslateGraphics(Graphics g) {
+		g.translate(cameraX, cameraY);
 	}
 }

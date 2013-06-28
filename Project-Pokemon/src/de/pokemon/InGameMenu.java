@@ -16,47 +16,66 @@ import org.newdawn.slick.state.StateBasedGame;
 public class InGameMenu {
 
 	/** set to true if should be activated*/
-	public boolean showMenu;
+	private boolean showMenu;
+	
 	/** true if FPS display is activated*/
-	public boolean showFps;
+	private boolean showFps;
+	
 	/** true if Grid display is activated*/
-	public boolean showGrid;
+	private boolean showGrid;
+	
 	/** true if Blocked display is activated*/
-	public boolean showBlocked;
+	private boolean showBlocked;
+	
 	/** true if Position display is activated*/
-	public boolean showPosition;
+	private boolean showPosition;
+	
 	/** x-Position of the menu*/
 	private int x;
+	
 	/** y-Position of the menu*/
 	private int y;
+	
 	/** width of the menu, is 1/4 of the game canvas*/
 	private int width;
+	
 	/**	true if Debugn Menu is open*/
 	private boolean showDebug;
+	
 	/** true if Main Menu is open*/
 	private boolean showMain;
+	
 	/** the game, needed to enter states*/
 	private StateBasedGame sbg;
+	
 	/** the container holding the game*/
 	private GameContainer gc;
+	
 	/** the main-menu background*/
 	private Rectangle background;
+	
 	/** the font used for the menu*/
 	private SimpleFont font;
+	
 	/** the triangle cursor*/
 	private Polygon cursor;
+	
 	/** the main menu items */
 	private final List<String> mainItems  = Arrays.asList("Menu", "Weidaspuin", "Debugn", "Musi: O", "Beendn");
 	//private final String[] mainItems = {"Menu", "Weidaspuin", "Debugn", "Musi", "Beendn"};
+	
 	/** the debug submenu items */
 	private final List<String> debugItems  = Arrays.asList("Debugn", "FPS", "Grid", "Blocked", "Position", "Zruck");
 	//private final String[] debugItems = {"Debugn", "FPS", "Grid", "Blocked", "Position", "Zruck"};
+	
 	/** the points for the triangle in x,y order*/
 	private final float[] cursorPoints = new float[]{0,0,8,8,0,16};
+	
 	/** height of one item in the menu*/
 	private final int itemHeight = 32;
+	
 	/** if menu currently sliding in or out */
-	public boolean sliding;
+	private boolean sliding;
 
 	/**Initialises the InGameMenu
 	 * 
@@ -89,7 +108,7 @@ public class InGameMenu {
 	}
 
 	/** Updates the menu, e.g. cursor position, processes Input, adjusts the background of the menu to fit the items
-	 * 
+	 *  Bringin back procedural style in this methods. uargh
 	 * @param input Input of the PlayState
 	 */
 	public void update(Input input){
@@ -263,6 +282,62 @@ public class InGameMenu {
 	private void resetCursor(){
 		cursor.setX(x + 16);
 		cursor.setCenterY(itemHeight*3/2);
+	}
+
+	/**
+	 * 
+	 * @return true if menu is currently sliding in or out
+	 */
+	public boolean isSliding() {
+		return sliding;
+	}
+
+	/**lets the menu slide in or out
+	 * 
+	 * @param sliding 
+	 */
+	public void setSliding(boolean sliding) {
+		this.sliding = sliding;
+	}
+
+	/**
+	 * 
+	 * @return true if menu is active
+	 */
+	public boolean isShowMenu() {
+		return showMenu;
+	}
+
+	/**
+	 * 
+	 * @return if fps display is activated 
+	 */
+	public boolean isShowFps() {
+		return showFps;
+	}
+
+	/**
+	 * 
+	 * @return if grid display is active
+	 */
+	public boolean isShowGrid() {
+		return showGrid;
+	}
+
+	/**
+	 * 
+	 * @return if position display is active
+	 */
+	public boolean isShowPosition() {
+		return showPosition;
+	}
+
+	/**
+	 * 
+	 * @return if blocked display is active
+	 */
+	public boolean isShowBlocked() {
+		return showBlocked;
 	}
 
 }

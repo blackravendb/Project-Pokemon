@@ -9,29 +9,37 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Log;
 
-
-
 public class PlayState extends BasicGameState {
-	
+	/** does anyone actually read this? */
 	private GameContainer gc;
+	
 	/** ID of the state*/
 	public static int ID; 
+	
 	/** reference for the map*/
 	private Map map;
+	
 	/** reference for the camera*/
 	private Camera camera;
+	
 	/** reference for player */
 	private Player player;
+	
 	/** reference for the inGameMenu */
 	private InGameMenu menu;
+	
 	/** reference for the input*/
 	private Input input;
+	
 	/** eventmanager reference*/
 	private EventManager event;
+	
 	/** used to sum up delta times and to run the game stable at FPS != 60 */
 	private int sum = 0;
+	
 	/** the textbox used for dialogues*/
 	private TextBox textBox;
+	
 	/** if the textbox is currently displayed */
 	private boolean showTextBox = false;
 
@@ -52,7 +60,6 @@ public class PlayState extends BasicGameState {
 		event = new EventManager(this);
 		map = new Map("House", event);
 		player = new Player(map.getSpawn("player").x, map.getSpawn("player").y, event);
-		
 		camera = new Camera(gc, map);
 		camera.centerOn(player);
 		menu = new InGameMenu(gc,game);
@@ -66,39 +73,39 @@ public class PlayState extends BasicGameState {
 
 		camera.drawMap();
 
-		camera.translateGraphics();
-		if(map.hasWater){
+		camera.translateGraphics(g);
+		if(map.hasWater()){
 			map.renderWater();
 		}
 		//draw player and all entities here
 		player.renderPlayerBody();
 		map.renderNpcs();
 		player.renderPlayerHead();
-		camera.untranslateGraphics();
+
+		camera.untranslateGraphics(g);
 		camera.drawForeground();
-
-		camera.translateGraphics();
+		camera.translateGraphics(g);
 		//DRAW EVERYTHING AT NORMAL POSITION ON THE MAP AFTER TRANSLATEGRAPHICS
-		gc.setShowFPS(menu.showFps);
+		gc.setShowFPS(menu.isShowFps());
 
-		if(menu.showGrid){
+		if(menu.isShowGrid()){
 			map.showGrid(g);	
 		}
 
-		if(menu.showBlocked){
+		if(menu.isShowBlocked()){
 			map.showBlocked(g);
 		}
 
-		camera.untranslateGraphics();
-		// DRAW THE HUD AND MENU AFTER UNTRANSLATEGRAPHICS	
+		camera.untranslateGraphics(g);
+		// DRAW THE HUD-TEXT, MENU AND TEXTBOX AFTER UNTRANSLATEGRAPHICS	
 
-		if(menu.showPosition){
+		if(menu.isShowPosition()){
 			map.showPlayerPosition(g, player.getPosX(), player.getPosY(),player.getTileX(),player.getTileY());
 		}
-		if(menu.showMenu || menu.sliding){
+		if(menu.isShowMenu() || menu.isSliding()){
 			menu.render(g);
 		}
-		if(showTextBox){ //TODO
+		if(isShowTextBox()){ //TODO
 			textBox.render(g);
 		}
 
@@ -110,7 +117,7 @@ public class PlayState extends BasicGameState {
 		if(nextUpdate(delta)){
 			//if menu is not open and not sliding in or out process normal input
 			if(!showTextBox){//TODO
-				if(!menu.showMenu && !menu.sliding){
+				if(!menu.isShowMenu() && !menu.isSliding()){
 					player.updatePlayer(input);			
 					map = map.update(player,event);
 					if (map != camera.map) {
@@ -121,7 +128,7 @@ public class PlayState extends BasicGameState {
 					if(player.isStanding){
 						if(input.isKeyPressed(Input.KEY_ESCAPE)){
 							Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
-							menu.sliding = true;
+							menu.setSliding(true);
 						}
 					}
 				}
@@ -129,10 +136,10 @@ public class PlayState extends BasicGameState {
 			} else {
 				textBox.update(input, delta);
 				if(textBox.end()){
-					showTextBox = false;
+					setShowTextBox(false);
 				}
 			}
-			map.updateNpcs(delta,!menu.showMenu && !menu.sliding && !showTextBox);
+			map.updateNpcs(delta,!menu.isShowMenu() && !menu.isSliding() && !showTextBox);
 			input.clearKeyPressedRecord();	
 		}
 	}
@@ -152,7 +159,7 @@ public class PlayState extends BasicGameState {
 	public void leave(GameContainer container, StateBasedGame game) throws SlickException {
 		Sound.audioInGame.stop();
 	}
-	
+
 	/**This method ensures that the game runs correct even when fps != 60
 	 * 
 	 * @param delta
@@ -166,13 +173,31 @@ public class PlayState extends BasicGameState {
 		}
 		return false;
 	}
-	
+
 	/**updates the textbox with new text 
 	 * 
 	 * @param text used for the textbox
 	 */
 	public void setDialogString(String text){
 		textBox.setText(text,gc);
-		showTextBox = true;
+		setShowTextBox(true);
 	}
+
+	/**
+	 * 
+	 * @return true, if textbox is currently displayed
+	 */
+	public boolean isShowTextBox() {
+		return showTextBox;
+	}
+
+	/** set the visibility of the textbox
+	 * 
+	 * @param showTextBox 
+	 */
+	public void setShowTextBox(boolean showTextBox) {
+		this.showTextBox = showTextBox;
+	}
+
+
 }
