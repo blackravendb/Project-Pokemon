@@ -41,6 +41,7 @@ public class Map extends TiledMapPlus{
 		tileSize = getTileWidth(); // since our tiles are quadratic we just use getTileWidth() to determine the tileSize.
 		water = createWater();
 		createNpcs(event);
+		Sound.changeMapSound(ref);
 	}
 
 	/**

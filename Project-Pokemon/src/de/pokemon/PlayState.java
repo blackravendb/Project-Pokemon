@@ -151,9 +151,9 @@ public class PlayState extends BasicGameState {
 
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		Log.info("play is called");
-		if(!Sound.audioInGame.playing()){
-			Sound.audioInGame.loop();
-		}
+//		if(!Sound.audioInGame.playing()){
+//			Sound.audioInGame.loop();
+//		}
 	}
 
 	public void leave(GameContainer container, StateBasedGame game) throws SlickException {

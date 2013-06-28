@@ -11,6 +11,7 @@ import org.newdawn.slick.util.ResourceLoader;
 /**
  * Allgemeine Datensammlung für Sound Dateien. Bietet static Methoden wodurch
  * sounds abgespielt und gewechselt werden können
+ * 
  * @author Dennis
  */
 public class Sound {
@@ -32,6 +33,16 @@ public class Sound {
 	public static Music audioInGame;
 	/** Creditmusik */
 	public static Music audioCredits;
+	/** Haus Musik */
+	public static Audio audioHouse;
+	/** Musik außerhalb vom Zuhause */
+	public static Audio audioHome;
+	/** Musik in der Stadt */
+	public static Audio audioTown;
+	/** Musik in der FH */
+	public static Audio audioUniversity;
+	/** Musik im Studentenwohnheim */
+	public static Audio audioTownHouse1;
 	/** Referenzvariable, welche Musik im moment abgespielt wird */
 	private static Audio currentAudio;
 
@@ -58,6 +69,16 @@ public class Sound {
 			audioMenu = new Music("res/Intro/MenüMusik.ogg");
 			audioInGame = new Music("res/sounds/Home-theme.ogg");
 			audioCredits = new Music("res/CreditsState/Musik.ogg");
+			audioHouse = AudioLoader.getAudio("OGG",
+					ResourceLoader.getResourceAsStream("res/sounds/house.ogg"));
+			audioHome = AudioLoader.getAudio("OGG",
+					ResourceLoader.getResourceAsStream("res/sounds/home.ogg"));
+			audioTown = AudioLoader.getAudio("OGG",
+					ResourceLoader.getResourceAsStream("res/sounds/town.ogg"));
+			audioUniversity = AudioLoader.getAudio("OGG", ResourceLoader
+					.getResourceAsStream("res/sounds/university.ogg"));
+			audioTownHouse1 = AudioLoader.getAudio("OGG", ResourceLoader
+					.getResourceAsStream("res/sounds/townHouse1.ogg"));
 		} catch (IOException | SlickException e) {
 			System.err.println("error, while loading sound files");
 			e.printStackTrace();
@@ -85,7 +106,8 @@ public class Sound {
 	/**
 	 * Hintergrundmusik starten oder ändern
 	 * 
-	 * @param audio (Audio) Sounddatei welche als nächstes gespielt werden soll
+	 * @param audio
+	 *            (Audio) Sounddatei welche als nächstes gespielt werden soll
 	 * @return void
 	 */
 	public static void changeSound(Audio audio) {
@@ -101,5 +123,19 @@ public class Sound {
 			currentAudio.playAsMusic(1.0f, 1.0f, true);
 		}
 
+	}
+
+	public static void changeMapSound(String ref) {
+		System.out.println(ref);
+		if (ref.equals("House"))
+			changeSound(audioHouse);
+		else if (ref.equals("Home"))
+			changeSound(audioHome);
+		else if (ref.equals("Town"))
+			changeSound(audioTown);
+		else if (ref.equals("University"))
+			changeSound(audioUniversity);
+		else if (ref.equals("townHouse1"))
+			changeSound(audioTownHouse1);
 	}
 }
