@@ -242,6 +242,7 @@ public class MenuState extends BasicGameState {
 					isPlayingMusic = false;
 					Sound.audioMenu.stop();
 					sbg.getState(Core.intro).init(gc, sbg);
+					sbg.getState(Core.play).init(gc, sbg);
 					sbg.enterState(Core.intro);
 				}
 
