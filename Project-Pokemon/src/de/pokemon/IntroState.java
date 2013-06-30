@@ -109,7 +109,8 @@ public class IntroState extends BasicGameState{
 		musicStart = true;
 		glurakSound = true;
 
-		textBox = new TextBox("Servus! Herzli Wuikomma in da W‰id vo de Pokemon! I hoass DEUBLER! Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
+		textBox = new TextBox("Servus! Herzli Wuikomma in da W‰id vo de Pokemon! I hoass DEUBLER! " +
+				"Man nennt mi den Pokemon - PROFESSOR!", Color.black, Color.white, gc);
 
 		state = 1;
 		setText = 1;
@@ -219,12 +220,14 @@ public class IntroState extends BasicGameState{
 			throws SlickException {
 		Input input = gc.getInput();
 
-		if(musicStart){
+		if(musicStart){ 
+			//starts the music of the Intro
 			Sound.audioIntro.playAsMusic(1.0f, 1.0f, true);
 			musicStart = false;
 		}
 
-		if (state == 1){ //animation of the professor
+		if (state == 1){ 
+			//animation of the professor
 			if(deltaProfTransparency < 1 && aWildDeublerAppears == true){
 				prof.setAlpha(deltaProfTransparency);
 				deltaProfTransparency += 0.004f;
@@ -234,20 +237,20 @@ public class IntroState extends BasicGameState{
 			}
 			if(aWildDeublerAppears == false)
 				textBox.update(input, delta); 
-			
-			System.out.println("textBox: " + textBox.textBox);
-			
-			if(aWildDeublerAppears == false && textBox.textBox == 1){ //changes the content of the TextBox
+			if(aWildDeublerAppears == false && textBox.textBox == 1){ 
 				state = 2;
 			}
 		}
 
-		if (state == 2){ //animation of Glurak
+		if (state == 2){ 
 			if(setText == 1){
-				System.out.println("setText = 1");
-				textBox.setText("De W‰id werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid han Pokemon Haustiere, andre drogn a K‰mpfe mit eana aus. I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", gc);
+				//changes the content of the TextBox
+				textBox.setText("De W‰id werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! " +
+						"Fia manche Leid han Pokemon Haustiere, andre drogn a K‰mpfe mit eana aus. " +
+						"I seiba hob mei Hobby zum Beruf gmacht und studier Pokemon.", gc);
 				setText = 2;
 			}
+			//animation of Glurak
 			sliding = true;
 			if(pokemonX > pokemonXEnd && sliding == true){
 				pokemonX -= 8;
@@ -264,7 +267,8 @@ public class IntroState extends BasicGameState{
 			}
 		}
 
-		if(state == 3){ //changes the content of the TextBox
+		if(state == 3){ 
+			//Glurak screams
 			if(glurakSound == true){
 				Sound.audioGlurak.playAsSoundEffect(1.0f, 3.0f, false);
 				glurakSound = false;
@@ -274,7 +278,8 @@ public class IntroState extends BasicGameState{
 			}
 		}
 
-		if (state == 4){ //animation of the trainer
+		if (state == 4){ 
+			//animation of the trainer
 			sliding = true;
 			if(trainerX > trainerXEnd && sliding == true){
 				trainerX -= 8;
@@ -282,6 +287,7 @@ public class IntroState extends BasicGameState{
 			else{
 				sliding = false;
 			}
+			//if the NameMenu isn't shown the TextBox should been set with a new text
 			if(!menu_1.showMenu){ 
 				if(setText == 2){
 					textBox.setText("Wia hoaﬂtn du glei wieda?", gc);
@@ -290,6 +296,8 @@ public class IntroState extends BasicGameState{
 				if(sliding == false)
 					textBox.update(input, delta);
 			}
+			//if the NameMenu is shown and the trainer isn't sliding the textBox shouldn't update, hide the triangle and 
+			//update the NameMenu
 			else if(menu_1.showMenu && sliding == false){
 				textBox.update = false;
 				textBox.showTriangle = false;
@@ -298,6 +306,7 @@ public class IntroState extends BasicGameState{
 					menu_1.update = false;
 				}
 			}
+			//if the Player has chosen a name, the NameMenu shouldn't been shown and the state should change
 			if(menu_1.name != null){
 				menu_1.showMenu = false;
 				state = 5;
@@ -310,18 +319,19 @@ public class IntroState extends BasicGameState{
 
 		if(state == 5) {
 			textBox.update(input, delta);
-
+			//changes the content of the TextBox
 			if(setText == 3){
 				textBox.setText("Stimmt ja, du warst da " + menu_1.name + "!", gc);
 				setText = 4;
 			}
 
-			if(textBox.textBox == 4){ // changes the content of the TextBox
+			if(textBox.textBox == 4){ 
 				state = 6;
 			}
 		}
 
-		if (state== 6){ //animation of the grandson
+		if (state== 6){ 
+			//animation of the grandson
 			sliding = true;
 			if(grandsonX > grandsonXEnd && sliding == true){
 				grandsonX -= 8;
@@ -329,15 +339,19 @@ public class IntroState extends BasicGameState{
 			else{
 				sliding = false;
 			}
-
+			//if the NameMenu isn't shown the TextBox should show another text
 			if(!menu_2.showMenu){ 
 				if(setText == 4){
-					textBox.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! Wie hoaﬂtn der jetz scho wieda?", gc);
+					textBox.setText("Des is mei Enkel. Scho imma woits ihr besser sei wia da andere! " +
+							"Wie hoaﬂtn der jetz scho wieda?", gc);
 					setText = 5;
 				}
+				//update the TextBox only if the grandson isn't sliding
 				if(sliding == false)
 					textBox.update(input, delta);
 			}
+			//if the NameMenu isn't shown and the grandson isn't slinding the TextBox shouldn't update 
+			//and the NameMenu should update
 			else if(menu_2.showMenu && sliding == false){
 				textBox.update = false;
 				textBox.showTriangle = false;
@@ -352,7 +366,8 @@ public class IntroState extends BasicGameState{
 			}
 
 			if(textBox.textBox == 5 && sliding == false){
-				menu_2.showMenu = true; //opens the NameMenu
+				//opens the NameMenu
+				menu_2.showMenu = true; 
 			}
 		}
 
@@ -364,20 +379,22 @@ public class IntroState extends BasicGameState{
 
 			textBox.update(input, delta);
 
-			if(textBox.textBox == 6){// changes the TextBox
+			if(textBox.textBox == 6){
 				state = 8;
 			}
 		}
 
 		if(state == 8){
 			if(setText == 6){
-				textBox.setText(menu_1.name + "! A unglaubliche Reise in de W‰id da Pokemon erwart Di! A W‰id voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", gc);
+				textBox.setText(menu_1.name + "! A unglaubliche Reise in de W‰id da Pokemon erwart Di! " +
+						"A W‰id voia Wunda, Obnteia und Geheimnisse! Des is a Draum!", gc);
 				setText = 7;
 			}
 
 			if(textBox.textBox == 6) 
 				textBox.update(input, delta);
 
+			//animation of the trainer
 			sliding = true;
 
 			if(textBox.textBox == 7){
@@ -392,7 +409,8 @@ public class IntroState extends BasicGameState{
 			}
 		}
 
-		if (state == 9){ //animation of the trainer and counter starts 
+		if (state == 9){ 
+			//animation of the trainer and counter starts 
 
 			if(counter_2 <= 1000 && sliding == false){
 				counter_2 += delta;

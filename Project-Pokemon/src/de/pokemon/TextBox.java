@@ -13,8 +13,7 @@ public class TextBox {
 	/** set to true if TextBox should update*/
 	boolean update;
 
-	boolean lastWord;
-	
+	/** the used font in the game */
 	Font font;
 
 	/** x-coordinate of the frame*/
@@ -47,7 +46,6 @@ public class TextBox {
 	private String[] textArray; 
 	/** committed string */
 	private String[] textArray2;
-	private String text; 
 
 	/** x-coordinate of the string in the TextBox */
 	private int stringx;
@@ -80,13 +78,11 @@ public class TextBox {
 	 */
 	public TextBox(String text, Color colorBackground, Color colorFont, GameContainer gc){
 
-		this.text = text; 
-
 		this.colorBackground = colorBackground;
 		this.colorFont = colorFont;
 
 		update = true;
-		
+
 		rectWidth = gc.getWidth()/2;
 		rectHeight = gc.getHeight()/6; 
 		rectX = (gc.getWidth() - rectWidth)/2; 
@@ -94,10 +90,8 @@ public class TextBox {
 
 		background = new Rectangle(rectX, rectY, rectWidth, rectHeight);
 		length = (gc.getDefaultFont().getWidth(text)); 
-		System.out.println("length: " + length);
 		maxLength = rectWidth - 15;
-		System.out.println("maxLength: " + maxLength);
-		
+
 		font = gc.getDefaultFont();
 
 		changeStrings = 0;
@@ -127,90 +121,70 @@ public class TextBox {
 	 * 
 	 */
 	private void splitText (String text){
-		textArray2 = new String[30]; //the length of the array depends on the length of the commited string
-		System.out.println("LängetextArray: "+ textArray2.length);
+		textArray2 = new String[30]; 
+		//counts how often the programm loops through the array
 		int counterArray = 0;
-		
-		//System.out.println("Feldanzahl: " + ((int) (Math.ceil(length/maxLength))));
+
 		StringBuffer buffer;
-		StringBuffer buffer2;
 		StringTokenizer tokenizer_1 = new StringTokenizer(text);
-		StringTokenizer tokenizer_2 = new StringTokenizer(text);
 		String rem2 = "";
-		//System.out.println(font.getWidth(buffer.append(tokenizer_1.nextToken() + " ")));
-		
-		
+
 		for(int i = 0; i < textArray2.length; i++){ //loops through the stringarray
 			counterArray = counterArray + 1;
 			buffer = new StringBuffer();
-			//buffer2 = new StringBuffer();
 			String rem = "";
-			
+
 			if(rem2 != ""){
-			buffer.append(rem2 + " ");
+				buffer.append(rem2 + " ");
 			}
-			
-			/*
-			 * De Wäid werd vo komische Wesn bewohnt, zu dene ma Pokemon sogt! Fia manche Leid
-			 */
-			
+
+			//appends the next token to the buffer, remembers the string before and the last word
 			while(tokenizer_1.hasMoreTokens() && font.getWidth(buffer.toString()) < maxLength){
-			rem = buffer.toString();
-			System.out.println("rem: " + rem);
-			rem2 = tokenizer_1.nextToken();
-			buffer.append(rem2 + " ");
+				rem = buffer.toString();
+				rem2 = tokenizer_1.nextToken();
+				buffer.append(rem2 + " ");
 			}
-			
-			//System.out.println("lastWord: " + lastWord);
-			
+			//???????????????
 			if(tokenizer_1.hasMoreTokens() == false && font.getWidth(buffer.toString()) < maxLength){
-					rem = buffer.toString();
-					}
-			/*
-			while(tokenizer_1.hasMoreTokens() && font.getWidth(buffer.append(tokenizer_1.nextToken() + " ").toString()) < maxLength){ 
-				buffer2.append(tokenizer_2.nextToken() + " "); //saves every token in a buffer
-			}*/
+				rem = buffer.toString();
+			}
+
 			textArray2[i] = rem; // saves the part of the string in a stringarray
+			//if the loop went through the whole text and the text is longer than the maximal length the next 
+			//textArray2 should be filled with rem2 which saves the last word of the text
 			if(tokenizer_1.hasMoreTokens() == false){
-				System.out.println("BREAK!");
 				if(font.getWidth(buffer.toString()) >= maxLength){
 					textArray2[i+1] = rem2;
 					counterArray += 1; 
 				}
 				break;
 			}
-	}
-		
-		
-		if(counterArray < 3){ //TODO
+		}
+
+		//the textArray is created 
+		if(counterArray < 3){ 
 			textArray = new String[counterArray];
 		}else{
-		textArray = new String[counterArray + 1];
+			textArray = new String[counterArray + 1];
 		}
-		System.out.println("counter: " + counterArray);
-		
+		//the textArray is filled
 		for(int i = 0; i < counterArray; i++){ 
 			textArray[i] = textArray2[i];
-			System.out.println("textArray: " + textArray[i]);
 		}
-		
-		System.out.println("ENDE_SPLIT");
 	}
 
 	/**changes the text which is shown in the TextBox
 	 *
 	 * @param p string which should be shown in the TextBox
+	 * @param gc the container holding the game
 	 * 
 	 */
-	public void setText (String p, GameContainer gc){ //28.06 gc
+	public void setText (String p, GameContainer gc){ 
 
-		System.out.println("ANFANG");
-		//text = p;
 		update = true;
 
-		length = (gc.getDefaultFont().getWidth(p));                                                 //p.length() * 8; 
-		System.out.println("length2: " + length);
-		
+		length = (gc.getDefaultFont().getWidth(p));                                                
+
 		changeStrings = 0;
 
 		textArray = new String[(int) (Math.ceil(length/maxLength))];
@@ -223,8 +197,6 @@ public class TextBox {
 		splitText(p);
 
 		end = false;
-		System.out.println("ENDE");
-
 	}
 
 	/**Updates the TextBox, e.g. cursor position, processes Input
@@ -234,41 +206,33 @@ public class TextBox {
 	 */
 
 	public void update(Input input, int delta){
-		
-		System.out.println("UPDATE!");
-		System.out.println("textArray.length: " + textArray.length);
-		System.out.println("textBoxInc: " + textBoxInc);
-		System.out.println("update: " + update);
-		
-		if(update == true){
 
-			
-			
-			if(textArray.length == 1 && changeStrings == 1 && textBoxInc == true){ //changes TextBox if the length of the stringarray == 1
+		if(update == true){
+			 //changes TextBox if the length of the stringarray == 1
+			if(textArray.length == 1 && changeStrings == 1 && textBoxInc == true){
 				textBox += 1;
 				end = true;
 				textBoxInc = false;
 			}
-
-			else if(textArray.length == 2 && changeStrings == 1){//changes TextBox if the length of the stringarray == 2
+			//changes TextBox if the length of the stringarray == 2
+			else if(textArray.length == 2 && changeStrings == 1){
 				if(textBoxInc == true){
 					textBox += 1;
 					end = true;
 					textBoxInc = false;
 				}
 			}
-
-			for(int k = 0; k <= 2; k++){ // //changes TextBox if the length of the stringarray > 2
+			//changes TextBox if the length of the stringarray >= 3
+			for(int k = 0; k <= 2; k++){
 				if(textArray.length >= 3 && changeStrings > textArray.length - 4 && textBoxInc == true){
-					
+
 					textBox += 1;
 					end = true;
-					System.out.println("textBox: " + textBox);
 					textBoxInc = false;
 				}
 			}
 
-			// counter rules that next is shown every second
+			// counter rules that "next" is shown every second
 			if (counter <= 1000){
 				counter += delta;
 			}else{
@@ -279,13 +243,14 @@ public class TextBox {
 			}else{
 				showTriangle = false;
 			}
-
-			next.setLocation(rectX + rectWidth - 10, stringY[2] + 5); //sets the location of the triangle
-
-			if(input.isKeyPressed(Input.KEY_ENTER)){ //if you press Enter the strings are scrolling up
+			
+			//sets the location of the triangle
+			next.setLocation(rectX + rectWidth - 10, stringY[2] + 5); 
+			
+			//if you press Enter the strings are scrolling up
+			if(input.isKeyPressed(Input.KEY_ENTER)){ 
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
 				changeStrings++;
-				System.out.println("changeStrings: " + changeStrings);
 			}
 			input.clearKeyPressedRecord();
 		}
@@ -300,30 +265,32 @@ public class TextBox {
 		g.fill(background);
 		g.setColor(colorFont);
 		g.drawRect(rectX, rectY, rectWidth, rectHeight);
-
+		
+		//renders the TextBox if the TextBox has just one line 
 		if(textArray.length == 1){
 			g.drawString(textArray[0], stringx, stringY[0]);
 		}
-
+		
+		//renders the TextBox if the TextBox has just two lines
 		else if(textArray.length == 2){
 			for(int q = 0; q <= 1; q++){
-				
-				System.out.println("textArray bei 2: " + textArray[q]);
 				g.drawString(textArray[q], stringx, stringY[q]);
 			}
 		}
-
+		
+		//renders the TextBox if the TextBox has more than two lines 
 		else if(textArray.length > 2){
-
-			for(int k = 0; k <= 2; k++){ //changes the position of the strings
+			
+			//changes the position of the strings
+			for(int k = 0; k <= 2; k++){ 
 				if(textArray.length == 3){
 					g.drawString(textArray[k], stringx, stringY[k]);
-				}else if(changeStrings <= textArray.length - 4){ // war - 3
+				}else if(changeStrings <= textArray.length - 4){ 
 					g.drawString(textArray[k + changeStrings], stringx, stringY[k]); 
 				}else{
 					mem = changeStrings - 1;
 				}
-				if(changeStrings > textArray.length - 4){// war - 3
+				if(changeStrings > textArray.length - 4){
 					g.drawString(textArray[k + mem], stringx, stringY[k]);
 				}
 			}

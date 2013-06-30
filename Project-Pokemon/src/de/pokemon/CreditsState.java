@@ -15,22 +15,32 @@ public class CreditsState extends BasicGameState {
 	/** ID of the state*/
 	public static int ID; 
 
+	/** counter which rules which area is shown */
 	private int k;
 
-	Image ende;
-	private int endeX;
-	private int endeY;
+	/** the image at the last part*/ 
+	Image end;
+	/** x-coordinate of the Image "end" */
+	private int endX;
+	/** y-coordinate of the Image "end" */
+	private int endY;
+	/** changes the visibility of the picture "end"*/
+	private float deltaEndTransparency;
+	/** true if "end" appears */
+	private boolean endAppears;
 
-	private float deltaEndeTransparency;
-	private boolean endeAppearse;
-
+	/** the image at the top of the Credits*/
 	Image title;
+	/** x-coordinate of the "title" */
 	private int titleX;
+	/** y-coordinate of the "title" */
 	private int titleY;
-
+	/** changes the visibility of the picture "title" */
 	private float deltaTitleTransparency;
+	/** true if "title" appears*/
 	private boolean titleAppearse;
 
+	/** rules which strings are shown at the moment */
 	private int state;
 
 	/** true if the professor appears*/
@@ -39,14 +49,21 @@ public class CreditsState extends BasicGameState {
 	/** counter which rules how long trainer has to need for sliding*/
 	private long counter;
 
+	/** the animation of the trainer above the strings */
 	private Animation animation;
 
+	/** the different areas at which we worked*/
 	private String area[] = new String[14];
+	/** the different people who worked on the project*/
 	private String name[] = new String[5];
+	/** x-coordinate of the strings*/
 	private int textX;
+	/** y-coordinate of the strings*/
 	private int textY;
+	/** the different y-coordinates of the names*/
 	private int[] nameY = new int[4];
 
+	/** true if music is playing */
 	private boolean isPlayingMusic;
 
 	/**Sets the ID of this state
@@ -61,12 +78,12 @@ public class CreditsState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 
-		ende = new Image("res/CreditsState/Ende.png");
-		endeX = (gc.getWidth() - ende.getWidth())/2;
-		endeY = (gc.getHeight() - ende.getHeight())/2;
+		end = new Image("res/CreditsState/Ende.png");
+		endX = (gc.getWidth() - end.getWidth())/2;
+		endY = (gc.getHeight() - end.getHeight())/2;
 
-		deltaEndeTransparency = 0;
-		endeAppearse = false;
+		deltaEndTransparency = 0;
+		endAppears = false;
 
 		title = new Image("res/CreditsState/Obspann.png");
 		titleX = (gc.getWidth() - title.getWidth()) / 2;
@@ -79,13 +96,13 @@ public class CreditsState extends BasicGameState {
 
 		sliding = true;
 		Image [] trainer = {new Image("res/CreditsState/Trainer Animation/IMG00000.bmp"), 
-							new Image("res/CreditsState/Trainer Animation/IMG00001.bmp"), 
-							new Image("res/CreditsState/Trainer Animation/IMG00002.bmp"), 
-							new Image("res/CreditsState/Trainer Animation/IMG00003.bmp"), 
-							new Image("res/CreditsState/Trainer Animation/IMG00004.bmp"), 
-							new Image("res/CreditsState/Trainer Animation/IMG00005.bmp"), 
-							new Image("res/CreditsState/Trainer Animation/IMG00006.bmp"), 
-							new Image("res/CreditsState/Trainer Animation/IMG00007.bmp")};
+				new Image("res/CreditsState/Trainer Animation/IMG00001.bmp"), 
+				new Image("res/CreditsState/Trainer Animation/IMG00002.bmp"), 
+				new Image("res/CreditsState/Trainer Animation/IMG00003.bmp"), 
+				new Image("res/CreditsState/Trainer Animation/IMG00004.bmp"), 
+				new Image("res/CreditsState/Trainer Animation/IMG00005.bmp"), 
+				new Image("res/CreditsState/Trainer Animation/IMG00006.bmp"), 
+				new Image("res/CreditsState/Trainer Animation/IMG00007.bmp")};
 
 		animation = new Animation(trainer, 100, true);
 		animation.setAutoUpdate(true);
@@ -122,6 +139,11 @@ public class CreditsState extends BasicGameState {
 		isPlayingMusic = false;
 	}
 
+	/** Renders the CreditsState
+	 * @param gc the container holding the game
+	 * @param game the game
+	 * @param g the current graphics context
+	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g)
 			throws SlickException {
@@ -202,22 +224,30 @@ public class CreditsState extends BasicGameState {
 		}
 		else if(state == 13){
 			sliding = true;
-			g.drawString(area[12], textX, textY);
-			g.drawString(name[0], textX, nameY[0]);
-			g.drawString(name[1], textX, nameY[1]);
-			g.drawString(name[2], textX, nameY[2]);
+			g.drawString(area[12], textX, textY); //Informatik 2
+			g.drawString(name[0], textX, nameY[0]); //Programmieren 2
+			g.drawString(name[1], textX, nameY[1]); //bei Prof. Dr. Martin Deubler
+			g.drawString(name[2], textX, nameY[2]); //Projekt 2013
 		}
 		else if(state == 14){
 			sliding = false;
-			g.drawImage(ende, endeX, endeY);
+			g.drawImage(end, endX, endY);
 		}
 	}
 
+	/** Updates the CreditsState, processes Input, animations
+	 * 
+	 * @param gc the container holding the game
+	 * @param game the game
+	 * @param delta the number of milliseconds between frames
+	 * 
+	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 		Input input = gc.getInput();
-
+		
+		//animation of the title
 		if(deltaTitleTransparency < 1 && titleAppearse == true){
 			title.setAlpha(deltaTitleTransparency);
 			deltaTitleTransparency += 0.004f;
@@ -225,9 +255,10 @@ public class CreditsState extends BasicGameState {
 		else{
 			titleAppearse = false;
 		}
-
-		if(titleAppearse == false && endeAppearse == false){
-			if(sliding == true && textX > (gc.getWidth() - gc.getGraphics().getFont().getWidth(area[k])) / 2){ //animation of the text
+		
+		//animation of the text
+		if(titleAppearse == false && endAppears == false){
+			if(sliding == true && textX > (gc.getWidth() - gc.getGraphics().getFont().getWidth(area[k])) / 2){ 
 				textX -= 8;
 			}
 			else{
@@ -244,24 +275,25 @@ public class CreditsState extends BasicGameState {
 							state = state + 1;
 							k = k  + 1;
 						}
-						System.out.println(state);
-						System.out.println(k);
 					}
 				}
 			}
 		}
-
-		if(input.isKeyPressed(input.KEY_ESCAPE)){
+		
+		//press escape to return to the menu
+		if(input.isKeyPressed(Input.KEY_ESCAPE)){
 			isPlayingMusic = false;
 			Sound.audioCredits.stop();
 			game.enterState(Core.menu);
 
 		}
+		//turns on the music
 		if (!isPlayingMusic) {
 			Sound.audioCredits.loop();
 			isPlayingMusic = true;
 		}
 
+		//changes the text at the last but not least state
 		if(state == 13){
 
 			name[0] = "Programmieren 2";
@@ -270,23 +302,27 @@ public class CreditsState extends BasicGameState {
 
 		}
 
+		//animation of the picture "end"
 		if(state == 14){
-			endeAppearse = true;
-			if(deltaEndeTransparency < 1 && endeAppearse == true){
-				ende.setAlpha(deltaEndeTransparency);
-				deltaEndeTransparency += 0.004f;
+			endAppears = true;
+			if(deltaEndTransparency < 1 && endAppears == true){
+				end.setAlpha(deltaEndTransparency);
+				deltaEndTransparency += 0.004f;
 			}
 			else{
-				endeAppearse = false;
+				endAppears = false;
 			}
-			if(endeAppearse == false && sliding == false){
+			if(endAppears == false && sliding == false){
 				Sound.audioCredits.stop();
 				game.enterState(Core.menu);
 			}
 		}
 	}
 
-
+	/**Sets the ID of this state
+	 * 
+	 * @param id
+	 */
 	@Override
 	public int getID() {
 		return ID;

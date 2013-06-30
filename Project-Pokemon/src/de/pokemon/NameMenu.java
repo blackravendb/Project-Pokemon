@@ -18,9 +18,10 @@ public class NameMenu {
 	/** true if NameMenu should update*/
 	public boolean update;
 
-	private boolean newName;
-	/** creates an object with which you can choose any name*/
+	/** creates an object of "Name" with which you can choose any name*/
 	private Name namePlayer;
+	/** true if the NameMenu should be able to create any name*/
+	private boolean newName;
 
 	/** the name of the player*/
 	public String name;
@@ -102,12 +103,12 @@ public class NameMenu {
 	 */
 	public void update(Input input, int delta) throws SlickException {
 
+		// if the optional function "newName" is activated and the Player has entered a Name and pressed Enter, 
+		//the programm should set the name
 		if(newName == true && namePlayer.stringFilled == true){
 			name = namePlayer.string;
 			input.clearKeyPressedRecord();
-			System.out.println(name);
 		}
-
 		if(update){
 			if(showMenu){
 				background.setHeight(mainItems.length*32);
@@ -128,10 +129,12 @@ public class NameMenu {
 					cursor.setY(cursor.getY() + 32);
 				}
 				else{
-					resetCursor();
+					resetCursor(); 
 				}
 			}
-
+			
+			//if you press Enter, you set the name
+			
 			if(input.isKeyPressed(Input.KEY_ENTER)){
 				if(showMenu){
 					if(cursor.getCenterY() == 86){ //new name
@@ -163,6 +166,7 @@ public class NameMenu {
 				namePlayer.update(gc, delta);
 			}
 		}
+		
 		if(input.isKeyPressed(Input.KEY_ESCAPE) && namePlayer.showTextField == true){
 			showTextField = false;
 			update = true;
@@ -180,8 +184,10 @@ public class NameMenu {
 		if(showMenu){
 			g.setColor(Color.white);
 			g.drawRect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
-			for(int i = 0, j = backgroundY - 15; i < mainItems.length; i++, j += 32){// renders the different names at the right position
-				g.drawString(mainItems[i], background.getCenterX()-g.getFont().getWidth(mainItems[i])/2, j-g.getFont().getHeight(mainItems[i])/2);
+			// renders the different names at the right position
+			for(int i = 0, j = backgroundY - 15; i < mainItems.length; i++, j += 32){
+				g.drawString(mainItems[i], background.getCenterX()-g.getFont().getWidth(mainItems[i])/2, 
+						j-g.getFont().getHeight(mainItems[i])/2);
 			}
 		}
 		if(showTextField){

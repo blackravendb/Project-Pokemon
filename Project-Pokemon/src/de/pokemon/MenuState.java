@@ -19,11 +19,11 @@ public class MenuState extends BasicGameState {
 
 	/** true if logo is sliding */
 	private boolean sliding;
-	/** */
+	/** x-coordinate of "logo"*/
 	private int logoX;
-	/** */
+	/** y-coordinate of "logo"*/
 	private int logoY;
-	/** */
+	/** x-coordinate where the animation of "logo" should end*/
 	private int logoXEnd;
 
 	/** x-coordinate of pokemon */
@@ -196,18 +196,20 @@ public class MenuState extends BasicGameState {
 
 		Input input = gc.getInput();
 
+		//starts the music
 		if (!isPlayingMusic) {
-			//Sound.audioMenu.playAsMusic(1.0f, 1.0f, true);
 			Sound.audioMenu.loop();
 			isPlayingMusic = true;
 		}
-
-		if (logoX > logoXEnd && sliding == true) { // animation of the logo
+		
+		// animation of the logo
+		if (logoX > logoXEnd && sliding == true) { 
 			logoX -= 4;
 		} else {
 			sliding = false;
 		}
-
+		
+		//if the animation stops you are able to change the position of the cursor
 		if (sliding == false) {
 			if (input.isKeyPressed(Input.KEY_S)) {
 				if (cursorY == quitY + 4) {

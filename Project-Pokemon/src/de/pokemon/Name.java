@@ -18,7 +18,9 @@ public class Name implements ComponentListener {
 	public String string;
 	/** true if the player chose his name*/
 	public boolean stringFilled;
+	/** true if the textfield should be shown*/
 	public boolean showTextField;
+
 	/**Constructor of the NameMenu
 	 *
 	 */
@@ -33,7 +35,7 @@ public class Name implements ComponentListener {
 	 */
 	public void init(GameContainer container) throws SlickException {
 		field = new TextField(container, container.getDefaultFont(), 250, 80, 100, 20);
-		field.addListener(this); //Was ist das this?
+		field.addListener(this); //Was ist das this? //TODO
 		field.setBackgroundColor(Color.white);
 		field.setTextColor(Color.black);
 		field.setMaxLength(8);
