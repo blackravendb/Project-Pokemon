@@ -13,7 +13,7 @@
  </tileset>
  <layer name="collision" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UQQ7AIAgEvfX/D/QvPTUxxgosK4Smm3ASmRXFfrXWhRgl5aIxa8VlSOJKPhhMbQ+0exHuuB7BXa1Hc5+cylzvHP3cHO6uptXnXE/jQxL69r3K4Hpm/bSHXV5FLrvP1nnM4Eac1/tfIXyrv5NzVpWLsrO4DA9f4r7lMcW4azRuFEL6MBAOAAA=
+   H4sIAAAAAAAAC+2UQQpAIQhE2/37H7C7tPoQUWnjlBgNuNJ8g2X5SykLUUuqRaNVj8uQxJV8MJjaGWjPItw6f4Lby5/m/jWRudY9elwf7qznqs+2n8aHJPTtW+XBtez6bg+zuohc9pwR/zdyrf8Vwl/1t3PPonJRtheX4eEm7qiOKcZdo1EAvvIwTRAOAAA=
   </data>
  </layer>
  <layer name="background" width="30" height="30">
@@ -23,7 +23,7 @@
  </layer>
  <layer name="objects" width="30" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC73Wa1eiQBzHcQoYyE6dg2m9nt018ylUu68nu+hT6fZ6slZ9Ct3eTl9WOOLIMCq2c87nBM4wP/5cJnqGYfRxgg7GFts5feRbT+pfx8Sa5fXSfLmNrPL9dVuWl+Xrmr1ibtFwZ2exXs80jDoO0EDTLJ4v4vdYYSAMIxTqcxG1xXp9jgtwijOcK3I9CqkrRGTGmlzV/e1iG1eKXJ/5AwXPId9ZrV65TRS5A+YPcYs73OMBj/DJDDS5Zc+zVZIb0RnjFW94xwc+MSAzlHJfeJaOa1PtCvV6NtcSB2igiUMcISIzlnKt2vx+Ub35Z1+V6zN/gFOc4Ry/8Qeeyzm55blr31/mD3GLO9zjAY/wyQw0ubr1Snl/mT/GK97wjg98YkBmuGK9N+aUkW670oLjpMd7vJ91MX3fGvxt4hBHiMiMK9a7qbbq/d1ES65RK32HRjvT3/5XvVkTad26ei8Y18VlraCzQq6u3ifGDfFcMTdbr9pL1ru1y/8HmLvF813scT1wiStc42Zvcdymn+cnMoZ4xgv+YrREblm9y3xabO1zPWDCgg2Ba+ngTdf7g4yf+IUWjtHeXxynqneMCQTrnKPg2uXn0C3pk3PHzDXJzZ3sn+SM7NmYjia3rMm5DuupK+az8oSYH6OrWdWy9Spbs3S57aQPnXRMlZqzlqwdutyEk+v/jtwWegWG1my7r8ld5t2Tc1W1bJd8C6/T/n1PSvdu7M7u/3dJ1ugvnqnfihAOAAA=
+   H4sIAAAAAAAAC73W21LiMBzH8WpLWnF0pgj6PLuLyG2r7j6PeIBb6ul5RBe4pZ5eZ7/dtkM3NAlQ3Mx8xpak+fXfQ2zfsqwBTtDFxGG7YIBi60v965g687x+li+3saPfX7fleXm+qdVWzC0b7u4s1uvbltXAAZpo2eXzzfg9VhgKy4qE+lxEfbHegONCnOIM54pcn0IaCjMyY0Ou6v72sI0rRW7A/KGC75Lvrlav3KaK3CHzR7jFHe7xgEcEZIaGXN3z7GhyZ3TGeMUb3vGBTwzJjKTcF56l43qqU6Fev8a1xAGaaOEQR5iRGUu5Tv3f/bJ6i8++Kjdg/hCnOMM5fuIXfI9z8vS5a99f5o9wizvc4wGPCMgMDbmm9Up5f5k/xive8I4PfGJIZrRivTd2ysq2PWnBcbPjfd7PhkjftyZ/WzjEEWZkxhXr3VRb9f5uoiXXqJ29Q+Od9Lf/VW/eRFa3qd4LxvVwWS/prJBrqveJcSM8V8zN16vOkvVu7fL/AfZu+XwXe1wPXOIK17jZWxy36ef5iYwRnvGC3xgvkaurd5lPi619rgdsOKhB4Fo6eNP1fiPjO36gjWN09hfHqeqdYArBOucqeDX9OfQ0fXLuhLmmhbmT/ZPMONvPx3QNubom57qsp56YZxUJkfYXx5hqVrV8vcrXLF1uJ/k9083GVKk5b8naocvNuYX+r8hto19i5My3B4bcZd49OVdVy7bmW3id9vd7Urp3E29+/79Kskb/AXxo9DsQDgAA
   </data>
  </layer>
  <layer name="foreground" width="30" height="30">

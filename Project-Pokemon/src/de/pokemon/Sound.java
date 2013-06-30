@@ -115,8 +115,7 @@ public class Sound {
 			currentAudio = audio;
 			currentAudio.playAsMusic(1.0f, 1.0f, true);
 		} else if (currentAudio == audio)
-			return;
-
+			currentAudio.playAsMusic(1.0f, 1.0f, true);
 		else {
 			currentAudio.stop();
 			currentAudio = audio;

@@ -7,7 +7,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.Log;
 
 public class PlayState extends BasicGameState {
 	/** does anyone actually read this? */
@@ -105,7 +104,7 @@ public class PlayState extends BasicGameState {
 		if(menu.isShowMenu() || menu.isSliding()){
 			menu.render(g);
 		}
-		if(isShowTextBox()){ //TODO
+		if(isShowTextBox()){
 			textBox.render(g);
 		}
 
@@ -116,7 +115,7 @@ public class PlayState extends BasicGameState {
 			throws SlickException {
 		if(nextUpdate(delta)){
 			//if menu is not open and not sliding in or out process normal input
-			if(!showTextBox){//TODO
+			if(!showTextBox){
 				if(!menu.isShowMenu() && !menu.isSliding()){
 					player.updatePlayer(input);			
 					map = map.update(player,event);
@@ -150,14 +149,10 @@ public class PlayState extends BasicGameState {
 	}
 
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-		Log.info("play is called");
-//		if(!Sound.audioInGame.playing()){
-//			Sound.audioInGame.loop();
-//		}
+		Sound.changeMapSound(map.getName());
 	}
 
 	public void leave(GameContainer container, StateBasedGame game) throws SlickException {
-		Sound.audioInGame.stop();
 	}
 
 	/**This method ensures that the game runs correct even when fps != 60

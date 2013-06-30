@@ -13,7 +13,7 @@
  </tileset>
  <layer name="collision" width="25" height="26">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC7vLzsBwdxhgUgGl+kcBYUBK2BIbH+hq6GEHKWAwpytaumkw+5sUQA/3o9tBCzvpYQe9ACVlP63qj5EE0MvboWrHQAB6lSWktpVI1QMAjd3O2ygKAAA=
+   H4sIAAAAAAAAC7vLzsBwdxhgUgGl+kcSIDesSFFPrB3oauhhBylgMKcrWrppMPubFEAP96PbQQs76WEHvQAlZT+t6g9y/TEUAbnlLSV2DBdAr7KE1LYSqXoAGiZm8igKAAA=
   </data>
  </layer>
  <layer name="background" width="25" height="26">
