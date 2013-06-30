@@ -337,7 +337,7 @@ public class Entity {
 	public void setPosition(int posX, int posY) {
 		isRunning = false;
 		isStanding = true;
-		Map.setBlocked(tileX, tileY, false); // alte Position freigeben
+	//	Map.setBlocked(tileX, tileY, false); // alte Position freigeben
 		calcTileX(posX);
 		calcTileY(posY);
 		this.posX = posX;
