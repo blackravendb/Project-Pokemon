@@ -35,8 +35,8 @@ public class ResourceManager {
 										{ moveSequence.wait.ordinal(), 500 } },
 								new Event(
 										new String[] {
-												"Geh mal zum Vater",
-												"Ich glaube Profesor Deubler sucht nach dir. Ist nicht heute die Projektabgabe?" })));
+												"Morgen, hast du gut geschlafen?",
+												"Der Pokemon Professor hat gerade angerufen. Vor ner halben Stunde hattest du deine Projektvorstellung. Du solltest dich beeilen!" })));
 		npcDatabase
 				.put("dad",
 						new NpcStruct(
@@ -61,8 +61,7 @@ public class ResourceManager {
 										{ moveSequence.turnUp.ordinal(), 0 },
 										{ moveSequence.wait.ordinal(), 3000 } },
 								new Event(
-										new String[] { "Du kommst hier nicht rein. Durch das Hochwasser letzten Monats ist der komplette Berg abgerutscht und hat den Höhleneingang verschüttet." },
-										new String[] { "mom" })));
+										new String[] { "Du kommst hier nicht rein. Durch das Hochwasser letzten Monats ist der komplette Berg abgerutscht und hat den Höhleneingang verschüttet." })));
 
 		npcDatabase
 				.put("captain",
