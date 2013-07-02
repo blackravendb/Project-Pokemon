@@ -125,7 +125,6 @@ public class Sound {
 	}
 
 	public static void changeMapSound(String ref) {
-		System.out.println(ref);
 		if (ref.equals("House"))
 			changeSound(audioHouse);
 		else if (ref.equals("Home"))
