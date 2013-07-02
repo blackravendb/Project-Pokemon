@@ -104,7 +104,7 @@ public class IntroState extends BasicGameState{
 			throws SlickException {
 
 		menu_1 = new NameMenu(gc, game, true, "FRANZ", "TONI", "SEPP");
-		menu_2 = new NameMenu (gc, game, false, "Sirgo", "Svenni", "Olaf");
+		menu_2 = new NameMenu (gc, game, false, "HOLZER", "SVENNI", "OLAF");
 
 		musicStart = true;
 		glurakSound = true;

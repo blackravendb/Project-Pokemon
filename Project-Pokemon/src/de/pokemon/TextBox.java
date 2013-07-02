@@ -122,39 +122,45 @@ public class TextBox {
 	 */
 	private void splitText (String text){
 		textArray2 = new String[30]; 
-		//counts how often the programm loops through the array
+		//counts how often the program loops through the array
 		int counterArray = 0;
 
 		StringBuffer buffer;
-		StringTokenizer tokenizer_1 = new StringTokenizer(text);
-		String rem2 = "";
-
-		for(int i = 0; i < textArray2.length; i++){ //loops through the stringarray
+		StringTokenizer tokenizer = new StringTokenizer(text);
+		//saves the next word to add the last word to the new line if "maxLength" has reached
+		String remWord = "";
+		
+		//loops through the stringarray
+		for(int i = 0; i < textArray2.length; i++){ 
+			//counts the lines which are really needed
 			counterArray = counterArray + 1;
 			buffer = new StringBuffer();
-			String rem = "";
-
-			if(rem2 != ""){
-				buffer.append(rem2 + " ");
+			//saves the actual line 
+			String remLine = "";
+			
+			//first word of the next line 
+			if(remWord != ""){
+				buffer.append(remWord + " ");
 			}
-
+			
 			//appends the next token to the buffer, remembers the string before and the last word
-			while(tokenizer_1.hasMoreTokens() && font.getWidth(buffer.toString()) < maxLength){
-				rem = buffer.toString();
-				rem2 = tokenizer_1.nextToken();
-				buffer.append(rem2 + " ");
+			while(tokenizer.hasMoreTokens() && font.getWidth(buffer.toString()) < maxLength){
+				remLine = buffer.toString();
+				remWord = tokenizer.nextToken(); 
+				buffer.append(remWord + " ");
 			}
-			//???????????????
-			if(tokenizer_1.hasMoreTokens() == false && font.getWidth(buffer.toString()) < maxLength){
-				rem = buffer.toString();
+			
+			//if the length from the last line is ok 
+			if(tokenizer.hasMoreTokens() == false && font.getWidth(buffer.toString()) < maxLength){
+				remLine = buffer.toString();
 			}
-
-			textArray2[i] = rem; // saves the part of the string in a stringarray
-			//if the loop went through the whole text and the text is longer than the maximal length the next 
-			//textArray2 should be filled with rem2 which saves the last word of the text
-			if(tokenizer_1.hasMoreTokens() == false){
+			 // saves the final line in the stringarray
+			textArray2[i] = remLine;
+			//if the last word is reached 
+			if(tokenizer.hasMoreTokens() == false){
+				//1. if the last word doesn't fit in the current line a new line is created
 				if(font.getWidth(buffer.toString()) >= maxLength){
-					textArray2[i+1] = rem2;
+					textArray2[i+1] = remWord;
 					counterArray += 1; 
 				}
 				break;
@@ -208,7 +214,7 @@ public class TextBox {
 	public void update(Input input, int delta){
 
 		if(update == true){
-			 //changes TextBox if the length of the stringarray == 1
+			//changes TextBox if the length of the stringarray == 1
 			if(textArray.length == 1 && changeStrings == 1 && textBoxInc == true){
 				textBox += 1;
 				end = true;
@@ -243,10 +249,10 @@ public class TextBox {
 			}else{
 				showTriangle = false;
 			}
-			
+
 			//sets the location of the triangle
 			next.setLocation(rectX + rectWidth - 10, stringY[2] + 5); 
-			
+
 			//if you press Enter the strings are scrolling up
 			if(input.isKeyPressed(Input.KEY_ENTER)){ 
 				Sound.audioTextBox.playAsSoundEffect(1.0f, 3.0f, false);
@@ -265,22 +271,22 @@ public class TextBox {
 		g.fill(background);
 		g.setColor(colorFont);
 		g.drawRect(rectX, rectY, rectWidth, rectHeight);
-		
+
 		//renders the TextBox if the TextBox has just one line 
 		if(textArray.length == 1){
 			g.drawString(textArray[0], stringx, stringY[0]);
 		}
-		
+
 		//renders the TextBox if the TextBox has just two lines
 		else if(textArray.length == 2){
 			for(int q = 0; q <= 1; q++){
 				g.drawString(textArray[q], stringx, stringY[q]);
 			}
 		}
-		
+
 		//renders the TextBox if the TextBox has more than two lines 
 		else if(textArray.length > 2){
-			
+
 			//changes the position of the strings
 			for(int k = 0; k <= 2; k++){ 
 				if(textArray.length == 3){
